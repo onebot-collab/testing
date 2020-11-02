@@ -11,6 +11,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { store, persistor } from './redux/store'
 
 import Admin from './layouts/Admin'
+import Login from './pages/Auth/Login'
 
 function App() {
   return (
@@ -20,7 +21,8 @@ function App() {
           <PersistGate persistor={persistor}>
             <Switch>
               <Route path="/admin" component={Admin} />
-              <Redirect from="/" to="/admin/dashboard" />
+              <Route path="/login" component={Login} />
+              <Redirect from="/" to="/login" />
               <Route path="*">
                 <h1 className="text-center mt-5">
                   <b>404 Page not found</b>

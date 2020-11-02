@@ -1,11 +1,57 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
-import { Link } from 'react-router-dom'
 import { Form, Row, Col, Button, Image } from 'react-bootstrap'
+import { connect } from 'react-redux'
+import swal from 'sweetalert2'
+import { loginAuth } from '../../redux/actions/login'
 
 import img from './assets/bg.jpg'
 
-export default class LoginPage extends Component {
+class LoginPage extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      email: '',
+      password: '',
+      passcode: '',
+    }
+    this.handlerChange = this.handlerChange.bind(this)
+    this.login = this.login.bind(this)
+  }
+
+  handlerChange(e) {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+
+  login(event) {
+    event.preventDefault()
+    const { email, password, passcode } = this.state
+    const dataSubmit = {
+      email,
+      password,
+      passcode,
+    }
+
+    this.props
+      .loginAuth(dataSubmit)
+      .then(() => {
+        this.props.history.push('/admin/dashboard')
+        swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Welcome aboard',
+        })
+      })
+      .catch(() => {
+        swal.fire({
+          icon: 'error',
+          title: 'Failed',
+          text: "Data doesn't match our records",
+        })
+      })
+  }
+
   render() {
     return (
       <div className="App">
@@ -17,18 +63,36 @@ export default class LoginPage extends Component {
               <br />
               <Form
                 style={{ width: '80%', marginLeft: '10%', marginTop: '10%' }}
+                onSubmit={this.login}
               >
                 <Form.Group>
                   <Form.Label>Email</Form.Label>
-                  <Form.Control type="email" placeholder="email" />
+                  <Form.Control
+                    name="email"
+                    type="email"
+                    placeholder="name@mail.com"
+                    onChange={this.handlerChange}
+                  />
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="password" />
+                  <Form.Control
+                    name="password"
+                    type="password"
+                    placeholder="******"
+                    onChange={this.handlerChange}
+                  />
                 </Form.Group>
-                <Link className="nav-link-aditional" to="/dashboard">
-                  <Button type="submit"> Submit</Button>
-                </Link>
+                <Form.Group>
+                  <Form.Label>Passcode</Form.Label>
+                  <Form.Control
+                    name="passcode"
+                    type="password"
+                    placeholder="******"
+                    onChange={this.handlerChange}
+                  />
+                </Form.Group>
+                <Button type="submit"> Login</Button>
               </Form>
             </div>
           </Col>
@@ -40,3 +104,10 @@ export default class LoginPage extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  login: state.login,
+})
+const mapDispatchToProps = { loginAuth }
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
