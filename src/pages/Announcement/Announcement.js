@@ -13,8 +13,8 @@ import TableRow from '@material-ui/core/TableRow'
 // import Fab from '@material-ui/core/Fab'
 
 // @material-ui/icons
-import Edit from '@material-ui/icons/Edit'
-import Close from '@material-ui/icons/Close'
+// import Edit from '@material-ui/icons/Edit'
+import Delete from '@material-ui/icons/Delete'
 // import Check from '@material-ui/icons/Check'
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -43,7 +43,7 @@ export default class Announcement extends Component {
           <GridItem xs={12} sm={12} md={12}>
             <Card>
               <CardHeader color="danger">
-                <h4 className={classes.cardTitleWhite}>Attendance Stats</h4>
+                <h4 className={classes.cardTitleWhite}>Announcement Stats</h4>
                 <p className={classes.cardCategoryWhite}>
                   Last Updated 11/11/2020
                 </p>
@@ -54,33 +54,20 @@ export default class Announcement extends Component {
                     <TableRow>
                       <TableCell component="th">Title</TableCell>
                       <TableCell component="th">Description</TableCell>
-                      <TableCell component="th">By</TableCell>
-                      <TableCell component="th">Date</TableCell>
+                      <TableCell component="th">Created By</TableCell>
+                      <TableCell component="th">Department</TableCell>
+                      <TableCell component="th">Create At</TableCell>
                       <TableCell component="th">Action</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     <TableRow className={classes.tableRow}>
-                      <TableCell component="th">Title</TableCell>
-                      <TableCell component="th">Description</TableCell>
-                      <TableCell component="th">By</TableCell>
-                      <TableCell component="th">Date</TableCell>
+                      <TableCell component="th">Welcome</TableCell>
+                      <TableCell component="th">Welcome to GMI</TableCell>
+                      <TableCell component="th">Samantha</TableCell>
+                      <TableCell component="th">General</TableCell>
+                      <TableCell component="th">11/11/2020</TableCell>
                       <TableCell className={classesBody.tableActions}>
-                        <Tooltip
-                          id="tooltip-top"
-                          title="Edit Task"
-                          placement="top"
-                          classes={{ tooltip: classesBody.tooltip }}
-                        >
-                          <IconButton
-                            aria-label="Edit"
-                            className={classesBody.tableActionButton}
-                          >
-                            <Edit
-                              className={`${classesBody.tableActionButtonIcon} ${classesBody.edit}`}
-                            />
-                          </IconButton>
-                        </Tooltip>
                         <Tooltip
                           id="tooltip-top-start"
                           title="Remove"
@@ -91,7 +78,7 @@ export default class Announcement extends Component {
                             aria-label="Close"
                             className={classesBody.tableActionButton}
                           >
-                            <Close
+                            <Delete
                               className={`${classesBody.tableActionButtonIcon} ${classesBody.close}`}
                             />
                           </IconButton>

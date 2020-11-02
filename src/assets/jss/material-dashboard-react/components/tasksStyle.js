@@ -1,6 +1,7 @@
 import {
   defaultFont,
   primaryColor,
+  successColor,
   dangerColor,
   grayColor,
 } from '../../material-dashboard-react'
@@ -22,6 +23,11 @@ const tasksStyle = {
     border: 'none',
     padding: '12px 8px !important',
     verticalAlign: 'middle',
+  },
+  tablePicture: {
+    width: '30px',
+    height: '30px',
+    backgroundColor: 'green',
   },
   tableCell: {
     ...defaultFont,
@@ -52,6 +58,16 @@ const tasksStyle = {
     backgroundColor: 'transparent',
     color: dangerColor[0],
     boxShadow: 'none',
+  },
+  approved: {
+    backgroundColor: successColor[0],
+    padding: '10px',
+  },
+  checkCircle: {
+    color: successColor[0],
+  },
+  removeCircle: {
+    color: dangerColor[0],
   },
 }
 export default tasksStyle

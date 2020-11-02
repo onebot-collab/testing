@@ -3,6 +3,7 @@ import {
   whiteColor,
   grayColor,
   hexToRgb,
+  dangerColor,
 } from '../../material-dashboard-react'
 
 const dashboardStyle = {
@@ -35,7 +36,7 @@ const dashboardStyle = {
     },
   },
   cardCategory: {
-    color: grayColor[0],
+    color: dangerColor[2],
     margin: '0',
     fontSize: '14px',
     marginTop: '0',
@@ -50,7 +51,7 @@ const dashboardStyle = {
     marginBottom: '0',
   },
   cardTitle: {
-    color: grayColor[2],
+    color: dangerColor[2],
     marginTop: '0px',
     minHeight: 'auto',
     fontWeight: '300',
@@ -58,7 +59,7 @@ const dashboardStyle = {
     marginBottom: '3px',
     textDecoration: 'none',
     '& small': {
-      color: grayColor[1],
+      color: dangerColor[2],
       fontWeight: '400',
       lineHeight: '1',
     },
