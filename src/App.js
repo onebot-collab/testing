@@ -5,23 +5,33 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+
+import { store, persistor } from './redux/store'
 
 import Admin from './layouts/Admin'
+import Login from './pages/Auth/Login'
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Switch>
-          <Route path="/admin" component={Admin} />
-          <Redirect from="/" to="/admin/dashboard" />
-          <Route path="*">
-            <h1 className="text-center mt-5">
-              <b>404 Page not found</b>
-            </h1>
-          </Route>
-        </Switch>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <PersistGate persistor={persistor}>
+            <Switch>
+              <Route path="/admin" component={Admin} />
+              <Route path="/login" component={Login} />
+              <Redirect from="/" to="/login" />
+              <Route path="*">
+                <h1 className="text-center mt-5">
+                  <b>404 Page not found</b>
+                </h1>
+              </Route>
+            </Switch>
+          </PersistGate>
+        </Router>
+      </Provider>
     </div>
   )
 }

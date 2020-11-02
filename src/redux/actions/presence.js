@@ -1,0 +1,48 @@
+import qs from 'querystring'
+import axios from '../../services/axios'
+const URL = 'http://10.5.2.38:5000/'
+
+const checkIn = (dataSubmit) => ({
+  type: 'CHECKLOG',
+  payload: axios().post(
+    `${URL}api/v1/absent/checkin`,
+    qs.stringify(dataSubmit),
+  ),
+})
+
+const checkOut = (dataSubmit) => ({
+  type: 'CHECKLOG',
+  payload: axios().post(
+    `${URL}api/v1/absent/checkout`,
+    qs.stringify(dataSubmit),
+  ),
+})
+
+const createIzin = (dataSubmit) => ({
+  type: 'CHECKLOG',
+  payload: axios().post(`${URL}api/v1/permit`, dataSubmit),
+})
+
+const presenceList = () => ({
+  type: 'PRESENCELIST',
+  payload: axios().get(`${URL}api/v1/absent/allinouttoday`),
+})
+
+const lastCheck = (id) => ({
+  type: 'LASTCHECK',
+  payload: axios().get(`${URL}api/v1/absent/lastcheck/${id}`),
+})
+
+const userLogHistory = (id) => ({
+  type: 'USERLOG',
+  payload: axios().get(`${URL}api/v1/absent/allinout/${id}`),
+})
+
+export {
+  checkIn,
+  checkOut,
+  createIzin,
+  presenceList,
+  userLogHistory,
+  lastCheck,
+}

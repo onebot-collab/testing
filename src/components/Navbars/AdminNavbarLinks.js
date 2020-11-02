@@ -18,11 +18,13 @@ import Person from '@material-ui/icons/Person'
 import Notifications from '@material-ui/icons/Notifications'
 import Dashboard from '@material-ui/icons/Dashboard'
 import Search from '@material-ui/icons/Search'
+import { useDispatch } from 'react-redux'
 // core components
 import CustomInput from '../CustomInput/CustomInput'
 import Button from '../CustomButtons/Button'
 
 import styles from '../../assets/jss/material-dashboard-react/components/headerLinksStyle'
+import { logoutAuth } from '../../redux/actions/login'
 
 const useStyles = makeStyles(styles)
 
@@ -49,6 +51,10 @@ export default function AdminNavbarLinks() {
   }
   const handleCloseProfile = () => {
     setOpenProfile(null)
+  }
+  const dispatch = useDispatch()
+  const LogoutAct = () => {
+    dispatch(logoutAuth())
   }
   return (
     <div>
@@ -206,7 +212,7 @@ export default function AdminNavbarLinks() {
                     </MenuItem>
                     <Divider light />
                     <MenuItem
-                      onClick={handleCloseProfile}
+                      onClick={LogoutAct}
                       className={classes.dropdownItem}
                     >
                       Logout
