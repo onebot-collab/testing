@@ -19,7 +19,7 @@ import TableRow from '@material-ui/core/TableRow'
 import Edit from '@material-ui/icons/Edit'
 import Close from '@material-ui/icons/Close'
 import { connect } from 'react-redux'
-import { getAllCampaign } from '../../redux/actions/campaign'
+import { getAllCampaign, deleteCampaign } from '../../redux/actions/campaign'
 // import Check from '@material-ui/icons/Check'
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -40,12 +40,17 @@ class Announcement extends Component {
       isLoadingCampaign: true,
     }
     this.fetch = this.fetch.bind(this)
+    this.deleteAct = this.deleteAct.bind(this)
   }
 
   fetch() {
     this.props.getAllCampaign().then(() => {
       this.setState({ isLoadingCampaign: false })
     })
+  }
+
+  deleteAct(id) {
+    this.props.deleteAct(id)
   }
 
   componentDidMount() {
@@ -159,6 +164,6 @@ const mapStateToProps = (state) => ({
   campaign: state.campaign,
 })
 
-const mapDispatchToProps = { getAllCampaign }
+const mapDispatchToProps = { getAllCampaign, deleteCampaign }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Announcement)
