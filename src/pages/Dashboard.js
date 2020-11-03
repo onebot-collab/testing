@@ -16,7 +16,7 @@ import Announcement from './Announcement/Announcement'
 import Attendance from './Attendance/Actual'
 // import AllUserAttendance from './Attendance/AllUser'
 // import IdUserAttendance from './Attendance/IdUser'
-import CalendarPage from './Calendar/Calendar'
+import CalendarScreen from './Calendar/Calendar'
 import Inventory from './Inventory/Inventory'
 import Invoice from './Invoice/Invoice'
 import Permissions from './Permissions/Permissions'
@@ -56,7 +56,7 @@ const DashboardRoutes = [
     path: '/calendar',
     name: 'Calendar',
     icon: iconCalendar,
-    component: CalendarPage,
+    component: CalendarScreen,
     layout: '/admin',
   },
   {

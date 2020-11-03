@@ -1,118 +1,293 @@
-/* eslint-disable lines-between-class-members */
-/* eslint-disable no-restricted-globals */
-/* eslint-disable import/no-unresolved */
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable camelcase */
 import React, { Component } from 'react'
-// import Calendar from 'rc-calendar';
-import FullCalendar from 'rc-calendar/lib/full-calendar'
-import moment from 'moment'
-import 'moment/locale/zh-cn'
-import 'moment/locale/en-gb'
-// import { connect } from 'react-redux'
-import 'react-pro-sidebar/dist/css/styles.css'
+import Tabs from 'react-bootstrap/Tabs'
+import Tab from 'react-bootstrap/Tab'
+import { Container, Form, Col, Button } from 'react-bootstrap'
+// import axios from 'axios'
+// import TabPane from 'react-bootstrap/TabPane'
+
 import './Calendar.css'
-import { makeStyles } from '@material-ui/core/styles'
-// import { Link } from 'react-router-dom'
-// import IconButton from '@material-ui/core/IconButton'
-// import Avatar from '@material-ui/core/Avatar'
-// import Tooltip from '@material-ui/core/Tooltip'
-import Table from '@material-ui/core/Table'
-// import TableHead from '@material-ui/core/TableHead'
-// import TableCell from '@material-ui/core/TableCell'
-// import TableBody from '@material-ui/core/TableBody'
-// import TableRow from '@material-ui/core/TableRow'
-// import Fab from '@material-ui/core/Fab'
-
-// @material-ui/icons
-// import Edit from '@material-ui/icons/Edit'
-// import { Visibility } from '@material-ui/icons'
-// import Delete from '@material-ui/icons/Delete'
-
-// import Check from '@material-ui/icons/Check'
-// core components
-import GridItem from '../../components/Grid/GridItem'
-import GridContainer from '../../components/Grid/GridContainer'
-import Card from '../../components/Card/Card'
-import CardHeader from '../../components/Card/CardHeader'
-import CardBody from '../../components/Card/CardBody'
-
-// core components
-import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
-import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
-// import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
-
-// import img1 from '../../assets/img/new_logo.png'
-const format = 'YYYY-MM-DD'
-const cn = location.search.indexOf('cn') !== -1
-
-function onSelect(value) {
-  console.log('select', value.format(format))
-}
-
-const now = moment()
-if (cn) {
-  now.locale('zh-cn').utcOffset(8)
-} else {
-  now.locale('en-gb').utcOffset(0)
-}
-
-const defaultCalendarValue = now.clone()
-defaultCalendarValue.add(-1, 'month')
-
-export default class Calendar extends Component {
+export default class CalendarScreen extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
-      type: 'month',
+      product_name: '',
+      product_description: '',
+      product_category: '',
+      product_sub_category: '',
+      brand_name: '',
+      product_mrp: '',
+      product_selling_price: '',
+      product_sku: '',
+      product_tracking: '',
+      product_stock: '',
+      product_basic_image: '',
+      product_aditional_image: '',
+      product_quantity: '',
+      product_weight: '',
+      product_size: '',
     }
-    this.handleChange = this.handleChange.bind(this)
-    this.toggleAddModal = this.toggleAddModal.bind(this)
   }
-  componentDidMount() {}
 
-  renderEvents() {}
-
+  // changeHandler = (e) => {
+  //   this.setState({ [e.target.name]: e.target.value });
+  // };
+  // submitHandler = (e) => {
+  //   e.preventDefault();
+  //   console.log(this.state);
+  //   axios
+  //     .post('#'.this.state)
+  //     .then((response) => {
+  //       console.log(response);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
   render() {
-    const classes = makeStyles(styles)
-    const classesHead = makeStyles(stylesHead)
-    // const classesBody = makeStyles(stylesBody)
+    const {
+      product_name,
+      product_description,
+      product_category,
+      product_sub_category,
+      brand_name,
+      product_mrp,
+      product_selling_price,
+      product_sku,
+      product_tracking,
+      product_stock,
+      product_basic_image,
+      product_aditional_image,
+      product_quantity,
+      product_weight,
+      product_size,
+    } = this.state
     return (
-      <div>
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={12}>
-            <Card>
-              <CardHeader color="danger">
-                <h4 className={classes.cardTitleWhite}>Calendar Stats</h4>
-                <p className={classes.cardCategoryWhite}>
-                  Last Updated 11/11/2020
-                </p>
-              </CardHeader>
-              <CardBody>
-                <Table className={classesHead.table}>
-                  <FullCalendar
-                    style={{ margin: 10 }}
-                    Select={onSelect}
-                    fullscreen
-                    defaultValue={now}
-                    onSelect={onSelect}
-                    type={this.state.type}
-                    onTypeChange={this.onTypeChange}
-                    locale={cn ? this.zhCN : this.enUS}
+      <Container fluid className="add-product-body">
+        <div className="product-add-top-header">
+          <p className="product-add-top-p1">Product</p>
+          <p className="product-add-top-p2">Product / Save product</p>
+        </div>
+        <div className="add-new-products-tabs">
+          {/* <div className="pb-2 ">
+                    <p className="save-product-text">Save Products</p>
+                </div> */}
+          <form onSubmit={this.submitHandler}>
+            <Tabs
+              defaultActiveKey="general"
+              transition={false}
+              id="noanim-tab-example"
+            >
+              <Tab eventKey="general" title="General">
+                <div className="tab-tag">
+                  <h3>General</h3>
+                </div>
+
+                <Form.Group controlId="formGridName">
+                  <Form.Label>Name</Form.Label>
+                  <Form.Control
+                    placeholder="Name"
+                    name="product_name"
+                    value={product_name}
+                    onChange={this.changeHandler}
                   />
-                </Table>
-              </CardBody>
-            </Card>
-          </GridItem>
-        </GridContainer>
-      </div>
+                </Form.Group>
+                <Form.Group controlId="exampleForm.ControlTextarea1">
+                  <Form.Label>Description</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows="3"
+                    placeholder="short description about product"
+                    name="product_description"
+                    value={product_description}
+                    onChange={this.changeHandler}
+                  />
+                </Form.Group>
+                <Form.Row>
+                  <Form.Group as={Col} controlId="formGridCategory">
+                    <Form.Label>Category</Form.Label>
+                    <Form.Control
+                      as="select"
+                      defaultValue="Choose..."
+                      name="product_category"
+                      value={product_category}
+                      onChange={this.changeHandler}
+                    >
+                      <option>Choose...</option>
+                      <option>Shirt</option>
+                      <option>Pant</option>
+                    </Form.Control>
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="formGridSubCategory">
+                    <Form.Label>Sub Category</Form.Label>
+                    <Form.Control
+                      as="select"
+                      defaultValue="Choose..."
+                      name="product_sub_category"
+                      value={product_sub_category}
+                      onChange={this.changeHandler}
+                    >
+                      <option>Choose...</option>
+                      <option>full shirt</option>
+                      <option>formal pant</option>
+                    </Form.Control>
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="formGridBrand">
+                    <Form.Label>Brand</Form.Label>
+                    <Form.Control
+                      name="brand_name"
+                      value={brand_name}
+                      onChange={this.changeHandler}
+                    />
+                  </Form.Group>
+                </Form.Row>
+              </Tab>
+              <Tab eventKey="price" title="Price">
+                <div className="tab-tag">
+                  <h3>Price</h3>
+                </div>
+                <Form.Row>
+                  <Form.Group as={Col} controlId="formGridMRP">
+                    <Form.Label>MRP</Form.Label>
+                    <Form.Control
+                      placeholder="MRP"
+                      name="product_mrp"
+                      value={product_mrp}
+                      onChange={this.changeHandler}
+                    />
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="formGridSellingPrice">
+                    <Form.Label>Selling Price</Form.Label>
+                    <Form.Control
+                      placeholder="selling price"
+                      name="product_selling_price"
+                      value={product_selling_price}
+                      onChange={this.changeHandler}
+                    />
+                  </Form.Group>
+                </Form.Row>
+              </Tab>
+              <Tab eventKey="inventory" title="Inventory">
+                <div className="tab-tag">
+                  <h3>Inventory</h3>
+                </div>
+                <Form.Row>
+                  <Form.Group as={Col} controlId="formGridSKU">
+                    <Form.Label>SKU</Form.Label>
+                    <Form.Control
+                      placeholder="SKU"
+                      name="product_sku"
+                      value={product_sku}
+                      onChange={this.changeHandler}
+                    />
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="formGridInventoryManagement">
+                    <Form.Label>Inventory Management</Form.Label>
+                    <Form.Control
+                      as="select"
+                      defaultValue="Choose..."
+                      name="product_tracking"
+                      value={product_tracking}
+                      onChange={this.changeHandler}
+                    >
+                      <option>Choose...</option>
+                      <option>Don't Track inventory</option>
+                      <option>Track inventory</option>
+                    </Form.Control>
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="formSpecialStockAvailability">
+                    <Form.Label>Stock Availability</Form.Label>
+                    <Form.Control
+                      as="select"
+                      defaultValue="Choose..."
+                      name="product_stock"
+                      value={product_stock}
+                      onChange={this.changeHandler}
+                    >
+                      <option>Choose...</option>
+                      <option>In Stock</option>
+                      <option>Out Of Stock</option>
+                    </Form.Control>
+                  </Form.Group>
+                </Form.Row>
+              </Tab>
+              <Tab eventKey="image" title="Image">
+                <div className="tab-tag">
+                  <h3>product Image</h3>
+                </div>
+                <div className="pb-5">
+                  <Form.File
+                    id="custom-file"
+                    label="Basic Image"
+                    className="single-product-image"
+                    name="product_basic_image"
+                    value={product_basic_image}
+                    onChange={this.changeHandler}
+                  />
+                </div>
+                <div className="pb-5">
+                  <Form.File
+                    id="custom-file"
+                    label="Aditional Image"
+                    className="single-product-image"
+                    name="product_aditional_image"
+                    value={product_aditional_image}
+                    onChange={this.changeHandler}
+                  />
+                </div>
+              </Tab>
+              <Tab eventKey="attribute" title="Attribute">
+                <div className="tab-tag">
+                  <h3>Attribute</h3>
+                  <Form.Row>
+                    <Form.Group as={Col} controlId="Quantity">
+                      <Form.Label>Quantity:</Form.Label>
+                      <Form.Control
+                        placeholder="Quantity"
+                        name="product_quantity"
+                        value={product_quantity}
+                        onChange={this.changeHandler}
+                      />
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="Weight">
+                      <Form.Label>Weight</Form.Label>
+                      <Form.Control
+                        placeholder="Weight"
+                        name="product_weight"
+                        value={product_weight}
+                        onChange={this.changeHandler}
+                      />
+                    </Form.Group>
+                    <Form.Group as={Col} controlId="Size">
+                      <Form.Label>Size</Form.Label>
+                      <Form.Control
+                        placeholder="Size"
+                        name="product_size"
+                        value={product_size}
+                        onChange={this.changeHandler}
+                      />
+                    </Form.Group>
+                  </Form.Row>
+                  <div>
+                    {/* <input type="submit" name="submit" value="Add Product" className="btn btn-primary mt-5" /> */}
+                    <Button type="submit" className="mt-5">
+                      Add Product
+                    </Button>
+                  </div>
+                </div>
+              </Tab>
+            </Tabs>
+          </form>
+        </div>
+      </Container>
     )
   }
 }
-
-// const mapStateToProps = state => ({ events: state.events })
-
-// const mapDispatchToProps = {}
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(Announcement)

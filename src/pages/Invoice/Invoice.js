@@ -60,7 +60,6 @@ export default class Invoice extends Component {
                       <TableCell component="th">No</TableCell>
                       <TableCell component="th">Name</TableCell>
                       <TableCell component="th">Total Amount</TableCell>
-                      <TableCell component="th">Payment</TableCell>
                       <TableCell component="th">Status</TableCell>
                       <TableCell component="th">Responder</TableCell>
                       <TableCell component="th">Created At</TableCell>
@@ -72,7 +71,6 @@ export default class Invoice extends Component {
                       <TableCell component="th">1-GMI-11-11-2020</TableCell>
                       <TableCell component="th">Samantha</TableCell>
                       <TableCell component="th">Rp 1.000.000</TableCell>
-                      <TableCell component="th">Cash</TableCell>
                       <TableCell component="th">
                         <span className="badge badge-pill badge-warning">
                           Waiting
