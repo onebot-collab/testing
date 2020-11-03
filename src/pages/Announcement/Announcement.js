@@ -3,7 +3,6 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react'
 // import { connect } from 'react-redux'
-import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
 // import { Link } from 'react-router-dom'
 import IconButton from '@material-ui/core/IconButton'
@@ -16,6 +15,8 @@ import TableRow from '@material-ui/core/TableRow'
 // import Fab from '@material-ui/core/Fab'
 
 // @material-ui/icons
+// import Edit from '@material-ui/icons/Edit'
+// import Delete from '@material-ui/icons/Delete'
 import Edit from '@material-ui/icons/Edit'
 import Close from '@material-ui/icons/Close'
 import { connect } from 'react-redux'

@@ -1,25 +1,44 @@
 import React, { Component } from 'react'
-// @material-ui/core
+// import { connect } from 'react-redux'
+import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
+// import { Link } from 'react-router-dom'
+// import IconButton from '@material-ui/core/IconButton'
+import Tooltip from '@material-ui/core/Tooltip'
+import Table from '@material-ui/core/Table'
+import TableHead from '@material-ui/core/TableHead'
+import TableCell from '@material-ui/core/TableCell'
+import TableBody from '@material-ui/core/TableBody'
+import TableRow from '@material-ui/core/TableRow'
+// import Fab from '@material-ui/core/Fab'
+
+// @material-ui/icons
+// import Edit from '@material-ui/icons/Edit'
+import Visibility from '@material-ui/icons/Visibility'
+import CheckCircle from '@material-ui/icons/CheckCircle'
+
+// import Check from '@material-ui/icons/Check'
 // core components
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
-import Table from '../../components/Table/Table'
 import Card from '../../components/Card/Card'
 import CardHeader from '../../components/Card/CardHeader'
 import CardBody from '../../components/Card/CardBody'
 
+// core components
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
+import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
+import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
-// const useStyles(){
-//   return makeStyles(styles);
-// }
 export default class Attendance extends Component {
-  // useStyles(){
-  //   return makeStyles(styles);
-  // }
+  componentDidMount() {}
+
+  renderEvents() {}
+
   render() {
     const classes = makeStyles(styles)
+    const classesHead = makeStyles(stylesHead)
+    const classesBody = makeStyles(stylesBody)
     return (
       <div>
         <GridContainer>
@@ -32,22 +51,48 @@ export default class Attendance extends Component {
                 </p>
               </CardHeader>
               <CardBody>
-                <Table
-                  tableHeaderColor="danger"
-                  tableHead={[
-                    'ID',
-                    'Name',
-                    'Check In',
-                    'Check Out',
-                    'Monthly Stat',
-                  ]}
-                  tableData={[
-                    ['1', 'Dakota Rice', '08.45', '17.45', '24/31'],
-                    ['2', 'Minerva Hooper', '08.45', '17.45', '24/31'],
-                    ['3', 'Sage Rodriguez', '08.45', '17.45', '24/31'],
-                    ['4', 'Philip Chaney', '08.45', '17.45', '24/31'],
-                  ]}
-                />
+                <Table className={classesHead.table}>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell component="th">Name</TableCell>
+                      <TableCell component="th">Departemnt</TableCell>
+                      <TableCell component="th">Check In</TableCell>
+                      <TableCell component="th">Check Out</TableCell>
+                      <TableCell component="th">Date</TableCell>
+                      <TableCell component="th">Late</TableCell>
+                      <TableCell component="th"> Action</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow className={classes.tableRow}>
+                      <TableCell component="th">Samantha</TableCell>
+                      <TableCell component="th">General</TableCell>
+                      <TableCell component="th">08.45</TableCell>
+                      <TableCell component="th">17.00</TableCell>
+                      <TableCell component="th">11/11/2020</TableCell>
+                      <TableCell className={classesBody.tableActions}>
+                        <Tooltip
+                          id="tooltip-top-start"
+                          title="Out time"
+                          placement="top"
+                          classes={{ tooltip: classesBody.tooltip }}
+                        >
+                          <CheckCircle className={classesBody.CheckCircle} />
+                        </Tooltip>
+                      </TableCell>
+                      <TableCell className={classesBody.tableActions}>
+                        <Tooltip
+                          id="tooltip-top-start"
+                          title="Click to Detail"
+                          placement="top"
+                          classes={{ tooltip: classesBody.tooltip }}
+                        >
+                          <Visibility className={classesBody.CheckCircle} />
+                        </Tooltip>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
               </CardBody>
             </Card>
           </GridItem>
@@ -56,3 +101,12 @@ export default class Attendance extends Component {
     )
   }
 }
+
+// const mapStateToProps = state => ({ events: state.events })
+
+// const mapDispatchToProps = {}
+
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(Announcement)
