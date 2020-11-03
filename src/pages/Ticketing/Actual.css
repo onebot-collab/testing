@@ -1,0 +1,20 @@
+.successText {
+    color: #9c27b0;
+  }
+.cardCategory {
+    color: #f44336;
+    margin: 0;
+    font-size: 14px;
+    margin-top: 0;
+    padding-top: 10px;
+    margin-bottom: 0;
+  }
+.cardTitle {
+    color: #f44336;
+    margin-top: 0px;
+    min-height: auto;
+    font-weight: 300;
+    font-family: "Roboto; Helvetica; Arial; sans-serif";
+    margin-bottom: 3px;
+    text-decoration: none;
+  }

@@ -1,9 +1,12 @@
+/* eslint-disable react/no-access-state-in-setstate */
 import React, { Component } from 'react'
 // import { connect } from 'react-redux'
 import 'react-pro-sidebar/dist/css/styles.css'
+import './Report.css'
 import { makeStyles } from '@material-ui/core/styles'
 // import { Link } from 'react-router-dom'
 // import IconButton from '@material-ui/core/IconButton'
+import Button from '@material-ui/core/Button'
 import Tooltip from '@material-ui/core/Tooltip'
 import Table from '@material-ui/core/Table'
 import TableHead from '@material-ui/core/TableHead'
@@ -13,8 +16,19 @@ import TableRow from '@material-ui/core/TableRow'
 // import Fab from '@material-ui/core/Fab'
 
 // @material-ui/icons
-// import Edit from '@material-ui/icons/Edit'
+import Add from '@material-ui/icons/Add'
 import Visibility from '@material-ui/icons/Visibility'
+
+// Add Reactstrap
+import {
+  Form,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
+  Input,
+} from 'reactstrap'
+import Select from 'react-select'
 
 // import Check from '@material-ui/icons/Check'
 // core components
@@ -29,17 +43,50 @@ import styles from '../../assets/jss/material-dashboard-react/views/dashboardSty
 import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
 import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
-export default class Report extends Component {
-  componentDidMount() {}
+const options = [
+  { value: 'General', label: 'General' },
+  { value: 'Development', label: 'Development' },
+  { value: 'Networking', label: 'Networking' },
+]
 
-  renderEvents() {}
+export default class Report extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      showAddModal: false,
+      selectedOption: false,
+    }
+    this.handleChange = this.handleChange.bind(this)
+    this.toggleAddModal = this.toggleAddModal.bind(this)
+  }
+
+  handleChange(selectedOption) {
+    this.setState({ selectedOption })
+    console.log(`Option selected:`, selectedOption)
+  }
+
+  toggleAddModal() {
+    this.setState({
+      showAddModal: !this.state.showAddModal,
+    })
+  }
 
   render() {
     const classes = makeStyles(styles)
     const classesHead = makeStyles(stylesHead)
     const classesBody = makeStyles(stylesBody)
+    const { selectedOption } = this.state
     return (
       <div>
+        <Button
+          onClick={this.toggleAddModal}
+          variant="contained"
+          color="primary"
+          // className="buttonAdd"
+          startIcon={<Add />}
+        >
+          Add
+        </Button>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <Card>
@@ -90,6 +137,56 @@ export default class Report extends Component {
             </Card>
           </GridItem>
         </GridContainer>
+        {/* Add Modal */}
+        <Modal isOpen={this.state.showAddModal}>
+          <ModalHeader className="h1">Add Report</ModalHeader>
+          <Form>
+            <ModalBody>
+              <h6>Title</h6>
+              <Input
+                type="text"
+                name="title"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Description</h6>
+              <Input
+                type="textarea"
+                name="description"
+                className="mb-3 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Department</h6>
+              {/* <Input type='select' name='genre' className="mb-3 shadow-none" onChange={this.handleChange} 
+									 value={this.state.genre}>
+                    {this.state.genreList.map((genre, index) =>(
+                    <option className="list-group-item bg-light" value={genre.id}>{genre.name}</option>
+                    ))}
+                  </Input>  */}
+              {/* REACT-SELECT */}
+              <Select
+                value={selectedOption}
+                onChange={this.handleChange}
+                options={options}
+              />
+              <h6>Cover Folder (PDF Maks. 10 Mb)</h6>
+              {/* <Input
+                type="file"
+                name="image"
+                className="mb-2"
+                onChange={}
+              /> */}
+            </ModalBody>
+            <ModalFooter>
+              <Button color="primary" onClick={this.addBook}>
+                Add Report
+              </Button>
+              <Button color="secondary" onClick={this.toggleAddModal}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Form>
+        </Modal>
       </div>
     )
   }
