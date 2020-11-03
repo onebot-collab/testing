@@ -18,13 +18,14 @@ import Person from '@material-ui/icons/Person'
 import Notifications from '@material-ui/icons/Notifications'
 import Dashboard from '@material-ui/icons/Dashboard'
 import Search from '@material-ui/icons/Search'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 // core components
 import CustomInput from '../CustomInput/CustomInput'
 import Button from '../CustomButtons/Button'
 
 import styles from '../../assets/jss/material-dashboard-react/components/headerLinksStyle'
-import { logoutAuth } from '../../redux/actions/login'
+// import { logoutAuth } from '../../redux/actions/login'
 
 const useStyles = makeStyles(styles)
 
@@ -52,9 +53,10 @@ export default function AdminNavbarLinks() {
   const handleCloseProfile = () => {
     setOpenProfile(null)
   }
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
+  const history = useHistory()
   const LogoutAct = () => {
-    dispatch(logoutAuth())
+    history.push('/')
   }
   return (
     <div>

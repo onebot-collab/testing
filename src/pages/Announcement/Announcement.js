@@ -54,6 +54,10 @@ class Announcement extends Component {
     this.props.deleteAct(id)
   }
 
+  redirect() {
+    this.props.history.push('/login')
+  }
+
   componentDidMount() {
     this.fetch()
   }
@@ -64,98 +68,108 @@ class Announcement extends Component {
     const classesBody = makeStyles(stylesBody)
     return (
       <div>
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={12}>
-            <Card>
-              {this.state.isLoadingCampaign ? (
-                <center>
-                  <div
-                    className="d-flex align-self-center spinner-border text-dark mt-2 mb-3"
-                    role="status"
-                  >
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                </center>
-              ) : (
-                <>
-                  <CardHeader color="danger">
-                    <h4 className={classes.cardTitleWhite}>Announcement</h4>
-                    <p className={classes.cardCategoryWhite}>
-                      Last Updated 11/11/2020
-                    </p>
-                  </CardHeader>
-                  <CardBody>
-                    <Table className={classesHead.table}>
-                      <TableHead>
-                        <TableRow>
-                          <TableCell component="th">Title</TableCell>
-                          <TableCell component="th">Description</TableCell>
-                          <TableCell component="th">Department</TableCell>
-                          <TableCell component="th">By</TableCell>
-                          <TableCell component="th">Date</TableCell>
-                          <TableCell component="th">Action</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {this.props.campaign.dataCampaign.map(
-                          (campaign, index) => (
-                            <TableRow className={classes.tableRow} key={index}>
-                              <TableCell component="th">
-                                {campaign.title}
-                              </TableCell>
-                              <TableCell component="th">
-                                {campaign.description}
-                              </TableCell>
-                              <TableCell component="th">General</TableCell>
-                              <TableCell component="th">
-                                {campaign.createdby_name}
-                              </TableCell>
-                              <TableCell component="th">
-                                {campaign.created_at}
-                              </TableCell>
-                              <TableCell className={classesBody.tableActions}>
-                                <Tooltip
-                                  id="tooltip-top"
-                                  title="Edit Task"
-                                  placement="top"
-                                  classes={{ tooltip: classesBody.tooltip }}
-                                >
-                                  <IconButton
-                                    aria-label="Edit"
-                                    className={classesBody.tableActionButton}
+        {!this.props.login.token ? (
+          <>{this.redirect()}</>
+        ) : (
+          <GridContainer>
+            <GridItem xs={12} sm={12} md={12}>
+              <Card>
+                {this.state.isLoadingCampaign ? (
+                  <center>
+                    <div
+                      className="d-flex align-self-center spinner-border text-dark mt-2 mb-3"
+                      role="status"
+                    >
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  </center>
+                ) : (
+                  <>
+                    <CardHeader color="danger">
+                      <h4 className={classes.cardTitleWhite}>Announcement</h4>
+                      <p className={classes.cardCategoryWhite}>
+                        Last Updated{' '}
+                        {this.props.campaign.dataCampaign[0] === undefined
+                          ? '-'
+                          : this.props.campaign.dataCampaign[0].updated_at}
+                      </p>
+                    </CardHeader>
+                    <CardBody>
+                      <Table className={classesHead.table}>
+                        <TableHead>
+                          <TableRow>
+                            <TableCell component="th">Title</TableCell>
+                            <TableCell component="th">Description</TableCell>
+                            <TableCell component="th">Department</TableCell>
+                            <TableCell component="th">By</TableCell>
+                            <TableCell component="th">Date</TableCell>
+                            <TableCell component="th">Action</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {this.props.campaign.dataCampaign.map(
+                            (campaign, index) => (
+                              <TableRow
+                                className={classes.tableRow}
+                                key={index}
+                              >
+                                <TableCell component="th">
+                                  {campaign.title}
+                                </TableCell>
+                                <TableCell component="th">
+                                  {campaign.description}
+                                </TableCell>
+                                <TableCell component="th">General</TableCell>
+                                <TableCell component="th">
+                                  {campaign.createdby_name}
+                                </TableCell>
+                                <TableCell component="th">
+                                  {campaign.created_at}
+                                </TableCell>
+                                <TableCell className={classesBody.tableActions}>
+                                  <Tooltip
+                                    id="tooltip-top"
+                                    title="Edit Task"
+                                    placement="top"
+                                    classes={{ tooltip: classesBody.tooltip }}
                                   >
-                                    <Edit
-                                      className={`${classesBody.tableActionButtonIcon} ${classesBody.edit}`}
-                                    />
-                                  </IconButton>
-                                </Tooltip>
-                                <Tooltip
-                                  id="tooltip-top-start"
-                                  title="Remove"
-                                  placement="top"
-                                  classes={{ tooltip: classesBody.tooltip }}
-                                >
-                                  <IconButton
-                                    aria-label="Close"
-                                    className={classesBody.tableActionButton}
+                                    <IconButton
+                                      aria-label="Edit"
+                                      className={classesBody.tableActionButton}
+                                    >
+                                      <Edit
+                                        className={`${classesBody.tableActionButtonIcon} ${classesBody.edit}`}
+                                      />
+                                    </IconButton>
+                                  </Tooltip>
+                                  <Tooltip
+                                    id="tooltip-top-start"
+                                    title="Remove"
+                                    placement="top"
+                                    classes={{ tooltip: classesBody.tooltip }}
                                   >
-                                    <Close
-                                      className={`${classesBody.tableActionButtonIcon} ${classesBody.close}`}
-                                    />
-                                  </IconButton>
-                                </Tooltip>
-                              </TableCell>
-                            </TableRow>
-                          ),
-                        )}
-                      </TableBody>
-                    </Table>
-                  </CardBody>
-                </>
-              )}
-            </Card>
-          </GridItem>
-        </GridContainer>
+                                    <IconButton
+                                      aria-label="Close"
+                                      className={classesBody.tableActionButton}
+                                    >
+                                      <Close
+                                        className={`${classesBody.tableActionButtonIcon} ${classesBody.close}`}
+                                      />
+                                    </IconButton>
+                                  </Tooltip>
+                                </TableCell>
+                              </TableRow>
+                            ),
+                          )}
+                        </TableBody>
+                      </Table>
+                    </CardBody>
+                  </>
+                )}
+              </Card>
+            </GridItem>
+          </GridContainer>
+        )}
       </div>
     )
   }
@@ -163,6 +177,7 @@ class Announcement extends Component {
 
 const mapStateToProps = (state) => ({
   campaign: state.campaign,
+  login: state.login,
 })
 
 const mapDispatchToProps = { getAllCampaign, deleteCampaign }

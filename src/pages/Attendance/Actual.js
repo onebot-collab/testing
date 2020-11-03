@@ -48,6 +48,10 @@ class Attendance extends Component {
     })
   }
 
+  redirect() {
+    this.props.history.push('/login')
+  }
+
   componentDidMount() {
     this.fetch()
   }
@@ -58,97 +62,112 @@ class Attendance extends Component {
     const classesBody = makeStyles(stylesBody)
     return (
       <div>
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={12}>
-            <Card>
-              {this.state.isLoading ? (
-                <center>
-                  <div
-                    className="d-flex align-self-center spinner-border text-dark mt-2 mb-3"
-                    role="status"
-                  >
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                </center>
-              ) : (
-                <>
-                  <CardHeader color="danger">
-                    <h4 className={classes.cardTitleWhite}>Attendance Stats</h4>
-                    <p className={classes.cardCategoryWhite}>
-                      Last Updated 11/11/2020
-                    </p>
-                  </CardHeader>
-                  <CardBody>
-                    <Table className={classesHead.table}>
-                      <TableHead>
-                        <TableRow>
-                          <TableCell component="th">Name</TableCell>
-                          <TableCell component="th">Departemnt</TableCell>
-                          <TableCell component="th">Check In</TableCell>
-                          <TableCell component="th">Check Out</TableCell>
-                          <TableCell component="th">Date</TableCell>
-                          <TableCell component="th">On Time</TableCell>
-                          <TableCell component="th"> Action</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {this.props.presence.dataAllLog.map((res) => (
-                          <TableRow className={classes.tableRow}>
-                            <TableCell component="th">{res.nameUser}</TableCell>
-                            <TableCell component="th">General</TableCell>
-                            <TableCell component="th">{res.att_time}</TableCell>
-                            <TableCell component="th">
-                              {res.end_time === null ? '-' : res.end_time}
-                            </TableCell>
-                            <TableCell component="th">{res.att_date}</TableCell>
-                            <TableCell className={classesBody.tableActions}>
-                              {res.isLate !== 1 ? (
+        {!this.props.login.token ? (
+          <>{this.redirect()}</>
+        ) : (
+          <GridContainer>
+            <GridItem xs={12} sm={12} md={12}>
+              <Card>
+                {this.state.isLoading ? (
+                  <center>
+                    <div
+                      className="d-flex align-self-center spinner-border text-dark mt-2 mb-3"
+                      role="status"
+                    >
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  </center>
+                ) : (
+                  <>
+                    <CardHeader color="danger">
+                      <h4 className={classes.cardTitleWhite}>Attendance</h4>
+                      <p className={classes.cardCategoryWhite}>
+                        Last Updated{' '}
+                        {this.props.presence.dataAllLog[0] === undefined
+                          ? '-'
+                          : this.props.presence.dataAllLog[0].updated_at}
+                      </p>
+                    </CardHeader>
+                    <CardBody>
+                      <Table className={classesHead.table}>
+                        <TableHead>
+                          <TableRow>
+                            <TableCell component="th">Name</TableCell>
+                            <TableCell component="th">Department</TableCell>
+                            <TableCell component="th">Check In</TableCell>
+                            <TableCell component="th">Check Out</TableCell>
+                            <TableCell component="th">Date</TableCell>
+                            <TableCell component="th">On Time</TableCell>
+                            <TableCell component="th"> Action</TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {this.props.presence.dataAllLog.map((res) => (
+                            <TableRow className={classes.tableRow}>
+                              <TableCell component="th">
+                                {res.nameUser}
+                              </TableCell>
+                              <TableCell component="th">General</TableCell>
+                              <TableCell component="th">
+                                {res.att_time}
+                              </TableCell>
+                              <TableCell component="th">
+                                {res.end_time === null ? '-' : res.end_time}
+                              </TableCell>
+                              <TableCell component="th">
+                                {res.att_date}
+                              </TableCell>
+                              <TableCell className={classesBody.tableActions}>
+                                {res.isLate === 1 ? (
+                                  <Tooltip
+                                    id="tooltip-top-start"
+                                    title="Late"
+                                    placement="top"
+                                    classes={{ tooltip: classesBody.tooltip }}
+                                  >
+                                    <Cancel
+                                      className={classesBody.CheckCircle}
+                                    />
+                                  </Tooltip>
+                                ) : (
+                                  <Tooltip
+                                    id="tooltip-top-start"
+                                    title="On time"
+                                    placement="top"
+                                    classes={{ tooltip: classesBody.tooltip }}
+                                  >
+                                    <CheckCircle
+                                      className={classesBody.CheckCircle}
+                                    />
+                                  </Tooltip>
+                                )}
+                              </TableCell>
+                              <TableCell className={classesBody.tableActions}>
                                 <Tooltip
                                   id="tooltip-top-start"
-                                  title="Late"
+                                  title="Click to Detail"
                                   placement="top"
+                                  onClick={() =>
+                                    this.props.history.push('/admin/dashboard')
+                                  }
                                   classes={{ tooltip: classesBody.tooltip }}
                                 >
-                                  <Cancel className={classesBody.CheckCircle} />
-                                </Tooltip>
-                              ) : (
-                                <Tooltip
-                                  id="tooltip-top-start"
-                                  title="On time"
-                                  placement="top"
-                                  classes={{ tooltip: classesBody.tooltip }}
-                                >
-                                  <CheckCircle
+                                  <Visibility
                                     className={classesBody.CheckCircle}
                                   />
                                 </Tooltip>
-                              )}
-                            </TableCell>
-                            <TableCell className={classesBody.tableActions}>
-                              <Tooltip
-                                id="tooltip-top-start"
-                                title="Click to Detail"
-                                placement="top"
-                                onClick={() =>
-                                  this.props.history.push('/admin/dashboard')
-                                }
-                                classes={{ tooltip: classesBody.tooltip }}
-                              >
-                                <Visibility
-                                  className={classesBody.CheckCircle}
-                                />
-                              </Tooltip>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </CardBody>
-                </>
-              )}
-            </Card>
-          </GridItem>
-        </GridContainer>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </CardBody>
+                  </>
+                )}
+              </Card>
+            </GridItem>
+          </GridContainer>
+        )}
       </div>
     )
   }
@@ -156,6 +175,7 @@ class Attendance extends Component {
 
 const mapStateToProps = (state) => ({
   presence: state.presence,
+  login: state.login,
 })
 const mapDispatchToProps = { allLog }
 
