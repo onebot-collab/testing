@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import { Form, Row, Col, Button, Image } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import swal from 'sweetalert2'
-import { loginAuth } from '../../redux/actions/login'
+import { loginAuth, logoutAuth } from '../../redux/actions/login'
 
 import img from './assets/bg.jpg'
 
@@ -40,7 +40,7 @@ class LoginPage extends Component {
         swal.fire({
           icon: 'success',
           title: 'Success',
-          text: 'Welcome aboard',
+          text: 'Welcome',
         })
       })
       .catch(() => {
@@ -50,6 +50,10 @@ class LoginPage extends Component {
           text: "Data doesn't match our records",
         })
       })
+  }
+
+  componentDidMount() {
+    this.props.logoutAuth()
   }
 
   render() {
@@ -108,6 +112,6 @@ class LoginPage extends Component {
 const mapStateToProps = (state) => ({
   login: state.login,
 })
-const mapDispatchToProps = { loginAuth }
+const mapDispatchToProps = { loginAuth, logoutAuth }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
