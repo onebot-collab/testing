@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
-import { Form, Row, Col, Button, Image } from 'react-bootstrap'
+import { Form, Row, Col, Image } from 'react-bootstrap'
+import Button from '@material-ui/core/Button'
 import { connect } from 'react-redux'
 import swal from 'sweetalert2'
 import { loginAuth } from '../../redux/actions/login'
@@ -92,7 +93,10 @@ class LoginPage extends Component {
                     onChange={this.handlerChange}
                   />
                 </Form.Group>
-                <Button type="submit"> Login</Button>
+                <Button color="primary" type="submit">
+                  {' '}
+                  Login
+                </Button>
               </Form>
             </div>
           </Col>
