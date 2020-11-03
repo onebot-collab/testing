@@ -7,6 +7,8 @@ const initialState = {
   isLoadingLastCheck: false,
   dataUserLog: [],
   isLoadingUserLog: false,
+  isLoadingAllLog: false,
+  dataAllLog: [],
 }
 
 const presence = (state = initialState, action) => {
@@ -100,6 +102,29 @@ const presence = (state = initialState, action) => {
         isLoadingUserLog: false,
         isError: false,
         dataUserLog: action.payload.data.data,
+      }
+    }
+    case 'ALLLOG_PENDING': {
+      return {
+        ...state,
+        isLoadingAllLog: true,
+        isError: false,
+      }
+    }
+    case 'ALLLOG_REJECTED': {
+      return {
+        ...state,
+        isLoadingAllLog: false,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'ALLLOG_FULFILLED': {
+      return {
+        ...state,
+        isLoadingAllLog: false,
+        isError: false,
+        dataAllLog: action.payload.data.data,
       }
     }
     default: {

@@ -38,6 +38,11 @@ const userLogHistory = (id) => ({
   payload: axios().get(`${URL}api/v1/absent/allinout/${id}`),
 })
 
+const allLog = () => ({
+  type: 'ALLLOG',
+  payload: axios().get(`${URL}api/v1/absent/allinout/`),
+})
+
 export {
   checkIn,
   checkOut,
@@ -45,4 +50,5 @@ export {
   presenceList,
   userLogHistory,
   lastCheck,
+  allLog,
 }

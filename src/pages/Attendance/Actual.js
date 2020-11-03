@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react'
 // import { connect } from 'react-redux'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
+import { connect } from 'react-redux'
 // import { Link } from 'react-router-dom'
 // import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -15,7 +17,8 @@ import TableRow from '@material-ui/core/TableRow'
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
 import Visibility from '@material-ui/icons/Visibility'
-import CheckCircle from '@material-ui/icons/CheckCircle'
+import { Cancel, CheckCircle } from '@material-ui/icons'
+import { allLog } from '../../redux/actions/presence'
 
 // import Check from '@material-ui/icons/Check'
 // core components
@@ -30,10 +33,24 @@ import styles from '../../assets/jss/material-dashboard-react/views/dashboardSty
 import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
 import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
-export default class Attendance extends Component {
-  componentDidMount() {}
+class Attendance extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isLoading: true,
+    }
+    this.fetch = this.fetch.bind(this)
+  }
 
-  renderEvents() {}
+  fetch() {
+    this.props.allLog().then(() => {
+      this.setState({ isLoading: false })
+    })
+  }
+
+  componentDidMount() {
+    this.fetch()
+  }
 
   render() {
     const classes = makeStyles(styles)
@@ -44,56 +61,91 @@ export default class Attendance extends Component {
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <Card>
-              <CardHeader color="danger">
-                <h4 className={classes.cardTitleWhite}>Attendance Stats</h4>
-                <p className={classes.cardCategoryWhite}>
-                  Last Updated 11/11/2020
-                </p>
-              </CardHeader>
-              <CardBody>
-                <Table className={classesHead.table}>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell component="th">Name</TableCell>
-                      <TableCell component="th">Departemnt</TableCell>
-                      <TableCell component="th">Check In</TableCell>
-                      <TableCell component="th">Check Out</TableCell>
-                      <TableCell component="th">Date</TableCell>
-                      <TableCell component="th">Late</TableCell>
-                      <TableCell component="th"> Action</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    <TableRow className={classes.tableRow}>
-                      <TableCell component="th">Samantha</TableCell>
-                      <TableCell component="th">General</TableCell>
-                      <TableCell component="th">08.45</TableCell>
-                      <TableCell component="th">17.00</TableCell>
-                      <TableCell component="th">11/11/2020</TableCell>
-                      <TableCell className={classesBody.tableActions}>
-                        <Tooltip
-                          id="tooltip-top-start"
-                          title="Out time"
-                          placement="top"
-                          classes={{ tooltip: classesBody.tooltip }}
-                        >
-                          <CheckCircle className={classesBody.CheckCircle} />
-                        </Tooltip>
-                      </TableCell>
-                      <TableCell className={classesBody.tableActions}>
-                        <Tooltip
-                          id="tooltip-top-start"
-                          title="Click to Detail"
-                          placement="top"
-                          classes={{ tooltip: classesBody.tooltip }}
-                        >
-                          <Visibility className={classesBody.CheckCircle} />
-                        </Tooltip>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </CardBody>
+              {this.state.isLoading ? (
+                <center>
+                  <div
+                    className="d-flex align-self-center spinner-border text-dark mt-2 mb-3"
+                    role="status"
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </center>
+              ) : (
+                <>
+                  <CardHeader color="danger">
+                    <h4 className={classes.cardTitleWhite}>Attendance Stats</h4>
+                    <p className={classes.cardCategoryWhite}>
+                      Last Updated 11/11/2020
+                    </p>
+                  </CardHeader>
+                  <CardBody>
+                    <Table className={classesHead.table}>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell component="th">Name</TableCell>
+                          <TableCell component="th">Departemnt</TableCell>
+                          <TableCell component="th">Check In</TableCell>
+                          <TableCell component="th">Check Out</TableCell>
+                          <TableCell component="th">Date</TableCell>
+                          <TableCell component="th">On Time</TableCell>
+                          <TableCell component="th"> Action</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {this.props.presence.dataAllLog.map((res) => (
+                          <TableRow className={classes.tableRow}>
+                            <TableCell component="th">{res.nameUser}</TableCell>
+                            <TableCell component="th">General</TableCell>
+                            <TableCell component="th">{res.att_time}</TableCell>
+                            <TableCell component="th">
+                              {res.end_time === null ? '-' : res.end_time}
+                            </TableCell>
+                            <TableCell component="th">{res.att_date}</TableCell>
+                            <TableCell className={classesBody.tableActions}>
+                              {res.isLate !== 1 ? (
+                                <Tooltip
+                                  id="tooltip-top-start"
+                                  title="Late"
+                                  placement="top"
+                                  classes={{ tooltip: classesBody.tooltip }}
+                                >
+                                  <Cancel className={classesBody.CheckCircle} />
+                                </Tooltip>
+                              ) : (
+                                <Tooltip
+                                  id="tooltip-top-start"
+                                  title="On time"
+                                  placement="top"
+                                  classes={{ tooltip: classesBody.tooltip }}
+                                >
+                                  <CheckCircle
+                                    className={classesBody.CheckCircle}
+                                  />
+                                </Tooltip>
+                              )}
+                            </TableCell>
+                            <TableCell className={classesBody.tableActions}>
+                              <Tooltip
+                                id="tooltip-top-start"
+                                title="Click to Detail"
+                                placement="top"
+                                onClick={() =>
+                                  this.props.history.push('/admin/dashboard')
+                                }
+                                classes={{ tooltip: classesBody.tooltip }}
+                              >
+                                <Visibility
+                                  className={classesBody.CheckCircle}
+                                />
+                              </Tooltip>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </CardBody>
+                </>
+              )}
             </Card>
           </GridItem>
         </GridContainer>
@@ -102,11 +154,9 @@ export default class Attendance extends Component {
   }
 }
 
-// const mapStateToProps = state => ({ events: state.events })
+const mapStateToProps = (state) => ({
+  presence: state.presence,
+})
+const mapDispatchToProps = { allLog }
 
-// const mapDispatchToProps = {}
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(Announcement)
+export default connect(mapStateToProps, mapDispatchToProps)(Attendance)
