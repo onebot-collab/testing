@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react'
 // import { connect } from 'react-redux'
@@ -102,8 +103,8 @@ class Attendance extends Component {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {this.props.presence.dataAllLog.map((res) => (
-                            <TableRow className={classes.tableRow}>
+                          {this.props.presence.dataAllLog.map((res, i) => (
+                            <TableRow className={classes.tableRow} key={i}>
                               <TableCell component="th">
                                 {res.nameUser}
                               </TableCell>
