@@ -14,3 +14,22 @@
     margin-bottom: 3px;
     text-decoration: none;
 }
+.cardCategoryGrey {
+    color: dimgray;
+    margin: 0;
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.cardTitleGrey {
+    color: dimgray;
+    margin-top: 0;
+    min-height: auto;
+    font-weight: 300;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    margin-bottom: 3px;
+    text-decoration: none;
+}
+.listContactRow {
+    width: 100%;
+}
