@@ -30,6 +30,13 @@
     margin-bottom: 3px;
     text-decoration: none;
 }
+.fieldGridContainer {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
 .listContactRow {
+    width: 100%;
+}
+.textFieldWidth {
     width: 100%;
 }
