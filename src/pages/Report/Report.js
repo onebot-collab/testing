@@ -1,5 +1,8 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable react/prop-types */
 /* eslint-disable react/no-access-state-in-setstate */
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 // import { connect } from 'react-redux'
 import 'react-pro-sidebar/dist/css/styles.css'
 import './Report.css'
@@ -30,6 +33,7 @@ import {
 } from 'reactstrap'
 import Select from 'react-select'
 
+import { getAllReport } from '../../redux/actions/report'
 // import Check from '@material-ui/icons/Check'
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -49,12 +53,13 @@ const options = [
   { value: 'Networking', label: 'Networking' },
 ]
 
-export default class Report extends Component {
+class Report extends Component {
   constructor(props) {
     super(props)
     this.state = {
       showAddModal: false,
       selectedOption: false,
+      isLoading: true,
     }
     this.handleChange = this.handleChange.bind(this)
     this.toggleAddModal = this.toggleAddModal.bind(this)
@@ -65,10 +70,24 @@ export default class Report extends Component {
     console.log(`Option selected:`, selectedOption)
   }
 
+  redirect() {
+    this.props.history.push('/login')
+  }
+
+  fetch() {
+    this.props.getAllReport().then(() => {
+      this.setState({ isLoading: false })
+    })
+  }
+
   toggleAddModal() {
     this.setState({
       showAddModal: !this.state.showAddModal,
     })
+  }
+
+  componentDidMount() {
+    this.fetch()
   }
 
   render() {
@@ -78,125 +97,178 @@ export default class Report extends Component {
     const { selectedOption } = this.state
     return (
       <div>
-        <Button
-          onClick={this.toggleAddModal}
-          variant="contained"
-          color="primary"
-          // className="buttonAdd"
-          startIcon={<Add />}
-        >
-          Add
-        </Button>
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={12}>
-            <Card>
-              <CardHeader color="danger">
-                <h4 className={classes.cardTitleWhite}>Report Stats</h4>
-                <p className={classes.cardCategoryWhite}>
-                  Last Updated 11/11/2020
-                </p>
-              </CardHeader>
-              <CardBody>
-                <Table className={classesHead.table}>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell component="th">Name</TableCell>
-                      <TableCell component="th">Description</TableCell>
-                      <TableCell component="th">Attachment</TableCell>
-                      <TableCell component="th">Created At</TableCell>
-                      <TableCell component="th">Action</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    <TableRow className={classes.tableRow}>
-                      <TableCell component="th">Samantha</TableCell>
-                      <TableCell component="th">
-                        Lorem ipsum dolor ....
-                      </TableCell>
-                      <TableCell component="th">
-                        <span className="badge badge-success">Report.pdf</span>
-                        <span className="badge badge-secondary">
-                          No Attachment
-                        </span>
-                      </TableCell>
-                      <TableCell component="th">11/11/2020</TableCell>
-                      <TableCell className={classesBody.tableActions}>
-                        <Tooltip
-                          id="tooltip-top-start"
-                          title="Click to Detail"
-                          placement="top"
-                          classes={{ tooltip: classesBody.tooltip }}
-                        >
-                          <Visibility className={classesBody.CheckCircle} />
-                        </Tooltip>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </CardBody>
-            </Card>
-          </GridItem>
-        </GridContainer>
-        {/* Add Modal */}
-        <Modal isOpen={this.state.showAddModal}>
-          <ModalHeader className="h1">Add Report</ModalHeader>
-          <Form>
-            <ModalBody>
-              <h6>Title</h6>
-              <Input
-                type="text"
-                name="title"
-                className="mb-2 shadow-none"
-                onChange={this.handleChange}
-              />
-              <h6>Description</h6>
-              <Input
-                type="textarea"
-                name="description"
-                className="mb-3 shadow-none"
-                onChange={this.handleChange}
-              />
-              <h6>Department</h6>
-              {/* <Input type='select' name='genre' className="mb-3 shadow-none" onChange={this.handleChange} 
+        {!this.props.login.token ? (
+          <>{this.redirect()}</>
+        ) : (
+          <>
+            <Button
+              onClick={this.toggleAddModal}
+              variant="contained"
+              color="primary"
+              // className="buttonAdd"
+              startIcon={<Add />}
+            >
+              Add
+            </Button>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={12}>
+                <Card>
+                  {this.state.isLoading ? (
+                    <center>
+                      <div
+                        className="d-flex align-self-center spinner-border text-dark mt-2 mb-3"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    </center>
+                  ) : (
+                    <>
+                      <CardHeader color="danger">
+                        <h4 className={classes.cardTitleWhite}>Report</h4>
+                        {this.props.report.dataAllReport[0] === undefined ? (
+                          <p className={classes.cardCategoryWhite}>
+                            Last Updated -
+                          </p>
+                        ) : (
+                          <p className={classes.cardCategoryWhite}>
+                            Last Updated{' '}
+                            {this.props.report.dataAllReport[0].created_at.slice(
+                              8,
+                              10,
+                            )}
+                            -
+                            {this.props.report.dataAllReport[0].created_at.slice(
+                              5,
+                              8,
+                            )}
+                            {this.props.report.dataAllReport[0].created_at.slice(
+                              0,
+                              4,
+                            )}
+                          </p>
+                        )}
+                      </CardHeader>
+                      <CardBody>
+                        <Table className={classesHead.table}>
+                          <TableHead>
+                            <TableRow>
+                              <TableCell component="th">Name</TableCell>
+                              <TableCell component="th">Description</TableCell>
+                              <TableCell component="th">Attachment</TableCell>
+                              <TableCell component="th">Created At</TableCell>
+                              <TableCell component="th">Action</TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            {this.props.report.dataAllReport.map((res, i) => (
+                              <TableRow className={classes.tableRow} key={i}>
+                                <TableCell component="th">
+                                  {res.nameUser}
+                                </TableCell>
+                                <TableCell component="th">
+                                  {res.nameReport}
+                                </TableCell>
+                                <TableCell component="th">
+                                  {res.fileName === 'report/file.pdf' ? (
+                                    <span className="badge badge-secondary">
+                                      No Attachment
+                                    </span>
+                                  ) : (
+                                    <span className="badge badge-success">
+                                      {res.fileName.slice(7)}
+                                    </span>
+                                  )}
+                                </TableCell>
+                                <TableCell component="th">
+                                  {res.created_at.slice(8, 10)}-
+                                  {res.created_at.slice(5, 8)}
+                                  {res.created_at.slice(0, 4)}
+                                </TableCell>
+                                <TableCell className={classesBody.tableActions}>
+                                  <Tooltip
+                                    id="tooltip-top-start"
+                                    title="Click to Detail"
+                                    placement="top"
+                                    classes={{ tooltip: classesBody.tooltip }}
+                                  >
+                                    <Visibility
+                                      className={classesBody.CheckCircle}
+                                    />
+                                  </Tooltip>
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </CardBody>
+                    </>
+                  )}
+                </Card>
+              </GridItem>
+            </GridContainer>
+            {/* Add Modal */}
+            <Modal isOpen={this.state.showAddModal}>
+              <ModalHeader className="h1">Add Report</ModalHeader>
+              <Form>
+                <ModalBody>
+                  <h6>Title</h6>
+                  <Input
+                    type="text"
+                    name="title"
+                    className="mb-2 shadow-none"
+                    onChange={this.handleChange}
+                  />
+                  <h6>Description</h6>
+                  <Input
+                    type="textarea"
+                    name="description"
+                    className="mb-3 shadow-none"
+                    onChange={this.handleChange}
+                  />
+                  <h6>Department</h6>
+                  {/* <Input type='select' name='genre' className="mb-3 shadow-none" onChange={this.handleChange} 
 									 value={this.state.genre}>
                     {this.state.genreList.map((genre, index) =>(
                     <option className="list-group-item bg-light" value={genre.id}>{genre.name}</option>
                     ))}
                   </Input>  */}
-              {/* REACT-SELECT */}
-              <Select
-                value={selectedOption}
-                onChange={this.handleChange}
-                options={options}
-              />
-              <h6>Cover Folder (PDF Maks. 10 Mb)</h6>
-              {/* <Input
+                  {/* REACT-SELECT */}
+                  <Select
+                    value={selectedOption}
+                    onChange={this.handleChange}
+                    options={options}
+                  />
+                  <h6>Cover Folder (PDF Maks. 10 Mb)</h6>
+                  {/* <Input
                 type="file"
                 name="image"
                 className="mb-2"
                 onChange={}
               /> */}
-            </ModalBody>
-            <ModalFooter>
-              <Button color="primary" onClick={this.addBook}>
-                Add Report
-              </Button>
-              <Button color="secondary" onClick={this.toggleAddModal}>
-                Cancel
-              </Button>
-            </ModalFooter>
-          </Form>
-        </Modal>
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="primary" onClick={this.addBook}>
+                    Add Report
+                  </Button>
+                  <Button color="secondary" onClick={this.toggleAddModal}>
+                    Cancel
+                  </Button>
+                </ModalFooter>
+              </Form>
+            </Modal>
+          </>
+        )}
       </div>
     )
   }
 }
 
-// const mapStateToProps = state => ({ events: state.events })
+const mapStateToProps = (state) => ({
+  login: state.login,
+  report: state.report,
+})
 
-// const mapDispatchToProps = {}
+const mapDispatchToProps = { getAllReport }
 
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(Announcement)
+export default connect(mapStateToProps, mapDispatchToProps)(Report)
