@@ -23,6 +23,7 @@ import Store from '@material-ui/icons/Store'
 // import Warning from '@material-ui/icons/Warning'
 import Add from '@material-ui/icons/Add'
 import CheckCircle from '@material-ui/icons/CheckCircle'
+import Cancel from '@material-ui/icons/Cancel'
 import Visibility from '@material-ui/icons/Visibility'
 import Accessibility from '@material-ui/icons/Accessibility'
 
@@ -47,7 +48,6 @@ import Card from '../../components/Card/Card'
 import CardBody from '../../components/Card/CardBody'
 import CardHeader from '../../components/Card/CardHeader'
 import CardIcon from '../../components/Card/CardIcon'
-import CardFooter from '../../components/Card/CardFooter'
 
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
 import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
@@ -120,12 +120,9 @@ class Ticketing extends Component {
                     <CardIcon color="warning">
                       <Store />
                     </CardIcon>
-                    <p className="cardCategory">Department</p>
+                    <p className="cardCategory">Open</p>
                     <h3 className="cardTitle">00</h3>
                   </CardHeader>
-                  <CardFooter stats>
-                    <div className={classes.stats}>Department</div>
-                  </CardFooter>
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={6} md={3}>
@@ -134,12 +131,9 @@ class Ticketing extends Component {
                     <CardIcon color="success">
                       <Store />
                     </CardIcon>
-                    <p className="cardCategory">Observer</p>
+                    <p className="cardCategory">Processed</p>
                     <h3 className="cardTitle">00</h3>
                   </CardHeader>
-                  <CardFooter stats>
-                    <div className={classes.stats}>Observer</div>
-                  </CardFooter>
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={6} md={3}>
@@ -148,12 +142,9 @@ class Ticketing extends Component {
                     <CardIcon color="danger">
                       <Store />
                     </CardIcon>
-                    <p className="cardCategory">Received</p>
+                    <p className="cardCategory">Solved</p>
                     <h3 className="cardTitle">00</h3>
                   </CardHeader>
-                  <CardFooter stats>
-                    <div className={classes.stats}>Received</div>
-                  </CardFooter>
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={6} md={3}>
@@ -162,12 +153,9 @@ class Ticketing extends Component {
                     <CardIcon color="info">
                       <Accessibility />
                     </CardIcon>
-                    <p className="cardCategory">Sent</p>
+                    <p className="cardCategory">Closed</p>
                     <h3 className="cardTitle">00</h3>
                   </CardHeader>
-                  <CardFooter stats>
-                    <div className={classes.stats}>Sent</div>
-                  </CardFooter>
                 </Card>
               </GridItem>
             </GridContainer>
@@ -228,7 +216,7 @@ class Ticketing extends Component {
                               <TableCell component="th">Assign To</TableCell>
                               <TableCell component="th">Observer</TableCell>
                               <TableCell component="th">Status</TableCell>
-                              <TableCell component="th">Is Late</TableCell>
+                              <TableCell component="th">On Time</TableCell>
                               <TableCell component="th">Created At</TableCell>
                               <TableCell component="th">Action</TableCell>
                             </TableRow>
@@ -280,16 +268,33 @@ class Ticketing extends Component {
                                   <TableCell
                                     className={classesBody.tableActions}
                                   >
-                                    <Tooltip
-                                      id="tooltip-top-start"
-                                      title="Out time"
-                                      placement="top"
-                                      classes={{ tooltip: classesBody.tooltip }}
-                                    >
-                                      <CheckCircle
-                                        className={classesBody.CheckCircle}
-                                      />
-                                    </Tooltip>
+                                    {res.isLate === '1' ? (
+                                      <Tooltip
+                                        id="tooltip-top-start"
+                                        title="Late"
+                                        placement="top"
+                                        classes={{
+                                          tooltip: classesBody.tooltip,
+                                        }}
+                                      >
+                                        <Cancel
+                                          className={classesBody.CheckCircle}
+                                        />
+                                      </Tooltip>
+                                    ) : (
+                                      <Tooltip
+                                        id="tooltip-top-start"
+                                        title="On time"
+                                        placement="top"
+                                        classes={{
+                                          tooltip: classesBody.tooltip,
+                                        }}
+                                      >
+                                        <CheckCircle
+                                          className={classesBody.CheckCircle}
+                                        />
+                                      </Tooltip>
+                                    )}
                                   </TableCell>
                                   <TableCell component="th">
                                     {res.date.slice(8, 10)}-
