@@ -84,11 +84,12 @@ class Inventory extends Component {
                 <GridItem xs={12} sm={12} md={12}>
                   <Card>
                     <CardHeader color="danger">
-                      <h4 className={classes.cardTitleWhite}>
-                        Inventory Stats
-                      </h4>
+                      <h4 className={classes.cardTitleWhite}>Inventory</h4>
                       <p className={classes.cardCategoryWhite}>
-                        Last Updated 11/11/2020
+                        Last Updated{' '}
+                        {this.props.inventory.dataInventory[0] === undefined
+                          ? '-'
+                          : this.props.inventory.dataInventory[0].created_at}
                       </p>
                     </CardHeader>
                     <CardBody>

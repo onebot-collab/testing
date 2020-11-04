@@ -84,9 +84,12 @@ class Invoice extends Component {
                 ) : (
                   <>
                     <CardHeader color="danger">
-                      <h4 className={classes.cardTitleWhite}>Invoice Stats</h4>
+                      <h4 className={classes.cardTitleWhite}>Invoice</h4>
                       <p className={classes.cardCategoryWhite}>
-                        Last Updated 11/11/2020
+                        Last Updated{' '}
+                        {this.props.invoice.dataInvoice[0] === undefined
+                          ? '-'
+                          : this.props.invoice.dataInvoice[0].updated_at}
                       </p>
                     </CardHeader>
                     <CardBody>
