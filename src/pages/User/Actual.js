@@ -2,6 +2,16 @@ import React, { Component } from 'react'
 import './Actual.css'
 // @material-ui/core components
 import InputLabel from '@material-ui/core/InputLabel'
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemAvatar from '@material-ui/core/ListItemAvatar'
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
+import ListItemText from '@material-ui/core/ListItemText'
+import Avatar from '@material-ui/core/Avatar'
+import Grid from '@material-ui/core/Grid'
+import TablePagination from '@material-ui/core/TablePagination'
+// @material-ui/icons components
+import Visibility from '@material-ui/icons/Visibility'
 // core components
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
@@ -9,7 +19,6 @@ import CustomInput from '../../components/CustomInput/CustomInput'
 import Button from '../../components/CustomButtons/Button'
 import Card from '../../components/Card/Card'
 import CardHeader from '../../components/Card/CardHeader'
-import CardAvatar from '../../components/Card/CardAvatar'
 import CardBody from '../../components/Card/CardBody'
 import CardFooter from '../../components/Card/CardFooter'
 
@@ -128,28 +137,90 @@ export default class User extends Component {
                 </GridContainer>
               </CardBody>
               <CardFooter>
-                <Button color="danger">Update Profile</Button>
+                <Button color="danger">Submit</Button>
               </CardFooter>
             </Card>
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <Card profile>
-              <CardAvatar profile>
-                <a href="#pablo" onClick={(e) => e.preventDefault()}>
-                  <img src={avatar} alt="..." />
-                </a>
-              </CardAvatar>
-              <CardBody profile>
-                <h6 className="cardCategoryWhite">CEO / CO-FOUNDER</h6>
-                <h4 className="cardTitleWhite">Alec Thompson</h4>
-                <p>
-                  Don&apos;t be scared of the truth because we need to restart
-                  the the human foundation in truth And I love you like Kanye
-                  loves Kanye I love Rick Owens’ bed design but the back is...
-                </p>
-                <Button color="danger" round>
-                  Follow
-                </Button>
+              <CardHeader color="danger">
+                <h4 className="cardTitleWhite">List User</h4>
+                <p className="cardCategoryWhite">100</p>
+              </CardHeader>
+              <CardBody>
+                <Grid item xs={12} sm={12} md={12}>
+                  <List className="listContactRow">
+                    <ListItem button>
+                      <ListItemAvatar>
+                        <Avatar src={avatar} />
+                      </ListItemAvatar>
+                      <ListItemText>Samantha</ListItemText>
+                      <ListItemSecondaryAction>
+                        <Visibility edge="end" />
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  </List>
+                  <List className="listContactRow">
+                    <ListItem button>
+                      <ListItemAvatar>
+                        <Avatar src={avatar} />
+                      </ListItemAvatar>
+                      <ListItemText>Samantha</ListItemText>
+                      <ListItemSecondaryAction>
+                        <Visibility edge="end" />
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  </List>
+                  <List className="listContactRow">
+                    <ListItem button>
+                      <ListItemAvatar>
+                        <Avatar src={avatar} />
+                      </ListItemAvatar>
+                      <ListItemText>Samantha</ListItemText>
+                      <ListItemSecondaryAction>
+                        <Visibility edge="end" />
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  </List>
+                  <List className="listContactRow">
+                    <ListItem button>
+                      <ListItemAvatar>
+                        <Avatar src={avatar} />
+                      </ListItemAvatar>
+                      <ListItemText>Samantha</ListItemText>
+                      <ListItemSecondaryAction>
+                        <Visibility edge="end" />
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  </List>
+                  <List className="listContactRow">
+                    <ListItem button>
+                      <ListItemAvatar>
+                        <Avatar src={avatar} />
+                      </ListItemAvatar>
+                      <ListItemText>Samantha</ListItemText>
+                      <ListItemSecondaryAction>
+                        <Visibility edge="end" />
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  </List>
+                  <List className="listContactRow">
+                    <ListItem button>
+                      <ListItemAvatar>
+                        <Avatar src={avatar} />
+                      </ListItemAvatar>
+                      <ListItemText>Samantha</ListItemText>
+                      <ListItemSecondaryAction>
+                        <Visibility edge="end" />
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  </List>
+                  <TablePagination
+                    component="div"
+                    count={100}
+                    rowsPerPageOptions={[null]}
+                  />
+                </Grid>
               </CardBody>
             </Card>
           </GridItem>
