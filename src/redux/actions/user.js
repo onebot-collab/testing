@@ -6,4 +6,9 @@ const getAdmin = () => ({
   payload: axios().get(`${URL}api/v1/user/allbyadmin`),
 })
 
-export { getAdmin }
+const getUser = () => ({
+  type: 'GETUSER',
+  payload: axios().get(`${URL}api/v1/chat/allcontact`),
+})
+
+export { getAdmin, getUser }
