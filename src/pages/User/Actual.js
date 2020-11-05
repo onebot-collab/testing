@@ -26,7 +26,7 @@ import CardHeader from '../../components/Card/CardHeader'
 import CardBody from '../../components/Card/CardBody'
 import CardFooter from '../../components/Card/CardFooter'
 
-import { getUser } from '../../redux/actions/user'
+import { getUser, registerUser } from '../../redux/actions/user'
 
 class User extends Component {
   constructor(props) {
@@ -51,6 +51,7 @@ class User extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
+    console.log('vvvvvvvvvvvvv', this.state.profilePicture)
   }
 
   fetch() {
@@ -239,45 +240,49 @@ class User extends Component {
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
                 <Card profile>
-                  <CardHeader color="danger">
-                    <h4 className="cardTitleWhite">List User</h4>
-                    <p className="cardCategoryWhite">100</p>
-                  </CardHeader>
-                  <CardBody>
-                    <Grid item xs={12} sm={12} md={12}>
-                      {this.state.isLoadingUser ? (
-                        <center>
-                          <div
-                            className="d-flex align-self-center spinner-border text-dark mt-2 mb-3"
-                            role="status"
-                          >
-                            <span className="sr-only">Loading...</span>
-                          </div>
-                        </center>
-                      ) : (
-                        <List className="listContactRow">
-                          {this.props.user.dataUser.map((res, i) => (
-                            <ListItem button key={i}>
-                              <ListItemAvatar>
-                                <Avatar
-                                  src={`http://10.5.2.38:5000/${res.photo_url}`}
-                                />
-                              </ListItemAvatar>
-                              <ListItemText>{res.name}</ListItemText>
-                              <ListItemSecondaryAction>
-                                <Visibility edge="end" />
-                              </ListItemSecondaryAction>
-                            </ListItem>
-                          ))}
-                        </List>
-                      )}
-                      <TablePagination
-                        component="div"
-                        count={100}
-                        rowsPerPageOptions={5}
-                      />
-                    </Grid>
-                  </CardBody>
+                  {this.state.isLoadingUser ? (
+                    <center>
+                      <div
+                        className="d-flex align-self-center spinner-border text-dark mt-2 mb-3"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    </center>
+                  ) : (
+                    <>
+                      <CardHeader color="danger">
+                        <h4 className="cardTitleWhite">List User</h4>
+                        <p className="cardCategoryWhite">
+                          {this.props.user.dataUser.length}
+                        </p>
+                      </CardHeader>
+                      <CardBody>
+                        <Grid item xs={12} sm={12} md={12}>
+                          <List className="listContactRow">
+                            {this.props.user.dataUser.map((res, i) => (
+                              <ListItem button key={i}>
+                                <ListItemAvatar>
+                                  <Avatar
+                                    src={`http://10.5.2.38:5000/${res.photo_url}`}
+                                  />
+                                </ListItemAvatar>
+                                <ListItemText>{res.name}</ListItemText>
+                                <ListItemSecondaryAction>
+                                  <Visibility edge="end" />
+                                </ListItemSecondaryAction>
+                              </ListItem>
+                            ))}
+                          </List>
+                          <TablePagination
+                            component="div"
+                            count={100}
+                            rowsPerPageOptions={5}
+                          />
+                        </Grid>
+                      </CardBody>
+                    </>
+                  )}
                 </Card>
               </GridItem>
             </GridContainer>
@@ -292,6 +297,6 @@ const mapStateToProps = (state) => ({
   login: state.login,
   user: state.user,
 })
-const mapDispatchToProps = { getUser }
+const mapDispatchToProps = { getUser, registerUser }
 
 export default connect(mapStateToProps, mapDispatchToProps)(User)
