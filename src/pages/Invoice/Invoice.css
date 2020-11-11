@@ -2,3 +2,18 @@
     background-color: red;
     padding: '10px';
   }
+.textPrimaryColor {
+    color: azure;
+}
+.iconPrimaryColor {
+    color: #2bde17;
+}
+.iconSecondaryColor {
+    color: #de1717;
+}
+.iconThirdColor {
+    color: #173cde;
+}
+.iconWhiteColor {
+    color: aliceblue;
+}

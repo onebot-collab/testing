@@ -91,9 +91,7 @@ export default class CalendarScreen extends Component {
                 <p className="cardCategoryWhite">by Admin</p>
               </CardHeader>
               <CardBody></CardBody>
-              <CardFooter>
-                <Button color="danger">Submit</Button>
-              </CardFooter>
+              <CardFooter></CardFooter>
             </Card>
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>

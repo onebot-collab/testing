@@ -3,6 +3,7 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import './Permissions.css'
 // import { connect } from 'react-redux'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
@@ -99,25 +100,45 @@ class Permissions extends Component {
                       <Table className={classesHead.table}>
                         <TableHead>
                           <TableRow>
-                            <TableCell component="th">Name</TableCell>
-                            <TableCell component="th">Departemnt</TableCell>
-                            <TableCell component="th">Reason</TableCell>
-                            <TableCell component="th">Status</TableCell>
-                            <TableCell component="th">Responder</TableCell>
-                            <TableCell component="th">Created At</TableCell>
-                            <TableCell component="th">Action</TableCell>
+                            <TableCell component="th">
+                              <h5 className="textPrimaryColor">Name</h5>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h5 className="textPrimaryColor">Departemnt</h5>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h5 className="textPrimaryColor">Reason</h5>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h5 className="textPrimaryColor">Status</h5>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h5 className="textPrimaryColor">Responder</h5>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h5 className="textPrimaryColor">Created At</h5>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h5 className="textPrimaryColor">Action</h5>
+                            </TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
                           {this.props.izin.dataIzin.map((res, i) => (
                             <TableRow className={classes.tableRow} key={i}>
                               <TableCell component="th">
-                                {res.nameuser}
+                                <p className="textPrimaryColor">
+                                  {res.nameuser}
+                                </p>
                               </TableCell>
                               <TableCell component="th">
-                                {res.department}
+                                <p className="textPrimaryColor">
+                                  {res.department}
+                                </p>
                               </TableCell>
-                              <TableCell component="th">{res.type}</TableCell>
+                              <TableCell component="th">
+                                <p className="textPrimaryColor">{res.type}</p>
+                              </TableCell>
                               <TableCell component="th">
                                 {res.status === 0 ? (
                                   <span className="badge badge-pill badge-warning">
@@ -136,10 +157,14 @@ class Permissions extends Component {
                                 )}
                               </TableCell>
                               <TableCell component="th">
-                                {res.name_tosend}
+                                <p className="textPrimaryColor">
+                                  {res.name_tosend}
+                                </p>
                               </TableCell>
                               <TableCell component="th">
-                                {res.startdate}
+                                <p className="textPrimaryColor">
+                                  {res.startdate}
+                                </p>
                               </TableCell>
                               <TableCell className={classesBody.tableActions}>
                                 <Link
@@ -166,9 +191,7 @@ class Permissions extends Component {
                                     placement="top"
                                     classes={{ tooltip: classesBody.tooltip }}
                                   >
-                                    <Visibility
-                                      className={classesBody.CheckCircle}
-                                    />
+                                    <Visibility className="iconWhiteColor" />
                                   </Tooltip>
                                 </Link>
                               </TableCell>

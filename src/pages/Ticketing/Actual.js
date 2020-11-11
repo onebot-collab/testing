@@ -117,8 +117,8 @@ class Ticketing extends Component {
             <GridContainer>
               <GridItem xs={12} sm={6} md={3}>
                 <Card>
-                  <CardHeader color="warning" stats icon>
-                    <CardIcon color="warning">
+                  <CardHeader color="danger" stats icon>
+                    <CardIcon color="danger">
                       <Store />
                     </CardIcon>
                     <p className="cardCategory">Open</p>
@@ -128,8 +128,8 @@ class Ticketing extends Component {
               </GridItem>
               <GridItem xs={12} sm={6} md={3}>
                 <Card>
-                  <CardHeader color="success" stats icon>
-                    <CardIcon color="success">
+                  <CardHeader color="danger" stats icon>
+                    <CardIcon color="danger">
                       <Store />
                     </CardIcon>
                     <p className="cardCategory">Processed</p>
@@ -150,8 +150,8 @@ class Ticketing extends Component {
               </GridItem>
               <GridItem xs={12} sm={6} md={3}>
                 <Card>
-                  <CardHeader color="info" stats icon>
-                    <CardIcon color="info">
+                  <CardHeader color="danger" stats icon>
+                    <CardIcon color="danger">
                       <Accessibility />
                     </CardIcon>
                     <p className="cardCategory">Closed</p>
@@ -213,14 +213,30 @@ class Ticketing extends Component {
                         <Table className={classesHead.table}>
                           <TableHead>
                             <TableRow>
-                              <TableCell component="th">No</TableCell>
-                              <TableCell component="th">Requester</TableCell>
-                              <TableCell component="th">Assign To</TableCell>
-                              <TableCell component="th">Observer</TableCell>
-                              <TableCell component="th">Status</TableCell>
-                              <TableCell component="th">On Time</TableCell>
-                              <TableCell component="th">Created At</TableCell>
-                              <TableCell component="th">Action</TableCell>
+                              <TableCell component="th">
+                                <h5 className="textPrimaryColor">No</h5>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h5 className="textPrimaryColor">Requester</h5>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h5 className="textPrimaryColor">Assign To</h5>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h5 className="textPrimaryColor">Observer</h5>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h5 className="textPrimaryColor">Status</h5>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h5 className="textPrimaryColor">On Time</h5>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h5 className="textPrimaryColor">Created At</h5>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h5 className="textPrimaryColor">Action</h5>
+                              </TableCell>
                             </TableRow>
                           </TableHead>
                           <TableBody>
@@ -230,20 +246,28 @@ class Ticketing extends Component {
                                 key={i}
                               >
                                 <TableCell component="th">
-                                  {res.no_ticket}
+                                  <p className="textPrimaryColor">
+                                    {res.no_ticket}
+                                  </p>
                                 </TableCell>
                                 <TableCell component="th">
-                                  {res.nameFrom}
+                                  <p className="textPrimaryColor">
+                                    {res.nameFrom}
+                                  </p>
                                 </TableCell>
                                 <TableCell component="th">
-                                  {res.category === '2'
-                                    ? res.nameAssignGroup
-                                    : res.nameAssign}
+                                  <p className="textPrimaryColor">
+                                    {res.category === '2'
+                                      ? res.nameAssignGroup
+                                      : res.nameAssign}
+                                  </p>
                                 </TableCell>
                                 <TableCell component="th">
-                                  {res.nameObserve === null
-                                    ? '-'
-                                    : res.nameObserve}
+                                  <p className="textPrimaryColor">
+                                    {res.nameObserve === null
+                                      ? '-'
+                                      : res.nameObserve}
+                                  </p>
                                 </TableCell>
                                 <TableCell component="th">
                                   {res.statusid === 1 ? (
@@ -276,9 +300,7 @@ class Ticketing extends Component {
                                         tooltip: classesBody.tooltip,
                                       }}
                                     >
-                                      <Cancel
-                                        className={classesBody.CheckCircle}
-                                      />
+                                      <Cancel className="iconSecondaryColor" />
                                     </Tooltip>
                                   ) : (
                                     <Tooltip
@@ -289,15 +311,16 @@ class Ticketing extends Component {
                                         tooltip: classesBody.tooltip,
                                       }}
                                     >
-                                      <CheckCircle
-                                        className={classesBody.CheckCircle}
-                                      />
+                                      <CheckCircle className="iconPrimaryColor" />
                                     </Tooltip>
                                   )}
                                 </TableCell>
                                 <TableCell component="th">
-                                  {res.date.slice(8, 10)}-{res.date.slice(5, 8)}
-                                  {res.date.slice(0, 4)}
+                                  <p className="textPrimaryColor">
+                                    {res.date.slice(8, 10)}-
+                                    {res.date.slice(5, 8)}
+                                    {res.date.slice(0, 4)}
+                                  </p>
                                 </TableCell>
                                 <TableCell className={classesBody.tableActions}>
                                   {' '}
@@ -326,9 +349,7 @@ class Ticketing extends Component {
                                         tooltip: classesBody.tooltip,
                                       }}
                                     >
-                                      <Visibility
-                                        className={classesBody.CheckCircle}
-                                      />
+                                      <Visibility className="iconWhiteColor" />
                                     </Tooltip>
                                   </Link>
                                 </TableCell>

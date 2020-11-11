@@ -136,11 +136,23 @@ class Inventory extends Component {
                         <Table className={classesHead.table}>
                           <TableHead>
                             <TableRow>
-                              <TableCell component="th">Image</TableCell>
-                              <TableCell component="th">Name</TableCell>
-                              <TableCell component="th">Brand</TableCell>
-                              <TableCell component="th">Created Date</TableCell>
-                              <TableCell component="th">Action</TableCell>
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">Image</h6>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">Name</h6>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">Brand</h6>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">
+                                  Created Date
+                                </h6>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">Action</h6>
+                              </TableCell>
                             </TableRow>
                           </TableHead>
                           <TableBody>
@@ -155,13 +167,22 @@ class Inventory extends Component {
                                       src={`http://10.5.1.38:5000/${res.image_url}`}
                                     />
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell
+                                    className="textPrimaryColor"
+                                    component="th"
+                                  >
                                     {res.name}
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell
+                                    className="textPrimaryColor"
+                                    component="th"
+                                  >
                                     {res.brand}
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell
+                                    className="textPrimaryColor"
+                                    component="th"
+                                  >
                                     {res.date}
                                   </TableCell>
                                   <TableCell
@@ -173,9 +194,7 @@ class Inventory extends Component {
                                       placement="top"
                                       classes={{ tooltip: classesBody.tooltip }}
                                     >
-                                      <Visibility
-                                        className={classesBody.CheckCircle}
-                                      />
+                                      <Visibility className="iconSecondaryColor" />
                                     </Tooltip>
                                   </TableCell>
                                 </TableRow>
