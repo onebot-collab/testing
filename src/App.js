@@ -17,9 +17,14 @@ import Login from './pages/Auth/Login'
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#e57373',
-      main: '#f44336',
-      dark: '#d32f2f',
+      light: '#d32f2f',
+      main: '#c62828',
+      dark: '#b71c1c',
+    },
+    secondary: {
+      light: '#4caf50',
+      main: '#43a047',
+      dark: '#388e3c',
     },
   },
 })

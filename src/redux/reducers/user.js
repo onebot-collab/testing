@@ -53,6 +53,28 @@ const user = (state = initialState, action) => {
         dataUser: action.payload.data.data,
       }
     }
+    case 'REGISTER_PENDING': {
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      }
+    }
+    case 'REGISTER_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        errorMsg: 'Failed to register',
+      }
+    }
+    case 'REGISTER_FULFILLED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+      }
+    }
     default: {
       return {
         ...state,

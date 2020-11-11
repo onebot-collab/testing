@@ -1,5 +1,5 @@
 import axios from '../../services/axios'
-const URL = 'http://10.5.2.38:5000/'
+const URL = 'http://10.5.1.38:5000/'
 
 const getAdmin = () => ({
   type: 'GETADMIN',
@@ -11,4 +11,9 @@ const getUser = () => ({
   payload: axios().get(`${URL}api/v1/chat/allcontact`),
 })
 
-export { getAdmin, getUser }
+const registerUser = (dataSubmit) => ({
+  type: 'REGISTER',
+  payload: axios().post(`${URL}api/v1/auth/register`, dataSubmit),
+})
+
+export { getAdmin, getUser, registerUser }

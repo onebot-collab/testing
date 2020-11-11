@@ -16,10 +16,11 @@ import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
 import TableBody from '@material-ui/core/TableBody'
 import TableRow from '@material-ui/core/TableRow'
+import { Link } from 'react-router-dom'
 // import Fab from '@material-ui/core/Fab'
 
 // @material-ui/icons
-import Add from '@material-ui/icons/Add'
+// import Add from '@material-ui/icons/Add'
 import Visibility from '@material-ui/icons/Visibility'
 
 // Add Reactstrap
@@ -48,9 +49,9 @@ import stylesHead from '../../assets/jss/material-dashboard-react/components/tab
 import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
 const options = [
-  { value: 'General', label: 'General' },
-  { value: 'Development', label: 'Development' },
-  { value: 'Networking', label: 'Networking' },
+  { value: 1, label: 'General' },
+  { value: 2, label: 'Development' },
+  { value: 3, label: 'Networking' },
 ]
 
 class Report extends Component {
@@ -101,7 +102,7 @@ class Report extends Component {
           <>{this.redirect()}</>
         ) : (
           <>
-            <Button
+            {/* <Button
               onClick={this.toggleAddModal}
               variant="contained"
               color="primary"
@@ -109,7 +110,7 @@ class Report extends Component {
               startIcon={<Add />}
             >
               Add
-            </Button>
+            </Button> */}
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
                 <Card>
@@ -186,16 +187,18 @@ class Report extends Component {
                                   {res.created_at.slice(0, 4)}
                                 </TableCell>
                                 <TableCell className={classesBody.tableActions}>
-                                  <Tooltip
-                                    id="tooltip-top-start"
-                                    title="Click to Detail"
-                                    placement="top"
-                                    classes={{ tooltip: classesBody.tooltip }}
-                                  >
-                                    <Visibility
-                                      className={classesBody.CheckCircle}
-                                    />
-                                  </Tooltip>
+                                  <Link to="/admin/report/detail">
+                                    <Tooltip
+                                      id="tooltip-top-start"
+                                      title="Click to Detail Report"
+                                      placement="top"
+                                      classes={{ tooltip: classesBody.tooltip }}
+                                    >
+                                      <Visibility
+                                        className={classesBody.CheckCircle}
+                                      />
+                                    </Tooltip>
+                                  </Link>
                                 </TableCell>
                               </TableRow>
                             ))}
@@ -239,13 +242,11 @@ class Report extends Component {
                     onChange={this.handleChange}
                     options={options}
                   />
-                  <h6>Cover Folder (PDF Maks. 10 Mb)</h6>
-                  {/* <Input
-                type="file"
-                name="image"
-                className="mb-2"
-                onChange={}
-              /> */}
+                  {/* <Select onChange={this.genreChange} options={
+										dataGenre.map((genre) =>(
+											{ value: genre.id, label: genre.name}
+											))
+									}/> */}
                 </ModalBody>
                 <ModalFooter>
                   <Button color="primary" onClick={this.addBook}>

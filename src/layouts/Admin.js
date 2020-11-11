@@ -1,7 +1,8 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-shadow */
 import React from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import { Switch, Route } from 'react-router-dom'
 // creates a beautiful scrollbar
 import PerfectScrollbar from 'perfect-scrollbar'
 import 'perfect-scrollbar/css/perfect-scrollbar.css'
@@ -13,7 +14,25 @@ import Footer from '../components/Footer/Footer'
 import Sidebar from '../components/Sidebar/Sidebar'
 import FixedPlugin from '../components/FixedPlugin/FixedPlugin'
 
+// Dashboard Sidebar
 import DashboardRoutes from '../pages/Dashboard'
+
+// core components/views for routes
+import ActualDashboard from '../pages/ActualDashboard/ActualDashboard'
+import Announcement from '../pages/Announcement/Announcement'
+import Attendance from '../pages/Attendance/Actual'
+import IdUserAttendance from '../pages/Attendance/IdUser'
+import CalendarScreen from '../pages/Calendar/Calendar'
+import Inventory from '../pages/Inventory/Inventory'
+import Invoice from '../pages/Invoice/Invoice'
+import Permissions from '../pages/Permissions/Permissions'
+import PermissionsDetail from '../pages/Permissions/PermissionsDetail'
+import Report from '../pages/Report/Report'
+import ReportDetail from '../pages/Report/ReportDetail'
+import Ticketing from '../pages/Ticketing/Actual'
+import TicketingDetail from '../pages/Ticketing/TicketingDetail'
+import User from '../pages/User/Actual'
+import IdUser from '../pages/User/IdUser'
 
 import styles from '../assets/jss/material-dashboard-react/layouts/adminStyle'
 
@@ -22,21 +41,41 @@ import logo from '../assets/img/reactlogo.png'
 
 let ps
 
+// const switchRoutes = (
+//   <Switch>
+//     {DashboardRoutes.map((prop, key) => {
+//       if (prop.layout === '/admin') {
+//         return (
+//           <Route
+//             path={prop.layout + prop.path}
+//             component={prop.component}
+//             key={key}
+//           />
+//         )
+//       }
+//       return null
+//     })}
+//     <Redirect from="/admin" to="/admin/dashboard" />
+//   </Switch>
+// )
+
 const switchRoutes = (
   <Switch>
-    {DashboardRoutes.map((prop, key) => {
-      if (prop.layout === '/admin') {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        )
-      }
-      return null
-    })}
-    <Redirect from="/admin" to="/admin/dashboard" />
+    <Route exact path="/admin/dashboard" component={ActualDashboard} />
+    <Route exact path="/admin/announcement" component={Announcement} />
+    <Route exact path="/admin/attendance" component={Attendance} />
+    <Route exact path="/admin/id-attendance" component={IdUserAttendance} />
+    <Route exact path="/admin/calendar" component={CalendarScreen} />
+    <Route exact path="/admin/inventory" component={Inventory} />
+    <Route exact path="/admin/invoice" component={Invoice} />
+    <Route exact path="/admin/permissions" component={Permissions} />
+    <Route exact path="/admin/permissions/:id" component={PermissionsDetail} />
+    <Route exact path="/admin/report" component={Report} />
+    <Route exact path="/admin/report/detail" component={ReportDetail} />
+    <Route exact path="/admin/ticketing" component={Ticketing} />
+    <Route exact path="/admin/ticketing/:id" component={TicketingDetail} />
+    <Route exact path="/admin/user" component={User} />
+    <Route exact path="/admin/id-user" component={IdUser} />
   </Switch>
 )
 

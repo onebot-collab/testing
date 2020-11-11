@@ -17,11 +17,12 @@ import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
 import TableBody from '@material-ui/core/TableBody'
 import TableRow from '@material-ui/core/TableRow'
+import { Link } from 'react-router-dom'
 // import Fab from '@material-ui/core/Fab'
 // @material-ui/icons
 import Store from '@material-ui/icons/Store'
 // import Warning from '@material-ui/icons/Warning'
-import Add from '@material-ui/icons/Add'
+// import Add from '@material-ui/icons/Add'
 import CheckCircle from '@material-ui/icons/CheckCircle'
 import Cancel from '@material-ui/icons/Cancel'
 import Visibility from '@material-ui/icons/Visibility'
@@ -38,7 +39,7 @@ import {
 } from 'reactstrap'
 import Select from 'react-select'
 
-import { getTicketClosed } from '../../redux/actions/ticket'
+import { getAllTicket } from '../../redux/actions/ticket'
 // core components
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
@@ -90,7 +91,7 @@ class Ticketing extends Component {
   }
 
   fetch() {
-    this.props.getTicketClosed().then(() => {
+    this.props.getAllTicket().then(() => {
       this.setState({ isLoading: false })
     })
   }
@@ -159,7 +160,7 @@ class Ticketing extends Component {
                 </Card>
               </GridItem>
             </GridContainer>
-            <Button
+            {/* <Button
               onClick={this.toggleAddModal}
               variant="contained"
               color="primary"
@@ -167,7 +168,7 @@ class Ticketing extends Component {
               startIcon={<Add />}
             >
               Add
-            </Button>
+            </Button> */}
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
                 <Card>
@@ -222,102 +223,115 @@ class Ticketing extends Component {
                             </TableRow>
                           </TableHead>
                           <TableBody>
-                            {this.props.ticket.dataTicketClosed.map(
-                              (res, i) => (
-                                <TableRow
-                                  className={classesBody.tableRow}
-                                  key={i}
-                                >
-                                  <TableCell component="th">
-                                    {res.no_ticket}
-                                  </TableCell>
-                                  <TableCell component="th">
-                                    {res.nameFrom}
-                                  </TableCell>
-                                  <TableCell component="th">
-                                    {res.category === '2'
-                                      ? res.nameAssignGroup
-                                      : res.nameAssign}
-                                  </TableCell>
-                                  <TableCell component="th">
-                                    {res.nameObserve === null
-                                      ? '-'
-                                      : res.nameObserve}
-                                  </TableCell>
-                                  <TableCell component="th">
-                                    {res.statusid === 1 ? (
-                                      <span className="badge badge-pill badge-warning">
-                                        Open
-                                      </span>
-                                    ) : res.statusid === 2 ? (
-                                      <span className="badge badge-pill badge-primary">
-                                        Processed
-                                      </span>
-                                    ) : res.statusid === 3 ? (
-                                      <span className="badge badge-pill badge-success">
-                                        Solved
-                                      </span>
-                                    ) : res.statusid === 4 ? (
-                                      <span className="badge badge-pill badge-dark">
-                                        Closed
-                                      </span>
-                                    ) : (
-                                      <></>
-                                    )}
-                                  </TableCell>
-                                  <TableCell
-                                    className={classesBody.tableActions}
-                                  >
-                                    {res.isLate === '1' ? (
-                                      <Tooltip
-                                        id="tooltip-top-start"
-                                        title="Late"
-                                        placement="top"
-                                        classes={{
-                                          tooltip: classesBody.tooltip,
-                                        }}
-                                      >
-                                        <Cancel
-                                          className={classesBody.CheckCircle}
-                                        />
-                                      </Tooltip>
-                                    ) : (
-                                      <Tooltip
-                                        id="tooltip-top-start"
-                                        title="On time"
-                                        placement="top"
-                                        classes={{
-                                          tooltip: classesBody.tooltip,
-                                        }}
-                                      >
-                                        <CheckCircle
-                                          className={classesBody.CheckCircle}
-                                        />
-                                      </Tooltip>
-                                    )}
-                                  </TableCell>
-                                  <TableCell component="th">
-                                    {res.date.slice(8, 10)}-
-                                    {res.date.slice(5, 8)}
-                                    {res.date.slice(0, 4)}
-                                  </TableCell>
-                                  <TableCell
-                                    className={classesBody.tableActions}
+                            {this.props.ticket.dataAllTicket.map((res, i) => (
+                              <TableRow
+                                className={classesBody.tableRow}
+                                key={i}
+                              >
+                                <TableCell component="th">
+                                  {res.no_ticket}
+                                </TableCell>
+                                <TableCell component="th">
+                                  {res.nameFrom}
+                                </TableCell>
+                                <TableCell component="th">
+                                  {res.category === '2'
+                                    ? res.nameAssignGroup
+                                    : res.nameAssign}
+                                </TableCell>
+                                <TableCell component="th">
+                                  {res.nameObserve === null
+                                    ? '-'
+                                    : res.nameObserve}
+                                </TableCell>
+                                <TableCell component="th">
+                                  {res.statusid === 1 ? (
+                                    <span className="badge badge-pill badge-warning">
+                                      Open
+                                    </span>
+                                  ) : res.statusid === 2 ? (
+                                    <span className="badge badge-pill badge-primary">
+                                      Processed
+                                    </span>
+                                  ) : res.statusid === 3 ? (
+                                    <span className="badge badge-pill badge-success">
+                                      Solved
+                                    </span>
+                                  ) : res.statusid === 4 ? (
+                                    <span className="badge badge-pill badge-dark">
+                                      Closed
+                                    </span>
+                                  ) : (
+                                    <></>
+                                  )}
+                                </TableCell>
+                                <TableCell className={classesBody.tableActions}>
+                                  {res.isLate === '1' ? (
+                                    <Tooltip
+                                      id="tooltip-top-start"
+                                      title="Late"
+                                      placement="top"
+                                      classes={{
+                                        tooltip: classesBody.tooltip,
+                                      }}
+                                    >
+                                      <Cancel
+                                        className={classesBody.CheckCircle}
+                                      />
+                                    </Tooltip>
+                                  ) : (
+                                    <Tooltip
+                                      id="tooltip-top-start"
+                                      title="On time"
+                                      placement="top"
+                                      classes={{
+                                        tooltip: classesBody.tooltip,
+                                      }}
+                                    >
+                                      <CheckCircle
+                                        className={classesBody.CheckCircle}
+                                      />
+                                    </Tooltip>
+                                  )}
+                                </TableCell>
+                                <TableCell component="th">
+                                  {res.date.slice(8, 10)}-{res.date.slice(5, 8)}
+                                  {res.date.slice(0, 4)}
+                                </TableCell>
+                                <TableCell className={classesBody.tableActions}>
+                                  {' '}
+                                  <Link
+                                    to={{
+                                      pathname: `/admin/ticketing/${res.id}`,
+                                      state: {
+                                        id: `${res.id}`,
+                                        no_ticket: `${res.no_ticket}`,
+                                        title: `${res.title}`,
+                                        nameFrom: `${res.nameFrom}`,
+                                        nameAssign: `${res.nameAssign}`,
+                                        end_date: `${res.end_date}`,
+                                        description: `${res.description}`,
+                                        statusid: `${res.statusid}`,
+                                        date: `${res.date}`,
+                                      },
+                                    }}
                                   >
                                     <Tooltip
                                       id="tooltip-top-start"
-                                      title="Click to Detail"
+                                      title="Click to Detail Ticket"
                                       placement="top"
-                                      classes={{ tooltip: classesBody.tooltip }}
+                                      classes={{
+                                        tooltip: classesBody.tooltip,
+                                      }}
                                     >
                                       <Visibility
                                         className={classesBody.CheckCircle}
                                       />
                                     </Tooltip>
-                                  </TableCell>
-                                </TableRow>
-                              ),
-                            )}
+                                  </Link>
+                                </TableCell>
+                              </TableRow>
+                            ))}
                           </TableBody>
                         </Table>
                       </CardBody>
@@ -387,6 +401,6 @@ const mapStateToProps = (state) => ({
   login: state.login,
   ticket: state.ticket,
 })
-const mapDispatchToProps = { getTicketClosed }
+const mapDispatchToProps = { getAllTicket }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ticketing)
