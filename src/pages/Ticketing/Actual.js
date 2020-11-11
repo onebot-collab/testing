@@ -314,6 +314,7 @@ class Ticketing extends Component {
                                         description: `${res.description}`,
                                         statusid: `${res.statusid}`,
                                         date: `${res.date}`,
+                                        assignId: `${res.assignId}`,
                                       },
                                     }}
                                   >

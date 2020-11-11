@@ -32,6 +32,8 @@ import ListItemText from '@material-ui/core/ListItemText'
 
 // import Check from '@material-ui/icons/Check'
 // core components
+import { connect } from 'react-redux'
+import { getTicketScore } from '../../redux/actions/ticket'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -43,13 +45,13 @@ import styles from '../../assets/jss/material-dashboard-react/views/dashboardSty
 // import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
 // import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
-export default class TicketingDetail extends Component {
+class TicketingDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      rate: '4',
       date: props.location.state.date,
-      // id: props.location.state.id,
+      id: props.location.state.id,
+      assignId: props.location.state.assignId,
       no_ticket: props.location.state.no_ticket,
       title: props.location.state.title,
       nameFrom: props.location.state.nameFrom,
@@ -57,10 +59,20 @@ export default class TicketingDetail extends Component {
       end_date: props.location.state.end_date,
       description: props.location.state.description,
       // statusid: props.location.state.statusid,
+      isLoading: false,
     }
   }
 
-  componentDidMount() {}
+  fetchScore() {
+    this.setState({ isLoading: true })
+    this.props.getTicketScore(this.state.id, this.state.assignId).then(() => {
+      this.setState({ isLoading: false })
+    })
+  }
+
+  componentDidMount() {
+    this.fetchScore()
+  }
 
   renderEvents() {}
 
@@ -102,43 +114,83 @@ export default class TicketingDetail extends Component {
                       {this.state.description}
                     </Typography>
                   </Grid>
-                  <Grid item xs>
-                    <Paper
-                      elevation={2}
-                      className="d-flex flex-row p-3 justify-content-center"
-                    >
-                      <Grid xs={12} sm={12} md={4}>
-                        <h6 className="d-flex justify-content-center textBodyBoldRate">
-                          {' '}
-                          Rate{' '}
-                        </h6>
-                        <div className="d-flex justify-content-center">
-                          <Rate
-                            defaultValue={this.state.rate}
-                            disabled
-                            style={{ fontSize: '50px' }}
-                          />
-                        </div>
-                      </Grid>
-                      <Grid xs={12} sm={12} md={8}>
-                        <h6 className="textBodyBold">Feedback </h6>
-                        <Typography variant="body2" className="paperGridCentre">
-                          Lorem ipsum dolor sit amet, minimum praesent usu ex,
-                          te vim alia veniam. Vix utroque commune disputationi
-                          ne. Dicunt virtute qui an, affert molestie offendit eu
-                          qui, at has repudiare contentiones. Ius in assentior
-                          scripserit, agam constituam ex est. Pro timeam
-                          appareat torquatos ad. In inciderint cotidieque duo.
-                          Id sea possit latine delicata, no est feugiat fuisset.
-                          Ut vim prima rebum iracundia, mei quidam propriae
-                          perpetua eu, mel te illum aeterno recusabo. Id ius
-                          unum viris epicurei. Error animal vel ex, mei te
-                          contentiones consequuntur. Veri conceptam cum eu,
-                          melius conceptam percipitur pri at.
-                        </Typography>
-                      </Grid>
-                    </Paper>
-                  </Grid>
+                  {this.state.isLoading ? (
+                    <center>
+                      <div
+                        className="d-flex align-self-center spinner-border text-dark mt-2 mb-3"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    </center>
+                  ) : (
+                    <>
+                      {this.props.ticket.dataTicketScore[0].score ===
+                      undefined ? (
+                        <Grid item xs>
+                          <Paper
+                            elevation={2}
+                            className="d-flex flex-row p-3 justify-content-center"
+                          >
+                            <Grid xs={12} sm={12} md={4}>
+                              <h6 className="d-flex justify-content-center textBodyBoldRate">
+                                {' '}
+                                Rate{' '}
+                              </h6>
+                              <div className="d-flex justify-content-center">
+                                <Rate
+                                  defaultValue={0}
+                                  disabled
+                                  style={{ fontSize: '50px' }}
+                                />
+                              </div>
+                            </Grid>
+                            <Grid xs={12} sm={12} md={8}>
+                              <h6 className="textBodyBold">Feedback </h6>
+                              <Typography
+                                variant="body2"
+                                className="paperGridCentre"
+                              >
+                                No Feedback Available
+                              </Typography>
+                            </Grid>
+                          </Paper>
+                        </Grid>
+                      ) : (
+                        <Grid item xs>
+                          <Paper
+                            elevation={2}
+                            className="d-flex flex-row p-3 justify-content-center"
+                          >
+                            <Grid xs={12} sm={12} md={4}>
+                              <h6 className="d-flex justify-content-center textBodyBoldRate">
+                                {' '}
+                                Rate{' '}
+                              </h6>
+                              <div className="d-flex justify-content-center">
+                                <Rate
+                                  defaultValue={
+                                    this.props.ticket.dataTicketScore[0].score
+                                  }
+                                  disabled
+                                  style={{ fontSize: '50px' }}
+                                />
+                              </div>
+                            </Grid>
+                            <Grid xs={12} sm={12} md={8}>
+                              <h6 className="textBodyBold">Feedback </h6>
+                              <Typography
+                                variant="body2"
+                                className="paperGridCentre"
+                              >
+                                {this.props.ticket.dataTicketScore[0].feedback}
+                              </Typography>
+                            </Grid>
+                          </Paper>
+                        </Grid>
+                      )}
+                    </>
+                  )}
                 </Grid>
               </CardBody>
             </Card>
@@ -148,3 +200,10 @@ export default class TicketingDetail extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  ticket: state.ticket,
+})
+const mapDispatchToProps = { getTicketScore }
+
+export default connect(mapStateToProps, mapDispatchToProps)(TicketingDetail)
