@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default-member */
 /* eslint-disable prettier/prettier */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-shadow */
@@ -28,13 +29,9 @@ import Invoice from '../pages/Invoice/Invoice'
 import Permissions from '../pages/Permissions/Permissions'
 import PermissionsDetail from '../pages/Permissions/PermissionsDetail'
 import Report from '../pages/Report/Report'
-<<<<<<< HEAD
-import Ticketing from '../pages/Ticketing/Actual'
-=======
 import ReportDetail from '../pages/Report/ReportDetail'
 import Ticketing from '../pages/Ticketing/Actual'
 import TicketingDetail from '../pages/Ticketing/TicketingDetail'
->>>>>>> ac48cf202262239108e857f355a2518a6b17100f
 import User from '../pages/User/Actual'
 import IdUser from '../pages/User/IdUser'
 
@@ -73,17 +70,11 @@ const switchRoutes = (
     <Route exact path="/admin/inventory" component={Inventory} />
     <Route exact path="/admin/invoice" component={Invoice} />
     <Route exact path="/admin/permissions" component={Permissions} />
-<<<<<<< HEAD
-    <Route exact path="/admin/permissions-detail" component={PermissionsDetail} />
-    <Route exact path="/admin/report" component={Report} />
-    <Route exact path="/admin/ticketing" component={Ticketing} />
-=======
     <Route exact path="/admin/permissions/:id" component={PermissionsDetail} />
     <Route exact path="/admin/report" component={Report} />
     <Route exact path="/admin/report/detail" component={ReportDetail} />
     <Route exact path="/admin/ticketing" component={Ticketing} />
     <Route exact path="/admin/ticketing/:id" component={TicketingDetail} />
->>>>>>> ac48cf202262239108e857f355a2518a6b17100f
     <Route exact path="/admin/user" component={User} />
     <Route exact path="/admin/id-user" component={IdUser} />
   </Switch>

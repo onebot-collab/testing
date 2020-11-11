@@ -39,10 +39,7 @@ import CardBody from '../../components/Card/CardBody'
 import CardFooter from '../../components/Card/CardFooter'
 
 import { getUser, registerUser } from '../../redux/actions/user'
-<<<<<<< HEAD
-=======
 import { getDepartment } from '../../redux/actions/department'
->>>>>>> ac48cf202262239108e857f355a2518a6b17100f
 
 class User extends Component {
   constructor(props) {
@@ -550,15 +547,7 @@ class User extends Component {
                               </ListItem>
                             ))}
                           </List>
-<<<<<<< HEAD
-                          <TablePagination
-                            component="div"
-                            count={100}
-                            rowsPerPageOptions={5}
-                          />
-=======
                           <TablePagination component="div" count={100} />
->>>>>>> ac48cf202262239108e857f355a2518a6b17100f
                         </Grid>
                       </CardBody>
                     </>
@@ -578,10 +567,6 @@ const mapStateToProps = (state) => ({
   user: state.user,
   department: state.department,
 })
-<<<<<<< HEAD
-const mapDispatchToProps = { getUser, registerUser }
-=======
 const mapDispatchToProps = { getUser, registerUser, getDepartment }
->>>>>>> ac48cf202262239108e857f355a2518a6b17100f
 
 export default connect(mapStateToProps, mapDispatchToProps)(User)

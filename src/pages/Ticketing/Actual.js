@@ -185,23 +185,24 @@ class Ticketing extends Component {
                     <>
                       <CardHeader color="danger">
                         <h4 className={classes.cardTitleWhite}>Ticketing</h4>
-                        {this.props.ticket.dataTicketClosed[0] === undefined ? (
+                        {this.props.ticket.dataAllTicket[0] === undefined ||
+                        this.props.ticket.dataAllTicket === undefined ? (
                           <p className={classes.cardCategoryWhite}>
                             Last Updated -
                           </p>
                         ) : (
                           <p className={classes.cardCategoryWhite}>
                             Last Updated{' '}
-                            {this.props.ticket.dataTicketClosed[0].updated_at.slice(
+                            {this.props.ticket.dataAllTicket[0].updated_at.slice(
                               8,
                               10,
                             )}
                             -
-                            {this.props.ticket.dataTicketClosed[0].updated_at.slice(
+                            {this.props.ticket.dataAllTicket[0].updated_at.slice(
                               5,
                               8,
                             )}
-                            {this.props.ticket.dataTicketClosed[0].updated_at.slice(
+                            {this.props.ticket.dataAllTicket[0].updated_at.slice(
                               0,
                               4,
                             )}
