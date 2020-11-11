@@ -268,10 +268,8 @@ footer ul li a:hover {
 }
 
 .fixed-plugin .fa-cog {
-  color: #ffffff;
-  padding: 10px;
-  border-radius: 0 0 6px 6px;
-  width: auto;
+  color: #eeeeee;
+  margin: 5px;
 }
 
 .fixed-plugin .dropdown-menu {

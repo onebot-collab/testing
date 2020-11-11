@@ -1,6 +1,6 @@
 import qs from 'querystring'
 import axios from '../../services/axios'
-const REACT_APP_URL = 'http://10.5.2.38:5000/'
+const REACT_APP_URL = 'http://10.5.1.38:5000/'
 
 const loginAuth = (dataSubmit) => ({
   type: 'LOGIN',

@@ -4,7 +4,9 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 // nodejs library that concatenates classes
 import classnames from "classnames";
+import '../../assets/css/material-dashboard-react.css';
 
+import Settings from '@material-ui/icons/Settings';
 import imagine1 from "../../assets/img/sidebar-1.jpg";
 import imagine2 from "../../assets/img/sidebar-2.jpg";
 import imagine3 from "../../assets/img/sidebar-3.jpg";
@@ -25,11 +27,11 @@ export default function FixedPlugin(props) {
     >
       <div id="fixedPluginClasses" className={props.fixedClasses}>
         <div onClick={handleClick}>
-          <i className="fa fa-cog fa-2x" />
+          <Settings className="fa fa-cog fa-2x" />
         </div>
         <ul className="dropdown-menu">
           <li className="header-title">SIDEBAR SETTINGS</li>
-          <li className="adjustments-line">
+          {/* <li className="adjustments-line">
             <a className="switch-trigger">
               <div>
                 <span
@@ -89,8 +91,8 @@ export default function FixedPlugin(props) {
                 />
               </div>
             </a>
-          </li>
-          <li className="header-title">Images</li>
+          </li> */}
+          {/* <li className="header-title">Images</li> */}
           <li className={bgImage === imagine1 ? "active" : ""}>
             <a
               className="img-holder switch-trigger"

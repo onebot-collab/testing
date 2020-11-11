@@ -7,7 +7,8 @@ import { connect } from 'react-redux'
 import swal from 'sweetalert2'
 import { loginAuth, logoutAuth } from '../../redux/actions/login'
 
-import img from './assets/bg.jpg'
+import img from './assets/bg.png'
+import logo from './assets/logo.png'
 
 class LoginPage extends Component {
   constructor(props) {
@@ -59,56 +60,67 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div className="App">
-        <Row className="landing">
-          <Col>
-            <div>
-              <br />
-              <br />
-              <br />
-              <Form
-                style={{ width: '80%', marginLeft: '10%', marginTop: '10%' }}
-                onSubmit={this.login}
-              >
-                <Form.Group>
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    name="email"
-                    type="email"
-                    placeholder="name@mail.com"
-                    onChange={this.handlerChange}
-                  />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    name="password"
-                    type="password"
-                    placeholder="******"
-                    onChange={this.handlerChange}
-                  />
-                </Form.Group>
-                <Form.Group>
-                  <Form.Label>Passcode</Form.Label>
-                  <Form.Control
-                    name="passcode"
-                    type="password"
-                    placeholder="******"
-                    onChange={this.handlerChange}
-                  />
-                </Form.Group>
-                <Button color="primary" type="submit">
-                  {' '}
-                  Login
-                </Button>
-              </Form>
+      <Row className="landing no-gutters">
+        <Col md={7}>
+          <Image src={img} fluid></Image>{' '}
+        </Col>
+        <Col md={5}>
+          <div className="p-3">
+            <div className="d-flex justify-content-start">
+              <img className="m-5" src={logo} alt="Logo" />
             </div>
-          </Col>
-          <Col>
-            <Image src={img} fluid></Image>{' '}
-          </Col>
-        </Row>
-      </div>
+            <h1 className="m-5 pt-5">
+              <b>Login to Dashboard</b>
+            </h1>
+            <Form
+              className="mt-3 ml-5"
+              style={{ width: '80%' }}
+              onSubmit={this.login}
+            >
+              <Form.Group>
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  name="email"
+                  type="email"
+                  placeholder="name@mail.com"
+                  onChange={this.handlerChange}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  name="password"
+                  type="password"
+                  placeholder="******"
+                  onChange={this.handlerChange}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Passcode</Form.Label>
+                <Form.Control
+                  name="passcode"
+                  type="password"
+                  placeholder="******"
+                  onChange={this.handlerChange}
+                />
+              </Form.Group>
+              <Button
+                type="submit"
+                style={{
+                  backgroundColor: '#b71c1c',
+                  color: 'white',
+                  borderRadius: 20,
+                  width: 100,
+                  marginTop: 30,
+                  marginBottom: 100,
+                }}
+              >
+                <b>Login</b>
+              </Button>
+            </Form>
+          </div>
+        </Col>
+      </Row>
     )
   }
 }

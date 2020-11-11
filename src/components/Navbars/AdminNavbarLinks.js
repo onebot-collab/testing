@@ -16,7 +16,7 @@ import Divider from '@material-ui/core/Divider'
 // @material-ui/icons
 import Person from '@material-ui/icons/Person'
 import Notifications from '@material-ui/icons/Notifications'
-import Dashboard from '@material-ui/icons/Dashboard'
+// import Dashboard from '@material-ui/icons/Dashboard'
 import Search from '@material-ui/icons/Search'
 // import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
@@ -76,7 +76,7 @@ export default function AdminNavbarLinks() {
           <Search />
         </Button>
       </div>
-      <Button
+      {/* <Button
         color={window.innerWidth > 959 ? 'transparent' : 'white'}
         justIcon={window.innerWidth > 959}
         simple={!(window.innerWidth > 959)}
@@ -87,7 +87,7 @@ export default function AdminNavbarLinks() {
         <Hidden mdUp implementation="css">
           <p className={classes.linkText}>Dashboard</p>
         </Hidden>
-      </Button>
+      </Button> */}
       <div className={classes.manager}>
         <Button
           color={window.innerWidth > 959 ? 'transparent' : 'white'}

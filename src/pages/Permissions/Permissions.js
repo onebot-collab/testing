@@ -16,6 +16,7 @@ import TableBody from '@material-ui/core/TableBody'
 import TableRow from '@material-ui/core/TableRow'
 // import Fab from '@material-ui/core/Fab'
 
+import { Link } from 'react-router-dom'
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
 // import CheckCircle from '@material-ui/icons/CheckCircle'
@@ -86,7 +87,7 @@ class Permissions extends Component {
                 ) : (
                   <>
                     <CardHeader color="danger">
-                      <h4 className={classes.cardTitleWhite}>Attendance</h4>
+                      <h4 className={classes.cardTitleWhite}>Permissions</h4>
                       <p className={classes.cardCategoryWhite}>
                         Last Updated{' '}
                         {this.props.izin.dataIzin[0] === undefined
@@ -141,16 +142,35 @@ class Permissions extends Component {
                                 {res.startdate}
                               </TableCell>
                               <TableCell className={classesBody.tableActions}>
-                                <Tooltip
-                                  id="tooltip-top-start"
-                                  title="Click to Detail"
-                                  placement="top"
-                                  classes={{ tooltip: classesBody.tooltip }}
+                                <Link
+                                  to={{
+                                    pathname: `/admin/permissions/${res.id}`,
+                                    state: {
+                                      id: `${res.id}`,
+                                      name: `${res.nameuser}`,
+                                      department: `${res.department}`,
+                                      file: `${res.file_upload}`,
+                                      startdate: `${res.startdate}`,
+                                      enddate: `${res.enddate}`,
+                                      type: `${res.type}`,
+                                      status: `${res.status}`,
+                                      reason: `${res.reason}`,
+                                      to_send: `${res.to_send}`,
+                                      name_tosend: `${res.name_tosend}`,
+                                    },
+                                  }}
                                 >
-                                  <Visibility
-                                    className={classesBody.CheckCircle}
-                                  />
-                                </Tooltip>
+                                  <Tooltip
+                                    id="tooltip-top-start"
+                                    title="Click to Detail"
+                                    placement="top"
+                                    classes={{ tooltip: classesBody.tooltip }}
+                                  >
+                                    <Visibility
+                                      className={classesBody.CheckCircle}
+                                    />
+                                  </Tooltip>
+                                </Link>
                               </TableCell>
                             </TableRow>
                           ))}
