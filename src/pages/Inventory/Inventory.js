@@ -1,3 +1,4 @@
+/* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react'
@@ -8,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles'
 // import { Link } from 'react-router-dom'
 // import IconButton from '@material-ui/core/IconButton'
 import Avatar from '@material-ui/core/Avatar'
+import Button from '@material-ui/core/Button'
 import Tooltip from '@material-ui/core/Tooltip'
 import Table from '@material-ui/core/Table'
 import TableHead from '@material-ui/core/TableHead'
@@ -16,9 +18,21 @@ import TableBody from '@material-ui/core/TableBody'
 import TableRow from '@material-ui/core/TableRow'
 // import Fab from '@material-ui/core/Fab'
 
+import Select from 'react-select'
+
+import {
+  Form,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
+  Input,
+} from 'reactstrap'
+
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
 import { Visibility } from '@material-ui/icons'
+import Add from '@material-ui/icons/Add'
 // import Delete from '@material-ui/icons/Delete'
 
 // import Check from '@material-ui/icons/Check'
@@ -38,12 +52,20 @@ import styles from '../../assets/jss/material-dashboard-react/views/dashboardSty
 import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
 import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
+const options = [
+  { value: 1, label: 'General' },
+  { value: 2, label: 'Development' },
+  { value: 3, label: 'Networking' },
+]
+
 class Inventory extends Component {
   constructor(props) {
     super(props)
     this.state = {
       isLoading: true,
+      showAddModal: false,
     }
+    this.toggleAddModal = this.toggleAddModal.bind(this)
   }
 
   fetch() {
@@ -54,6 +76,12 @@ class Inventory extends Component {
 
   redirect() {
     this.props.history.push('/login')
+  }
+
+  toggleAddModal() {
+    this.setState({
+      showAddModal: !this.state.showAddModal,
+    })
   }
 
   componentDidMount() {
@@ -80,63 +108,133 @@ class Inventory extends Component {
                 </div>
               </center>
             ) : (
-              <GridContainer>
-                <GridItem xs={12} sm={12} md={12}>
-                  <Card>
-                    <CardHeader color="danger">
-                      <h4 className={classes.cardTitleWhite}>Inventory</h4>
-                      <p className={classes.cardCategoryWhite}>
-                        Last Updated{' '}
-                        {this.props.inventory.dataInventory[0] === undefined
-                          ? '-'
-                          : this.props.inventory.dataInventory[0].created_at}
-                      </p>
-                    </CardHeader>
-                    <CardBody>
-                      <Table className={classesHead.table}>
-                        <TableHead>
-                          <TableRow>
-                            <TableCell component="th">Image</TableCell>
-                            <TableCell component="th">Name</TableCell>
-                            <TableCell component="th">Brand</TableCell>
-                            <TableCell component="th">Created Date</TableCell>
-                            <TableCell component="th">Action</TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {this.props.inventory.dataInventory.map((res, i) => (
-                            <TableRow className={classes.tableRow} key={i}>
-                              <TableCell
-                                component="th"
-                                className={classesBody.tablePicture}
-                              >
-                                <Avatar
-                                  src={`http://10.5.1.38:5000/${res.image_url}`}
-                                />
-                              </TableCell>
-                              <TableCell component="th">{res.name}</TableCell>
-                              <TableCell component="th">{res.brand}</TableCell>
-                              <TableCell component="th">{res.date}</TableCell>
-                              <TableCell className={classesBody.tableActions}>
-                                <Tooltip
-                                  id="tooltip-top-start"
-                                  title="Delete"
-                                  placement="top"
-                                  classes={{ tooltip: classesBody.tooltip }}
-                                >
-                                  <Visibility
-                                    className={classesBody.CheckCircle}
-                                  />
-                                </Tooltip>
-                              </TableCell>
+              <>
+                <Button
+                  onClick={this.toggleAddModal}
+                  variant="contained"
+                  color="primary"
+                  // className="buttonAdd"
+                  startIcon={<Add />}
+                >
+                  Add
+                </Button>
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={12}>
+                    <Card>
+                      <CardHeader color="danger">
+                        <h4 className={classes.cardTitleWhite}>Inventory</h4>
+                        <p className={classes.cardCategoryWhite}>
+                          Last Updated{' '}
+                          {this.props.inventory.dataInventory[0] === undefined
+                            ? '-'
+                            : this.props.inventory.dataInventory[0].created_at}
+                        </p>
+                      </CardHeader>
+                      <CardBody>
+                        <Table className={classesHead.table}>
+                          <TableHead>
+                            <TableRow>
+                              <TableCell component="th">Image</TableCell>
+                              <TableCell component="th">Name</TableCell>
+                              <TableCell component="th">Brand</TableCell>
+                              <TableCell component="th">Created Date</TableCell>
+                              <TableCell component="th">Action</TableCell>
                             </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    </CardBody>
-                  </Card>
-                </GridItem>
-              </GridContainer>
+                          </TableHead>
+                          <TableBody>
+                            {this.props.inventory.dataInventory.map(
+                              (res, i) => (
+                                <TableRow className={classes.tableRow} key={i}>
+                                  <TableCell
+                                    component="th"
+                                    className={classesBody.tablePicture}
+                                  >
+                                    <Avatar
+                                      src={`http://10.5.1.38:5000/${res.image_url}`}
+                                    />
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    {res.name}
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    {res.brand}
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    {res.date}
+                                  </TableCell>
+                                  <TableCell
+                                    className={classesBody.tableActions}
+                                  >
+                                    <Tooltip
+                                      id="tooltip-top-start"
+                                      title="Delete"
+                                      placement="top"
+                                      classes={{ tooltip: classesBody.tooltip }}
+                                    >
+                                      <Visibility
+                                        className={classesBody.CheckCircle}
+                                      />
+                                    </Tooltip>
+                                  </TableCell>
+                                </TableRow>
+                              ),
+                            )}
+                          </TableBody>
+                        </Table>
+                      </CardBody>
+                    </Card>
+                  </GridItem>
+                </GridContainer>
+                {/* Add Modal */}
+                <Modal isOpen={this.state.showAddModal}>
+                  <ModalHeader className="h1">Add Announcement</ModalHeader>
+                  <Form>
+                    <ModalBody>
+                      <h6>Title</h6>
+                      <Input
+                        type="text"
+                        name="title"
+                        className="mb-2 shadow-none"
+                        onChange={this.handleChange}
+                      />
+                      <h6>Description</h6>
+                      <Input
+                        type="textarea"
+                        name="description"
+                        className="mb-3 shadow-none"
+                        onChange={this.handleChange}
+                      />
+                      <h6>Department</h6>
+                      <Select
+                        onChange={this.handleDepartmentChange}
+                        options={options}
+                      />
+                    </ModalBody>
+                    <ModalFooter>
+                      {this.state.isLoadingAddCampaign ? (
+                        <Button color="primary">
+                          <div
+                            className="spinner-border spinner-border-sm text-danger"
+                            role="status"
+                          >
+                            <span className="sr-only">Loading...</span>
+                          </div>
+                        </Button>
+                      ) : (
+                        <Button
+                          color="secondary"
+                          onClick={this.addAnnouncement}
+                        >
+                          Submit
+                        </Button>
+                      )}
+                      <Button color="secondary" onClick={this.toggleAddModal}>
+                        Cancel
+                      </Button>
+                    </ModalFooter>
+                  </Form>
+                </Modal>
+              </>
             )}
           </div>
         )}

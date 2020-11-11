@@ -5,28 +5,45 @@ import React, { Component } from 'react'
 // import { makeStyles } from '@material-ui/core/styles'
 import moment from 'react-moment'
 import Calendar from 'react-calendar'
+import Select from 'react-select'
+import {
+  Form,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
+  Input,
+} from 'reactstrap'
 import './Calendar.css'
 import 'react-calendar/dist/Calendar.css'
 import 'react-pro-sidebar/dist/css/styles.css'
 // @material-ui/core components
-
+import Button from '@material-ui/core/Button'
 // @material-ui/icons components
+import Add from '@material-ui/icons/Add'
 // core components
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
-import Button from '../../components/CustomButtons/Button'
 import Card from '../../components/Card/Card'
 import CardHeader from '../../components/Card/CardHeader'
 import CardBody from '../../components/Card/CardBody'
 import CardFooter from '../../components/Card/CardFooter'
+
+const options = [
+  { value: 1, label: 'General' },
+  { value: 2, label: 'Development' },
+  { value: 3, label: 'Networking' },
+]
 
 export default class CalendarScreen extends Component {
   constructor(props) {
     super(props)
     this.state = {
       date: new Date(),
+      showAddModal: false,
     }
     this.onChange = this.onChange.bind(this)
+    this.toggleAddModal = this.toggleAddModal.bind(this)
   }
 
   onChange(date) {
@@ -42,6 +59,12 @@ export default class CalendarScreen extends Component {
     this.props.history.push('/login')
   }
 
+  toggleAddModal() {
+    this.setState({
+      showAddModal: !this.state.showAddModal,
+    })
+  }
+
   componentDidMount() {}
 
   render() {
@@ -51,6 +74,15 @@ export default class CalendarScreen extends Component {
           <>{this.redirect()}</>
         ) : (
           <> */}
+        <Button
+          onClick={this.toggleAddModal}
+          variant="contained"
+          color="primary"
+          // className="buttonAdd"
+          startIcon={<Add />}
+        >
+          Add
+        </Button>
         <GridContainer>
           <GridItem xs={12} sm={12} md={8}>
             <Card>
@@ -81,6 +113,52 @@ export default class CalendarScreen extends Component {
             </Card>
           </GridItem>
         </GridContainer>
+        {/* Add Modal */}
+        <Modal isOpen={this.state.showAddModal}>
+          <ModalHeader className="h1">Add Announcement</ModalHeader>
+          <Form>
+            <ModalBody>
+              <h6>Title</h6>
+              <Input
+                type="text"
+                name="title"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Description</h6>
+              <Input
+                type="textarea"
+                name="description"
+                className="mb-3 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Department</h6>
+              <Select
+                onChange={this.handleDepartmentChange}
+                options={options}
+              />
+            </ModalBody>
+            <ModalFooter>
+              {this.state.isLoadingAddCampaign ? (
+                <Button color="primary">
+                  <div
+                    className="spinner-border spinner-border-sm text-danger"
+                    role="status"
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </Button>
+              ) : (
+                <Button color="secondary" onClick={this.addAnnouncement}>
+                  Submit
+                </Button>
+              )}
+              <Button color="secondary" onClick={this.toggleAddModal}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Form>
+        </Modal>
         {/* </>
         )} */}
       </div>
