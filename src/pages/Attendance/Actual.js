@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react'
+import './Actual.css'
 // import { connect } from 'react-redux'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
@@ -93,30 +94,54 @@ class Attendance extends Component {
                       <Table className={classesHead.table}>
                         <TableHead>
                           <TableRow>
-                            <TableCell component="th">Name</TableCell>
-                            <TableCell component="th">Department</TableCell>
-                            <TableCell component="th">Check In</TableCell>
-                            <TableCell component="th">Check Out</TableCell>
-                            <TableCell component="th">Date</TableCell>
-                            <TableCell component="th">On Time</TableCell>
-                            <TableCell component="th"> Action</TableCell>
+                            <TableCell component="th">
+                              <h6 className="textPrimaryColor">Name</h6>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h6 className="textPrimaryColor">Department</h6>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h6 className="textPrimaryColor">Check In</h6>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h6 className="textPrimaryColor">Check Out</h6>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h6 className="textPrimaryColor">Date</h6>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h6 className="textPrimaryColor">On Time</h6>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h6 className="textPrimaryColor">Action</h6>
+                            </TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
                           {this.props.presence.dataAllLog.map((res, i) => (
                             <TableRow className={classes.tableRow} key={i}>
                               <TableCell component="th">
-                                {res.nameUser}
-                              </TableCell>
-                              <TableCell component="th">General</TableCell>
-                              <TableCell component="th">
-                                {res.att_time}
+                                <p className="textPrimaryColor">
+                                  {res.nameUser}
+                                </p>
                               </TableCell>
                               <TableCell component="th">
-                                {res.end_time === null ? '-' : res.end_time}
+                                <p className="textPrimaryColor">General</p>
                               </TableCell>
                               <TableCell component="th">
-                                {res.att_date}
+                                <p className="textPrimaryColor">
+                                  {res.att_time}
+                                </p>
+                              </TableCell>
+                              <TableCell component="th">
+                                <p className="textPrimaryColor">
+                                  {res.end_time === null ? '-' : res.end_time}
+                                </p>
+                              </TableCell>
+                              <TableCell component="th">
+                                <p className="textPrimaryColor">
+                                  {res.att_date}
+                                </p>
                               </TableCell>
                               <TableCell className={classesBody.tableActions}>
                                 {res.isLate === 1 ? (
@@ -126,9 +151,7 @@ class Attendance extends Component {
                                     placement="top"
                                     classes={{ tooltip: classesBody.tooltip }}
                                   >
-                                    <Cancel
-                                      className={classesBody.CheckCircle}
-                                    />
+                                    <Cancel className="iconSecondaryColor" />
                                   </Tooltip>
                                 ) : (
                                   <Tooltip
@@ -137,9 +160,7 @@ class Attendance extends Component {
                                     placement="top"
                                     classes={{ tooltip: classesBody.tooltip }}
                                   >
-                                    <CheckCircle
-                                      className={classesBody.CheckCircle}
-                                    />
+                                    <CheckCircle className="iconPrimaryColor" />
                                   </Tooltip>
                                 )}
                               </TableCell>
@@ -153,9 +174,7 @@ class Attendance extends Component {
                                   }
                                   classes={{ tooltip: classesBody.tooltip }}
                                 >
-                                  <Visibility
-                                    className={classesBody.CheckCircle}
-                                  />
+                                  <Visibility className="iconWhiteColor" />
                                 </Tooltip>
                               </TableCell>
                             </TableRow>

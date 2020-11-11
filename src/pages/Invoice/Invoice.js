@@ -96,13 +96,27 @@ class Invoice extends Component {
                       <Table className={classesHead.table}>
                         <TableHead>
                           <TableRow>
-                            <TableCell component="th">No</TableCell>
-                            <TableCell component="th">Name</TableCell>
-                            <TableCell component="th">Total Amount</TableCell>
-                            <TableCell component="th">Status</TableCell>
-                            <TableCell component="th">Responder</TableCell>
-                            <TableCell component="th">Created At</TableCell>
-                            <TableCell component="th"> Action</TableCell>
+                            <TableCell component="th">
+                              <h5 className="textPrimaryColor">No</h5>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h5 className="textPrimaryColor">Name</h5>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h5 className="textPrimaryColor">Total Amount</h5>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h5 className="textPrimaryColor">Status</h5>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h5 className="textPrimaryColor">Responder</h5>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h5 className="textPrimaryColor">Created At</h5>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h5 className="textPrimaryColor"> Action</h5>{' '}
+                            </TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
@@ -115,13 +129,22 @@ class Invoice extends Component {
                                   className={classesBody.tableRow}
                                   key={i}
                                 >
-                                  <TableCell component="th">
+                                  <TableCell
+                                    className="textPrimaryColor"
+                                    component="th"
+                                  >
                                     {res.invoice_no}
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell
+                                    className="textPrimaryColor"
+                                    component="th"
+                                  >
                                     {res.requestname}
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell
+                                    className="textPrimaryColor"
+                                    component="th"
+                                  >
                                     Rp {res.total_amount}
                                   </TableCell>
                                   <TableCell component="th">
@@ -149,12 +172,18 @@ class Invoice extends Component {
                                       <></>
                                     )}
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell
+                                    className="textPrimaryColor"
+                                    component="th"
+                                  >
                                     {res.responder === null
                                       ? '-'
                                       : res.responder}
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell
+                                    className="textPrimaryColor"
+                                    component="th"
+                                  >
                                     {res.date}
                                   </TableCell>
                                   <TableCell
@@ -166,9 +195,7 @@ class Invoice extends Component {
                                       placement="top"
                                       classes={{ tooltip: classesBody.tooltip }}
                                     >
-                                      <Visibility
-                                        className={classesBody.CheckCircle}
-                                      />
+                                      <Visibility className="iconThirdColor" />
                                     </Tooltip>
                                   </TableCell>
                                 </TableRow>

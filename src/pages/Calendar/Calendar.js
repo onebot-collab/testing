@@ -30,9 +30,9 @@ import CardBody from '../../components/Card/CardBody'
 import CardFooter from '../../components/Card/CardFooter'
 
 const options = [
-  { value: 1, label: 'General' },
-  { value: 2, label: 'Development' },
-  { value: 3, label: 'Networking' },
+  { value: 1, label: 'Once' },
+  { value: 2, label: 'Monthly' },
+  { value: 3, label: 'Annually' },
 ]
 
 export default class CalendarScreen extends Component {
@@ -91,9 +91,7 @@ export default class CalendarScreen extends Component {
                 <p className="cardCategoryWhite">by Admin</p>
               </CardHeader>
               <CardBody></CardBody>
-              <CardFooter>
-                <Button color="danger">Submit</Button>
-              </CardFooter>
+              <CardFooter></CardFooter>
             </Card>
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
@@ -129,10 +127,18 @@ export default class CalendarScreen extends Component {
               <Input
                 type="textarea"
                 name="description"
-                className="mb-3 shadow-none"
+                className="mb-2 shadow-none"
                 onChange={this.handleChange}
               />
-              <h6>Department</h6>
+              <h6>Date</h6>
+              <Input
+                value={this.state.birthDate}
+                type="date"
+                name="birthDate"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Type</h6>
               <Select
                 onChange={this.handleDepartmentChange}
                 options={options}

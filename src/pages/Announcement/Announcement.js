@@ -216,12 +216,26 @@ class Announcement extends Component {
                         <Table className={classesHead.table}>
                           <TableHead>
                             <TableRow>
-                              <TableCell component="th">Title</TableCell>
-                              <TableCell component="th">Description</TableCell>
-                              <TableCell component="th">Department</TableCell>
-                              <TableCell component="th">By</TableCell>
-                              <TableCell component="th">Date</TableCell>
-                              <TableCell component="th">Action</TableCell>
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">Title</h6>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">
+                                  Description
+                                </h6>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">Department</h6>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">By</h6>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">Date</h6>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">Action</h6>
+                              </TableCell>
                             </TableRow>
                           </TableHead>
                           <TableBody>
@@ -232,19 +246,29 @@ class Announcement extends Component {
                                   key={index}
                                 >
                                   <TableCell component="th">
-                                    {campaign.title}
+                                    <p className="textPrimaryColor">
+                                      {campaign.title}
+                                    </p>
                                   </TableCell>
                                   <TableCell component="th">
-                                    {campaign.description}
+                                    <p className="textPrimaryColor">
+                                      {campaign.description}
+                                    </p>
                                   </TableCell>
                                   <TableCell component="th">
-                                    {campaign.departmentName}
+                                    <p className="textPrimaryColor">
+                                      {campaign.departmentName}
+                                    </p>
                                   </TableCell>
                                   <TableCell component="th">
-                                    {campaign.createdby_name}
+                                    <p className="textPrimaryColor">
+                                      {campaign.createdby_name}
+                                    </p>
                                   </TableCell>
                                   <TableCell component="th">
-                                    {campaign.created_at}
+                                    <p className="textPrimaryColor">
+                                      {campaign.created_at}
+                                    </p>
                                   </TableCell>
                                   <TableCell
                                     className={classesBody.tableActions}
@@ -261,9 +285,7 @@ class Announcement extends Component {
                                           classesBody.tableActionButton
                                         }
                                       >
-                                        <Edit
-                                          className={`${classesBody.tableActionButtonIcon} ${classesBody.edit}`}
-                                        />
+                                        <Edit className="iconWhiteColor" />
                                       </IconButton>
                                     </Tooltip>
                                     <Tooltip
@@ -281,9 +303,7 @@ class Announcement extends Component {
                                           classesBody.tableActionButton
                                         }
                                       >
-                                        <Close
-                                          className={`${classesBody.tableActionButtonIcon} ${classesBody.close}`}
-                                        />
+                                        <Close className="iconSecondaryColor" />
                                       </IconButton>
                                     </Tooltip>
                                   </TableCell>

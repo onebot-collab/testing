@@ -18,15 +18,17 @@ import TableBody from '@material-ui/core/TableBody'
 import TableRow from '@material-ui/core/TableRow'
 // import Fab from '@material-ui/core/Fab'
 
-import Select from 'react-select'
+// import Select from 'react-select'
 
 import {
   Form,
+  FormGroup,
   Modal,
   ModalBody,
   ModalHeader,
   ModalFooter,
   Input,
+  CustomInput,
 } from 'reactstrap'
 
 // @material-ui/icons
@@ -52,11 +54,11 @@ import styles from '../../assets/jss/material-dashboard-react/views/dashboardSty
 import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
 import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
-const options = [
-  { value: 1, label: 'General' },
-  { value: 2, label: 'Development' },
-  { value: 3, label: 'Networking' },
-]
+// const options = [
+//   { value: 1, label: 'General' },
+//   { value: 2, label: 'Development' },
+//   { value: 3, label: 'Networking' },
+// ]
 
 class Inventory extends Component {
   constructor(props) {
@@ -134,11 +136,23 @@ class Inventory extends Component {
                         <Table className={classesHead.table}>
                           <TableHead>
                             <TableRow>
-                              <TableCell component="th">Image</TableCell>
-                              <TableCell component="th">Name</TableCell>
-                              <TableCell component="th">Brand</TableCell>
-                              <TableCell component="th">Created Date</TableCell>
-                              <TableCell component="th">Action</TableCell>
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">Image</h6>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">Name</h6>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">Brand</h6>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">
+                                  Created Date
+                                </h6>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">Action</h6>
+                              </TableCell>
                             </TableRow>
                           </TableHead>
                           <TableBody>
@@ -153,13 +167,22 @@ class Inventory extends Component {
                                       src={`http://10.5.1.38:5000/${res.image_url}`}
                                     />
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell
+                                    className="textPrimaryColor"
+                                    component="th"
+                                  >
                                     {res.name}
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell
+                                    className="textPrimaryColor"
+                                    component="th"
+                                  >
                                     {res.brand}
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell
+                                    className="textPrimaryColor"
+                                    component="th"
+                                  >
                                     {res.date}
                                   </TableCell>
                                   <TableCell
@@ -171,9 +194,7 @@ class Inventory extends Component {
                                       placement="top"
                                       classes={{ tooltip: classesBody.tooltip }}
                                     >
-                                      <Visibility
-                                        className={classesBody.CheckCircle}
-                                      />
+                                      <Visibility className="iconSecondaryColor" />
                                     </Tooltip>
                                   </TableCell>
                                 </TableRow>
@@ -190,25 +211,50 @@ class Inventory extends Component {
                   <ModalHeader className="h1">Add Announcement</ModalHeader>
                   <Form>
                     <ModalBody>
-                      <h6>Title</h6>
+                      <h6>Name</h6>
                       <Input
                         type="text"
-                        name="title"
+                        name="name"
                         className="mb-2 shadow-none"
                         onChange={this.handleChange}
                       />
-                      <h6>Description</h6>
+                      <h6>Brand</h6>
                       <Input
-                        type="textarea"
-                        name="description"
-                        className="mb-3 shadow-none"
+                        type="text"
+                        name="brand"
+                        className="mb-2 shadow-none"
                         onChange={this.handleChange}
                       />
-                      <h6>Department</h6>
-                      <Select
-                        onChange={this.handleDepartmentChange}
-                        options={options}
+                      <h6>Serial Nomor</h6>
+                      <Input
+                        type="text"
+                        name="serialNomor"
+                        className="mb-2 shadow-none"
+                        onChange={this.handleChange}
                       />
+                      <h6>Note</h6>
+                      <Input
+                        type="textarea"
+                        name="note"
+                        className="mb-2 shadow-none"
+                        onChange={this.handleChange}
+                      />
+                      <h6>Expired Date</h6>
+                      <Input
+                        value={this.state.birthDate}
+                        type="date"
+                        name="birthDate"
+                        className="mb-2 shadow-none"
+                        onChange={this.handleChange}
+                      />
+                      <FormGroup className="mb-2 shadow-none">
+                        <h6>Picture</h6>
+                        <CustomInput
+                          type="file"
+                          id="exampleCustomFileBrowser"
+                          name="profilePicture"
+                        />
+                      </FormGroup>
                     </ModalBody>
                     <ModalFooter>
                       {this.state.isLoadingAddCampaign ? (

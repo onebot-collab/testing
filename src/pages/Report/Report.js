@@ -154,37 +154,57 @@ class Report extends Component {
                         <Table className={classesHead.table}>
                           <TableHead>
                             <TableRow>
-                              <TableCell component="th">Name</TableCell>
-                              <TableCell component="th">Description</TableCell>
-                              <TableCell component="th">Attachment</TableCell>
-                              <TableCell component="th">Created At</TableCell>
-                              <TableCell component="th">Action</TableCell>
+                              <TableCell component="th">
+                                <h5 className="textPrimaryColor">Name</h5>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h5 className="textPrimaryColor">
+                                  Description
+                                </h5>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h5 className="textPrimaryColor">Attachment</h5>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h5 className="textPrimaryColor">Created At</h5>
+                              </TableCell>
+                              <TableCell component="th">
+                                <h5 className="textPrimaryColor">Action</h5>
+                              </TableCell>
                             </TableRow>
                           </TableHead>
                           <TableBody>
                             {this.props.report.dataAllReport.map((res, i) => (
                               <TableRow className={classes.tableRow} key={i}>
                                 <TableCell component="th">
-                                  {res.nameUser}
+                                  <p className="textPrimaryColor">
+                                    {res.nameUser}
+                                  </p>
                                 </TableCell>
                                 <TableCell component="th">
-                                  {res.nameReport}
+                                  <p className="textPrimaryColor">
+                                    {res.nameReport}
+                                  </p>
                                 </TableCell>
                                 <TableCell component="th">
-                                  {res.fileName === 'report/file.pdf' ? (
-                                    <span className="badge badge-secondary">
-                                      No Attachment
-                                    </span>
-                                  ) : (
-                                    <span className="badge badge-success">
-                                      {res.fileName.slice(7)}
-                                    </span>
-                                  )}
+                                  <p className="textPrimaryColor">
+                                    {res.fileName === 'report/file.pdf' ? (
+                                      <span className="badge badge-secondary">
+                                        No Attachment
+                                      </span>
+                                    ) : (
+                                      <span className="badge badge-success">
+                                        {res.fileName.slice(7)}
+                                      </span>
+                                    )}
+                                  </p>
                                 </TableCell>
                                 <TableCell component="th">
-                                  {res.created_at.slice(8, 10)}-
-                                  {res.created_at.slice(5, 8)}
-                                  {res.created_at.slice(0, 4)}
+                                  <p className="textPrimaryColor">
+                                    {res.created_at.slice(8, 10)}-
+                                    {res.created_at.slice(5, 8)}
+                                    {res.created_at.slice(0, 4)}
+                                  </p>
                                 </TableCell>
                                 <TableCell className={classesBody.tableActions}>
                                   <Link
@@ -205,9 +225,7 @@ class Report extends Component {
                                       placement="top"
                                       classes={{ tooltip: classesBody.tooltip }}
                                     >
-                                      <Visibility
-                                        className={classesBody.CheckCircle}
-                                      />
+                                      <Visibility className="iconWhiteColor" />
                                     </Tooltip>
                                   </Link>
                                 </TableCell>
