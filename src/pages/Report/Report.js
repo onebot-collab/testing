@@ -187,7 +187,18 @@ class Report extends Component {
                                   {res.created_at.slice(0, 4)}
                                 </TableCell>
                                 <TableCell className={classesBody.tableActions}>
-                                  <Link to="/admin/report/detail">
+                                  <Link
+                                    to={{
+                                      pathname: `/admin/report/${res.reportId}`,
+                                      state: {
+                                        id: `${res.reportId}`,
+                                        nameUser: `${res.nameUser}`,
+                                        created_at: `${res.created_at}`,
+                                        nameReport: `${res.nameReport}`,
+                                        fileName: `${res.fileName}`,
+                                      },
+                                    }}
+                                  >
                                     <Tooltip
                                       id="tooltip-top-start"
                                       title="Click to Detail Report"

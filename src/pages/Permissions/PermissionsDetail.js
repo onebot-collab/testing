@@ -9,7 +9,7 @@ import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
 // import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
+// import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import ListItem from '@material-ui/core/ListItem'
@@ -159,7 +159,7 @@ export default class PermissionsDetail extends Component {
                       </ListItem>
                     </Paper>
                   </Grid>
-                  <Grid item xs>
+                  {/* <Grid item xs>
                     <Button
                       variant="outlined"
                       color="secondary"
@@ -180,7 +180,7 @@ export default class PermissionsDetail extends Component {
                     >
                       Reject
                     </Button>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </CardBody>
             </Card>

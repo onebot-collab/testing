@@ -72,7 +72,7 @@ const switchRoutes = (
     <Route exact path="/admin/permissions" component={Permissions} />
     <Route exact path="/admin/permissions/:id" component={PermissionsDetail} />
     <Route exact path="/admin/report" component={Report} />
-    <Route exact path="/admin/report/detail" component={ReportDetail} />
+    <Route exact path="/admin/report/:id" component={ReportDetail} />
     <Route exact path="/admin/ticketing" component={Ticketing} />
     <Route exact path="/admin/ticketing/:id" component={TicketingDetail} />
     <Route exact path="/admin/user" component={User} />

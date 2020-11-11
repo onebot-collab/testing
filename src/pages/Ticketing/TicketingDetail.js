@@ -125,8 +125,8 @@ class TicketingDetail extends Component {
                     </center>
                   ) : (
                     <>
-                      {this.props.ticket.dataTicketScore[0].score ===
-                      undefined ? (
+                      {this.props.ticket.dataTicketScore[0] === undefined ||
+                      this.props.ticket.dataTicketScore === undefined ? (
                         <Grid item xs>
                           <Paper
                             elevation={2}
@@ -183,7 +183,11 @@ class TicketingDetail extends Component {
                                 variant="body2"
                                 className="paperGridCentre"
                               >
-                                {this.props.ticket.dataTicketScore[0].feedback}
+                                {this.props.ticket.dataTicketScore[0]
+                                  .feedback === ''
+                                  ? 'No Feedback Available'
+                                  : this.props.ticket.dataTicketScore[0]
+                                      .feedback}
                               </Typography>
                             </Grid>
                           </Paper>
