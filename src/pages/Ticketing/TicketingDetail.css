@@ -1,0 +1,44 @@
+.paperGridLeft {
+    padding: 2;
+    text-align: left;
+    color: black;
+}
+.paperGridCentre {
+    padding: 2;
+    text-align: justify;
+    color: black;
+}
+.listItemWidth {
+    width: 100%;
+}
+.paperAttachment {
+    flex-direction: row;
+}
+.buttonMarginAction {
+    margin-top: 10;
+    margin-bottom: 10;
+}
+.ButtonApprove {
+    width: 100%;
+}
+.ButtonRejected {
+    width: 100%;
+}
+.CheckCircleColor {
+    color: yellowgreen;
+}
+.CancelColor {
+    color: tomato;
+}
+.textBodyRow {
+    flex-direction: row;
+}
+.textBodyBold {
+    font-weight: bold;
+}
+.textBodyBoldRate {
+    font-weight: bold;
+    color: rgb(207, 153, 14);
+    align-self: center;
+    text-align: center;
+}

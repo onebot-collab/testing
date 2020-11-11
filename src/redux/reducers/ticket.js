@@ -6,6 +6,7 @@ const initialState = {
   isLoadingClosed: false,
   isError: false,
   dataTicket: [],
+  dataAllTicket: [],
   dataTicketSent: [],
   dataTicketDepartment: [],
   dataMyTicket: [],
@@ -18,6 +19,29 @@ const initialState = {
 
 const ticket = (state = initialState, action) => {
   switch (action.type) {
+    case 'ALLTICKET_PENDING': {
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      }
+    }
+    case 'ALLTICKET_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'ALLTICKET_FULFILLED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        dataAllTicket: action.payload.data.data,
+      }
+    }
     case 'GETTICKET_PENDING': {
       return {
         ...state,

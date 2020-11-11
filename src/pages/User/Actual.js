@@ -1,8 +1,10 @@
+/* eslint-disable no-useless-escape */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-access-state-in-setstate */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import swal from 'sweetalert2'
 import './Actual.css'
 // @material-ui/core components
 import List from '@material-ui/core/List'
@@ -12,9 +14,19 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField'
-import MenuItem from '@material-ui/core/MenuItem'
+// import TextField from '@material-ui/core/TextField'
+// import MenuItem from '@material-ui/core/MenuItem'
 import TablePagination from '@material-ui/core/TablePagination'
+// Reactstrap/code
+import {
+  Col,
+  CustomInput,
+  Row,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+} from 'reactstrap'
 // @material-ui/icons components
 import Visibility from '@material-ui/icons/Visibility'
 // core components
@@ -27,6 +39,10 @@ import CardBody from '../../components/Card/CardBody'
 import CardFooter from '../../components/Card/CardFooter'
 
 import { getUser, registerUser } from '../../redux/actions/user'
+<<<<<<< HEAD
+=======
+import { getDepartment } from '../../redux/actions/department'
+>>>>>>> ac48cf202262239108e857f355a2518a6b17100f
 
 class User extends Component {
   constructor(props) {
@@ -40,13 +56,15 @@ class User extends Component {
       joinedDate: '',
       birthDate: '',
       address: '',
-      role: '',
-      department: '',
-      timeType: '',
+      role: 2,
+      department: 1,
+      timeType: 1,
       profilePicture: null,
-      isLoadingUser: true,
+      isLoadingUser: false,
+      isLoadingRegister: false,
     }
     this.handleChange = this.handleChange.bind(this)
+    this.register = this.register.bind(this)
   }
 
   handleChange(event) {
@@ -55,6 +73,7 @@ class User extends Component {
   }
 
   fetch() {
+    this.setState({ isLoadingUser: true })
     this.props.getUser().then(() => {
       this.setState({ isLoadingUser: false })
     })
@@ -64,11 +83,78 @@ class User extends Component {
     this.props.history.push('/login')
   }
 
+  register(event) {
+    event.preventDefault()
+    this.setState({ isLoadingRegister: true })
+    const joinedDate = `${this.state.joinedDate.slice(
+      0,
+      4,
+    )}-${this.state.joinedDate.slice(5, 7)}-${this.state.joinedDate.slice(
+      8,
+      10,
+    )}`
+    const birthDate = `${this.state.birthDate.slice(
+      0,
+      4,
+    )}-${this.state.birthDate.slice(5, 7)}-${this.state.birthDate.slice(8, 10)}`
+    const dataSubmit = new FormData()
+
+    dataSubmit.append('name', this.state.name)
+    dataSubmit.append('email', this.state.email)
+    dataSubmit.append('phone', this.state.phone)
+    dataSubmit.append('password', this.state.password)
+    dataSubmit.append('passcode', this.state.passcode)
+    dataSubmit.append('address', this.state.address)
+    dataSubmit.append('joineddate', joinedDate)
+    dataSubmit.append('birthdate', birthDate)
+    dataSubmit.append('time_type', this.state.timeType)
+    dataSubmit.append('role', this.state.role)
+    dataSubmit.append('department', this.state.department)
+    dataSubmit.append('photo', this.state.profilePicture)
+
+    this.props
+      .registerUser(dataSubmit)
+      .then(() => {
+        this.setState({
+          isLoadingRegister: false,
+          name: '',
+          email: '',
+          phone: '',
+          password: '',
+          passcode: '',
+          joinedDate: '',
+          birthDate: '',
+          address: '',
+          role: 2,
+          department: 1,
+          timeType: 1,
+          profilePicture: null,
+        })
+        this.fetch()
+      })
+      .catch(() => {
+        swal.fire({
+          icon: 'error',
+          title: 'Failed',
+          text: 'Data already used',
+        })
+        this.setState({ isLoadingRegister: false })
+      })
+  }
+
   componentDidMount() {
     this.fetch()
+    this.props.getDepartment()
   }
 
   render() {
+    const departmentData = this.props.department.dataDepartment
+    const departmentList = departmentData.map((val) => (
+      <option key={val.id} value={val.id}>
+        {val.name}
+      </option>
+    ))
+
     return (
       <div>
         {!this.props.login.token ? (
@@ -83,7 +169,184 @@ class User extends Component {
                     <p className="cardCategoryWhite">by Admin</p>
                   </CardHeader>
                   <CardBody>
-                    <GridContainer className="fieldGridContainer">
+                    <Form>
+                      <Row form>
+                        <Col xs={12} sm={12} md={4}>
+                          {' '}
+                          <FormGroup>
+                            <Label for="exampleEmail">Name</Label>
+                            <Input
+                              value={this.state.name}
+                              name="name"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={4}>
+                          <FormGroup>
+                            <Label for="exampleEmail">Email</Label>
+                            <Input
+                              value={this.state.email}
+                              name="email"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={4}>
+                          <FormGroup>
+                            <Label for="exampleEmail">Phone</Label>
+                            <Input
+                              value={this.state.phone}
+                              name="phone"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row form>
+                        <Col xs={12} sm={12} md={6}>
+                          <FormGroup>
+                            <Label for="examplePassword">Password</Label>
+                            <Input
+                              value={this.state.password}
+                              type="password"
+                              name="password"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={6}>
+                          <FormGroup>
+                            <Label for="examplePassword">Passcode</Label>
+                            <Input
+                              value={this.state.passcode}
+                              type="password"
+                              name="passcode"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row form>
+                        <Col xs={12} sm={12} md={4}>
+                          <FormGroup>
+                            <Label for="exampleSelect">Role</Label>
+                            <Input
+                              value={this.state.role}
+                              type="select"
+                              name="role"
+                              id="exampleSelect"
+                              onChange={this.handleChange}
+                            >
+                              <option key={1} value={1}>
+                                Admin
+                              </option>
+                              <option key={2} value={2}>
+                                User
+                              </option>
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={4}>
+                          <FormGroup>
+                            <Label for="exampleSelect">Department</Label>
+                            <Input
+                              value={this.state.department}
+                              type="select"
+                              name="department"
+                              onChange={this.handleChange}
+                              id="exampleSelect"
+                            >
+                              {departmentList}
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={4}>
+                          <FormGroup>
+                            <Label for="exampleCheckbox">Time Type</Label>
+                            <div>
+                              <CustomInput
+                                type="radio"
+                                id="exampleCustomRadio2"
+                                name="timeType"
+                                label="Office Hours"
+                                value={1}
+                                onChange={(e) => this.handleChange(e)}
+                                inline
+                              />
+                              <CustomInput
+                                type="radio"
+                                id="exampleCustomRadio"
+                                name="timeType"
+                                label="Free Hours"
+                                value={2}
+                                onChange={(e) => this.handleChange(e)}
+                                inline
+                              />
+                            </div>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row form>
+                        <Col xs={12} sm={12} md={4}>
+                          <FormGroup>
+                            <Label for="exampleDate">Joined Date</Label>
+                            <Input
+                              type="date"
+                              name="joinedDate"
+                              id="exampleDate"
+                              placeholder="date placeholder"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={4}>
+                          <FormGroup>
+                            <Label for="exampleDate">Birth Date</Label>
+                            <Input
+                              value={this.state.birthDate}
+                              type="date"
+                              name="birthDate"
+                              onChange={(e) => this.handleChange(e)}
+                              id="exampleDate"
+                              placeholder="date placeholder"
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={4}>
+                          {' '}
+                          <FormGroup>
+                            <Label for="exampleEmail">Address</Label>
+                            <Input
+                              value={this.state.address}
+                              name="address"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row form>
+                        <Col xs={12} sm={12} md={12}>
+                          {' '}
+                          <FormGroup>
+                            <Label for="exampleCustomFileBrowser">
+                              Profile Picture
+                            </Label>
+                            <CustomInput
+                              type="file"
+                              id="exampleCustomFileBrowser"
+                              name="profilePicture"
+                              onChange={(e) =>
+                                this.setState({
+                                  profilePicture: e.target.files[0],
+                                })
+                              }
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                    </Form>
+                    {/* <GridContainer className="fieldGridContainer">
                       <GridItem xs={12} sm={12} md={4}>
                         <TextField
                           label="Name"
@@ -222,19 +485,32 @@ class User extends Component {
                     </GridContainer>
                     <GridContainer>
                       <GridItem xs={12} sm={12} md={12}>
-                        <TextField
-                          label="Profile Picture"
+                        <input
                           type="file"
-                          name="profilePicture"
-                          value={this.state.profilePicture}
-                          onChange={this.handleChange}
+                          name="image"
                           className="textFieldWidth"
+                          onChange={(e) =>
+                            this.setState({ profilePicture: e.target.files[0] })
+                          }
                         />
                       </GridItem>
-                    </GridContainer>
+                    </GridContainer> */}
                   </CardBody>
                   <CardFooter>
-                    <Button color="danger">Submit</Button>
+                    {this.state.isLoadingRegister ? (
+                      <Button color="danger">
+                        <div
+                          className="spinner-border spinner-border-sm text-light"
+                          role="status"
+                        >
+                          <span className="sr-only">Loading...</span>
+                        </div>
+                      </Button>
+                    ) : (
+                      <Button onClick={this.register} color="danger">
+                        Submit
+                      </Button>
+                    )}
                   </CardFooter>
                 </Card>
               </GridItem>
@@ -274,11 +550,15 @@ class User extends Component {
                               </ListItem>
                             ))}
                           </List>
+<<<<<<< HEAD
                           <TablePagination
                             component="div"
                             count={100}
                             rowsPerPageOptions={5}
                           />
+=======
+                          <TablePagination component="div" count={100} />
+>>>>>>> ac48cf202262239108e857f355a2518a6b17100f
                         </Grid>
                       </CardBody>
                     </>
@@ -296,7 +576,12 @@ class User extends Component {
 const mapStateToProps = (state) => ({
   login: state.login,
   user: state.user,
+  department: state.department,
 })
+<<<<<<< HEAD
 const mapDispatchToProps = { getUser, registerUser }
+=======
+const mapDispatchToProps = { getUser, registerUser, getDepartment }
+>>>>>>> ac48cf202262239108e857f355a2518a6b17100f
 
 export default connect(mapStateToProps, mapDispatchToProps)(User)

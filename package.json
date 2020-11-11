@@ -21,6 +21,7 @@
     "perfect-scrollbar": "1.5.0",
     "prop-types": "^15.7.2",
     "rc-calendar": "^9.15.11",
+    "rc-rate": "^2.9.0",
     "react": "^16.14.0",
     "react-admin": "^3.9.5",
     "react-bootstrap": "^1.4.0",

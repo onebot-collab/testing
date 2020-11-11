@@ -67,6 +67,11 @@ const getTicketClosed = () => ({
   payload: axios().get(`${URL}api/v1/ticket/closed`),
 })
 
+const getAllTicket = () => ({
+  type: 'ALLTICKET',
+  payload: axios().get(`${URL}api/v1/ticket`),
+})
+
 export {
   createTicket,
   getTicketSent,
@@ -81,4 +86,5 @@ export {
   ticketComment,
   getTicketComment,
   getTicketClosed,
+  getAllTicket,
 }
