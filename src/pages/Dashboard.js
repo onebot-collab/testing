@@ -39,17 +39,17 @@ const DashboardRoutes = [
     layout: '/admin',
   },
   {
-    path: '/announcement',
-    name: 'Announcement',
-    icon: iconAnnouncement,
-    component: Announcement,
-    layout: '/admin',
-  },
-  {
     path: '/attendance',
     name: 'Attendance',
     icon: iconAttendance,
     component: Attendance,
+    layout: '/admin',
+  },
+  {
+    path: '/announcement',
+    name: 'Announcement',
+    icon: iconAnnouncement,
+    component: Announcement,
     layout: '/admin',
   },
   {
