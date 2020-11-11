@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 // react plugin for creating charts
 import ChartistGraph from 'react-chartist'
+import 'chartist/dist/chartist.min.css'
 // @material-ui/core
 import { makeStyles } from '@material-ui/core/styles'
 // import Icon from '@material-ui/core/Icon'
@@ -9,7 +10,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Store from '@material-ui/icons/Store'
 // import Warning from '@material-ui/icons/Warning'
 import Update from '@material-ui/icons/Update'
-import ArrowUpward from '@material-ui/icons/ArrowUpward'
+// import ArrowUpward from '@material-ui/icons/ArrowUpward'
 import AccessTime from '@material-ui/icons/AccessTime'
 import Accessibility from '@material-ui/icons/Accessibility'
 import { connect } from 'react-redux'
@@ -62,9 +63,10 @@ class ActualDashboard extends Component {
                     <CardIcon color="danger">
                       <Store />
                     </CardIcon>
-                    <p className={classes.cardCategory}>Used Space</p>
+                    <p className={classes.cardCategory}>Revenue</p>
                     <h3 className={classes.cardTitle}>
-                      49/50 <small>GB</small>
+                      {/* 49/50 <small>GB</small> */}
+                      00
                     </h3>
                   </CardHeader>
                   <CardFooter stats>
@@ -82,7 +84,7 @@ class ActualDashboard extends Component {
                       <Store />
                     </CardIcon>
                     <p className={classes.cardCategory}>Revenue</p>
-                    <h3 className={classes.cardTitle}>$34,245</h3>
+                    <h3 className={classes.cardTitle}>00</h3>
                   </CardHeader>
                   <CardFooter stats>
                     <div className={classes.stats}>
@@ -98,8 +100,8 @@ class ActualDashboard extends Component {
                     <CardIcon color="danger">
                       <Store />
                     </CardIcon>
-                    <p className={classes.cardCategory}>Fixed Issues</p>
-                    <h3 className={classes.cardTitle}>75</h3>
+                    <p className={classes.cardCategory}>Revenue</p>
+                    <h3 className={classes.cardTitle}>00</h3>
                   </CardHeader>
                   <CardFooter stats>
                     <div className={classes.stats}>
@@ -115,8 +117,8 @@ class ActualDashboard extends Component {
                     <CardIcon color="danger">
                       <Accessibility />
                     </CardIcon>
-                    <p className={classes.cardCategory}>Followers</p>
-                    <h3 className={classes.cardTitle}>+245</h3>
+                    <p className={classes.cardCategory}>Revenue</p>
+                    <h3 className={classes.cardTitle}>00</h3>
                   </CardHeader>
                   <CardFooter stats>
                     <div className={classes.stats}>
@@ -140,13 +142,14 @@ class ActualDashboard extends Component {
                     />
                   </CardHeader>
                   <CardBody>
-                    <h4 className={classes.cardTitle}>Daily Sales</h4>
+                    <h4 className={classes.cardTitle}>Completed Tasks</h4>
                     <p className={classes.cardCategory}>
-                      <span className={classes.successText}>
+                      {/* <span className={classes.successText}>
                         <ArrowUpward className={classes.upArrowCardCategory} />{' '}
                         55%
                       </span>{' '}
-                      increase in today sales.
+                      increase in today sales. */}
+                      Last Campaign Performance
                     </p>
                   </CardBody>
                   <CardFooter chart>
@@ -171,7 +174,7 @@ class ActualDashboard extends Component {
                     />
                   </CardHeader>
                   <CardBody>
-                    <h4 className={classes.cardTitle}>Email Subscriptions</h4>
+                    <h4 className={classes.cardTitle}>Completed Tasks</h4>
                     <p className={classes.cardCategory}>
                       Last Campaign Performance
                     </p>

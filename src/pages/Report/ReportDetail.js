@@ -75,17 +75,20 @@ export default class ReportDetail extends Component {
                     </ListItem>
 
                     <Typography variant="body2" className="paperGridCentre">
-                      Lorem ipsum dolor sit amet, minimum praesent usu ex, te
-                      vim alia veniam. Vix utroque commune disputationi ne.
-                      Dicunt virtute qui an, affert molestie offendit eu qui, at
-                      has repudiare contentiones. Ius in assentior scripserit,
-                      agam constituam ex est. Pro timeam appareat torquatos ad.
-                      In inciderint cotidieque duo. Id sea possit latine
-                      delicata, no est feugiat fuisset. Ut vim prima rebum
-                      iracundia, mei quidam propriae perpetua eu, mel te illum
-                      aeterno recusabo. Id ius unum viris epicurei. Error animal
-                      vel ex, mei te contentiones consequuntur. Veri conceptam
-                      cum eu, melius conceptam percipitur pri at.
+                      <p className="textPrimaryColor">
+                        Lorem ipsum dolor sit amet, minimum praesent usu ex, te
+                        vim alia veniam. Vix utroque commune disputationi ne.
+                        Dicunt virtute qui an, affert molestie offendit eu qui,
+                        at has repudiare contentiones. Ius in assentior
+                        scripserit, agam constituam ex est. Pro timeam appareat
+                        torquatos ad. In inciderint cotidieque duo. Id sea
+                        possit latine delicata, no est feugiat fuisset. Ut vim
+                        prima rebum iracundia, mei quidam propriae perpetua eu,
+                        mel te illum aeterno recusabo. Id ius unum viris
+                        epicurei. Error animal vel ex, mei te contentiones
+                        consequuntur. Veri conceptam cum eu, melius conceptam
+                        percipitur pri at.
+                      </p>
                     </Typography>
                   </Grid>
                   <Grid item xs>

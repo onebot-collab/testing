@@ -132,7 +132,7 @@ export default class PermissionsDetail extends Component {
                     </ListItem>
 
                     <Typography variant="body2" className="paperGridCentre">
-                      {this.state.reason}
+                      <p className="textPrimaryColor">{this.state.reason}</p>
                     </Typography>
                   </Grid>
                   <Grid item xs>
