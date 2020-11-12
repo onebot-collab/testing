@@ -1,10 +1,11 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-useless-constructor */
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react'
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 import './InvoiceDetail.css'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
@@ -37,6 +38,7 @@ import TableRow from '@material-ui/core/TableRow'
 
 // import Check from '@material-ui/icons/Check'
 // core components
+import { listInvoiceItem } from '../../redux/actions/invoice'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -48,13 +50,24 @@ import styles from '../../assets/jss/material-dashboard-react/views/dashboardSty
 // import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
 // import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
-export default class InvoiceDetail extends Component {
+class InvoiceDetail extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      isLoadingFetch: false,
+    }
   }
 
-  componentDidMount() {}
+  fetchItem() {
+    this.setState({ isLoadingFetch: true })
+    this.props.listInvoiceItem(this.props.location.state.id).then(() => {
+      this.setState({ isLoadingFetch: false })
+    })
+  }
+
+  componentDidMount() {
+    this.fetchItem()
+  }
 
   renderEvents() {}
 
@@ -90,7 +103,7 @@ export default class InvoiceDetail extends Component {
                       </TableRow>
                       <TableRow>
                         <TableCell align="center">
-                          <h6>Desc</h6>
+                          <h6>Item</h6>
                         </TableCell>
                         <TableCell />
                         <TableCell align="center">
@@ -103,35 +116,72 @@ export default class InvoiceDetail extends Component {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      <TableRow>
-                        <TableCell align="center">MAC</TableCell>
-                        <TableCell />
-                        <TableCell align="center">4</TableCell>
-                        <TableCell />
-                        <TableCell align="right">Rp .10000000</TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell />
-                        <TableCell />
-                        <TableCell />
-                        <TableCell align="right">
-                          <h6>Subtotal</h6>
-                        </TableCell>
-                        <TableCell align="right">
-                          <h6>Rp 1000000</h6>
-                        </TableCell>
-                      </TableRow>
-                      <TableRow>
-                        <TableCell />
-                        <TableCell />
-                        <TableCell />
-                        <TableCell align="right">
-                          <h6>Total</h6>
-                        </TableCell>
-                        <TableCell align="right">
-                          <h6>Rp 1000000</h6>
-                        </TableCell>
-                      </TableRow>
+                      {this.state.isLoadingFetch ? (
+                        <center>
+                          <div
+                            className="d-flex align-self-center spinner-border text-white mt-2 mb-3"
+                            role="status"
+                          >
+                            <span className="sr-only">Loading...</span>
+                          </div>
+                        </center>
+                      ) : (
+                        <>
+                          {this.props.invoice.dataInvoiceItem.length < 1 ? (
+                            <TableRow>
+                              <TableCell align="center">-</TableCell>
+                              <TableCell />
+                              <TableCell align="center">-</TableCell>
+                              <TableCell />
+                              <TableCell align="right">Rp. -</TableCell>
+                            </TableRow>
+                          ) : (
+                            <>
+                              {this.props.invoice.dataInvoiceItem.map(
+                                (res, i) => (
+                                  <TableRow key={i}>
+                                    <TableCell align="center">
+                                      {res.name}
+                                    </TableCell>
+                                    <TableCell />
+                                    <TableCell align="center">
+                                      {res.qty}
+                                    </TableCell>
+                                    <TableCell />
+                                    <TableCell align="right">
+                                      Rp. {res.price}
+                                    </TableCell>
+                                  </TableRow>
+                                ),
+                              )}
+                            </>
+                          )}
+                          <TableRow>
+                            <TableCell />
+                            <TableCell />
+                            <TableCell />
+                            <TableCell align="right">
+                              <h6>Subtotal</h6>
+                            </TableCell>
+                            <TableCell align="right">
+                              <h6>Rp -</h6>
+                            </TableCell>
+                          </TableRow>
+                          <TableRow>
+                            <TableCell />
+                            <TableCell />
+                            <TableCell />
+                            <TableCell align="right">
+                              <h6>Total</h6>
+                            </TableCell>
+                            <TableCell align="right">
+                              <h6>
+                                Rp {this.props.location.state.total_amount}
+                              </h6>
+                            </TableCell>
+                          </TableRow>
+                        </>
+                      )}
                     </TableBody>
                   </Table>
                   {/* <Grid item xs>
@@ -193,3 +243,10 @@ export default class InvoiceDetail extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  invoice: state.invoice,
+})
+const mapDispatchToProps = { listInvoiceItem }
+
+export default connect(mapStateToProps, mapDispatchToProps)(InvoiceDetail)
