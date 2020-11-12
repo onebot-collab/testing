@@ -40,7 +40,7 @@ import Add from '@material-ui/icons/Add'
 // import Check from '@material-ui/icons/Check'
 
 // redux
-import { getInventoryHome } from '../../redux/actions/inventory'
+import { getInventoryHome, postInventory } from '../../redux/actions/inventory'
 
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -65,15 +65,29 @@ class Inventory extends Component {
     super(props)
     this.state = {
       isLoading: true,
+      // isLoadingAdd: false,
       showAddModal: false,
+      name: '',
+      brand: '',
+      serialNo: '',
+      note: '',
+      expDate: '',
+      fileInventory: '',
     }
     this.toggleAddModal = this.toggleAddModal.bind(this)
+    this.addInventory = this.addInventory.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   fetch() {
     this.props.getInventoryHome().then(() => {
       this.setState({ isLoading: false })
     })
+  }
+
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value })
+    console.log('vvvvvvvvvvvvv', this.state.profilePicture)
   }
 
   redirect() {
@@ -83,6 +97,27 @@ class Inventory extends Component {
   toggleAddModal() {
     this.setState({
       showAddModal: !this.state.showAddModal,
+    })
+  }
+
+  addInventory(e) {
+    e.preventDefault()
+    const expDate = `${this.state.expDate.slice(
+      0,
+      4,
+    )}-${this.state.expDate.slice(5, 7)}-${this.state.expDate.slice(8, 10)}`
+
+    const dataSubmit = new FormData()
+    dataSubmit.append('name', this.state.name)
+    dataSubmit.append('brand', this.state.brand)
+    dataSubmit.append('note', this.state.note)
+    dataSubmit.append('serialno', this.state.serialNo)
+    dataSubmit.append('status', 2)
+    dataSubmit.append('expdate', expDate)
+    dataSubmit.append('fileinventory', this.state.fileInventory)
+
+    this.props.postInventory(dataSubmit).then(() => {
+      this.fetch()
     })
   }
 
@@ -208,7 +243,7 @@ class Inventory extends Component {
                 </GridContainer>
                 {/* Add Modal */}
                 <Modal isOpen={this.state.showAddModal}>
-                  <ModalHeader className="h1">Add Announcement</ModalHeader>
+                  <ModalHeader className="h1">Add Inventory</ModalHeader>
                   <Form>
                     <ModalBody>
                       <h6>Name</h6>
@@ -225,10 +260,10 @@ class Inventory extends Component {
                         className="mb-2 shadow-none"
                         onChange={this.handleChange}
                       />
-                      <h6>Serial Nomor</h6>
+                      <h6>Serial No</h6>
                       <Input
                         type="text"
-                        name="serialNomor"
+                        name="serialNo"
                         className="mb-2 shadow-none"
                         onChange={this.handleChange}
                       />
@@ -243,7 +278,7 @@ class Inventory extends Component {
                       <Input
                         value={this.state.birthDate}
                         type="date"
-                        name="birthDate"
+                        name="expDate"
                         className="mb-2 shadow-none"
                         onChange={this.handleChange}
                       />
@@ -252,7 +287,12 @@ class Inventory extends Component {
                         <CustomInput
                           type="file"
                           id="exampleCustomFileBrowser"
-                          name="profilePicture"
+                          name="fileInventory"
+                          onChange={(e) =>
+                            this.setState({
+                              fileInventory: e.target.files[0],
+                            })
+                          }
                         />
                       </FormGroup>
                     </ModalBody>
@@ -267,10 +307,7 @@ class Inventory extends Component {
                           </div>
                         </Button>
                       ) : (
-                        <Button
-                          color="secondary"
-                          onClick={this.addAnnouncement}
-                        >
+                        <Button color="secondary" onClick={this.addInventory}>
                           Submit
                         </Button>
                       )}
@@ -294,6 +331,6 @@ const mapStateToProps = (state) => ({
   login: state.login,
 })
 
-const mapDispatchToProps = { getInventoryHome }
+const mapDispatchToProps = { getInventoryHome, postInventory }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Inventory)

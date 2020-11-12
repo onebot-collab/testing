@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-useless-constructor */
 /* eslint-disable no-undef */
@@ -9,7 +10,7 @@ import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
 // import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
+// import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import ListItem from '@material-ui/core/ListItem'
@@ -44,7 +45,12 @@ import styles from '../../assets/jss/material-dashboard-react/views/dashboardSty
 export default class ReportDetail extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      nameUser: props.location.state.nameUser,
+      created_at: props.location.state.created_at,
+      nameReport: props.location.state.nameReport,
+      fileName: props.location.state.fileName,
+    }
   }
 
   componentDidMount() {}
@@ -61,34 +67,24 @@ export default class ReportDetail extends Component {
           <GridItem xs={12} sm={12} md={12}>
             <Card>
               <CardHeader color="danger">
-                <h4 className={classes.cardTitleWhite}>Ticketing Detail</h4>
-                <p className={classes.cardCategoryWhite}>11/11/2020</p>
+                <h4 className={classes.cardTitleWhite}>Report Detail</h4>
+                <p className={classes.cardCategoryWhite}>
+                  {this.state.created_at.slice(0, 10)}
+                </p>
               </CardHeader>
               <CardBody>
                 <Grid item xs container direction="column" spacing={2}>
                   <Grid item xs>
                     <ListItem className="listItemWidth">
                       <ListItemText>
-                        <Typography variant="subtitle1">Lorem Ipsum</Typography>
-                        <Typography variant="subtitle1">by John</Typography>
+                        <Typography variant="subtitle1">
+                          by {this.state.nameUser}
+                        </Typography>
                       </ListItemText>
                     </ListItem>
 
                     <Typography variant="body2" className="paperGridCentre">
-                      <p className="textPrimaryColor">
-                        Lorem ipsum dolor sit amet, minimum praesent usu ex, te
-                        vim alia veniam. Vix utroque commune disputationi ne.
-                        Dicunt virtute qui an, affert molestie offendit eu qui,
-                        at has repudiare contentiones. Ius in assentior
-                        scripserit, agam constituam ex est. Pro timeam appareat
-                        torquatos ad. In inciderint cotidieque duo. Id sea
-                        possit latine delicata, no est feugiat fuisset. Ut vim
-                        prima rebum iracundia, mei quidam propriae perpetua eu,
-                        mel te illum aeterno recusabo. Id ius unum viris
-                        epicurei. Error animal vel ex, mei te contentiones
-                        consequuntur. Veri conceptam cum eu, melius conceptam
-                        percipitur pri at.
-                      </p>
+                      {this.state.nameReport}
                     </Typography>
                   </Grid>
                   <Grid item xs>
@@ -97,18 +93,23 @@ export default class ReportDetail extends Component {
                         <ListItemIcon>
                           <Attachment edge="start" />
                         </ListItemIcon>
-                        <ListItemText>file.pdf</ListItemText>
+                        <ListItemText>
+                          {this.state.fileName.replace('report/', '')}
+                        </ListItemText>
                         <ListItemIcon>
-                          <Cancel edge="end" className="CancelColor" />
-                          <CheckCircle
-                            edge="end"
-                            className="CheckCircleColor"
-                          />
+                          {this.state.fileName === 'report/file.pdf' ? (
+                            <Cancel edge="end" className="CancelColor" />
+                          ) : (
+                            <CheckCircle
+                              edge="end"
+                              className="CheckCircleColor"
+                            />
+                          )}
                         </ListItemIcon>
                       </ListItem>
                     </Paper>
                   </Grid>
-                  <Grid item xs>
+                  {/* <Grid item xs>
                     <Button
                       variant="outlined"
                       color="secondary"
@@ -129,7 +130,7 @@ export default class ReportDetail extends Component {
                     >
                       Reject
                     </Button>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </CardBody>
             </Card>
