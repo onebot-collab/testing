@@ -61,35 +61,30 @@ export default class ReportDetail extends Component {
           <GridItem xs={12} sm={12} md={12}>
             <Card>
               <CardHeader color="danger">
-                <h4 className={classes.cardTitleWhite}>Lorem Ipsum</h4>
-                <p className={classes.cardCategoryWhite}>by Charles</p>
+                <h4 className={classes.cardTitleWhite}>
+                  {this.props.location.state.title}
+                </h4>
+                <p className={classes.cardCategoryWhite}>
+                  by {this.props.location.state.createdby_name}
+                </p>
               </CardHeader>
               <CardBody>
                 <Grid item xs container direction="column" spacing={2}>
                   <Grid item xs>
                     <ListItem className="listItemWidth">
                       <ListItemText>
-                        <Typography variant="subtitle1">General</Typography>
                         <Typography variant="subtitle1">
-                          17 Agustus 2020
+                          {this.props.location.state.departmentName}
+                        </Typography>
+                        <Typography variant="subtitle1">
+                          {this.props.location.state.created_at}
                         </Typography>
                       </ListItemText>
                     </ListItem>
 
                     <Typography variant="body2" className="paperGridCentre">
                       <p className="textPrimaryColor">
-                        Lorem ipsum dolor sit amet, minimum praesent usu ex, te
-                        vim alia veniam. Vix utroque commune disputationi ne.
-                        Dicunt virtute qui an, affert molestie offendit eu qui,
-                        at has repudiare contentiones. Ius in assentior
-                        scripserit, agam constituam ex est. Pro timeam appareat
-                        torquatos ad. In inciderint cotidieque duo. Id sea
-                        possit latine delicata, no est feugiat fuisset. Ut vim
-                        prima rebum iracundia, mei quidam propriae perpetua eu,
-                        mel te illum aeterno recusabo. Id ius unum viris
-                        epicurei. Error animal vel ex, mei te contentiones
-                        consequuntur. Veri conceptam cum eu, melius conceptam
-                        percipitur pri at.
+                        {this.props.location.state.description}
                       </p>
                     </Typography>
                   </Grid>
