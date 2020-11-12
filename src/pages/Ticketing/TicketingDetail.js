@@ -111,7 +111,9 @@ class TicketingDetail extends Component {
                       <h6> {this.state.end_date}</h6>
                     </ListItem>
                     <Typography variant="body2" className="paperGridCentre">
-                      {this.state.description}
+                      <p className="textPrimaryColor">
+                        {this.state.description}
+                      </p>
                     </Typography>
                   </Grid>
                   {this.state.isLoading ? (

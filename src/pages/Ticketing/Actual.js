@@ -283,7 +283,7 @@ class Ticketing extends Component {
                                       Solved
                                     </span>
                                   ) : res.statusid === 4 ? (
-                                    <span className="badge badge-pill badge-dark">
+                                    <span className="badge badge-pill badge-light">
                                       Closed
                                     </span>
                                   ) : (
