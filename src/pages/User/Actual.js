@@ -14,6 +14,8 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
+import Tooltip from '@material-ui/core/Tooltip'
+import { Link } from 'react-router-dom'
 // import TextField from '@material-ui/core/TextField'
 // import MenuItem from '@material-ui/core/MenuItem'
 import TablePagination from '@material-ui/core/TablePagination'
@@ -542,7 +544,19 @@ class User extends Component {
                                 </ListItemAvatar>
                                 <ListItemText>{res.name}</ListItemText>
                                 <ListItemSecondaryAction>
-                                  <Visibility edge="end" />
+                                  {/* <Visibility edge="end" /> */}
+                                  <Link to="/admin/dashboard">
+                                    <Tooltip
+                                      id="tooltip-top-start"
+                                      title="Click to Detail Profile"
+                                      placement="top"
+                                    >
+                                      <Visibility
+                                        className="iconWhiteColor"
+                                        edge="end"
+                                      />
+                                    </Tooltip>
+                                  </Link>
                                 </ListItemSecondaryAction>
                               </ListItem>
                             ))}

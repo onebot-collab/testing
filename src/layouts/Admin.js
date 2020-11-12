@@ -35,7 +35,6 @@ import ReportDetail from '../pages/Report/ReportDetail'
 import Ticketing from '../pages/Ticketing/Actual'
 import TicketingDetail from '../pages/Ticketing/TicketingDetail'
 import User from '../pages/User/Actual'
-import IdUser from '../pages/User/IdUser'
 
 import styles from '../assets/jss/material-dashboard-react/layouts/adminStyle'
 
@@ -80,7 +79,6 @@ const switchRoutes = (
     <Route exact path="/admin/ticketing" component={Ticketing} />
     <Route exact path="/admin/ticketing/:id" component={TicketingDetail} />
     <Route exact path="/admin/user" component={User} />
-    <Route exact path="/admin/id-user" component={IdUser} />
   </Switch>
 )
 
@@ -140,7 +138,6 @@ export default function Admin({ ...rest }) {
     <div className={classes.wrapper}>
       <Sidebar
         routes={DashboardRoutes}
-        logoText="ERP"
         logo={logo}
         image={image}
         handleDrawerToggle={handleDrawerToggle}

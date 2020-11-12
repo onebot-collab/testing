@@ -10,7 +10,6 @@ import {
   warningColor,
   dangerColor,
   whiteColor,
-  grayColor,
   blackColor,
   hexToRgb,
 } from '../../material-dashboard-react'
@@ -69,10 +68,8 @@ const sidebarStyle = (theme) => ({
       position: 'absolute',
       bottom: '0',
 
-      height: '1px',
-      right: '15px',
+      height: '5px',
       width: 'calc(100% - 30px)',
-      backgroundColor: `rgba(${hexToRgb(grayColor[6])}, 0.3)`,
     },
   },
   logoLink: {
@@ -101,10 +98,10 @@ const sidebarStyle = (theme) => ({
     marginRight: '15px',
   },
   img: {
-    width: '35px',
-    top: '22px',
+    width: '40%',
+    top: '30px',
     position: 'absolute',
-    verticalAlign: 'middle',
+    alignSelf: 'center',
     border: '0',
   },
   background: {
