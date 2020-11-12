@@ -182,9 +182,24 @@ const completedTasksChart = {
     },
   },
 }
+const reportAttendanceChart = {
+  data: {
+    labels: ['62%', '32%', '6%'],
+    series: [62, 32, 6],
+  },
+  options: {
+    height: '175px',
+    donut: true,
+    donutWidth: 40,
+    donutSolid: true,
+    startAngle: 270,
+    showLabel: true,
+  },
+}
 
 module.exports = {
   dailySalesChart,
   emailsSubscriptionChart,
   completedTasksChart,
+  reportAttendanceChart,
 }
