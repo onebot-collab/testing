@@ -252,7 +252,7 @@ class Inventory extends Component {
                                       placement="top"
                                       classes={{ tooltip: classesBody.tooltip }}
                                     >
-                                      <Visibility className="iconSecondaryColor" />
+                                      <Visibility className="iconWhiteColor" />
                                     </Tooltip>
                                   </TableCell>
                                 </TableRow>

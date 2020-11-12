@@ -84,7 +84,9 @@ export default class ReportDetail extends Component {
                     </ListItem>
 
                     <Typography variant="body2" className="paperGridCentre">
-                      {this.state.nameReport}
+                      <p className="textPrimaryColor">
+                        {this.state.nameReport}
+                      </p>
                     </Typography>
                   </Grid>
                   <Grid item xs>

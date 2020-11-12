@@ -153,7 +153,9 @@ class TicketingDetail extends Component {
                                 variant="body2"
                                 className="paperGridCentre"
                               >
-                                No Feedback Available
+                                <p className="textPrimaryColor">
+                                  No Feedback Available
+                                </p>
                               </Typography>
                             </Grid>
                           </Paper>
@@ -185,11 +187,13 @@ class TicketingDetail extends Component {
                                 variant="body2"
                                 className="paperGridCentre"
                               >
-                                {this.props.ticket.dataTicketScore[0]
-                                  .feedback === ''
-                                  ? 'No Feedback Available'
-                                  : this.props.ticket.dataTicketScore[0]
-                                      .feedback}
+                                <p className="textPrimaryColor">
+                                  {this.props.ticket.dataTicketScore[0]
+                                    .feedback === ''
+                                    ? 'No Feedback Available'
+                                    : this.props.ticket.dataTicketScore[0]
+                                        .feedback}
+                                </p>
                               </Typography>
                             </Grid>
                           </Paper>

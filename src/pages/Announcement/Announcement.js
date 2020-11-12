@@ -18,8 +18,8 @@ import TableRow from '@material-ui/core/TableRow'
 
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
-// import Delete from '@material-ui/icons/Delete'
-import Edit from '@material-ui/icons/Edit'
+import Visibility from '@material-ui/icons/Visibility'
+// import Edit from '@material-ui/icons/Edit'
 import Close from '@material-ui/icons/Close'
 import { connect } from 'react-redux'
 import Add from '@material-ui/icons/Add'
@@ -298,7 +298,7 @@ class AnnouncementDetail extends Component {
                                             },
                                           }}
                                         >
-                                          <Edit className="iconWhiteColor" />
+                                          <Visibility className="iconWhiteColor" />
                                         </Link>
                                       </IconButton>
                                     </Tooltip>
