@@ -11,11 +11,17 @@ import { makeStyles } from '@material-ui/core/styles'
 // import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
 // import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
+// import Typography from '@material-ui/core/Typography'
+// import Paper from '@material-ui/core/Paper'
+// import ListItem from '@material-ui/core/ListItem'
+// import ListItemIcon from '@material-ui/core/ListItemIcon'
+// import ListItemText from '@material-ui/core/ListItemText'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+// import TableContainer from '@material-ui/core/TableContainer'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
 // import { Link } from 'react-router-dom'
 
 // @material-ui/icons
@@ -25,9 +31,9 @@ import ListItemText from '@material-ui/core/ListItemText'
 // import Apartment from '@material-ui/icons/Apartment'
 // import AssignmentInd from '@material-ui/icons/AssignmentInd'
 // import Assignment from '@material-ui/icons/Assignment'
-import Attachment from '@material-ui/icons/Attachment'
-import CheckCircle from '@material-ui/icons/CheckCircle'
-import Cancel from '@material-ui/icons/Cancel'
+// import Attachment from '@material-ui/icons/Attachment'
+// import CheckCircle from '@material-ui/icons/CheckCircle'
+// import Cancel from '@material-ui/icons/Cancel'
 
 // import Check from '@material-ui/icons/Check'
 // core components
@@ -71,7 +77,64 @@ export default class InvoiceDetail extends Component {
               </CardHeader>
               <CardBody>
                 <Grid item xs container direction="column" spacing={2}>
-                  <Grid item xs>
+                  <Table aria-label="spanning table">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell align="center" colSpan={3}>
+                          <h5>Details</h5>
+                        </TableCell>
+                        <TableCell />
+                        <TableCell align="right">
+                          <h5>Price</h5>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell align="center">
+                          <h6>Desc</h6>
+                        </TableCell>
+                        <TableCell />
+                        <TableCell align="center">
+                          <h6>Qty</h6>
+                        </TableCell>
+                        <TableCell />
+                        <TableCell align="right">
+                          <h6>Sum</h6>
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell align="center">MAC</TableCell>
+                        <TableCell />
+                        <TableCell align="center">4</TableCell>
+                        <TableCell />
+                        <TableCell align="right">Rp .10000000</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell />
+                        <TableCell />
+                        <TableCell />
+                        <TableCell align="right">
+                          <h6>Subtotal</h6>
+                        </TableCell>
+                        <TableCell align="right">
+                          <h6>Rp 1000000</h6>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell />
+                        <TableCell />
+                        <TableCell />
+                        <TableCell align="right">
+                          <h6>Total</h6>
+                        </TableCell>
+                        <TableCell align="right">
+                          <h6>Rp 1000000</h6>
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                  {/* <Grid item xs>
                     <ListItem className="listItemWidth">
                       <ListItemText>
                         <Typography variant="subtitle1">Item List</Typography>
@@ -98,7 +161,7 @@ export default class InvoiceDetail extends Component {
                         </ListItemIcon>
                       </ListItem>
                     </Paper>
-                  </Grid>
+                  </Grid> */}
                   {/* <Grid item xs>
                     <Button
                       variant="outlined"
