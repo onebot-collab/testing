@@ -545,7 +545,7 @@ class User extends Component {
                                 <ListItemText>{res.name}</ListItemText>
                                 <ListItemSecondaryAction>
                                   {/* <Visibility edge="end" /> */}
-                                  <Link to="/admin/dashboard">
+                                  <Link to="/admin/user/detail">
                                     <Tooltip
                                       id="tooltip-top-start"
                                       title="Click to Detail Profile"

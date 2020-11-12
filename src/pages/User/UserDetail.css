@@ -1,0 +1,42 @@
+.cardCategoryWhite {
+    color: rgba(255,255,255,.62);
+    margin: 0;
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.cardTitleWhite {
+    color: white;
+    margin-top: 0;
+    min-height: auto;
+    font-weight: 300;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    margin-bottom: 3px;
+    text-decoration: none;
+}
+.cardCategoryGrey {
+    color: dimgray;
+    margin: 0;
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.cardTitleGrey {
+    color: dimgray;
+    margin-top: 0;
+    min-height: auto;
+    font-weight: 300;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    margin-bottom: 3px;
+    text-decoration: none;
+}
+.fieldGridContainer {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.listContactRow {
+    width: 100%;
+}
+.textFieldWidth {
+    width: 100%;
+}
