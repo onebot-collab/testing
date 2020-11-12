@@ -124,100 +124,100 @@ class CalendarScreen extends Component {
   render() {
     return (
       <div>
-        {/* {!this.props.login.token ? (
+        {!this.props.login.token ? (
           <>{this.redirect()}</>
         ) : (
-          <> */}
-        <Button
-          onClick={this.toggleAddModal}
-          variant="contained"
-          color="primary"
-          // className="buttonAdd"
-          startIcon={<Add />}
-        >
-          Add
-        </Button>
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={8}>
-            <Card>
-              <CardHeader color="danger">
-                <h4 className="cardTitleWhite">Event</h4>
-                {/* <p className="cardCategoryWhite">by Admin</p> */}
-              </CardHeader>
-              <CardBody></CardBody>
-              <CardFooter></CardFooter>
-            </Card>
-          </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
-            <Card profile>
-              <CardHeader color="danger">
-                <h4 className="cardTitleWhite">Calendar</h4>
-                {/* <p className="cardCategoryWhite">by Admin</p> */}
-              </CardHeader>
-              <CardBody>
-                <Calendar
-                  className="widthCalendarRight"
-                  onChange={this.onChange}
-                  value={this.state.date}
-                  onDateChange={this.onDateChange}
-                />
-              </CardBody>
-            </Card>
-          </GridItem>
-        </GridContainer>
-        {/* Add Modal */}
-        <Modal isOpen={this.state.showAddModal}>
-          <ModalHeader className="h1">Add Event</ModalHeader>
-          <Form>
-            <ModalBody>
-              <h6>Title</h6>
-              <Input
-                type="text"
-                name="title"
-                className="mb-2 shadow-none"
-                onChange={this.handleChange}
-              />
-              <h6>Description</h6>
-              <Input
-                type="textarea"
-                name="description"
-                className="mb-2 shadow-none"
-                onChange={this.handleChange}
-              />
-              <h6>Date</h6>
-              <Input
-                value={this.state.birthDate}
-                type="date"
-                name="dateAdd"
-                className="mb-2 shadow-none"
-                onChange={this.handleChange}
-              />
-              <h6>Type</h6>
-              <Select onChange={this.handleTypeChange} options={options} />
-            </ModalBody>
-            <ModalFooter>
-              {this.state.isLoadingAddReminder ? (
-                <Button color="primary">
-                  <div
-                    className="spinner-border spinner-border-sm text-danger"
-                    role="status"
-                  >
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                </Button>
-              ) : (
-                <Button color="secondary" onClick={this.addReminder}>
-                  Submit
-                </Button>
-              )}
-              <Button color="secondary" onClick={this.toggleAddModal}>
-                Cancel
-              </Button>
-            </ModalFooter>
-          </Form>
-        </Modal>
-        {/* </>
-        )} */}
+          <>
+            <Button
+              onClick={this.toggleAddModal}
+              variant="contained"
+              color="primary"
+              // className="buttonAdd"
+              startIcon={<Add />}
+            >
+              Add
+            </Button>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={8}>
+                <Card>
+                  <CardHeader color="danger">
+                    <h4 className="cardTitleWhite">Event</h4>
+                    {/* <p className="cardCategoryWhite">by Admin</p> */}
+                  </CardHeader>
+                  <CardBody></CardBody>
+                  <CardFooter></CardFooter>
+                </Card>
+              </GridItem>
+              <GridItem xs={12} sm={12} md={4}>
+                <Card profile>
+                  <CardHeader color="danger">
+                    <h4 className="cardTitleWhite">Calendar</h4>
+                    {/* <p className="cardCategoryWhite">by Admin</p> */}
+                  </CardHeader>
+                  <CardBody>
+                    <Calendar
+                      className="widthCalendarRight"
+                      onChange={this.onChange}
+                      value={this.state.date}
+                      onDateChange={this.onDateChange}
+                    />
+                  </CardBody>
+                </Card>
+              </GridItem>
+            </GridContainer>
+            {/* Add Modal */}
+            <Modal isOpen={this.state.showAddModal}>
+              <ModalHeader className="h1">Add Event</ModalHeader>
+              <Form>
+                <ModalBody>
+                  <h6>Title</h6>
+                  <Input
+                    type="text"
+                    name="title"
+                    className="mb-2 shadow-none"
+                    onChange={this.handleChange}
+                  />
+                  <h6>Description</h6>
+                  <Input
+                    type="textarea"
+                    name="description"
+                    className="mb-2 shadow-none"
+                    onChange={this.handleChange}
+                  />
+                  <h6>Date</h6>
+                  <Input
+                    value={this.state.birthDate}
+                    type="date"
+                    name="dateAdd"
+                    className="mb-2 shadow-none"
+                    onChange={this.handleChange}
+                  />
+                  <h6>Type</h6>
+                  <Select onChange={this.handleTypeChange} options={options} />
+                </ModalBody>
+                <ModalFooter>
+                  {this.state.isLoadingAddReminder ? (
+                    <Button color="primary">
+                      <div
+                        className="spinner-border spinner-border-sm text-danger"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    </Button>
+                  ) : (
+                    <Button color="secondary" onClick={this.addReminder}>
+                      Submit
+                    </Button>
+                  )}
+                  <Button color="secondary" onClick={this.toggleAddModal}>
+                    Cancel
+                  </Button>
+                </ModalFooter>
+              </Form>
+            </Modal>
+          </>
+        )}
       </div>
     )
   }
@@ -225,6 +225,7 @@ class CalendarScreen extends Component {
 
 const mapStateToProps = (state) => ({
   reminder: state.reminder,
+  login: state.login,
 })
 const mapDispatchToProps = { createReminder }
 
