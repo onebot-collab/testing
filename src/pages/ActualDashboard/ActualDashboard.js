@@ -28,6 +28,7 @@ import {
   dailySalesChart,
   emailsSubscriptionChart,
   completedTasksChart,
+  reportAttendanceChart,
 } from '../../variables/charts'
 
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
@@ -208,6 +209,47 @@ class ActualDashboard extends Component {
                       <AccessTime /> updated 1 minutes ago
                     </div>
                   </CardFooter>
+                </Card>
+              </GridItem>
+            </GridContainer>
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={4}>
+                <Card chart>
+                  <CardHeader color="danger"></CardHeader>
+                  <CardBody>
+                    <ChartistGraph
+                      data={reportAttendanceChart.data}
+                      type="Pie"
+                      options={reportAttendanceChart.options}
+                    />
+                  </CardBody>
+                  <CardFooter chart></CardFooter>
+                </Card>
+              </GridItem>
+              <GridItem xs={12} sm={12} md={4}>
+                <Card chart>
+                  <CardHeader color="danger"></CardHeader>
+                  <CardBody>
+                    <ChartistGraph
+                      data={reportAttendanceChart.data}
+                      type="Pie"
+                      options={reportAttendanceChart.options}
+                    />
+                  </CardBody>
+                  <CardFooter chart></CardFooter>
+                </Card>
+              </GridItem>
+              <GridItem xs={12} sm={12} md={4}>
+                <Card chart>
+                  <CardHeader color="danger"></CardHeader>
+                  <CardBody>
+                    <ChartistGraph
+                      data={reportAttendanceChart.data}
+                      type="Pie"
+                      options={reportAttendanceChart.options}
+                    />
+                  </CardBody>
+                  <CardFooter chart></CardFooter>
                 </Card>
               </GridItem>
             </GridContainer>
