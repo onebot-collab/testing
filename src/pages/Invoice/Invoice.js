@@ -204,6 +204,7 @@ class Invoice extends Component {
                                               invoice_no: `${res.invoice_no}`,
                                               requestname: `${res.requestname}`,
                                               note: `${res.note}`,
+                                              total_amount: `${res.total_amount}`,
                                             },
                                           }}
                                         >
@@ -385,7 +386,18 @@ class Invoice extends Component {
                                       <TableCell
                                         className={classesBody.tableActions}
                                       >
-                                        <Link to="/admin/invoice/detail">
+                                        <Link
+                                          to={{
+                                            pathname: `/admin/invoice/${res.id}`,
+                                            state: {
+                                              id: `${res.id}`,
+                                              invoice_no: `${res.invoice_no}`,
+                                              requestname: `${res.requestname}`,
+                                              note: `${res.note}`,
+                                              total_amount: `${res.total_amount}`,
+                                            },
+                                          }}
+                                        >
                                           <Tooltip
                                             id="tooltip-top-start"
                                             title="Click to Detail"
@@ -554,7 +566,18 @@ class Invoice extends Component {
                                       <TableCell
                                         className={classesBody.tableActions}
                                       >
-                                        <Link to="/admin/invoice/detail">
+                                        <Link
+                                          to={{
+                                            pathname: `/admin/invoice/${res.id}`,
+                                            state: {
+                                              id: `${res.id}`,
+                                              invoice_no: `${res.invoice_no}`,
+                                              requestname: `${res.requestname}`,
+                                              note: `${res.note}`,
+                                              total_amount: `${res.total_amount}`,
+                                            },
+                                          }}
+                                        >
                                           <Tooltip
                                             id="tooltip-top-start"
                                             title="Click to Detail"
@@ -723,7 +746,18 @@ class Invoice extends Component {
                                       <TableCell
                                         className={classesBody.tableActions}
                                       >
-                                        <Link to="/admin/invoice/detail">
+                                        <Link
+                                          to={{
+                                            pathname: `/admin/invoice/${res.id}`,
+                                            state: {
+                                              id: `${res.id}`,
+                                              invoice_no: `${res.invoice_no}`,
+                                              requestname: `${res.requestname}`,
+                                              note: `${res.note}`,
+                                              total_amount: `${res.total_amount}`,
+                                            },
+                                          }}
+                                        >
                                           <Tooltip
                                             id="tooltip-top-start"
                                             title="Click to Detail"
@@ -892,7 +926,18 @@ class Invoice extends Component {
                                       <TableCell
                                         className={classesBody.tableActions}
                                       >
-                                        <Link to="/admin/invoice/detail">
+                                        <Link
+                                          to={{
+                                            pathname: `/admin/invoice/${res.id}`,
+                                            state: {
+                                              id: `${res.id}`,
+                                              invoice_no: `${res.invoice_no}`,
+                                              requestname: `${res.requestname}`,
+                                              note: `${res.note}`,
+                                              total_amount: `${res.total_amount}`,
+                                            },
+                                          }}
+                                        >
                                           <Tooltip
                                             id="tooltip-top-start"
                                             title="Click to Detail"
