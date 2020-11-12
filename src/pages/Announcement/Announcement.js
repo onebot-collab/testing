@@ -6,7 +6,7 @@
 import React, { Component } from 'react'
 // import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 import Table from '@material-ui/core/Table'
@@ -60,7 +60,7 @@ const options = [
   { value: 3, label: 'Networking' },
 ]
 
-class Announcement extends Component {
+class AnnouncementDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -285,7 +285,9 @@ class Announcement extends Component {
                                           classesBody.tableActionButton
                                         }
                                       >
-                                        <Edit className="iconWhiteColor" />
+                                        <Link to="/admin/announcement/detail">
+                                          <Edit className="iconWhiteColor" />
+                                        </Link>
                                       </IconButton>
                                     </Tooltip>
                                     <Tooltip
@@ -395,4 +397,4 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = { getAllCampaign, deleteCampaign, postCampaign }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Announcement)
+export default connect(mapStateToProps, mapDispatchToProps)(AnnouncementDetail)
