@@ -30,6 +30,7 @@ import {
   Input,
   CustomInput,
 } from 'reactstrap'
+import swal from 'sweetalert2'
 
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
@@ -65,7 +66,7 @@ class Inventory extends Component {
     super(props)
     this.state = {
       isLoading: true,
-      // isLoadingAdd: false,
+      isLoadingAddInventory: false,
       showAddModal: false,
       name: '',
       brand: '',
@@ -87,7 +88,6 @@ class Inventory extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
-    console.log('vvvvvvvvvvvvv', this.state.profilePicture)
   }
 
   redirect() {
@@ -100,8 +100,8 @@ class Inventory extends Component {
     })
   }
 
-  addInventory(e) {
-    e.preventDefault()
+  addInventory() {
+    this.setState({ isLoadingAddInventory: true })
     const expDate = `${this.state.expDate.slice(
       0,
       4,
@@ -116,9 +116,32 @@ class Inventory extends Component {
     dataSubmit.append('expdate', expDate)
     dataSubmit.append('fileinventory', this.state.fileInventory)
 
-    this.props.postInventory(dataSubmit).then(() => {
-      this.fetch()
-    })
+    this.props
+      .postInventory(dataSubmit)
+      .then(() => {
+        this.fetch()
+        this.setState({
+          isLoadingAddInventory: false,
+          showAddModal: false,
+          name: '',
+          brand: '',
+          note: '',
+          serialNo: '',
+          fileInventory: '',
+        })
+        swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Inventory successfully created',
+        })
+      })
+      .catch(() => {
+        swal.fire({
+          icon: 'error',
+          title: 'Failed',
+          text: 'Failed to create inventory',
+        })
+      })
   }
 
   componentDidMount() {
@@ -297,7 +320,7 @@ class Inventory extends Component {
                       </FormGroup>
                     </ModalBody>
                     <ModalFooter>
-                      {this.state.isLoadingAddCampaign ? (
+                      {this.state.isLoadingAddInventory ? (
                         <Button color="primary">
                           <div
                             className="spinner-border spinner-border-sm text-danger"

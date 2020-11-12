@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import moment from 'react-moment'
 import Calendar from 'react-calendar'
 import Select from 'react-select'
+import swal from 'sweetalert2'
 import {
   Form,
   Modal,
@@ -47,6 +48,7 @@ class CalendarScreen extends Component {
       dateAdd: '',
       description: '',
       type: 0,
+      isLoadingAddReminder: false,
     }
     this.onChange = this.onChange.bind(this)
     this.toggleAddModal = this.toggleAddModal.bind(this)
@@ -77,6 +79,7 @@ class CalendarScreen extends Component {
   }
 
   addReminder() {
+    this.setState({ isLoadingAddReminder: true })
     const dataSubmit = {
       title: this.state.title,
       date: this.state.dateAdd,
@@ -84,9 +87,30 @@ class CalendarScreen extends Component {
       type: this.state.type,
     }
 
-    this.props.createReminder(dataSubmit).then(() => {
-      this.setState({ showAddModal: false })
-    })
+    this.props
+      .createReminder(dataSubmit)
+      .then(() => {
+        this.setState({
+          showAddModal: false,
+          isLoadingAddReminder: false,
+          title: '',
+          dateAdd: '',
+          description: '',
+          type: 0,
+        })
+        swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Event successfully created',
+        })
+      })
+      .catch(() => {
+        swal.fire({
+          icon: 'error',
+          title: 'Failed',
+          text: 'Failed to create event',
+        })
+      })
   }
 
   toggleAddModal() {
@@ -172,7 +196,7 @@ class CalendarScreen extends Component {
               <Select onChange={this.handleTypeChange} options={options} />
             </ModalBody>
             <ModalFooter>
-              {this.state.isLoadingAddCampaign ? (
+              {this.state.isLoadingAddReminder ? (
                 <Button color="primary">
                   <div
                     className="spinner-border spinner-border-sm text-danger"

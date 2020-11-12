@@ -68,8 +68,12 @@ export default class InvoiceDetail extends Component {
           <GridItem xs={12} sm={12} md={12}>
             <Card>
               <CardHeader color="danger">
-                <h4 className={classes.cardTitleWhite}>01-GMI-2020</h4>
-                <p className={classes.cardCategoryWhite}>by Charles</p>
+                <h4 className={classes.cardTitleWhite}>
+                  {this.props.location.state.invoice_no}
+                </h4>
+                <p className={classes.cardCategoryWhite}>
+                  by {this.props.location.state.requestname}
+                </p>
               </CardHeader>
               <CardBody>
                 <Grid item xs container direction="column" spacing={2}>
@@ -138,7 +142,7 @@ export default class InvoiceDetail extends Component {
                     </ListItem>
 
                     <Typography variant="body2" className="textPrimaryColor">
-                      Lorem ipsum
+                      {this.props.location.state.note}
                     </Typography>
                   </Grid>
                   <Grid item xs>
