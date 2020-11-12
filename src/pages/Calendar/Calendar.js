@@ -3,7 +3,8 @@
 /* eslint-disable react/no-access-state-in-setstate */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/core/styles'
+import { Link } from 'react-router-dom'
 import moment from 'react-moment'
 import Calendar from 'react-calendar'
 import Select from 'react-select'
@@ -21,8 +22,18 @@ import 'react-calendar/dist/Calendar.css'
 import 'react-pro-sidebar/dist/css/styles.css'
 // @material-ui/core components
 import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import Tooltip from '@material-ui/core/Tooltip'
+import Table from '@material-ui/core/Table'
+import TableHead from '@material-ui/core/TableHead'
+import TableCell from '@material-ui/core/TableCell'
+import TableBody from '@material-ui/core/TableBody'
+import TableRow from '@material-ui/core/TableRow'
 // @material-ui/icons components
 import Add from '@material-ui/icons/Add'
+import Visibility from '@material-ui/icons/Visibility'
+import ArrowLeft from '@material-ui/icons/ArrowLeft'
+import ArrowRight from '@material-ui/icons/ArrowRight'
 // core components
 import { createReminder } from '../../redux/actions/reminder'
 import GridItem from '../../components/Grid/GridItem'
@@ -31,6 +42,11 @@ import Card from '../../components/Card/Card'
 import CardHeader from '../../components/Card/CardHeader'
 import CardBody from '../../components/Card/CardBody'
 import CardFooter from '../../components/Card/CardFooter'
+
+// core components
+import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
+import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
+import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
 const options = [
   { value: 1, label: 'Once' },
@@ -122,6 +138,9 @@ class CalendarScreen extends Component {
   componentDidMount() {}
 
   render() {
+    const classes = makeStyles(styles)
+    const classesHead = makeStyles(stylesHead)
+    const classesBody = makeStyles(stylesBody)
     return (
       <div>
         {!this.props.login.token ? (
@@ -144,7 +163,77 @@ class CalendarScreen extends Component {
                     <h4 className="cardTitleWhite">Event</h4>
                     {/* <p className="cardCategoryWhite">by Admin</p> */}
                   </CardHeader>
-                  <CardBody></CardBody>
+                  <CardBody>
+                    <Table className={classesHead.table}>
+                      <TableHead>
+                        <TableRow>
+                          <TableCell component="th">
+                            <h6 className="textPrimaryColor">Title</h6>
+                          </TableCell>
+                          <TableCell component="th">
+                            <h6 className="textPrimaryColor">Description</h6>
+                          </TableCell>
+                          <TableCell component="th">
+                            <h6 className="textPrimaryColor">Date</h6>
+                          </TableCell>
+                          <TableCell component="th">
+                            <h6 className="textPrimaryColor">Action</h6>
+                          </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        <TableRow className={classes.tableRow}>
+                          <TableCell component="th">
+                            <p className="textPrimaryColor">Title</p>
+                          </TableCell>
+                          <TableCell component="th">
+                            <p className="textPrimaryColor">Desc</p>
+                          </TableCell>
+                          <TableCell component="th">
+                            <p className="textPrimaryColor">17 Agustus 1945</p>
+                          </TableCell>
+                          <TableCell className={classesBody.tableActions}>
+                            <Tooltip
+                              id="tooltip-top"
+                              title="Edit Task"
+                              placement="top"
+                              classes={{ tooltip: classesBody.tooltip }}
+                            >
+                              <IconButton
+                                aria-label="Edit"
+                                className={classesBody.tableActionButton}
+                              >
+                                <Link to="/admin/calendar/detail">
+                                  <Visibility className="iconWhiteColor" />
+                                </Link>
+                              </IconButton>
+                            </Tooltip>
+                          </TableCell>
+                        </TableRow>
+                      </TableBody>
+                    </Table>
+                    <div className="d-flex flex-row justify-content-end">
+                      <div className="p-2 d-flex align-items-center align-self-center">
+                        <h6>1 - 5 of 20</h6>
+                      </div>
+                      <div className="p-2">
+                        <IconButton>
+                          <ArrowLeft
+                            className="iconWhiteColor"
+                            fontSize="large"
+                          />
+                        </IconButton>
+                      </div>
+                      <div className="p-2">
+                        <IconButton>
+                          <ArrowRight
+                            className="iconWhiteColor"
+                            fontSize="large"
+                          />
+                        </IconButton>
+                      </div>
+                    </div>
+                  </CardBody>
                   <CardFooter></CardFooter>
                 </Card>
               </GridItem>

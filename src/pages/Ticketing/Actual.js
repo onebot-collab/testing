@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import { makeStyles } from '@material-ui/core/styles'
 import './Actual.css'
 // import Icon from '@material-ui/core/Icon'
-// import IconButton from '@material-ui/core/IconButton'
+import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 // import Badge from '@material-ui/core/Badge'
 import Button from '@material-ui/core/Button'
@@ -27,6 +27,8 @@ import CheckCircle from '@material-ui/icons/CheckCircle'
 import Cancel from '@material-ui/icons/Cancel'
 import Visibility from '@material-ui/icons/Visibility'
 import Accessibility from '@material-ui/icons/Accessibility'
+import ArrowLeft from '@material-ui/icons/ArrowLeft'
+import ArrowRight from '@material-ui/icons/ArrowRight'
 
 // Add Reactstrap
 import {
@@ -357,6 +359,27 @@ class Ticketing extends Component {
                             ))}
                           </TableBody>
                         </Table>
+                        <div className="d-flex flex-row justify-content-end">
+                          <div className="p-2 d-flex align-items-center align-self-center">
+                            <h6>1 - 5 of 20</h6>
+                          </div>
+                          <div className="p-2">
+                            <IconButton>
+                              <ArrowLeft
+                                className="iconWhiteColor"
+                                fontSize="large"
+                              />
+                            </IconButton>
+                          </div>
+                          <div className="p-2">
+                            <IconButton>
+                              <ArrowRight
+                                className="iconWhiteColor"
+                                fontSize="large"
+                              />
+                            </IconButton>
+                          </div>
+                        </div>
                       </CardBody>
                     </>
                   )}

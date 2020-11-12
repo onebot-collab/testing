@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
 // import { Link } from 'react-router-dom'
-// import IconButton from '@material-ui/core/IconButton'
+import IconButton from '@material-ui/core/IconButton'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -35,6 +35,8 @@ import swal from 'sweetalert2'
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
 import { Visibility } from '@material-ui/icons'
+import ArrowLeft from '@material-ui/icons/ArrowLeft'
+import ArrowRight from '@material-ui/icons/ArrowRight'
 import Add from '@material-ui/icons/Add'
 // import Delete from '@material-ui/icons/Delete'
 
@@ -260,6 +262,27 @@ class Inventory extends Component {
                             )}
                           </TableBody>
                         </Table>
+                        <div className="d-flex flex-row justify-content-end">
+                          <div className="p-2 d-flex align-items-center align-self-center">
+                            <h6>1 - 5 of 20</h6>
+                          </div>
+                          <div className="p-2">
+                            <IconButton>
+                              <ArrowLeft
+                                className="iconWhiteColor"
+                                fontSize="large"
+                              />
+                            </IconButton>
+                          </div>
+                          <div className="p-2">
+                            <IconButton>
+                              <ArrowRight
+                                className="iconWhiteColor"
+                                fontSize="large"
+                              />
+                            </IconButton>
+                          </div>
+                        </div>
                       </CardBody>
                     </Card>
                   </GridItem>
