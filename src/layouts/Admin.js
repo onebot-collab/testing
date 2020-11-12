@@ -80,7 +80,7 @@ const switchRoutes = (
     <Route exact path="/admin/ticketing" component={Ticketing} />
     <Route exact path="/admin/ticketing/:id" component={TicketingDetail} />
     <Route exact path="/admin/user" component={User} />
-    <Route exact path="/admin/user/detail" component={UserDetail} />
+    <Route exact path="/admin/user/:id" component={UserDetail} />
   </Switch>
 )
 

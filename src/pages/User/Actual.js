@@ -68,7 +68,6 @@ class User extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
-    console.log('vvvvvvvvvvvvv', this.state.profilePicture)
   }
 
   fetch() {
@@ -545,7 +544,14 @@ class User extends Component {
                                 <ListItemText>{res.name}</ListItemText>
                                 <ListItemSecondaryAction>
                                   {/* <Visibility edge="end" /> */}
-                                  <Link to="/admin/user/detail">
+                                  <Link
+                                    to={{
+                                      pathname: `/admin/user/${res.id}`,
+                                      state: {
+                                        id: `${res.id}`,
+                                      },
+                                    }}
+                                  >
                                     <Tooltip
                                       id="tooltip-top-start"
                                       title="Click to Detail Profile"
