@@ -27,6 +27,7 @@ import IdUserAttendance from '../pages/Attendance/IdUser'
 import CalendarScreen from '../pages/Calendar/Calendar'
 import Inventory from '../pages/Inventory/Inventory'
 import Invoice from '../pages/Invoice/Invoice'
+import InvoiceDetail from '../pages/Invoice/InvoiceDetail'
 import Permissions from '../pages/Permissions/Permissions'
 import PermissionsDetail from '../pages/Permissions/PermissionsDetail'
 import Report from '../pages/Report/Report'
@@ -71,6 +72,7 @@ const switchRoutes = (
     <Route exact path="/admin/calendar" component={CalendarScreen} />
     <Route exact path="/admin/inventory" component={Inventory} />
     <Route exact path="/admin/invoice" component={Invoice} />
+    <Route exact path="/admin/invoice/detail" component={InvoiceDetail} />
     <Route exact path="/admin/permissions" component={Permissions} />
     <Route exact path="/admin/permissions/:id" component={PermissionsDetail} />
     <Route exact path="/admin/report" component={Report} />

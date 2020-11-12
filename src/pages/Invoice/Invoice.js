@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import './Invoice.css'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 // import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 // import Badge from '@material-ui/core/Badge'
@@ -198,16 +198,18 @@ class Invoice extends Component {
                                       <TableCell
                                         className={classesBody.tableActions}
                                       >
-                                        <Tooltip
-                                          id="tooltip-top-start"
-                                          title="Click to Detail"
-                                          placement="top"
-                                          classes={{
-                                            tooltip: classesBody.tooltip,
-                                          }}
-                                        >
-                                          <Visibility className="iconWhiteColor" />
-                                        </Tooltip>
+                                        <Link to="/admin/invoice/detail">
+                                          <Tooltip
+                                            id="tooltip-top-start"
+                                            title="Click to Detail"
+                                            placement="top"
+                                            classes={{
+                                              tooltip: classesBody.tooltip,
+                                            }}
+                                          >
+                                            <Visibility className="iconWhiteColor" />
+                                          </Tooltip>
+                                        </Link>
                                       </TableCell>
                                     </TableRow>
                                   )}
