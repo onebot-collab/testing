@@ -285,7 +285,19 @@ class AnnouncementDetail extends Component {
                                           classesBody.tableActionButton
                                         }
                                       >
-                                        <Link to="/admin/announcement/detail">
+                                        <Link
+                                          to={{
+                                            pathname: `/admin/announcement/${campaign.id}`,
+                                            state: {
+                                              id: `${campaign.id}`,
+                                              createdby_name: `${campaign.createdby_name}`,
+                                              title: `${campaign.title}`,
+                                              description: `${campaign.description}`,
+                                              departmentName: `${campaign.departmentName}`,
+                                              created_at: `${campaign.created_at}`,
+                                            },
+                                          }}
+                                        >
                                           <Edit className="iconWhiteColor" />
                                         </Link>
                                       </IconButton>

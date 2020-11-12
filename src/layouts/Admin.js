@@ -65,7 +65,7 @@ const switchRoutes = (
   <Switch>
     <Route exact path="/admin/dashboard" component={ActualDashboard} />
     <Route exact path="/admin/announcement" component={Announcement} />
-    <Route exact path="/admin/announcement/detail" component={AnnouncementDetail} />
+    <Route exact path="/admin/announcement/:id" component={AnnouncementDetail} />
     <Route exact path="/admin/attendance" component={Attendance} />
     <Route exact path="/admin/id-attendance" component={IdUserAttendance} />
     <Route exact path="/admin/calendar" component={CalendarScreen} />
