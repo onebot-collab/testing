@@ -21,6 +21,7 @@ import DashboardRoutes from '../pages/Dashboard'
 // core components/views for routes
 import ActualDashboard from '../pages/ActualDashboard/ActualDashboard'
 import Announcement from '../pages/Announcement/Announcement'
+import AnnouncementDetail from '../pages/Announcement/AnnouncementDetail'
 import Attendance from '../pages/Attendance/Actual'
 import IdUserAttendance from '../pages/Attendance/IdUser'
 import CalendarScreen from '../pages/Calendar/Calendar'
@@ -64,6 +65,7 @@ const switchRoutes = (
   <Switch>
     <Route exact path="/admin/dashboard" component={ActualDashboard} />
     <Route exact path="/admin/announcement" component={Announcement} />
+    <Route exact path="/admin/announcement/detail" component={AnnouncementDetail} />
     <Route exact path="/admin/attendance" component={Attendance} />
     <Route exact path="/admin/id-attendance" component={IdUserAttendance} />
     <Route exact path="/admin/calendar" component={CalendarScreen} />
