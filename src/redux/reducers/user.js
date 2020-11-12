@@ -3,6 +3,7 @@ const initialState = {
   isError: false,
   dataAdmin: [],
   dataUser: [],
+  dataProfile: [],
 }
 
 const user = (state = initialState, action) => {
@@ -73,6 +74,29 @@ const user = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: false,
+      }
+    }
+    case 'PROFILE_PENDING': {
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      }
+    }
+    case 'PROFILE_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        errorMsg: 'Failed to register',
+      }
+    }
+    case 'PROFILE_FULFILLED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        dataProfile: action.payload.data.data,
       }
     }
     default: {

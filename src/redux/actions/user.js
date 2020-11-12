@@ -16,4 +16,9 @@ const registerUser = (dataSubmit) => ({
   payload: axios().post(`${URL}api/v1/auth/register`, dataSubmit),
 })
 
-export { getAdmin, getUser, registerUser }
+const getProfile = (id) => ({
+  type: 'PROFILE',
+  payload: axios().get(`${URL}api/v1/profile/${id}`),
+})
+
+export { getAdmin, getUser, registerUser, getProfile }
