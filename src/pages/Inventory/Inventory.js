@@ -119,12 +119,6 @@ class Inventory extends Component {
     this.props.postInventory(dataSubmit).then(() => {
       this.fetch()
     })
-    console.log(this.state.name)
-    console.log(this.state.brand)
-    console.log(this.state.note)
-    console.log(this.state.serialNo)
-    console.log(expDate)
-    console.log(this.state.fileInventory)
   }
 
   componentDidMount() {
