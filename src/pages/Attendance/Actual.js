@@ -7,7 +7,7 @@ import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 // import { Link } from 'react-router-dom'
-// import IconButton from '@material-ui/core/IconButton'
+import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 import Table from '@material-ui/core/Table'
 import TableHead from '@material-ui/core/TableHead'
@@ -19,6 +19,8 @@ import TableRow from '@material-ui/core/TableRow'
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
 import Visibility from '@material-ui/icons/Visibility'
+import ArrowLeft from '@material-ui/icons/ArrowLeft'
+import ArrowRight from '@material-ui/icons/ArrowRight'
 import { Cancel, CheckCircle } from '@material-ui/icons'
 import { allLog } from '../../redux/actions/presence'
 
@@ -181,6 +183,27 @@ class Attendance extends Component {
                           ))}
                         </TableBody>
                       </Table>
+                      <div className="d-flex flex-row justify-content-end">
+                        <div className="p-2 d-flex align-items-center align-self-center">
+                          <h6>1 - 5 of 20</h6>
+                        </div>
+                        <div className="p-2">
+                          <IconButton>
+                            <ArrowLeft
+                              className="iconWhiteColor"
+                              fontSize="large"
+                            />
+                          </IconButton>
+                        </div>
+                        <div className="p-2">
+                          <IconButton>
+                            <ArrowRight
+                              className="iconWhiteColor"
+                              fontSize="large"
+                            />
+                          </IconButton>
+                        </div>
+                      </div>
                     </CardBody>
                   </>
                 )}

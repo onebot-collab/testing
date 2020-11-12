@@ -19,8 +19,10 @@ import TableRow from '@material-ui/core/TableRow'
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
 import Visibility from '@material-ui/icons/Visibility'
+import ArrowLeft from '@material-ui/icons/ArrowLeft'
+import ArrowRight from '@material-ui/icons/ArrowRight'
 // import Edit from '@material-ui/icons/Edit'
-import Close from '@material-ui/icons/Close'
+import Delete from '@material-ui/icons/Delete'
 import { connect } from 'react-redux'
 import Add from '@material-ui/icons/Add'
 import Button from '@material-ui/core/Button'
@@ -317,7 +319,7 @@ class AnnouncementDetail extends Component {
                                           classesBody.tableActionButton
                                         }
                                       >
-                                        <Close className="iconSecondaryColor" />
+                                        <Delete className="iconWhiteColor" />
                                       </IconButton>
                                     </Tooltip>
                                   </TableCell>
@@ -326,6 +328,27 @@ class AnnouncementDetail extends Component {
                             )}
                           </TableBody>
                         </Table>
+                        <div className="d-flex flex-row justify-content-end">
+                          <div className="p-2 d-flex align-items-center align-self-center">
+                            <h6>1 - 5 of 20</h6>
+                          </div>
+                          <div className="p-2">
+                            <IconButton>
+                              <ArrowLeft
+                                className="iconWhiteColor"
+                                fontSize="large"
+                              />
+                            </IconButton>
+                          </div>
+                          <div className="p-2">
+                            <IconButton>
+                              <ArrowRight
+                                className="iconWhiteColor"
+                                fontSize="large"
+                              />
+                            </IconButton>
+                          </div>
+                        </div>
                       </CardBody>
                     </>
                   )}

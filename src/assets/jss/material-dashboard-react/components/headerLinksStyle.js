@@ -100,11 +100,18 @@ const headerLinksStyle = (theme) => ({
       width: '100%',
     },
     display: 'inline-block',
+    marginRight: '200px',
+  },
+  managerr: {
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
+    display: 'inline-block',
   },
   searchWrapper: {
     [theme.breakpoints.down('sm')]: {
       width: '-webkit-fill-available',
-      margin: '10px 15px 0',
+      margin: '10px 5px 0',
     },
     display: 'inline-block',
   },

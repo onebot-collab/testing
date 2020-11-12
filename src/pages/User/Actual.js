@@ -15,10 +15,11 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
 import Tooltip from '@material-ui/core/Tooltip'
+import IconButton from '@material-ui/core/IconButton'
 import { Link } from 'react-router-dom'
 // import TextField from '@material-ui/core/TextField'
 // import MenuItem from '@material-ui/core/MenuItem'
-import TablePagination from '@material-ui/core/TablePagination'
+// import TablePagination from '@material-ui/core/TablePagination'
 // Reactstrap/code
 import {
   Col,
@@ -31,6 +32,8 @@ import {
 } from 'reactstrap'
 // @material-ui/icons components
 import Visibility from '@material-ui/icons/Visibility'
+import ArrowLeft from '@material-ui/icons/ArrowLeft'
+import ArrowRight from '@material-ui/icons/ArrowRight'
 // core components
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
@@ -567,7 +570,27 @@ class User extends Component {
                               </ListItem>
                             ))}
                           </List>
-                          <TablePagination component="div" count={100} />
+                          <div className="d-flex flex-row justify-content-end">
+                            <div className="p-2 d-flex align-items-center align-self-center">
+                              <h6>1 - 5 of 20</h6>
+                            </div>
+                            <div className="p-2">
+                              <IconButton>
+                                <ArrowLeft
+                                  className="iconWhiteColor"
+                                  fontSize="large"
+                                />
+                              </IconButton>
+                            </div>
+                            <div className="p-2">
+                              <IconButton>
+                                <ArrowRight
+                                  className="iconWhiteColor"
+                                  fontSize="large"
+                                />
+                              </IconButton>
+                            </div>
+                          </div>
                         </Grid>
                       </CardBody>
                     </>

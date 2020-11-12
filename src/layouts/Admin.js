@@ -25,6 +25,7 @@ import AnnouncementDetail from '../pages/Announcement/AnnouncementDetail'
 import Attendance from '../pages/Attendance/Actual'
 import IdUserAttendance from '../pages/Attendance/IdUser'
 import CalendarScreen from '../pages/Calendar/Calendar'
+import CalendarDetail from '../pages/Calendar/CalendarDetail'
 import Inventory from '../pages/Inventory/Inventory'
 import Invoice from '../pages/Invoice/Invoice'
 import InvoiceDetail from '../pages/Invoice/InvoiceDetail'
@@ -70,6 +71,7 @@ const switchRoutes = (
     <Route exact path="/admin/attendance" component={Attendance} />
     <Route exact path="/admin/id-attendance" component={IdUserAttendance} />
     <Route exact path="/admin/calendar" component={CalendarScreen} />
+    <Route exact path="/admin/calendar/detail" component={CalendarDetail} />
     <Route exact path="/admin/inventory" component={Inventory} />
     <Route exact path="/admin/invoice" component={Invoice} />
     <Route exact path="/admin/invoice/:id" component={InvoiceDetail} />
