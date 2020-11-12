@@ -375,16 +375,18 @@ class Invoice extends Component {
                                       <TableCell
                                         className={classesBody.tableActions}
                                       >
-                                        <Tooltip
-                                          id="tooltip-top-start"
-                                          title="Click to Detail"
-                                          placement="top"
-                                          classes={{
-                                            tooltip: classesBody.tooltip,
-                                          }}
-                                        >
-                                          <Visibility className="iconWhiteColor" />
-                                        </Tooltip>
+                                        <Link to="/admin/invoice/detail">
+                                          <Tooltip
+                                            id="tooltip-top-start"
+                                            title="Click to Detail"
+                                            placement="top"
+                                            classes={{
+                                              tooltip: classesBody.tooltip,
+                                            }}
+                                          >
+                                            <Visibility className="iconWhiteColor" />
+                                          </Tooltip>
+                                        </Link>
                                       </TableCell>
                                     </TableRow>
                                   )}
@@ -542,16 +544,18 @@ class Invoice extends Component {
                                       <TableCell
                                         className={classesBody.tableActions}
                                       >
-                                        <Tooltip
-                                          id="tooltip-top-start"
-                                          title="Click to Detail"
-                                          placement="top"
-                                          classes={{
-                                            tooltip: classesBody.tooltip,
-                                          }}
-                                        >
-                                          <Visibility className="iconWhiteColor" />
-                                        </Tooltip>
+                                        <Link to="/admin/invoice/detail">
+                                          <Tooltip
+                                            id="tooltip-top-start"
+                                            title="Click to Detail"
+                                            placement="top"
+                                            classes={{
+                                              tooltip: classesBody.tooltip,
+                                            }}
+                                          >
+                                            <Visibility className="iconWhiteColor" />
+                                          </Tooltip>
+                                        </Link>
                                       </TableCell>
                                     </TableRow>
                                   )}
@@ -709,16 +713,18 @@ class Invoice extends Component {
                                       <TableCell
                                         className={classesBody.tableActions}
                                       >
-                                        <Tooltip
-                                          id="tooltip-top-start"
-                                          title="Click to Detail"
-                                          placement="top"
-                                          classes={{
-                                            tooltip: classesBody.tooltip,
-                                          }}
-                                        >
-                                          <Visibility className="iconWhiteColor" />
-                                        </Tooltip>
+                                        <Link to="/admin/invoice/detail">
+                                          <Tooltip
+                                            id="tooltip-top-start"
+                                            title="Click to Detail"
+                                            placement="top"
+                                            classes={{
+                                              tooltip: classesBody.tooltip,
+                                            }}
+                                          >
+                                            <Visibility className="iconWhiteColor" />
+                                          </Tooltip>
+                                        </Link>
                                       </TableCell>
                                     </TableRow>
                                   )}
@@ -876,16 +882,18 @@ class Invoice extends Component {
                                       <TableCell
                                         className={classesBody.tableActions}
                                       >
-                                        <Tooltip
-                                          id="tooltip-top-start"
-                                          title="Click to Detail"
-                                          placement="top"
-                                          classes={{
-                                            tooltip: classesBody.tooltip,
-                                          }}
-                                        >
-                                          <Visibility className="iconWhiteColor" />
-                                        </Tooltip>
+                                        <Link to="/admin/invoice/detail">
+                                          <Tooltip
+                                            id="tooltip-top-start"
+                                            title="Click to Detail"
+                                            placement="top"
+                                            classes={{
+                                              tooltip: classesBody.tooltip,
+                                            }}
+                                          >
+                                            <Visibility className="iconWhiteColor" />
+                                          </Tooltip>
+                                        </Link>
                                       </TableCell>
                                     </TableRow>
                                   )}
