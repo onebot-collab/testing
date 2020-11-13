@@ -9,6 +9,7 @@ import moment from 'react-moment'
 import Calendar from 'react-calendar'
 import Select from 'react-select'
 import swal from 'sweetalert2'
+import momentjs from 'moment'
 import {
   Form,
   Modal,
@@ -35,7 +36,7 @@ import Visibility from '@material-ui/icons/Visibility'
 import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
 // core components
-import { createReminder } from '../../redux/actions/reminder'
+import { createReminder, getReminderByDay } from '../../redux/actions/reminder'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -65,6 +66,7 @@ class CalendarScreen extends Component {
       description: '',
       type: 0,
       isLoadingAddReminder: false,
+      isLoadingFetchReminder: false,
     }
     this.onChange = this.onChange.bind(this)
     this.toggleAddModal = this.toggleAddModal.bind(this)
@@ -75,7 +77,7 @@ class CalendarScreen extends Component {
 
   onChange(date) {
     this.setState({ date })
-    console.log(this.state.date)
+    this.fetchReminder(momentjs(date).format('YYYY-MM-DD'))
   }
 
   handleChange(event) {
@@ -135,7 +137,23 @@ class CalendarScreen extends Component {
     })
   }
 
-  componentDidMount() {}
+  fetchReminder(day) {
+    this.setState({ isLoadingFetchReminder: true })
+    const dataSubmit = {
+      date: day,
+    }
+
+    this.props.getReminderByDay(dataSubmit).then(() => {
+      this.setState({ isLoadingFetchReminder: false })
+    })
+  }
+
+  componentDidMount() {
+    const date = momentjs().format().slice(0, 10)
+    // const final = date.toString().slice(0, 10)
+    this.fetchReminder(date)
+    console.log(date)
+  }
 
   render() {
     const classes = makeStyles(styles)
@@ -174,7 +192,7 @@ class CalendarScreen extends Component {
                             <h6 className="textPrimaryColor">Description</h6>
                           </TableCell>
                           <TableCell component="th">
-                            <h6 className="textPrimaryColor">Date</h6>
+                            <h6 className="textPrimaryColor">Category</h6>
                           </TableCell>
                           <TableCell component="th">
                             <h6 className="textPrimaryColor">Action</h6>
@@ -182,34 +200,63 @@ class CalendarScreen extends Component {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        <TableRow className={classes.tableRow}>
-                          <TableCell component="th">
-                            <p className="textPrimaryColor">Title</p>
-                          </TableCell>
-                          <TableCell component="th">
-                            <p className="textPrimaryColor">Desc</p>
-                          </TableCell>
-                          <TableCell component="th">
-                            <p className="textPrimaryColor">17 Agustus 1945</p>
-                          </TableCell>
-                          <TableCell className={classesBody.tableActions}>
-                            <Tooltip
-                              id="tooltip-top"
-                              title="Edit Task"
-                              placement="top"
-                              classes={{ tooltip: classesBody.tooltip }}
+                        {this.state.isLoadingFetchReminder ? (
+                          <center>
+                            <div
+                              className="d-flex align-self-center spinner-border text-white mt-2 mb-3"
+                              role="status"
                             >
-                              <IconButton
-                                aria-label="Edit"
-                                className={classesBody.tableActionButton}
-                              >
-                                <Link to="/admin/calendar/detail">
-                                  <Visibility className="iconWhiteColor" />
-                                </Link>
-                              </IconButton>
-                            </Tooltip>
-                          </TableCell>
-                        </TableRow>
+                              <span className="sr-only">Loading...</span>
+                            </div>
+                          </center>
+                        ) : (
+                          <>
+                            {this.props.reminder.dataReminderToday.map(
+                              (res, i) => (
+                                <TableRow className={classes.tableRow} key={i}>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.title}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.description}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.type_reminder === null
+                                        ? 'Event'
+                                        : res.type_reminder}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell
+                                    className={classesBody.tableActions}
+                                  >
+                                    <Tooltip
+                                      id="tooltip-top"
+                                      title="Edit Task"
+                                      placement="top"
+                                      classes={{ tooltip: classesBody.tooltip }}
+                                    >
+                                      <IconButton
+                                        aria-label="Edit"
+                                        className={
+                                          classesBody.tableActionButton
+                                        }
+                                      >
+                                        <Link to="/admin/calendar/detail">
+                                          <Visibility className="iconWhiteColor" />
+                                        </Link>
+                                      </IconButton>
+                                    </Tooltip>
+                                  </TableCell>
+                                </TableRow>
+                              ),
+                            )}
+                          </>
+                        )}
                       </TableBody>
                     </Table>
                     <div className="d-flex flex-row justify-content-end">
@@ -316,6 +363,6 @@ const mapStateToProps = (state) => ({
   reminder: state.reminder,
   login: state.login,
 })
-const mapDispatchToProps = { createReminder }
+const mapDispatchToProps = { createReminder, getReminderByDay }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalendarScreen)
