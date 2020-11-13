@@ -152,7 +152,6 @@ class CalendarScreen extends Component {
     const date = momentjs().format().slice(0, 10)
     // const final = date.toString().slice(0, 10)
     this.fetchReminder(date)
-    console.log(date)
   }
 
   render() {
