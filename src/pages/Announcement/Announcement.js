@@ -41,6 +41,7 @@ import {
   deleteCampaign,
   postCampaign,
 } from '../../redux/actions/campaign'
+import { getDepartment } from '../../redux/actions/department'
 // import Check from '@material-ui/icons/Check'
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -55,12 +56,6 @@ import CardBody from '../../components/Card/CardBody'
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
 import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
 import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
-
-const options = [
-  { value: 1, label: 'General' },
-  { value: 2, label: 'Development' },
-  { value: 3, label: 'Networking' },
-]
 
 class AnnouncementDetail extends Component {
   constructor(props) {
@@ -170,12 +165,21 @@ class AnnouncementDetail extends Component {
 
   componentDidMount() {
     this.fetch()
+    this.props.getDepartment()
   }
 
   render() {
     const classes = makeStyles(styles)
     const classesHead = makeStyles(stylesHead)
     const classesBody = makeStyles(stylesBody)
+
+    const departmentData = this.props.department.dataDepartment
+    // const departmentList = departmentData.map((val) => (
+    //   <option key={val.id} value={val.id}>
+    //     {val.name}
+    //   </option>
+    // ))
+
     return (
       <div>
         {!this.props.login.token ? (
@@ -378,7 +382,10 @@ class AnnouncementDetail extends Component {
                   <h6>Department</h6>
                   <Select
                     onChange={this.handleDepartmentChange}
-                    options={options}
+                    options={departmentData.map((res) => ({
+                      value: res.id,
+                      label: res.name,
+                    }))}
                   />
                 </ModalBody>
                 <ModalFooter>
@@ -428,8 +435,14 @@ class AnnouncementDetail extends Component {
 const mapStateToProps = (state) => ({
   campaign: state.campaign,
   login: state.login,
+  department: state.department,
 })
 
-const mapDispatchToProps = { getAllCampaign, deleteCampaign, postCampaign }
+const mapDispatchToProps = {
+  getAllCampaign,
+  deleteCampaign,
+  postCampaign,
+  getDepartment,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(AnnouncementDetail)

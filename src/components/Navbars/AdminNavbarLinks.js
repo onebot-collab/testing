@@ -6,6 +6,7 @@ import { fade, makeStyles } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
 import classNames from 'classnames'
 import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 // @material-ui/core components
 import MenuItem from '@material-ui/core/MenuItem'
 import MenuList from '@material-ui/core/MenuList'
@@ -20,7 +21,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 
-import image1 from '../../assets/img/faces/marc.jpg'
+// import image1 from '../../assets/img/faces/marc.jpg'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -100,6 +101,9 @@ export default function SearchAppBar() {
     history.push('/')
   }
 
+  const name = useSelector((state) => state.login.dataLogin.name)
+  const imgProfile = useSelector((state) => state.login.dataLogin.photo_url)
+
   return (
     <div className={classes.root}>
       <Toolbar>
@@ -128,11 +132,9 @@ export default function SearchAppBar() {
           >
             <ListItem button>
               <ListItemAvatar>
-                <Avatar src={image1} />
+                <Avatar src={`http://10.5.1.38:5000/${imgProfile}`} />
               </ListItemAvatar>
-              <ListItemText className={classes.textColor}>
-                Samantha
-              </ListItemText>
+              <ListItemText className={classes.textColor}>{name}</ListItemText>
             </ListItem>
             <Hidden mdUp implementation="css">
               <p className={classes.linkText}>Profile</p>
