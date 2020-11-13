@@ -33,7 +33,7 @@ import Card from '../../components/Card/Card'
 import CardHeader from '../../components/Card/CardHeader'
 import CardBody from '../../components/Card/CardBody'
 
-import { reportAttendanceChart } from '../../variables/charts'
+// import { reportAttendanceChart } from '../../variables/charts'
 
 // core components
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
@@ -58,6 +58,20 @@ export default class AttendanceDetail extends Component {
     const classes = makeStyles(styles)
     const classesHead = makeStyles(stylesHead)
     const classesBody = makeStyles(stylesBody)
+    const reportAttendanceChart = {
+      data: {
+        labels: ['62%', '32%', '6%'],
+        series: [62, 32, 6],
+      },
+      options: {
+        height: '175px',
+        donut: true,
+        donutWidth: 40,
+        donutSolid: true,
+        startAngle: 270,
+        showLabel: true,
+      },
+    }
     return (
       <div>
         <GridContainer>
