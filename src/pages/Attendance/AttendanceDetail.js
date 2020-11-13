@@ -10,23 +10,22 @@ import 'chartist/dist/chartist.min.css'
 import './AttendanceDetail.css'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
+import LinearProgress from '@material-ui/core/LinearProgress'
+// import Typography from '@material-ui/core/Typography'
+// import Box from '@material-ui/core/Box'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Table from '@material-ui/core/Table'
 import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
 import TableBody from '@material-ui/core/TableBody'
-// import TableFooter from '@material-ui/core/TableFooter'
 import TableRow from '@material-ui/core/TableRow'
 import Tooltip from '@material-ui/core/Tooltip'
-
 // import { Link } from 'react-router-dom'
 
 // @material-ui/icons
-// import Edit from '@material-ui/icons/Edit'
 import { Cancel, CheckCircle } from '@material-ui/icons'
 
-// import Check from '@material-ui/icons/Check'
 // core components
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
@@ -44,8 +43,12 @@ import stylesBody from '../../assets/jss/material-dashboard-react/components/tas
 export default class AttendanceDetail extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      attendance: 85,
+    }
   }
+
+  componentWillUnmount() {}
 
   componentDidMount() {}
 
@@ -166,10 +169,44 @@ export default class AttendanceDetail extends Component {
                       </TableBody>
                     </Table>
 
-                    <Paper elevation={2} className="d-flex flex-row p-3 mt-3">
-                      <p className="textPrimaryColor">Target Monthly Hours</p>
-                      <p className="textPrimaryColor">Achieved Monthly Hours</p>
-                    </Paper>
+                    <div className="d-flex flex-row justify-content-around p-3 mt-3">
+                      <Paper
+                        elevation={2}
+                        className="d-flex flex-column p-2 m-1 tableFooter"
+                      >
+                        <p className="textPrimaryColor align-self-center">
+                          Target Monthly Hours
+                        </p>
+                        <h3 className="textPrimaryColor align-self-center">
+                          200 Hours
+                        </h3>
+                      </Paper>
+                      <Paper
+                        elevation={2}
+                        className="d-flex flex-column p-2 m-1 tableFooter"
+                      >
+                        <p className="textPrimaryColor align-self-center">
+                          Achieved Monthly Hours
+                        </p>
+                        <h3 className="textPrimaryColor align-self-center">
+                          175 Hours
+                        </h3>
+                        {/* <Box display="flex" alignItems="center">
+                          <Box width="80%" mr={1}>
+                            <LinearProgress variant="determinate" />
+                          </Box>
+                          <Box minWidth={35}>
+                            <Typography variant="body2" color="textSecondary">
+                              100%
+                            </Typography>
+                          </Box>
+                        </Box> */}
+                        <LinearProgress
+                          variant="determinate"
+                          value={this.state.attendance}
+                        />
+                      </Paper>
+                    </div>
                   </Grid>
                   {/* <Grid item xs>
                     <Button
