@@ -270,7 +270,7 @@ class User extends Component {
                                 type="radio"
                                 id="exampleCustomRadio2"
                                 name="timeType"
-                                label="Office Hours"
+                                label="Free Hours"
                                 value={1}
                                 onChange={(e) => this.handleChange(e)}
                                 inline
@@ -279,7 +279,16 @@ class User extends Component {
                                 type="radio"
                                 id="exampleCustomRadio"
                                 name="timeType"
-                                label="Free Hours"
+                                label="Office Hours"
+                                value={3}
+                                onChange={(e) => this.handleChange(e)}
+                                inline
+                              />
+                              <CustomInput
+                                type="radio"
+                                id="exampleCustomRadio3"
+                                name="timeType"
+                                label="Security"
                                 value={2}
                                 onChange={(e) => this.handleChange(e)}
                                 inline

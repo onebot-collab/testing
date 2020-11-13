@@ -248,7 +248,20 @@ class Inventory extends Component {
                                   <TableCell
                                     className={classesBody.tableActions}
                                   >
-                                    <Link to="/admin/inventory/detail">
+                                    <Link
+                                      to={{
+                                        pathname: `/admin/inventory/${res.id}`,
+                                        state: {
+                                          name: `${res.name}`,
+                                          brand: `${res.brand}`,
+                                          serial_no: `${res.serial_no}`,
+                                          exp_date: `${res.exp_date}`,
+                                          note: `${res.note}`,
+                                          created_at: `${res.created_at}`,
+                                          image_url: `${res.image_url}`,
+                                        },
+                                      }}
+                                    >
                                       <Tooltip
                                         id="tooltip-top-start"
                                         title="Click to Detail"

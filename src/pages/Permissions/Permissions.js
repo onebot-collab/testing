@@ -106,7 +106,7 @@ class Permissions extends Component {
                               <h5 className="textPrimaryColor">Name</h5>
                             </TableCell>
                             <TableCell component="th">
-                              <h5 className="textPrimaryColor">Departemnt</h5>
+                              <h5 className="textPrimaryColor">Department</h5>
                             </TableCell>
                             <TableCell component="th">
                               <h5 className="textPrimaryColor">Reason</h5>

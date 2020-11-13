@@ -74,7 +74,7 @@ const switchRoutes = (
     <Route exact path="/admin/calendar" component={CalendarScreen} />
     <Route exact path="/admin/calendar/detail" component={CalendarDetail} />
     <Route exact path="/admin/inventory" component={Inventory} />
-    <Route exact path="/admin/inventory/detail" component={InventoryDetail} />
+    <Route exact path="/admin/inventory/:id" component={InventoryDetail} />
     <Route exact path="/admin/invoice" component={Invoice} />
     <Route exact path="/admin/invoice/:id" component={InvoiceDetail} />
     <Route exact path="/admin/permissions" component={Permissions} />
