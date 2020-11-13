@@ -40,6 +40,11 @@ const uploadInvoiceImage = (dataSubmit, id) => ({
   payload: axios().patch(`${URL}api/v1/invoice/upload/${id}`, dataSubmit),
 })
 
+const invoiceByStatus = (id) => ({
+  type: 'INVOICESTATUS',
+  payload: axios().get(`${URL}api/v1/invoice/bystatus/${id}`),
+})
+
 export {
   listInvoice,
   listInvoiceUser,
@@ -48,4 +53,5 @@ export {
   createInvoiceItem,
   listInvoiceItem,
   uploadInvoiceImage,
+  invoiceByStatus,
 }

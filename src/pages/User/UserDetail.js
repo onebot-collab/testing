@@ -237,7 +237,7 @@ class UserDetail extends Component {
                                     type="radio"
                                     id="exampleCustomRadio2"
                                     name="timeType"
-                                    label="Office Hours"
+                                    label="Free Hours"
                                     value={1}
                                     onChange={(e) => this.handleChange(e)}
                                     inline
@@ -246,7 +246,16 @@ class UserDetail extends Component {
                                     type="radio"
                                     id="exampleCustomRadio"
                                     name="timeType"
-                                    label="Free Hours"
+                                    label="Office Hours"
+                                    value={3}
+                                    onChange={(e) => this.handleChange(e)}
+                                    inline
+                                  />
+                                  <CustomInput
+                                    type="radio"
+                                    id="exampleCustomRadio3"
+                                    name="timeType"
+                                    label="Security"
                                     value={2}
                                     onChange={(e) => this.handleChange(e)}
                                     inline
@@ -339,7 +348,9 @@ class UserDetail extends Component {
                         <h2 className="cardTitle">
                           {this.props.user.dataProfile[0].name}
                         </h2>
-                        <h6 className="cardCategory">Dept Name</h6>
+                        <h6 className="cardCategory">
+                          {this.props.user.dataProfile[0].departmentName}
+                        </h6>
                         <div>
                           <List>
                             <ListItem>
@@ -385,7 +396,7 @@ class UserDetail extends Component {
                                 <Timer />
                               </ListItemIcon>
                               <ListItemText>
-                                {this.props.user.dataProfile[0].time_type_id}
+                                {this.props.user.dataProfile[0].typeTime}
                               </ListItemText>
                             </ListItem>
                             <ListItem>
@@ -401,7 +412,9 @@ class UserDetail extends Component {
                                 <AccountTree />
                               </ListItemIcon>
                               <ListItemText>
-                                {this.props.user.dataProfile[0].role}
+                                {this.props.user.dataProfile[0].role === 1
+                                  ? 'Admin'
+                                  : 'User'}
                               </ListItemText>
                             </ListItem>
                           </List>

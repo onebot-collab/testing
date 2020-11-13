@@ -18,6 +18,7 @@ import {
 import './Calendar.css'
 import 'react-pro-sidebar/dist/css/styles.css'
 import RevoCalendar from 'revo-calendar'
+import momentjs from 'moment'
 import 'revo-calendar/dist/index.css'
 // @material-ui/core components
 import Button from '@material-ui/core/Button'
@@ -93,7 +94,7 @@ const eventsToday = [
   },
   {
     name: 'Han Solo',
-    date: +reso2,
+    date: '2020-11-09',
     allday: false,
     extra: {
       icon:
@@ -103,7 +104,7 @@ const eventsToday = [
   },
   {
     name: 'Gandalf, the Grey',
-    date: +reso3,
+    date: '2020-11-09',
     allday: false,
     extra: {
       icon:
@@ -113,7 +114,7 @@ const eventsToday = [
   },
   {
     name: 'Britta Perry',
-    date: +reso4,
+    date: '2020-11-09',
     allday: false,
     extra: {
       icon:
@@ -123,7 +124,7 @@ const eventsToday = [
   },
   {
     name: 'Lunch with Michael',
-    date: +lunchWithKevin,
+    date: '2020-11-09',
     allday: false,
   },
   {
@@ -162,10 +163,15 @@ class CalendarScreen extends Component {
     }
     this.toggleAddModal = this.toggleAddModal.bind(this)
     this.addReminder = this.addReminder.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   redirect() {
     this.props.history.push('/login')
+  }
+
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   addReminder() {
@@ -209,7 +215,27 @@ class CalendarScreen extends Component {
     })
   }
 
-  componentDidMount() {}
+  onClickDay(e) {
+    console.log(e)
+    this.fetchReminder(momentjs(e).format('YYYY-MM-DD'))
+  }
+
+  fetchReminder(day) {
+    this.setState({ isLoadingFetchReminder: true })
+    const dataSubmit = {
+      date: day,
+    }
+
+    this.props.getReminderByDay(dataSubmit).then(() => {
+      this.setState({ isLoadingFetchReminder: false })
+    })
+  }
+
+  componentDidMount() {
+    const date = momentjs().format().slice(0, 10)
+    // const final = date.toString().slice(0, 10)
+    this.fetchReminder(date)
+  }
 
   render() {
     const classes = makeStyles(styles)
@@ -262,7 +288,7 @@ class CalendarScreen extends Component {
                       allowAddEvent
                       openDetailsOnDateSelection={false}
                       timeFormat24
-                      dateSelected={(e) => console.log(e)}
+                      dateSelected={(e) => this.onClickDay(e)}
                       showAllDayLabel={false}
                       detailDateFormat="DD/MM/YYYY"
                       // deleteEvent={deleteEvent}
