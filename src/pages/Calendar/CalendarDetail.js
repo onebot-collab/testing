@@ -55,19 +55,27 @@ export default class CalendarDetail extends Component {
             <Card>
               <CardHeader color="danger">
                 <h4 className={classes.cardTitleWhite}>Calendar Detail</h4>
-                <p className={classes.cardCategoryWhite}>17 Agustus 1945</p>
+                <p className={classes.cardCategoryWhite}>
+                  {this.props.location.state.date}
+                </p>
               </CardHeader>
               <CardBody>
                 <Grid item xs container direction="column" spacing={2}>
                   <Grid item xs>
                     <ListItem className="listItemWidth">
                       <ListItemText>
-                        <Typography variant="subtitle1">by John</Typography>
+                        <Typography variant="subtitle1">
+                          {this.props.location.state.type_reminder === 'null'
+                            ? 'Event'
+                            : this.props.location.state.type_reminder}
+                        </Typography>
                       </ListItemText>
                     </ListItem>
 
                     <Typography variant="body2" className="paperGridCentre">
-                      <p className="textPrimaryColor">Desc</p>
+                      <p className="textPrimaryColor">
+                        {this.props.location.state.title}
+                      </p>
                     </Typography>
                   </Grid>
                   {/* <Grid item xs>

@@ -211,49 +211,83 @@ class CalendarScreen extends Component {
                           </center>
                         ) : (
                           <>
-                            {this.props.reminder.dataReminderToday.map(
-                              (res, i) => (
-                                <TableRow className={classes.tableRow} key={i}>
-                                  <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.title}
-                                    </p>
-                                  </TableCell>
-                                  <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.description}
-                                    </p>
-                                  </TableCell>
-                                  <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.type_reminder === null
-                                        ? 'Event'
-                                        : res.type_reminder}
-                                    </p>
-                                  </TableCell>
-                                  <TableCell
-                                    className={classesBody.tableActions}
-                                  >
-                                    <Tooltip
-                                      id="tooltip-top"
-                                      title="Edit Task"
-                                      placement="top"
-                                      classes={{ tooltip: classesBody.tooltip }}
+                            {this.props.reminder.dataReminderToday.length <
+                            1 ? (
+                              <TableRow className={classes.tableRow}>
+                                <TableCell component="th">
+                                  <p className="textPrimaryColor">-</p>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <p className="textPrimaryColor">-</p>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <p className="textPrimaryColor">-</p>
+                                </TableCell>
+                                <TableCell className={classesBody.tableActions}>
+                                  <p className="textPrimaryColor">-</p>
+                                </TableCell>
+                              </TableRow>
+                            ) : (
+                              <>
+                                {this.props.reminder.dataReminderToday.map(
+                                  (res, i) => (
+                                    <TableRow
+                                      className={classes.tableRow}
+                                      key={i}
                                     >
-                                      <IconButton
-                                        aria-label="Edit"
-                                        className={
-                                          classesBody.tableActionButton
-                                        }
+                                      <TableCell component="th">
+                                        <p className="textPrimaryColor">
+                                          {res.title}
+                                        </p>
+                                      </TableCell>
+                                      <TableCell component="th">
+                                        <p className="textPrimaryColor">
+                                          {res.description}
+                                        </p>
+                                      </TableCell>
+                                      <TableCell component="th">
+                                        <p className="textPrimaryColor">
+                                          {res.type_reminder === null
+                                            ? 'Event'
+                                            : res.type_reminder}
+                                        </p>
+                                      </TableCell>
+                                      <TableCell
+                                        className={classesBody.tableActions}
                                       >
-                                        <Link to="/admin/calendar/detail">
-                                          <Visibility className="iconWhiteColor" />
-                                        </Link>
-                                      </IconButton>
-                                    </Tooltip>
-                                  </TableCell>
-                                </TableRow>
-                              ),
+                                        <Tooltip
+                                          id="tooltip-top"
+                                          title="Edit Task"
+                                          placement="top"
+                                          classes={{
+                                            tooltip: classesBody.tooltip,
+                                          }}
+                                        >
+                                          <IconButton
+                                            aria-label="Edit"
+                                            className={
+                                              classesBody.tableActionButton
+                                            }
+                                          >
+                                            <Link
+                                              to={{
+                                                pathname: `/admin/calendar/detail`,
+                                                state: {
+                                                  date: `${res.date}`,
+                                                  title: `${res.title}`,
+                                                  type_reminder: `${res.type_reminder}`,
+                                                },
+                                              }}
+                                            >
+                                              <Visibility className="iconWhiteColor" />
+                                            </Link>
+                                          </IconButton>
+                                        </Tooltip>
+                                      </TableCell>
+                                    </TableRow>
+                                  ),
+                                )}
+                              </>
                             )}
                           </>
                         )}
