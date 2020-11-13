@@ -1,0 +1,49 @@
+.textPrimaryColor {
+    color: azure;
+}
+.iconPrimaryColor {
+    color: #2bde17;
+}
+.iconSecondaryColor {
+    color: #de1717;
+}
+.iconThirdColor {
+    color: #173cde;
+}
+.iconWhiteColor {
+    color: aliceblue;
+}
+.textBodyRow {
+    flex-direction: row;
+}
+.textBodyBold {
+    font-weight: bold;
+}
+.listItemWidth {
+    width: 100%;
+}
+.contentDescWrapper {
+    width: 100%;
+}
+.paperGridCentre {
+    padding-left: 2%;
+    padding-right: 5%;
+    text-align: justify;
+    color: azure;
+}
+.root {
+    margin: 1;
+    width: 450px;
+    height: 450px;
+    padding: 3%;
+}
+.wrapperImage {
+    width: 100%;
+    height: 100%;
+    border-radius: 2%;
+}
+.wrapperNoImage {
+    width: 100%;
+    height: 100%;
+    border-radius: 5%;
+}

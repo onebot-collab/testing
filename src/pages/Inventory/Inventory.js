@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 // import { connect } from 'react-redux'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import IconButton from '@material-ui/core/IconButton'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
@@ -248,14 +248,18 @@ class Inventory extends Component {
                                   <TableCell
                                     className={classesBody.tableActions}
                                   >
-                                    <Tooltip
-                                      id="tooltip-top-start"
-                                      title="Delete"
-                                      placement="top"
-                                      classes={{ tooltip: classesBody.tooltip }}
-                                    >
-                                      <Visibility className="iconWhiteColor" />
-                                    </Tooltip>
+                                    <Link to="/admin/inventory/detail">
+                                      <Tooltip
+                                        id="tooltip-top-start"
+                                        title="Click to Detail"
+                                        placement="top"
+                                        classes={{
+                                          tooltip: classesBody.tooltip,
+                                        }}
+                                      >
+                                        <Visibility className="iconWhiteColor" />
+                                      </Tooltip>
+                                    </Link>
                                   </TableCell>
                                 </TableRow>
                               ),
