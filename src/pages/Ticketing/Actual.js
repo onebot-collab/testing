@@ -41,7 +41,7 @@ import {
 } from 'reactstrap'
 import Select from 'react-select'
 
-import { getAllTicket } from '../../redux/actions/ticket'
+import { getAllTicket, getTicketStats } from '../../redux/actions/ticket'
 // core components
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
@@ -72,6 +72,7 @@ class Ticketing extends Component {
       showAddModal: false,
       selectedOption: false,
       isLoading: true,
+      isLoadingStats: true,
     }
     this.handleChange = this.handleChange.bind(this)
     this.toggleAddModal = this.toggleAddModal.bind(this)
@@ -98,8 +99,16 @@ class Ticketing extends Component {
     })
   }
 
+  fetchStats() {
+    this.setState({ isLoadingStats: true })
+    this.props.getTicketStats().then(() => {
+      this.setState({ isLoadingStats: false })
+    })
+  }
+
   componentDidMount() {
     this.fetch()
+    this.fetchStats()
   }
 
   // useStyles(){
@@ -117,50 +126,71 @@ class Ticketing extends Component {
         ) : (
           <>
             <GridContainer>
-              <GridItem xs={12} sm={6} md={3}>
-                <Card>
-                  <CardHeader color="danger" stats icon>
-                    <CardIcon color="danger">
-                      <Store />
-                    </CardIcon>
-                    <p className="cardCategory">Open</p>
-                    <h3 className="cardTitle">00</h3>
-                  </CardHeader>
-                </Card>
-              </GridItem>
-              <GridItem xs={12} sm={6} md={3}>
-                <Card>
-                  <CardHeader color="danger" stats icon>
-                    <CardIcon color="danger">
-                      <Store />
-                    </CardIcon>
-                    <p className="cardCategory">Processed</p>
-                    <h3 className="cardTitle">00</h3>
-                  </CardHeader>
-                </Card>
-              </GridItem>
-              <GridItem xs={12} sm={6} md={3}>
-                <Card>
-                  <CardHeader color="danger" stats icon>
-                    <CardIcon color="danger">
-                      <Store />
-                    </CardIcon>
-                    <p className="cardCategory">Solved</p>
-                    <h3 className="cardTitle">00</h3>
-                  </CardHeader>
-                </Card>
-              </GridItem>
-              <GridItem xs={12} sm={6} md={3}>
-                <Card>
-                  <CardHeader color="danger" stats icon>
-                    <CardIcon color="danger">
-                      <Accessibility />
-                    </CardIcon>
-                    <p className="cardCategory">Closed</p>
-                    <h3 className="cardTitle">00</h3>
-                  </CardHeader>
-                </Card>
-              </GridItem>
+              {this.state.isLoadingStats ? (
+                <center>
+                  <div
+                    className="d-flex align-self-center spinner-border text-dark mt-2 mb-3"
+                    role="status"
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </center>
+              ) : (
+                <>
+                  <GridItem xs={12} sm={6} md={3}>
+                    <Card>
+                      <CardHeader color="danger" stats icon>
+                        <CardIcon color="danger">
+                          <Store />
+                        </CardIcon>
+                        <p className="cardCategory">Open</p>
+                        <h3 className="cardTitle">
+                          {this.props.ticket.dataTicketStats[0].Open}
+                        </h3>
+                      </CardHeader>
+                    </Card>
+                  </GridItem>
+                  <GridItem xs={12} sm={6} md={3}>
+                    <Card>
+                      <CardHeader color="danger" stats icon>
+                        <CardIcon color="danger">
+                          <Store />
+                        </CardIcon>
+                        <p className="cardCategory">Processed</p>
+                        <h3 className="cardTitle">
+                          {this.props.ticket.dataTicketStats[0].InProgress}
+                        </h3>
+                      </CardHeader>
+                    </Card>
+                  </GridItem>
+                  <GridItem xs={12} sm={6} md={3}>
+                    <Card>
+                      <CardHeader color="danger" stats icon>
+                        <CardIcon color="danger">
+                          <Store />
+                        </CardIcon>
+                        <p className="cardCategory">Solved</p>
+                        <h3 className="cardTitle">
+                          {this.props.ticket.dataTicketStats[0].Solved}
+                        </h3>
+                      </CardHeader>
+                    </Card>
+                  </GridItem>
+                  <GridItem xs={12} sm={6} md={3}>
+                    <Card>
+                      <CardHeader color="danger" stats icon>
+                        <CardIcon color="danger">
+                          <Accessibility />
+                        </CardIcon>
+                        <p className="cardCategory">Closed</p>
+                        <h3 className="cardTitle">
+                          {this.props.ticket.dataTicketStats[0].Closed}
+                        </h3>
+                      </CardHeader>
+                    </Card>
+                  </GridItem>
+                </>
+              )}
             </GridContainer>
             {/* <Button
               onClick={this.toggleAddModal}
@@ -292,31 +322,43 @@ class Ticketing extends Component {
                                     <></>
                                   )}
                                 </TableCell>
-                                <TableCell className={classesBody.tableActions}>
-                                  {res.isLate === '1' ? (
-                                    <Tooltip
-                                      id="tooltip-top-start"
-                                      title="Late"
-                                      placement="top"
-                                      classes={{
-                                        tooltip: classesBody.tooltip,
-                                      }}
+                                {res.statusid < 4 ? (
+                                  <>
+                                    <TableCell
+                                      className={classesBody.tableActions}
                                     >
-                                      <Cancel className="iconSecondaryColor" />
-                                    </Tooltip>
-                                  ) : (
-                                    <Tooltip
-                                      id="tooltip-top-start"
-                                      title="On time"
-                                      placement="top"
-                                      classes={{
-                                        tooltip: classesBody.tooltip,
-                                      }}
-                                    >
-                                      <CheckCircle className="iconPrimaryColor" />
-                                    </Tooltip>
-                                  )}
-                                </TableCell>
+                                      <p>-</p>
+                                    </TableCell>
+                                  </>
+                                ) : (
+                                  <TableCell
+                                    className={classesBody.tableActions}
+                                  >
+                                    {res.isLate === '1' ? (
+                                      <Tooltip
+                                        id="tooltip-top-start"
+                                        title="Late"
+                                        placement="top"
+                                        classes={{
+                                          tooltip: classesBody.tooltip,
+                                        }}
+                                      >
+                                        <Cancel className="iconSecondaryColor" />
+                                      </Tooltip>
+                                    ) : (
+                                      <Tooltip
+                                        id="tooltip-top-start"
+                                        title="On time"
+                                        placement="top"
+                                        classes={{
+                                          tooltip: classesBody.tooltip,
+                                        }}
+                                      >
+                                        <CheckCircle className="iconPrimaryColor" />
+                                      </Tooltip>
+                                    )}
+                                  </TableCell>
+                                )}
                                 <TableCell component="th">
                                   <p className="textPrimaryColor">
                                     {res.date.slice(8, 10)}-
@@ -447,6 +489,6 @@ const mapStateToProps = (state) => ({
   login: state.login,
   ticket: state.ticket,
 })
-const mapDispatchToProps = { getAllTicket }
+const mapDispatchToProps = { getAllTicket, getTicketStats }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ticketing)
