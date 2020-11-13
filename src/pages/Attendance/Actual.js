@@ -142,7 +142,7 @@ class Attendance extends Component {
                                   </p>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">General</p>
+                                  <p className="textPrimaryColor">{res.name}</p>
                                 </TableCell>
                                 <TableCell component="th">
                                   <p className="textPrimaryColor">

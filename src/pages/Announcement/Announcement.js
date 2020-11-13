@@ -215,7 +215,7 @@ class AnnouncementDetail extends Component {
                           Last Updated{' '}
                           {this.props.campaign.dataCampaign[0] === undefined
                             ? '-'
-                            : this.props.campaign.dataCampaign[0].updated_at}
+                            : this.props.campaign.dataCampaign[0].created_at}
                         </p>
                       </CardHeader>
                       <CardBody>

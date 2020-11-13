@@ -4,6 +4,7 @@ const initialState = {
   isLoadingPoint: false,
   isLoadingComment: false,
   isLoadingClosed: false,
+  isLoadingStats: false,
   isError: false,
   dataTicket: [],
   dataAllTicket: [],
@@ -15,6 +16,7 @@ const initialState = {
   dataTicketPoint: [],
   dataTicketComment: [],
   dataTicketCLosed: [],
+  dataTicketStats: [],
 }
 
 const ticket = (state = initialState, action) => {
@@ -269,6 +271,29 @@ const ticket = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: false,
+      }
+    }
+    case 'TICKETSTATS_PENDING': {
+      return {
+        ...state,
+        isLoadingStats: true,
+        isError: false,
+      }
+    }
+    case 'TICKETSTATS_REJECTED': {
+      return {
+        ...state,
+        isLoadingStats: false,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'TICKETSTATS_FULFILLED': {
+      return {
+        ...state,
+        isLoadingStats: false,
+        isError: false,
+        dataTicketStats: action.payload.data.data,
       }
     }
     default: {
