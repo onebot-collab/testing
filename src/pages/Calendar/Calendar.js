@@ -247,15 +247,31 @@ class CalendarScreen extends Component {
           <>{this.redirect()}</>
         ) : (
           <>
-            <Button
-              onClick={this.toggleAddModal}
-              variant="contained"
-              color="primary"
-              // className="buttonAdd"
-              startIcon={<Add />}
-            >
-              Add
-            </Button>
+            <nav className="navbar navbar-light bg-light">
+              <Button
+                onClick={this.toggleAddModal}
+                variant="contained"
+                color="primary"
+                // className="buttonAdd"
+                startIcon={<Add />}
+              >
+                Add
+              </Button>
+              <form className="form-inline">
+                <input
+                  className="form-control mr-sm-2"
+                  type="search"
+                  placeholder="Type Something ..."
+                  aria-label="Search"
+                ></input>
+                <button
+                  className="btn btn-outline-danger my-2 my-sm-0"
+                  type="submit"
+                >
+                  Search
+                </button>
+              </form>
+            </nav>
             <GridContainer>
               <GridItem xs={12} sm={12} md={8}>
                 <Card>

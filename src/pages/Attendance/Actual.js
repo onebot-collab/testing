@@ -14,13 +14,13 @@ import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
 import TableBody from '@material-ui/core/TableBody'
 import TableRow from '@material-ui/core/TableRow'
-import Button from '@material-ui/core/Button'
+// import Button from '@material-ui/core/Button'
 // import Fab from '@material-ui/core/Fab'
 
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
 import Visibility from '@material-ui/icons/Visibility'
-import File from '@material-ui/icons/InsertDriveFile'
+// import File from '@material-ui/icons/InsertDriveFile'
 import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
 import { Cancel, CheckCircle } from '@material-ui/icons'
@@ -72,7 +72,7 @@ class Attendance extends Component {
           <>{this.redirect()}</>
         ) : (
           <>
-            <Link to="/admin/attendance/detail">
+            {/* <Link to="/admin/attendance/detail">
               <Button
                 variant="contained"
                 color="primary"
@@ -81,7 +81,23 @@ class Attendance extends Component {
               >
                 Detail Attendance
               </Button>
-            </Link>
+            </Link> */}
+            <nav className="navbar navbar-light bg-light d-flex justify-content-end">
+              <form className="form-inline">
+                <input
+                  className="form-control mr-sm-2"
+                  type="search"
+                  placeholder="Type Something ..."
+                  aria-label="Search"
+                ></input>
+                <button
+                  className="btn btn-outline-danger my-2 my-sm-0"
+                  type="submit"
+                >
+                  Search
+                </button>
+              </form>
+            </nav>
 
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>

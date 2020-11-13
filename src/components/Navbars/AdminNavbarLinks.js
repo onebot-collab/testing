@@ -1,9 +1,9 @@
 import React from 'react'
 import Button from '@material-ui/core/Button'
 import Toolbar from '@material-ui/core/Toolbar'
-import InputBase from '@material-ui/core/InputBase'
+// import InputBase from '@material-ui/core/InputBase'
 import { fade, makeStyles } from '@material-ui/core/styles'
-import SearchIcon from '@material-ui/icons/Search'
+// import SearchIcon from '@material-ui/icons/Search'
 import classNames from 'classnames'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -107,7 +107,7 @@ export default function SearchAppBar() {
   return (
     <div className={classes.root}>
       <Toolbar>
-        <div className={classes.search}>
+        {/* <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
           </div>
@@ -119,7 +119,7 @@ export default function SearchAppBar() {
             }}
             inputProps={{ 'aria-label': 'search' }}
           />
-        </div>
+        </div> */}
         <div className={classes.manager}>
           <Button
             color={window.innerWidth > 959 ? 'transparent' : 'white'}

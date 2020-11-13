@@ -125,6 +125,22 @@ class Ticketing extends Component {
           <>{this.redirect()}</>
         ) : (
           <>
+            <nav className="navbar navbar-light bg-light d-flex justify-content-end">
+              <form className="form-inline">
+                <input
+                  className="form-control mr-sm-2"
+                  type="search"
+                  placeholder="Type Something ..."
+                  aria-label="Search"
+                ></input>
+                <button
+                  className="btn btn-outline-danger my-2 my-sm-0"
+                  type="submit"
+                >
+                  Search
+                </button>
+              </form>
+            </nav>
             <GridContainer>
               {this.state.isLoadingStats ? (
                 <center>
