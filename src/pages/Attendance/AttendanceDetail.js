@@ -4,6 +4,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import ChartistGraph from 'react-chartist'
 import 'chartist/dist/chartist.min.css'
 // import { connect } from 'react-redux'
@@ -27,6 +28,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 import { Cancel, CheckCircle } from '@material-ui/icons'
 
 // core components
+import { userLogHistory } from '../../redux/actions/presence'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -40,17 +42,25 @@ import styles from '../../assets/jss/material-dashboard-react/views/dashboardSty
 import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
 import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
-export default class AttendanceDetail extends Component {
+class AttendanceDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
       attendance: 85,
+      isLoadingFetch: false,
     }
   }
 
-  componentWillUnmount() {}
+  fetchUserLog() {
+    this.setState({ isLoadingFetch: true })
+    this.props.userLogHistory(this.props.location.state.user_id).then(() => {
+      this.setState({ isLoadingFetch: false })
+    })
+  }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.fetchUserLog()
+  }
 
   renderEvents() {}
 
@@ -79,133 +89,198 @@ export default class AttendanceDetail extends Component {
             <Card>
               <CardHeader color="danger">
                 <h4 className={classes.cardTitleWhite}>
-                  Samantha Report Attendance
+                  {this.props.location.state.nameUser} Attendance Report
                 </h4>
-                <p className={classes.cardCategoryWhite}>17 Agustus 1945</p>
+                <p className={classes.cardCategoryWhite}>
+                  {this.props.location.state.name}
+                </p>
               </CardHeader>
-              <CardBody>
-                <Grid item xs container direction="row" spacing={2}>
-                  <Grid item xs={12} sm={12} md={4}>
-                    <div className="d-flex justify-content-center">
-                      <Paper className="wrapperNoImage" elevation={3}>
-                        <ChartistGraph
-                          className="chartPie"
-                          data={reportAttendanceChart.data}
-                          type="Pie"
-                          options={reportAttendanceChart.options}
-                        />
-                        <div className="d-flex justify-content-center">
-                          <div className="d-flex flex-row pb-2 pl-4">
-                            <span className="badge badge-pill badge-danger align-self-center justify-content-start">
-                              %
-                            </span>
-                            <div className="d-flex justify-content-end pl-2">
-                              {' '}
-                              Is Late
-                            </div>
-                          </div>
-                          <div className="d-flex flex-row pb-2 pl-4">
-                            <span className="badge badge-pill badge-warning align-self-center justify-content-start">
-                              %
-                            </span>
-                            <div className="d-flex justify-content-end pl-2">
-                              {' '}
-                              On Time
-                            </div>
-                          </div>
-                          <div className="d-flex flex-row pb-2 pl-4">
-                            <span className="badge badge-pill badge-light align-self-center justify-content-start">
-                              %
-                            </span>
-                            <div className="d-flex justify-content-end pl-2">
-                              {' '}
-                              Leave
-                            </div>
-                          </div>
-                        </div>
-                      </Paper>
-                    </div>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    sm={12}
-                    md={8}
-                    className="contentDescWrapper"
+              {this.state.isLoadingFetch ? (
+                <center>
+                  <div
+                    className="d-flex align-self-center spinner-border text-white mt-2 mb-3"
+                    role="status"
                   >
-                    <Table className={classesHead.table}>
-                      <TableHead>
-                        <TableRow>
-                          <TableCell component="th">
-                            <h6 className="textPrimaryColor">Check In</h6>
-                          </TableCell>
-                          <TableCell component="th">
-                            <h6 className="textPrimaryColor">Check Out</h6>
-                          </TableCell>
-                          <TableCell component="th">
-                            <h6 className="textPrimaryColor">Date</h6>
-                          </TableCell>
-                          <TableCell component="th">
-                            <h6 className="textPrimaryColor">On Time</h6>
-                          </TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        <TableRow className={classes.tableRow}>
-                          <TableCell component="th">
-                            <p className="textPrimaryColor">08.45</p>
-                          </TableCell>
-                          <TableCell component="th">
-                            <p className="textPrimaryColor">17.45</p>
-                          </TableCell>
-                          <TableCell component="th">
-                            <p className="textPrimaryColor">17 Agustus 1945</p>
-                          </TableCell>
-                          <TableCell className={classesBody.tableActions}>
-                            <Tooltip
-                              id="tooltip-top-start"
-                              title="Late"
-                              placement="top"
-                              classes={{ tooltip: classesBody.tooltip }}
-                            >
-                              <Cancel className="iconSecondaryColor" />
-                            </Tooltip>
-                            <Tooltip
-                              id="tooltip-top-start"
-                              title="On time"
-                              placement="top"
-                              classes={{ tooltip: classesBody.tooltip }}
-                            >
-                              <CheckCircle className="iconPrimaryColor" />
-                            </Tooltip>
-                          </TableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </center>
+              ) : (
+                <CardBody>
+                  <Grid item xs container direction="row" spacing={2}>
+                    <Grid item xs={12} sm={12} md={4}>
+                      <div className="d-flex justify-content-center">
+                        <Paper className="wrapperNoImage" elevation={3}>
+                          <ChartistGraph
+                            className="chartPie"
+                            data={reportAttendanceChart.data}
+                            type="Pie"
+                            options={reportAttendanceChart.options}
+                          />
+                          <div className="d-flex justify-content-center">
+                            <div className="d-flex flex-row pb-2 pl-4">
+                              <span className="badge badge-pill badge-danger align-self-center justify-content-start">
+                                %
+                              </span>
+                              <div className="d-flex justify-content-end pl-2">
+                                {' '}
+                                Is Late
+                              </div>
+                            </div>
+                            <div className="d-flex flex-row pb-2 pl-4">
+                              <span className="badge badge-pill badge-warning align-self-center justify-content-start">
+                                %
+                              </span>
+                              <div className="d-flex justify-content-end pl-2">
+                                {' '}
+                                On Time
+                              </div>
+                            </div>
+                            <div className="d-flex flex-row pb-2 pl-4">
+                              <span className="badge badge-pill badge-light align-self-center justify-content-start">
+                                %
+                              </span>
+                              <div className="d-flex justify-content-end pl-2">
+                                {' '}
+                                Leave
+                              </div>
+                            </div>
+                          </div>
+                        </Paper>
+                      </div>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={12}
+                      md={8}
+                      className="contentDescWrapper"
+                    >
+                      <Table className={classesHead.table}>
+                        <TableHead>
+                          <TableRow>
+                            <TableCell component="th">
+                              <h6 className="textPrimaryColor">Check In</h6>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h6 className="textPrimaryColor">Check Out</h6>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h6 className="textPrimaryColor">Date</h6>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h6 className="textPrimaryColor">On Time</h6>
+                            </TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {this.props.presence.dataUserLog.length < 1 ? (
+                            <TableRow className={classes.tableRow}>
+                              <TableCell component="th">
+                                <p className="textPrimaryColor">-</p>
+                              </TableCell>
+                              <TableCell component="th">
+                                <p className="textPrimaryColor">-</p>
+                              </TableCell>
+                              <TableCell component="th">
+                                <p className="textPrimaryColor">-</p>
+                              </TableCell>
+                              <TableCell className={classesBody.tableActions}>
+                                <Tooltip
+                                  id="tooltip-top-start"
+                                  title="Late"
+                                  placement="top"
+                                  classes={{ tooltip: classesBody.tooltip }}
+                                >
+                                  <Cancel className="iconSecondaryColor" />
+                                </Tooltip>
+                                <Tooltip
+                                  id="tooltip-top-start"
+                                  title="On time"
+                                  placement="top"
+                                  classes={{ tooltip: classesBody.tooltip }}
+                                >
+                                  <CheckCircle className="iconPrimaryColor" />
+                                </Tooltip>
+                              </TableCell>
+                            </TableRow>
+                          ) : (
+                            <>
+                              {this.props.presence.dataUserLog.map((res) => (
+                                <TableRow className={classes.tableRow}>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.att_time}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.end_time === null
+                                        ? '-'
+                                        : res.end_time}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.att_date}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell
+                                    className={classesBody.tableActions}
+                                  >
+                                    {res.isLate === 0 ? (
+                                      <Tooltip
+                                        id="tooltip-top-start"
+                                        title="On time"
+                                        placement="top"
+                                        classes={{
+                                          tooltip: classesBody.tooltip,
+                                        }}
+                                      >
+                                        <CheckCircle className="iconPrimaryColor" />
+                                      </Tooltip>
+                                    ) : (
+                                      <Tooltip
+                                        id="tooltip-top-start"
+                                        title="Late"
+                                        placement="top"
+                                        classes={{
+                                          tooltip: classesBody.tooltip,
+                                        }}
+                                      >
+                                        <Cancel className="iconSecondaryColor" />
+                                      </Tooltip>
+                                    )}
+                                  </TableCell>
+                                </TableRow>
+                              ))}
+                            </>
+                          )}
+                        </TableBody>
+                      </Table>
 
-                    <div className="d-flex flex-row justify-content-around p-3 mt-3">
-                      <Paper
-                        elevation={2}
-                        className="d-flex flex-column p-2 m-1 tableFooter"
-                      >
-                        <p className="textPrimaryColor align-self-center">
-                          Target Monthly Hours
-                        </p>
-                        <h3 className="textPrimaryColor align-self-center">
-                          200 Hours
-                        </h3>
-                      </Paper>
-                      <Paper
-                        elevation={2}
-                        className="d-flex flex-column p-2 m-1 tableFooter"
-                      >
-                        <p className="textPrimaryColor align-self-center">
-                          Achieved Monthly Hours
-                        </p>
-                        <h3 className="textPrimaryColor align-self-center">
-                          175 Hours
-                        </h3>
-                        {/* <Box display="flex" alignItems="center">
+                      <div className="d-flex flex-row justify-content-around p-3 mt-3">
+                        <Paper
+                          elevation={2}
+                          className="d-flex flex-column p-2 m-1 tableFooter"
+                        >
+                          <p className="textPrimaryColor align-self-center">
+                            Target Monthly Hours
+                          </p>
+                          <h3 className="textPrimaryColor align-self-center">
+                            200 Hours
+                          </h3>
+                        </Paper>
+                        <Paper
+                          elevation={2}
+                          className="d-flex flex-column p-2 m-1 tableFooter"
+                        >
+                          <p className="textPrimaryColor align-self-center">
+                            Achieved Monthly Hours
+                          </p>
+                          <h3 className="textPrimaryColor align-self-center">
+                            175 Hours
+                          </h3>
+                          {/* <Box display="flex" alignItems="center">
                           <Box width="80%" mr={1}>
                             <LinearProgress variant="determinate" />
                           </Box>
@@ -215,14 +290,14 @@ export default class AttendanceDetail extends Component {
                             </Typography>
                           </Box>
                         </Box> */}
-                        <LinearProgress
-                          variant="determinate"
-                          value={this.state.attendance}
-                        />
-                      </Paper>
-                    </div>
-                  </Grid>
-                  {/* <Grid item xs>
+                          <LinearProgress
+                            variant="determinate"
+                            value={this.state.attendance}
+                          />
+                        </Paper>
+                      </div>
+                    </Grid>
+                    {/* <Grid item xs>
                     <Button
                       variant="outlined"
                       color="secondary"
@@ -244,8 +319,9 @@ export default class AttendanceDetail extends Component {
                       Reject
                     </Button>
                   </Grid> */}
-                </Grid>
-              </CardBody>
+                  </Grid>
+                </CardBody>
+              )}
             </Card>
           </GridItem>
         </GridContainer>
@@ -253,3 +329,10 @@ export default class AttendanceDetail extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  presence: state.presence,
+})
+const mapDispatchToProps = { userLogHistory }
+
+export default connect(mapStateToProps, mapDispatchToProps)(AttendanceDetail)

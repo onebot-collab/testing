@@ -181,19 +181,25 @@ class Attendance extends Component {
                                   )}
                                 </TableCell>
                                 <TableCell className={classesBody.tableActions}>
-                                  <Tooltip
-                                    id="tooltip-top-start"
-                                    title="Click to Detail"
-                                    placement="top"
-                                    onClick={() =>
-                                      this.props.history.push(
-                                        '/admin/attendance/detail',
-                                      )
-                                    }
-                                    classes={{ tooltip: classesBody.tooltip }}
+                                  <Link
+                                    to={{
+                                      pathname: `/admin/attendance/detail`,
+                                      state: {
+                                        nameUser: `${res.nameUser}`,
+                                        name: `${res.name}`,
+                                        user_id: `${res.user_id}`,
+                                      },
+                                    }}
                                   >
-                                    <Visibility className="iconWhiteColor" />
-                                  </Tooltip>
+                                    <Tooltip
+                                      id="tooltip-top-start"
+                                      title="Click to Detail"
+                                      placement="top"
+                                      classes={{ tooltip: classesBody.tooltip }}
+                                    >
+                                      <Visibility className="iconWhiteColor" />
+                                    </Tooltip>
+                                  </Link>
                                 </TableCell>
                               </TableRow>
                             ))}
