@@ -170,7 +170,7 @@ export default function Admin({ ...rest }) {
           handleImageClick={handleImageClick}
           handleColorClick={handleColorClick}
           bgColor={color}
-          bgImage={image}
+          bgImage={bgImage}
           handleFixedClick={handleFixedClick}
           fixedClasses={fixedClasses}
         />

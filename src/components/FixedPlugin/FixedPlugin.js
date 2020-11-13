@@ -26,9 +26,9 @@ export default function FixedPlugin(props) {
       })}
     >
       <div id="fixedPluginClasses" className={props.fixedClasses}>
-        <div onClick={handleClick}>
+        {/* <div onClick={handleClick}>
           <Settings className="fa fa-cog fa-2x" />
-        </div>
+        </div> */}
         <ul className="dropdown-menu">
           <li className="header-title">SIDEBAR SETTINGS</li>
           {/* <li className="adjustments-line">

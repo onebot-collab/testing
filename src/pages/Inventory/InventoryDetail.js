@@ -94,7 +94,7 @@ export default class InventoryDetail extends Component {
                       <h6>&nbsp;{this.props.location.state.exp_date}</h6>
                     </ListItem>
                     <Typography variant="body2">
-                      <p className="paperGridCentre">
+                      <p className="textPrimaryColor">
                         {this.props.location.state.note}
                       </p>
                     </Typography>

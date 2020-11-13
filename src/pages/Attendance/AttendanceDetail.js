@@ -13,7 +13,7 @@ import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
 import LinearProgress from '@material-ui/core/LinearProgress'
 // import Typography from '@material-ui/core/Typography'
-// import Box from '@material-ui/core/Box'
+import IconButton from '@material-ui/core/IconButton'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Table from '@material-ui/core/Table'
@@ -25,7 +25,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 // import { Link } from 'react-router-dom'
 
 // @material-ui/icons
-import { Cancel, CheckCircle } from '@material-ui/icons'
+import { Cancel, CheckCircle, ArrowLeft, ArrowRight } from '@material-ui/icons'
 
 // core components
 import { userLogHistory } from '../../redux/actions/presence'
@@ -257,6 +257,27 @@ class AttendanceDetail extends Component {
                           )}
                         </TableBody>
                       </Table>
+                      <div className="d-flex flex-row justify-content-end">
+                        <div className="p-2 d-flex align-items-center align-self-center">
+                          <h6>1 - 5 of 20</h6>
+                        </div>
+                        <div className="p-2">
+                          <IconButton>
+                            <ArrowLeft
+                              className="iconWhiteColor"
+                              fontSize="large"
+                            />
+                          </IconButton>
+                        </div>
+                        <div className="p-2">
+                          <IconButton>
+                            <ArrowRight
+                              className="iconWhiteColor"
+                              fontSize="large"
+                            />
+                          </IconButton>
+                        </div>
+                      </div>
 
                       <div className="d-flex flex-row justify-content-around p-3 mt-3">
                         <Paper

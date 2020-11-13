@@ -16,7 +16,7 @@ import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import ListItem from '@material-ui/core/ListItem'
 // import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
+// import ListItemText from '@material-ui/core/ListItemText'
 // import { Link } from 'react-router-dom'
 
 // @material-ui/icons
@@ -58,7 +58,7 @@ class TicketingDetail extends Component {
       nameAssign: props.location.state.nameAssign,
       end_date: props.location.state.end_date,
       description: props.location.state.description,
-      // statusid: props.location.state.statusid,
+      statusid: props.location.state.statusid,
       isLoading: false,
     }
   }
@@ -92,11 +92,40 @@ class TicketingDetail extends Component {
               <CardBody>
                 <Grid item xs container direction="column" spacing={2}>
                   <Grid item xs>
-                    <ListItem className="listItemWidth">
-                      <ListItemText>
+                    <ListItem className="d-flex flex-row justify-content-between">
+                      <div className="d-flex flex-column justify-content-start">
                         <h2>{this.state.no_ticket}</h2>
                         <h5>{this.state.title}</h5>
-                      </ListItemText>
+                      </div>
+                      <div className="d-flex align-items-center">
+                        {/* <h3>
+                          {' '}
+                          <span className="badge badge-pill badge-warning">
+                            Open
+                          </span>
+                        </h3> */}
+                        <h3>
+                          {this.state.statusid === '1' ? (
+                            <span className="badge badge-pill badge-warning">
+                              Open
+                            </span>
+                          ) : this.state.statusid === '2' ? (
+                            <span className="badge badge-pill badge-primary">
+                              Processed
+                            </span>
+                          ) : this.state.statusid === '3' ? (
+                            <span className="badge badge-pill badge-success">
+                              Solved
+                            </span>
+                          ) : this.state.statusid === '4' ? (
+                            <span className="badge badge-pill badge-light">
+                              Closed
+                            </span>
+                          ) : (
+                            <></>
+                          )}
+                        </h3>
+                      </div>
                     </ListItem>
                     <ListItem className="textBodyRow">
                       <h6 className="textBodyBold">From : </h6>
