@@ -34,7 +34,7 @@ import CardBody from '../../components/Card/CardBody'
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
 
 // Import Image
-import image1 from '../../assets/img/faces/marc.jpg'
+// import image1 from '../../assets/img/faces/marc.jpg'
 
 export default class InventoryDetail extends Component {
   constructor(props) {
@@ -55,7 +55,9 @@ export default class InventoryDetail extends Component {
             <Card>
               <CardHeader color="danger">
                 <h4 className={classes.cardTitleWhite}>Inventory Detail</h4>
-                <p className={classes.cardCategoryWhite}>17 Agustus 1945</p>
+                <p className={classes.cardCategoryWhite}>
+                  {this.props.location.state.created_at}
+                </p>
               </CardHeader>
               <CardBody>
                 <Grid item xs container direction="row" spacing={2}>
@@ -64,8 +66,8 @@ export default class InventoryDetail extends Component {
                       <Paper className="wrapperNoImage" elevation={3}>
                         <img
                           className="rounded mx-auto d-block img-responsive wrapperImage"
-                          src={image1}
-                          alt="..."
+                          src={`http://10.5.1.38:5000/${this.props.location.state.image_url}`}
+                          alt="inventory img"
                         />
                       </Paper>
                     </div>
@@ -79,29 +81,21 @@ export default class InventoryDetail extends Component {
                   >
                     <ListItem className="listItemWidth">
                       <ListItemText>
-                        <h2>Macbook Pro</h2>
-                        <h5>Apple</h5>
+                        <h2>{this.props.location.state.name}</h2>
+                        <h5>{this.props.location.state.brand}</h5>
                       </ListItemText>
                     </ListItem>
                     <ListItem className="textBodyRow">
                       <h6 className="textBodyBold">S/N : </h6>
-                      <h6> 00001</h6>
+                      <h6>&nbsp;{this.props.location.state.serial_no}</h6>
                     </ListItem>
                     <ListItem className="textBodyRow">
                       <h6 className="textBodyBold">Exp Date : </h6>
-                      <h6> 17 Agustus 1945</h6>
+                      <h6>&nbsp;{this.props.location.state.exp_date}</h6>
                     </ListItem>
                     <Typography variant="body2">
                       <p className="paperGridCentre">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit
-                        anim id est laborum.
+                        {this.props.location.state.note}
                       </p>
                     </Typography>
                   </Grid>
