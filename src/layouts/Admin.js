@@ -23,7 +23,7 @@ import ActualDashboard from '../pages/ActualDashboard/ActualDashboard'
 import Announcement from '../pages/Announcement/Announcement'
 import AnnouncementDetail from '../pages/Announcement/AnnouncementDetail'
 import Attendance from '../pages/Attendance/Actual'
-import IdUserAttendance from '../pages/Attendance/IdUser'
+import AttendanceDetail from '../pages/Attendance/AttendanceDetail'
 import CalendarScreen from '../pages/Calendar/Calendar'
 import CalendarDetail from '../pages/Calendar/CalendarDetail'
 import Inventory from '../pages/Inventory/Inventory'
@@ -70,7 +70,7 @@ const switchRoutes = (
     <Route exact path="/admin/announcement" component={Announcement} />
     <Route exact path="/admin/announcement/:id" component={AnnouncementDetail} />
     <Route exact path="/admin/attendance" component={Attendance} />
-    <Route exact path="/admin/id-attendance" component={IdUserAttendance} />
+    <Route exact path="/admin/attendance/detail" component={AttendanceDetail} />
     <Route exact path="/admin/calendar" component={CalendarScreen} />
     <Route exact path="/admin/calendar/detail" component={CalendarDetail} />
     <Route exact path="/admin/inventory" component={Inventory} />

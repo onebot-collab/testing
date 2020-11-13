@@ -6,7 +6,7 @@ import './Actual.css'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 import Table from '@material-ui/core/Table'
@@ -14,11 +14,13 @@ import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
 import TableBody from '@material-ui/core/TableBody'
 import TableRow from '@material-ui/core/TableRow'
+import Button from '@material-ui/core/Button'
 // import Fab from '@material-ui/core/Fab'
 
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
 import Visibility from '@material-ui/icons/Visibility'
+import File from '@material-ui/icons/InsertDriveFile'
 import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
 import { Cancel, CheckCircle } from '@material-ui/icons'
@@ -69,147 +71,162 @@ class Attendance extends Component {
         {!this.props.login.token ? (
           <>{this.redirect()}</>
         ) : (
-          <GridContainer>
-            <GridItem xs={12} sm={12} md={12}>
-              <Card>
-                {this.state.isLoading ? (
-                  <center>
-                    <div
-                      className="d-flex align-self-center spinner-border text-dark mt-2 mb-3"
-                      role="status"
-                    >
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  </center>
-                ) : (
-                  <>
-                    <CardHeader color="danger">
-                      <h4 className={classes.cardTitleWhite}>Attendance</h4>
-                      <p className={classes.cardCategoryWhite}>
-                        Last Updated{' '}
-                        {this.props.presence.dataAllLog[0] === undefined
-                          ? '-'
-                          : this.props.presence.dataAllLog[0].updated_at}
-                      </p>
-                    </CardHeader>
-                    <CardBody>
-                      <Table className={classesHead.table}>
-                        <TableHead>
-                          <TableRow>
-                            <TableCell component="th">
-                              <h6 className="textPrimaryColor">Name</h6>
-                            </TableCell>
-                            <TableCell component="th">
-                              <h6 className="textPrimaryColor">Department</h6>
-                            </TableCell>
-                            <TableCell component="th">
-                              <h6 className="textPrimaryColor">Check In</h6>
-                            </TableCell>
-                            <TableCell component="th">
-                              <h6 className="textPrimaryColor">Check Out</h6>
-                            </TableCell>
-                            <TableCell component="th">
-                              <h6 className="textPrimaryColor">Date</h6>
-                            </TableCell>
-                            <TableCell component="th">
-                              <h6 className="textPrimaryColor">On Time</h6>
-                            </TableCell>
-                            <TableCell component="th">
-                              <h6 className="textPrimaryColor">Action</h6>
-                            </TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {this.props.presence.dataAllLog.map((res, i) => (
-                            <TableRow className={classes.tableRow} key={i}>
+          <>
+            <Link to="/admin/attendance/detail">
+              <Button
+                variant="contained"
+                color="primary"
+                // className="buttonAdd"
+                startIcon={<File />}
+              >
+                Detail Attendance
+              </Button>
+            </Link>
+
+            <GridContainer>
+              <GridItem xs={12} sm={12} md={12}>
+                <Card>
+                  {this.state.isLoading ? (
+                    <center>
+                      <div
+                        className="d-flex align-self-center spinner-border text-dark mt-2 mb-3"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    </center>
+                  ) : (
+                    <>
+                      <CardHeader color="danger">
+                        <h4 className={classes.cardTitleWhite}>Attendance</h4>
+                        <p className={classes.cardCategoryWhite}>
+                          Last Updated{' '}
+                          {this.props.presence.dataAllLog[0] === undefined
+                            ? '-'
+                            : this.props.presence.dataAllLog[0].updated_at}
+                        </p>
+                      </CardHeader>
+                      <CardBody>
+                        <Table className={classesHead.table}>
+                          <TableHead>
+                            <TableRow>
                               <TableCell component="th">
-                                <p className="textPrimaryColor">
-                                  {res.nameUser}
-                                </p>
+                                <h6 className="textPrimaryColor">Name</h6>
                               </TableCell>
                               <TableCell component="th">
-                                <p className="textPrimaryColor">General</p>
+                                <h6 className="textPrimaryColor">Department</h6>
                               </TableCell>
                               <TableCell component="th">
-                                <p className="textPrimaryColor">
-                                  {res.att_time}
-                                </p>
+                                <h6 className="textPrimaryColor">Check In</h6>
                               </TableCell>
                               <TableCell component="th">
-                                <p className="textPrimaryColor">
-                                  {res.end_time === null ? '-' : res.end_time}
-                                </p>
+                                <h6 className="textPrimaryColor">Check Out</h6>
                               </TableCell>
                               <TableCell component="th">
-                                <p className="textPrimaryColor">
-                                  {res.att_date}
-                                </p>
+                                <h6 className="textPrimaryColor">Date</h6>
                               </TableCell>
-                              <TableCell className={classesBody.tableActions}>
-                                {res.isLate === 1 ? (
-                                  <Tooltip
-                                    id="tooltip-top-start"
-                                    title="Late"
-                                    placement="top"
-                                    classes={{ tooltip: classesBody.tooltip }}
-                                  >
-                                    <Cancel className="iconSecondaryColor" />
-                                  </Tooltip>
-                                ) : (
-                                  <Tooltip
-                                    id="tooltip-top-start"
-                                    title="On time"
-                                    placement="top"
-                                    classes={{ tooltip: classesBody.tooltip }}
-                                  >
-                                    <CheckCircle className="iconPrimaryColor" />
-                                  </Tooltip>
-                                )}
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">On Time</h6>
                               </TableCell>
-                              <TableCell className={classesBody.tableActions}>
-                                <Tooltip
-                                  id="tooltip-top-start"
-                                  title="Click to Detail"
-                                  placement="top"
-                                  onClick={() =>
-                                    this.props.history.push('/admin/dashboard')
-                                  }
-                                  classes={{ tooltip: classesBody.tooltip }}
-                                >
-                                  <Visibility className="iconWhiteColor" />
-                                </Tooltip>
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">Action</h6>
                               </TableCell>
                             </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                      <div className="d-flex flex-row justify-content-end">
-                        <div className="p-2 d-flex align-items-center align-self-center">
-                          <h6>1 - 5 of 20</h6>
+                          </TableHead>
+                          <TableBody>
+                            {this.props.presence.dataAllLog.map((res, i) => (
+                              <TableRow className={classes.tableRow} key={i}>
+                                <TableCell component="th">
+                                  <p className="textPrimaryColor">
+                                    {res.nameUser}
+                                  </p>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <p className="textPrimaryColor">General</p>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <p className="textPrimaryColor">
+                                    {res.att_time}
+                                  </p>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <p className="textPrimaryColor">
+                                    {res.end_time === null ? '-' : res.end_time}
+                                  </p>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <p className="textPrimaryColor">
+                                    {res.att_date}
+                                  </p>
+                                </TableCell>
+                                <TableCell className={classesBody.tableActions}>
+                                  {res.isLate === 1 ? (
+                                    <Tooltip
+                                      id="tooltip-top-start"
+                                      title="Late"
+                                      placement="top"
+                                      classes={{ tooltip: classesBody.tooltip }}
+                                    >
+                                      <Cancel className="iconSecondaryColor" />
+                                    </Tooltip>
+                                  ) : (
+                                    <Tooltip
+                                      id="tooltip-top-start"
+                                      title="On time"
+                                      placement="top"
+                                      classes={{ tooltip: classesBody.tooltip }}
+                                    >
+                                      <CheckCircle className="iconPrimaryColor" />
+                                    </Tooltip>
+                                  )}
+                                </TableCell>
+                                <TableCell className={classesBody.tableActions}>
+                                  <Tooltip
+                                    id="tooltip-top-start"
+                                    title="Click to Detail"
+                                    placement="top"
+                                    onClick={() =>
+                                      this.props.history.push(
+                                        '/admin/attendance/detail',
+                                      )
+                                    }
+                                    classes={{ tooltip: classesBody.tooltip }}
+                                  >
+                                    <Visibility className="iconWhiteColor" />
+                                  </Tooltip>
+                                </TableCell>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                        <div className="d-flex flex-row justify-content-end">
+                          <div className="p-2 d-flex align-items-center align-self-center">
+                            <h6>1 - 5 of 20</h6>
+                          </div>
+                          <div className="p-2">
+                            <IconButton>
+                              <ArrowLeft
+                                className="iconWhiteColor"
+                                fontSize="large"
+                              />
+                            </IconButton>
+                          </div>
+                          <div className="p-2">
+                            <IconButton>
+                              <ArrowRight
+                                className="iconWhiteColor"
+                                fontSize="large"
+                              />
+                            </IconButton>
+                          </div>
                         </div>
-                        <div className="p-2">
-                          <IconButton>
-                            <ArrowLeft
-                              className="iconWhiteColor"
-                              fontSize="large"
-                            />
-                          </IconButton>
-                        </div>
-                        <div className="p-2">
-                          <IconButton>
-                            <ArrowRight
-                              className="iconWhiteColor"
-                              fontSize="large"
-                            />
-                          </IconButton>
-                        </div>
-                      </div>
-                    </CardBody>
-                  </>
-                )}
-              </Card>
-            </GridItem>
-          </GridContainer>
+                      </CardBody>
+                    </>
+                  )}
+                </Card>
+              </GridItem>
+            </GridContainer>
+          </>
         )}
       </div>
     )
