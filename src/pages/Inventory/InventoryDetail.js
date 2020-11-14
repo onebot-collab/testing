@@ -1,3 +1,4 @@
+/* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-useless-constructor */
@@ -10,16 +11,25 @@ import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
 // import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
-// import Button from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import ListItem from '@material-ui/core/ListItem'
 // import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 // import { Link } from 'react-router-dom'
-
+import {
+  Form,
+  FormGroup,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
+  Input,
+  CustomInput,
+} from 'reactstrap'
 // @material-ui/icons
-// import Edit from '@material-ui/icons/Edit'
+import Edit from '@material-ui/icons/Edit'
 // import { Visibility } from '@material-ui/icons'
 
 // import Check from '@material-ui/icons/Check'
@@ -39,7 +49,21 @@ import styles from '../../assets/jss/material-dashboard-react/views/dashboardSty
 export default class InventoryDetail extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      showEditModal: false,
+    }
+    this.toggleEditModal = this.toggleEditModal.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value })
+  }
+
+  toggleEditModal() {
+    this.setState({
+      showEditModal: !this.state.showEditModal,
+    })
   }
 
   componentDidMount() {}
@@ -50,6 +74,15 @@ export default class InventoryDetail extends Component {
     const classes = makeStyles(styles)
     return (
       <div>
+        <Button
+          onClick={this.toggleEditModal}
+          variant="contained"
+          color="primary"
+          // className="buttonAdd"
+          startIcon={<Edit />}
+        >
+          Edit
+        </Button>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <Card>
@@ -126,6 +159,87 @@ export default class InventoryDetail extends Component {
             </Card>
           </GridItem>
         </GridContainer>
+        {/* Edit Modal */}
+        <Modal isOpen={this.state.showEditModal}>
+          <ModalHeader className="h1">Edit Inventory</ModalHeader>
+          <Form>
+            <ModalBody>
+              <h6>Name</h6>
+              <Input
+                type="text"
+                name="name"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Brand</h6>
+              <Input
+                type="text"
+                name="brand"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Serial No</h6>
+              <Input
+                type="text"
+                name="serialNo"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Note</h6>
+              <Input
+                type="textarea"
+                name="note"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Expired Date</h6>
+              <Input
+                value={this.state.birthDate}
+                type="date"
+                name="expDate"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <FormGroup className="mb-2 shadow-none">
+                <h6>Picture</h6>
+                <CustomInput
+                  type="file"
+                  id="exampleCustomFileBrowser"
+                  name="fileInventory"
+                  // onChange={(e) =>
+                  //   this.setState({
+                  //     fileInventory: e.target.files[0],
+                  //   })
+                  // }
+                />
+              </FormGroup>
+            </ModalBody>
+            <ModalFooter>
+              {this.state.isLoadingAddInventory ? (
+                <Button color="primary">
+                  <div
+                    className="spinner-border spinner-border-sm text-danger"
+                    role="status"
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </Button>
+              ) : (
+                <Button
+                  color="secondary"
+                  onClick={() => {
+                    alert('Edit Modal')
+                  }}
+                >
+                  Submit
+                </Button>
+              )}
+              <Button color="secondary" onClick={this.toggleEditModal}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Form>
+        </Modal>
       </div>
     )
   }

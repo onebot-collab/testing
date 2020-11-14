@@ -154,7 +154,11 @@ class Ticketing extends Component {
               ) : (
                 <>
                   <GridItem xs={12} sm={6} md={3}>
-                    <Card>
+                    <Card
+                      onClick={() => {
+                        alert('Sorting Ticket Status Open')
+                      }}
+                    >
                       <CardHeader color="danger" stats icon>
                         <CardIcon color="danger">
                           <Store />
@@ -167,7 +171,11 @@ class Ticketing extends Component {
                     </Card>
                   </GridItem>
                   <GridItem xs={12} sm={6} md={3}>
-                    <Card>
+                    <Card
+                      onClick={() => {
+                        alert('Sorting Ticket Status Processed')
+                      }}
+                    >
                       <CardHeader color="danger" stats icon>
                         <CardIcon color="danger">
                           <Store />
@@ -180,7 +188,11 @@ class Ticketing extends Component {
                     </Card>
                   </GridItem>
                   <GridItem xs={12} sm={6} md={3}>
-                    <Card>
+                    <Card
+                      onClick={() => {
+                        alert('Sorting Ticket Status Solved')
+                      }}
+                    >
                       <CardHeader color="danger" stats icon>
                         <CardIcon color="danger">
                           <Store />
@@ -193,7 +205,11 @@ class Ticketing extends Component {
                     </Card>
                   </GridItem>
                   <GridItem xs={12} sm={6} md={3}>
-                    <Card>
+                    <Card
+                      onClick={() => {
+                        alert('Sorting Ticket Status Closed')
+                      }}
+                    >
                       <CardHeader color="danger" stats icon>
                         <CardIcon color="danger">
                           <Accessibility />

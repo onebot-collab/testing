@@ -93,25 +93,18 @@ class InvoiceDetail extends Component {
                   <Table aria-label="spanning table">
                     <TableHead>
                       <TableRow>
-                        <TableCell align="center" colSpan={3}>
-                          <h5>Details</h5>
-                        </TableCell>
-                        <TableCell />
-                        <TableCell align="right">
-                          <h5>Price</h5>
-                        </TableCell>
-                      </TableRow>
-                      <TableRow>
                         <TableCell align="center">
-                          <h6>Item</h6>
+                          <h6 className="textWidthTitle">Item</h6>
                         </TableCell>
                         <TableCell />
+                        <TableCell>
+                          <h6 className="textWidthTitle">@ Price</h6>
+                        </TableCell>
                         <TableCell align="center">
-                          <h6>Qty</h6>
+                          <h6 className="textWidthTitle">Qty</h6>
                         </TableCell>
-                        <TableCell />
                         <TableCell align="right">
-                          <h6>Sum</h6>
+                          <h6 className="textWidthTitle">Sum</h6>
                         </TableCell>
                       </TableRow>
                     </TableHead>
@@ -144,10 +137,10 @@ class InvoiceDetail extends Component {
                                       {res.name}
                                     </TableCell>
                                     <TableCell />
+                                    <TableCell>Rp. {res.price}</TableCell>
                                     <TableCell align="center">
                                       {res.qty}
                                     </TableCell>
-                                    <TableCell />
                                     <TableCell align="right">
                                       Rp. {res.price}
                                     </TableCell>
@@ -161,7 +154,7 @@ class InvoiceDetail extends Component {
                             <TableCell />
                             <TableCell />
                             <TableCell align="right">
-                              <h6>Subtotal</h6>
+                              <h6 className="textWidthTitle">Subtotal</h6>
                             </TableCell>
                             <TableCell align="right">
                               <h6>Rp -</h6>
@@ -172,7 +165,7 @@ class InvoiceDetail extends Component {
                             <TableCell />
                             <TableCell />
                             <TableCell align="right">
-                              <h6>Total</h6>
+                              <h6 className="textWidthTitle">Total</h6>
                             </TableCell>
                             <TableCell align="right">
                               <h6>

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-useless-constructor */
 /* eslint-disable no-undef */
@@ -9,13 +10,22 @@ import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
 // import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
-// import Button from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 // import { Link } from 'react-router-dom'
+import Select from 'react-select'
+import {
+  Form,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
+  Input,
+} from 'reactstrap'
 
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
@@ -23,10 +33,16 @@ import ListItemText from '@material-ui/core/ListItemText'
 // import CalendarToday from '@material-ui/icons/CalendarToday'
 // import Apartment from '@material-ui/icons/Apartment'
 // import AssignmentInd from '@material-ui/icons/AssignmentInd'
-// import Assignment from '@material-ui/icons/Assignment'
+import Edit from '@material-ui/icons/Edit'
 import Attachment from '@material-ui/icons/Attachment'
 import CheckCircle from '@material-ui/icons/CheckCircle'
 import Cancel from '@material-ui/icons/Cancel'
+// import {
+//   getAllCampaign,
+//   deleteCampaign,
+//   postCampaign,
+// } from '../../redux/actions/campaign'
+// import { getDepartment } from '../../redux/actions/department'
 
 // import Check from '@material-ui/icons/Check'
 // core components
@@ -41,13 +57,31 @@ import styles from '../../assets/jss/material-dashboard-react/views/dashboardSty
 // import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
 // import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
-export default class ReportDetail extends Component {
+export default class AnnouncementDetail extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      showEditModal: false,
+      // selectedDepartment: false,
+    }
+    this.toggleEditModal = this.toggleEditModal.bind(this)
+    // this.handleDepartmentChange = this.handleDepartmentChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  componentDidMount() {}
+  // handleDepartmentChange(e) {
+  //   this.setState({ selectedDepartment: e.value })
+  // }
+
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value })
+  }
+
+  toggleEditModal() {
+    this.setState({
+      showEditModal: !this.state.showEditModal,
+    })
+  }
 
   renderEvents() {}
 
@@ -57,6 +91,15 @@ export default class ReportDetail extends Component {
     // const classesBody = makeStyles(stylesBody)
     return (
       <div>
+        <Button
+          onClick={this.toggleEditModal}
+          variant="contained"
+          color="primary"
+          // className="buttonAdd"
+          startIcon={<Edit />}
+        >
+          Edit
+        </Button>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <Card>
@@ -110,7 +153,70 @@ export default class ReportDetail extends Component {
             </Card>
           </GridItem>
         </GridContainer>
+        {/* Edit Modal */}
+        <Modal isOpen={this.state.showEditModal}>
+          <ModalHeader className="h1">Edit Announcement</ModalHeader>
+          <Form>
+            <ModalBody>
+              <h6>Title</h6>
+              <Input
+                type="text"
+                name="title"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Description</h6>
+              <Input
+                type="textarea"
+                name="description"
+                className="mb-3 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Department</h6>
+              <Select
+              // onChange={this.handleDepartmentChange}
+              // options={departmentData.map((res) => ({
+              //   value: res.id,
+              //   label: res.name,
+              // }))}
+              />
+            </ModalBody>
+            <ModalFooter>
+              {this.state.isLoadingAddCampaign ? (
+                <Button color="primary">
+                  <div
+                    className="spinner-border spinner-border-sm text-danger"
+                    role="status"
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </Button>
+              ) : (
+                <Button
+                  color="secondary"
+                  onClick={() => {
+                    alert('Updated Alert')
+                  }}
+                >
+                  Submit
+                </Button>
+              )}
+              <Button color="secondary" onClick={this.toggleEditModal}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Form>
+        </Modal>
       </div>
     )
   }
 }
+
+// const mapDispatchToProps = {
+//   getAllCampaign,
+//   deleteCampaign,
+//   postCampaign,
+//   getDepartment,
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(AnnouncementDetail)

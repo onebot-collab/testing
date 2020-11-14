@@ -57,7 +57,7 @@ import styles from '../../assets/jss/material-dashboard-react/views/dashboardSty
 import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
 import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
-class AnnouncementDetail extends Component {
+class Announcement extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -462,4 +462,4 @@ const mapDispatchToProps = {
   getDepartment,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AnnouncementDetail)
+export default connect(mapStateToProps, mapDispatchToProps)(Announcement)

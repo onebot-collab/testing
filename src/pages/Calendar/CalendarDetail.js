@@ -1,3 +1,4 @@
+/* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-useless-constructor */
@@ -10,14 +11,22 @@ import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
 // import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
-// import Button from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 // import { Link } from 'react-router-dom'
-
+import Select from 'react-select'
+import {
+  Form,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
+  Input,
+} from 'reactstrap'
 // @material-ui/icons
-// import Attachment from '@material-ui/icons/Attachment'
+import Edit from '@material-ui/icons/Edit'
 // import CheckCircle from '@material-ui/icons/CheckCircle'
 // import Cancel from '@material-ui/icons/Cancel'
 
@@ -37,7 +46,21 @@ import styles from '../../assets/jss/material-dashboard-react/views/dashboardSty
 export default class CalendarDetail extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      showEditModal: false,
+    }
+    this.toggleEditModal = this.toggleEditModal.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  toggleEditModal() {
+    this.setState({
+      showEditModal: !this.state.showEditModal,
+    })
+  }
+
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   componentDidMount() {}
@@ -50,6 +73,15 @@ export default class CalendarDetail extends Component {
     // const classesBody = makeStyles(stylesBody)
     return (
       <div>
+        <Button
+          onClick={this.toggleEditModal}
+          variant="contained"
+          color="primary"
+          // className="buttonAdd"
+          startIcon={<Edit />}
+        >
+          Edit
+        </Button>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <Card>
@@ -122,6 +154,62 @@ export default class CalendarDetail extends Component {
             </Card>
           </GridItem>
         </GridContainer>
+        {/* Edit Modal */}
+        <Modal isOpen={this.state.showEditModal}>
+          <ModalHeader className="h1">Edit Event</ModalHeader>
+          <Form>
+            <ModalBody>
+              <h6>Title</h6>
+              <Input
+                type="text"
+                name="title"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Description</h6>
+              <Input
+                type="textarea"
+                name="description"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Date</h6>
+              <Input
+                value={this.state.birthDate}
+                type="date"
+                name="dateAdd"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Type</h6>
+              <Select />
+            </ModalBody>
+            <ModalFooter>
+              {this.state.isLoadingAddReminder ? (
+                <Button color="primary">
+                  <div
+                    className="spinner-border spinner-border-sm text-danger"
+                    role="status"
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </Button>
+              ) : (
+                <Button
+                  color="secondary"
+                  onClick={() => {
+                    alert('Edit Alert')
+                  }}
+                >
+                  Submit
+                </Button>
+              )}
+              <Button color="secondary" onClick={this.toggleEditModal}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Form>
+        </Modal>
       </div>
     )
   }
