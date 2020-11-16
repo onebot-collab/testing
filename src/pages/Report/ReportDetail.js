@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-curly-brace-presence */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-useless-constructor */
@@ -50,6 +51,8 @@ export default class ReportDetail extends Component {
       created_at: props.location.state.created_at,
       nameReport: props.location.state.nameReport,
       fileName: props.location.state.fileName,
+      fileName2: props.location.state.fileName2,
+      fileName3: props.location.state.fileName3,
     }
   }
 
@@ -90,16 +93,90 @@ export default class ReportDetail extends Component {
                     </Typography>
                   </Grid>
                   <Grid item xs>
-                    <Paper elevation={2} className="d-flex flex-row p-3">
+                    <Paper
+                      // onClick={() => window.location.href('/admin')}
+                      href="www.google.com"
+                      elevation={2}
+                      className="d-flex flex-row p-3"
+                    >
                       <ListItem>
                         <ListItemIcon>
                           <Attachment edge="start" />
                         </ListItemIcon>
                         <ListItemText>
-                          {this.state.fileName.replace('report/', '')}
+                          <a
+                            target="_blank"
+                            href={`http://10.5.1.38:5000/${this.state.fileName}`}
+                          >
+                            {this.state.fileName.replace('report/', '')}
+                          </a>
                         </ListItemText>
                         <ListItemIcon>
                           {this.state.fileName === 'report/file.pdf' ? (
+                            <Cancel edge="end" className="CancelColor" />
+                          ) : (
+                            <CheckCircle
+                              edge="end"
+                              className="CheckCircleColor"
+                            />
+                          )}
+                        </ListItemIcon>
+                      </ListItem>
+                    </Paper>
+                  </Grid>
+                  <Grid item xs>
+                    <Paper
+                      // onClick={() => window.location.href('/admin')}
+                      href="www.google.com"
+                      elevation={2}
+                      className="d-flex flex-row p-3"
+                    >
+                      <ListItem>
+                        <ListItemIcon>
+                          <Attachment edge="start" />
+                        </ListItemIcon>
+                        <ListItemText>
+                          <a
+                            target="_blank"
+                            href={`http://10.5.1.38:5000/${this.state.fileName2}`}
+                          >
+                            {this.state.fileName2.replace('report/', '')}
+                          </a>
+                        </ListItemText>
+                        <ListItemIcon>
+                          {this.state.fileName2 === 'report/file.pdf' ? (
+                            <Cancel edge="end" className="CancelColor" />
+                          ) : (
+                            <CheckCircle
+                              edge="end"
+                              className="CheckCircleColor"
+                            />
+                          )}
+                        </ListItemIcon>
+                      </ListItem>
+                    </Paper>
+                  </Grid>
+                  <Grid item xs>
+                    <Paper
+                      // onClick={() => window.location.href('/admin')}
+                      href="www.google.com"
+                      elevation={2}
+                      className="d-flex flex-row p-3"
+                    >
+                      <ListItem>
+                        <ListItemIcon>
+                          <Attachment edge="start" />
+                        </ListItemIcon>
+                        <ListItemText>
+                          <a
+                            target="_blank"
+                            href={`http://10.5.1.38:5000/${this.state.fileName3}`}
+                          >
+                            {this.state.fileName3.replace('report/', '')}
+                          </a>
+                        </ListItemText>
+                        <ListItemIcon>
+                          {this.state.fileName3 === 'report/file.pdf' ? (
                             <Cancel edge="end" className="CancelColor" />
                           ) : (
                             <CheckCircle

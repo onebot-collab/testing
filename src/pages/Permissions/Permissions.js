@@ -24,7 +24,7 @@ import { Link } from 'react-router-dom'
 import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
 import Visibility from '@material-ui/icons/Visibility'
-import { listIzin } from '../../redux/actions/izin'
+import { allIzin } from '../../redux/actions/izin'
 
 // import Check from '@material-ui/icons/Check'
 // core components
@@ -48,10 +48,7 @@ class Permissions extends Component {
   }
 
   fetch() {
-    const dataSubmit = {
-      touser: this.props.login.dataLogin.id,
-    }
-    this.props.listIzin(dataSubmit).then(() => {
+    this.props.allIzin().then(() => {
       this.setState({ isLoading: false })
     })
   }
@@ -143,7 +140,7 @@ class Permissions extends Component {
                             </TableRow>
                           </TableHead>
                           <TableBody>
-                            {this.props.izin.dataIzin.map((res, i) => (
+                            {this.props.izin.dataIzinAll.map((res, i) => (
                               <TableRow className={classes.tableRow} key={i}>
                                 <TableCell component="th">
                                   <p className="textPrimaryColor">
@@ -257,6 +254,6 @@ const mapStateToProps = (state) => ({
   izin: state.izin,
 })
 
-const mapDispatchToProps = { listIzin }
+const mapDispatchToProps = { allIzin }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Permissions)

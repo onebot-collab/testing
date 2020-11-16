@@ -336,6 +336,7 @@ class UserDetail extends Component {
                     <Card profile>
                       <CardAvatar profile>
                         <a
+                          target="_blank"
                           href={`http://10.5.1.38:5000/${this.props.user.dataProfile[0].photo_url}`}
                         >
                           <img
