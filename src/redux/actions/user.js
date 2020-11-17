@@ -21,4 +21,9 @@ const getProfile = (id) => ({
   payload: axios().get(`${URL}api/v1/profile/${id}`),
 })
 
-export { getAdmin, getUser, registerUser, getProfile }
+const deleteUser = (id) => ({
+  type: 'POST',
+  payload: axios().delete(`${URL}api/v1/user/${id}`),
+})
+
+export { getAdmin, getUser, registerUser, getProfile, deleteUser }
