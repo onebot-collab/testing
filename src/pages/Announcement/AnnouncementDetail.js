@@ -4,7 +4,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react'
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 import './AnnouncementDetail.css'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
@@ -42,7 +42,7 @@ import Cancel from '@material-ui/icons/Cancel'
 //   deleteCampaign,
 //   postCampaign,
 // } from '../../redux/actions/campaign'
-// import { getDepartment } from '../../redux/actions/department'
+import { getDepartment } from '../../redux/actions/department'
 
 // import Check from '@material-ui/icons/Check'
 // core components
@@ -57,21 +57,23 @@ import styles from '../../assets/jss/material-dashboard-react/views/dashboardSty
 // import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
 // import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
-export default class AnnouncementDetail extends Component {
+class AnnouncementDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
       showEditModal: false,
-      // selectedDepartment: false,
+      title: `${this.props.location.state.title}`,
+      description: `${this.props.location.state.description}`,
+      department: `${this.props.location.state.department}`,
     }
     this.toggleEditModal = this.toggleEditModal.bind(this)
     // this.handleDepartmentChange = this.handleDepartmentChange.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
-  // handleDepartmentChange(e) {
-  //   this.setState({ selectedDepartment: e.value })
-  // }
+  handleDepartmentChange(e) {
+    this.setState({ department: e.value })
+  }
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
@@ -83,7 +85,9 @@ export default class AnnouncementDetail extends Component {
     })
   }
 
-  renderEvents() {}
+  componentDidMount() {
+    this.props.getDepartment()
+  }
 
   render() {
     const classes = makeStyles(styles)
@@ -162,6 +166,7 @@ export default class AnnouncementDetail extends Component {
               <Input
                 type="text"
                 name="title"
+                value={this.state.title}
                 className="mb-2 shadow-none"
                 onChange={this.handleChange}
               />
@@ -169,16 +174,18 @@ export default class AnnouncementDetail extends Component {
               <Input
                 type="textarea"
                 name="description"
+                value={this.state.description}
                 className="mb-3 shadow-none"
                 onChange={this.handleChange}
               />
               <h6>Department</h6>
               <Select
-              // onChange={this.handleDepartmentChange}
-              // options={departmentData.map((res) => ({
-              //   value: res.id,
-              //   label: res.name,
-              // }))}
+                value={this.state.department}
+                onChange={this.handleDepartmentChange}
+                options={this.props.department.dataDepartment.map((res) => ({
+                  value: res.id,
+                  label: res.name,
+                }))}
               />
             </ModalBody>
             <ModalFooter>
@@ -198,7 +205,7 @@ export default class AnnouncementDetail extends Component {
                     alert('Updated Alert')
                   }}
                 >
-                  Submit
+                  Edit
                 </Button>
               )}
               <Button color="secondary" onClick={this.toggleEditModal}>
@@ -212,11 +219,12 @@ export default class AnnouncementDetail extends Component {
   }
 }
 
-// const mapDispatchToProps = {
-//   getAllCampaign,
-//   deleteCampaign,
-//   postCampaign,
-//   getDepartment,
-// }
+const mapDispatchToProps = {
+  getDepartment,
+}
+const mapStateToProps = (state) => ({
+  department: state.department,
+  campaign: state.campaign,
+})
 
-// export default connect(mapStateToProps, mapDispatchToProps)(AnnouncementDetail)
+export default connect(mapStateToProps, mapDispatchToProps)(AnnouncementDetail)
