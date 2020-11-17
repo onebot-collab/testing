@@ -74,7 +74,7 @@ const DashboardRoutes = [
     layout: '/admin',
   },
   {
-    path: '/permissions',
+    path: '/leave-application',
     name: 'Leave Application',
     icon: iconPermissions,
     component: Permissions,

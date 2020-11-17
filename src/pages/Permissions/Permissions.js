@@ -189,7 +189,7 @@ class Permissions extends Component {
                                 <TableCell className={classesBody.tableActions}>
                                   <Link
                                     to={{
-                                      pathname: `/admin/permissions/${res.id}`,
+                                      pathname: `/admin/leave-application/${res.id}`,
                                       state: {
                                         id: `${res.id}`,
                                         name: `${res.nameuser}`,
