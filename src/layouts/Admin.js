@@ -77,8 +77,8 @@ const switchRoutes = (
     <Route exact path="/admin/inventory/:id" component={InventoryDetail} />
     <Route exact path="/admin/invoice" component={Invoice} />
     <Route exact path="/admin/invoice/:id" component={InvoiceDetail} />
-    <Route exact path="/admin/permissions" component={Permissions} />
-    <Route exact path="/admin/permissions/:id" component={PermissionsDetail} />
+    <Route exact path="/admin/leave-application" component={Permissions} />
+    <Route exact path="/admin/leave-application/:id" component={PermissionsDetail} />
     <Route exact path="/admin/report" component={Report} />
     <Route exact path="/admin/report/:id" component={ReportDetail} />
     <Route exact path="/admin/ticketing" component={Ticketing} />

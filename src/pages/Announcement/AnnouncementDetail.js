@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-useless-constructor */
@@ -12,9 +13,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
-import Paper from '@material-ui/core/Paper'
+// import Paper from '@material-ui/core/Paper'
 import ListItem from '@material-ui/core/ListItem'
-import ListItemIcon from '@material-ui/core/ListItemIcon'
+// import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 // import { Link } from 'react-router-dom'
 import Select from 'react-select'
@@ -26,6 +27,7 @@ import {
   ModalFooter,
   Input,
 } from 'reactstrap'
+import swal from 'sweetalert2'
 
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
@@ -34,15 +36,16 @@ import {
 // import Apartment from '@material-ui/icons/Apartment'
 // import AssignmentInd from '@material-ui/icons/AssignmentInd'
 import Edit from '@material-ui/icons/Edit'
-import Attachment from '@material-ui/icons/Attachment'
-import CheckCircle from '@material-ui/icons/CheckCircle'
-import Cancel from '@material-ui/icons/Cancel'
+// import Attachment from '@material-ui/icons/Attachment'
+// import CheckCircle from '@material-ui/icons/CheckCircle'
+// import Cancel from '@material-ui/icons/Cancel'
 // import {
 //   getAllCampaign,
 //   deleteCampaign,
 //   postCampaign,
 // } from '../../redux/actions/campaign'
 import { getDepartment } from '../../redux/actions/department'
+import { patchCampaign } from '../../redux/actions/campaign'
 
 // import Check from '@material-ui/icons/Check'
 // core components
@@ -64,15 +67,16 @@ class AnnouncementDetail extends Component {
       showEditModal: false,
       title: `${this.props.location.state.title}`,
       description: `${this.props.location.state.description}`,
-      department: `${this.props.location.state.department}`,
+      departmentId: `${this.props.location.state.departmentId}`,
+      isLoadingUpdate: false,
     }
     this.toggleEditModal = this.toggleEditModal.bind(this)
-    // this.handleDepartmentChange = this.handleDepartmentChange.bind(this)
+    this.handleDepartmentChange = this.handleDepartmentChange.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
   handleDepartmentChange(e) {
-    this.setState({ department: e.value })
+    this.setState({ departmentId: e.value })
   }
 
   handleChange(event) {
@@ -83,6 +87,35 @@ class AnnouncementDetail extends Component {
     this.setState({
       showEditModal: !this.state.showEditModal,
     })
+  }
+
+  update() {
+    this.setState({ isLoadingUpdate: true })
+    const id = `${this.props.location.state.id}`
+    const dataSubmit = {
+      title: this.state.title,
+      description: this.state.description,
+      department: this.state.departmentId,
+    }
+
+    this.props
+      .patchCampaign(id, dataSubmit)
+      .then(() => {
+        this.setState({ isLoadingUpdate: false })
+        this.props.history.push('/admin/announcement')
+        swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Announcement successfully edited',
+        })
+      })
+      .catch(() => {
+        swal.fire({
+          icon: 'error',
+          title: 'Failed',
+          text: 'Failed to edit announcement',
+        })
+      })
   }
 
   componentDidMount() {
@@ -137,7 +170,7 @@ class AnnouncementDetail extends Component {
                       </p>
                     </Typography>
                   </Grid>
-                  <Grid item xs>
+                  {/* <Grid item xs>
                     <Paper elevation={2} className="d-flex flex-row p-3">
                       <ListItem>
                         <ListItemIcon>
@@ -153,7 +186,7 @@ class AnnouncementDetail extends Component {
                         </ListItemIcon>
                       </ListItem>
                     </Paper>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
               </CardBody>
             </Card>
@@ -182,7 +215,6 @@ class AnnouncementDetail extends Component {
               />
               <h6>Department</h6>
               <Select
-                value={this.state.department}
                 onChange={this.handleDepartmentChange}
                 options={this.props.department.dataDepartment.map((res) => ({
                   value: res.id,
@@ -191,7 +223,7 @@ class AnnouncementDetail extends Component {
               />
             </ModalBody>
             <ModalFooter>
-              {this.state.isLoadingAddCampaign ? (
+              {this.state.isLoadingUpdate ? (
                 <Button color="primary">
                   <div
                     className="spinner-border spinner-border-sm text-danger"
@@ -204,7 +236,7 @@ class AnnouncementDetail extends Component {
                 <Button
                   color="secondary"
                   onClick={() => {
-                    alert('Updated Alert')
+                    this.update()
                   }}
                 >
                   Edit
@@ -223,6 +255,7 @@ class AnnouncementDetail extends Component {
 
 const mapDispatchToProps = {
   getDepartment,
+  patchCampaign,
 }
 const mapStateToProps = (state) => ({
   department: state.department,

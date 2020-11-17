@@ -201,7 +201,7 @@ class Permissions extends Component {
                                   >
                                     <Link
                                       to={{
-                                        pathname: `/admin/permissions/${res.id}`,
+                                        pathname: `/admin/leave-application/${res.id}`,
                                         state: {
                                           id: `${res.id}`,
                                           name: `${res.nameuser}`,
