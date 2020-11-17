@@ -70,10 +70,12 @@ export default class ReportDetail extends Component {
           <GridItem xs={12} sm={12} md={12}>
             <Card>
               <CardHeader color="danger">
-                <h4 className={classes.cardTitleWhite}>Report Detail</h4>
-                <p className={classes.cardCategoryWhite}>
-                  {this.state.created_at.slice(0, 10)}
-                </p>
+                <div className="d-flex flex-row justify-content-between">
+                  <h4 className={classes.cardTitleWhite}>Report Detail</h4>
+                  <p className={classes.cardCategoryWhite}>
+                    Created at {this.state.created_at.slice(0, 10)}
+                  </p>
+                </div>
               </CardHeader>
               <CardBody>
                 <Grid item xs container direction="column" spacing={2}>

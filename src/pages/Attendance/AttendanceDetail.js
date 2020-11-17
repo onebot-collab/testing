@@ -88,12 +88,14 @@ class AttendanceDetail extends Component {
           <GridItem xs={12} sm={12} md={12}>
             <Card>
               <CardHeader color="danger">
-                <h4 className={classes.cardTitleWhite}>
-                  {this.props.location.state.nameUser} Attendance Report
-                </h4>
-                <p className={classes.cardCategoryWhite}>
-                  {this.props.location.state.name}
-                </p>
+                <div className="d-flex flex-row justify-content-between">
+                  <h4 className={classes.cardTitleWhite}>
+                    {this.props.location.state.nameUser} Attendance Report
+                  </h4>
+                  <p className={classes.cardCategoryWhite}>
+                    {this.props.location.state.name}
+                  </p>
+                </div>
               </CardHeader>
               {this.state.isLoadingFetch ? (
                 <center>

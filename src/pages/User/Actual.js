@@ -183,7 +183,6 @@ class User extends Component {
                 <Card>
                   <CardHeader color="danger">
                     <h4 className="cardTitleWhite">Add User</h4>
-                    <p className="cardCategoryWhite">by Admin</p>
                   </CardHeader>
                   <CardBody>
                     <Form>
@@ -541,7 +540,7 @@ class User extends Component {
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
-                <Card profile>
+                <Card>
                   {this.state.isLoadingUser ? (
                     <center>
                       <div
@@ -555,9 +554,6 @@ class User extends Component {
                     <>
                       <CardHeader color="danger">
                         <h4 className="cardTitleWhite">List User</h4>
-                        <p className="cardCategoryWhite">
-                          {this.props.user.dataUser.length}
-                        </p>
                       </CardHeader>
                       <CardBody>
                         <Grid item xs={12} sm={12} md={12}>

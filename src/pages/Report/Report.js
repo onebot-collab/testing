@@ -144,29 +144,30 @@ class Report extends Component {
                   ) : (
                     <>
                       <CardHeader color="danger">
-                        <h4 className={classes.cardTitleWhite}>Report</h4>
-                        {this.props.report.dataAllReport[0] === undefined ? (
-                          <p className={classes.cardCategoryWhite}>
-                            Last Updated -
-                          </p>
-                        ) : (
-                          <p className={classes.cardCategoryWhite}>
-                            Last Updated{' '}
-                            {this.props.report.dataAllReport[0].created_at.slice(
-                              8,
-                              10,
-                            )}
-                            -
-                            {this.props.report.dataAllReport[0].created_at.slice(
-                              5,
-                              8,
-                            )}
-                            {this.props.report.dataAllReport[0].created_at.slice(
-                              0,
-                              4,
-                            )}
-                          </p>
-                        )}
+                        <div className="d-flex flex-row justify-content-between">
+                          <h4 className={classes.cardTitleWhite}>Report</h4>
+                          {this.props.report.dataAllReport[0] === undefined ? (
+                            <p className={classes.cardCategoryWhite}>
+                              Last Updated -
+                            </p>
+                          ) : (
+                            <p className={classes.cardCategoryWhite}>
+                              Last Updated{' '}
+                              {this.props.report.dataAllReport[0].created_at.slice(
+                                8,
+                                10,
+                              )}
+                              {this.props.report.dataAllReport[0].created_at.slice(
+                                5,
+                                8,
+                              )}
+                              {this.props.report.dataAllReport[0].created_at.slice(
+                                0,
+                                4,
+                              )}
+                            </p>
+                          )}
+                        </div>
                       </CardHeader>
                       <CardBody>
                         <Table className={classesHead.table}>

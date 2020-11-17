@@ -73,9 +73,6 @@ export default class PermissionsDetail extends Component {
             <Card>
               <CardHeader color="danger">
                 <h4 className={classes.cardTitleWhite}>Permissions Detail</h4>
-                <p className={classes.cardCategoryWhite}>
-                  {this.state.startdate} - {this.state.enddate}
-                </p>
               </CardHeader>
               <CardBody>
                 <Grid item xs container direction="column" spacing={2}>
@@ -84,6 +81,9 @@ export default class PermissionsDetail extends Component {
                       <ListItemText>
                         <Typography variant="subtitle1">
                           {this.state.name}
+                          <p className={classes.cardCategoryWhite}>
+                            {this.state.startdate} - {this.state.enddate}
+                          </p>
                         </Typography>
                       </ListItemText>
                       <ListItemIcon>

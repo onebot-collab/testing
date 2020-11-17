@@ -201,13 +201,16 @@ class Inventory extends Component {
                   <GridItem xs={12} sm={12} md={12}>
                     <Card>
                       <CardHeader color="danger">
-                        <h4 className={classes.cardTitleWhite}>Inventory</h4>
-                        <p className={classes.cardCategoryWhite}>
-                          Last Updated{' '}
-                          {this.props.inventory.dataInventory[0] === undefined
-                            ? '-'
-                            : this.props.inventory.dataInventory[0].created_at}
-                        </p>
+                        <div className="d-flex flex-row justify-content-between">
+                          <h4 className={classes.cardTitleWhite}>Inventory</h4>
+                          <p className={classes.cardCategoryWhite}>
+                            Last Updated{' '}
+                            {this.props.inventory.dataInventory[0] === undefined
+                              ? '-'
+                              : this.props.inventory.dataInventory[0]
+                                  .created_at}
+                          </p>
+                        </div>
                       </CardHeader>
                       <CardBody>
                         <Table className={classesHead.table}>

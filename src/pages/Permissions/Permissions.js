@@ -104,13 +104,17 @@ class Permissions extends Component {
                   ) : (
                     <>
                       <CardHeader color="danger">
-                        <h4 className={classes.cardTitleWhite}>Permissions</h4>
-                        <p className={classes.cardCategoryWhite}>
-                          Last Updated{' '}
-                          {this.props.izin.dataIzin[0] === undefined
-                            ? '-'
-                            : this.props.izin.dataIzin[0].startdate}
-                        </p>
+                        <div className="d-flex flex-row justify-content-between">
+                          <h4 className={classes.cardTitleWhite}>
+                            Permissions
+                          </h4>
+                          <p className={classes.cardCategoryWhite}>
+                            Last Updated{' '}
+                            {this.props.izin.dataIzin[0] === undefined
+                              ? '-'
+                              : this.props.izin.dataIzin[0].startdate}
+                          </p>
+                        </div>
                       </CardHeader>
                       <CardBody>
                         <Table className={classesHead.table}>
