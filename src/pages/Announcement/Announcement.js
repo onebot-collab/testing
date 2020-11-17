@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 import Table from '@material-ui/core/Table'
+import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
 import TableBody from '@material-ui/core/TableBody'
@@ -240,120 +241,127 @@ class Announcement extends Component {
                         </div>
                       </CardHeader>
                       <CardBody>
-                        <Table className={classesHead.table}>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell component="th">
-                                <h6 className="textPrimaryColor">Title</h6>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h6 className="textPrimaryColor">
-                                  Description
-                                </h6>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h6 className="textPrimaryColor">Department</h6>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h6 className="textPrimaryColor">By</h6>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h6 className="textPrimaryColor">Date</h6>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h6 className="textPrimaryColor">Action</h6>
-                              </TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {this.props.campaign.dataCampaign.map(
-                              (campaign, index) => (
-                                <TableRow
-                                  className={classes.tableRow}
-                                  key={index}
-                                >
-                                  <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {campaign.title}
-                                    </p>
-                                  </TableCell>
-                                  <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {campaign.description}
-                                    </p>
-                                  </TableCell>
-                                  <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {campaign.departmentName}
-                                    </p>
-                                  </TableCell>
-                                  <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {campaign.createdby_name}
-                                    </p>
-                                  </TableCell>
-                                  <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {campaign.created_at}
-                                    </p>
-                                  </TableCell>
-                                  <TableCell
-                                    className={classesBody.tableActions}
+                        <TableContainer>
+                          <Table className={classesHead.table}>
+                            <TableHead>
+                              <TableRow>
+                                <TableCell component="th">
+                                  <h6 className="textPrimaryColor">Title</h6>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h6 className="textPrimaryColor">
+                                    Description
+                                  </h6>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h6 className="textPrimaryColor">
+                                    Department
+                                  </h6>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h6 className="textPrimaryColor">By</h6>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h6 className="textPrimaryColor">Date</h6>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h6 className="textPrimaryColor">Action</h6>
+                                </TableCell>
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              {this.props.campaign.dataCampaign.map(
+                                (campaign, index) => (
+                                  <TableRow
+                                    className={classes.tableRow}
+                                    key={index}
                                   >
-                                    <Tooltip
-                                      id="tooltip-top"
-                                      title="Edit Task"
-                                      placement="top"
-                                      classes={{ tooltip: classesBody.tooltip }}
+                                    <TableCell component="th">
+                                      <p className="textPrimaryColor">
+                                        {campaign.title}
+                                      </p>
+                                    </TableCell>
+                                    <TableCell component="th">
+                                      <p className="textPrimaryColor">
+                                        {campaign.description}
+                                      </p>
+                                    </TableCell>
+                                    <TableCell component="th">
+                                      <p className="textPrimaryColor">
+                                        {campaign.departmentName}
+                                      </p>
+                                    </TableCell>
+                                    <TableCell component="th">
+                                      <p className="textPrimaryColor">
+                                        {campaign.createdby_name}
+                                      </p>
+                                    </TableCell>
+                                    <TableCell component="th">
+                                      <p className="textPrimaryColor">
+                                        {campaign.created_at}
+                                      </p>
+                                    </TableCell>
+                                    <TableCell
+                                      className={classesBody.tableActions}
                                     >
-                                      <IconButton
-                                        aria-label="Edit"
-                                        className={
-                                          classesBody.tableActionButton
-                                        }
+                                      <Tooltip
+                                        id="tooltip-top"
+                                        title="Edit Task"
+                                        placement="top"
+                                        classes={{
+                                          tooltip: classesBody.tooltip,
+                                        }}
                                       >
-                                        <Link
-                                          to={{
-                                            pathname: `/admin/announcement/${campaign.id}`,
-                                            state: {
-                                              id: `${campaign.id}`,
-                                              createdby_name: `${campaign.createdby_name}`,
-                                              title: `${campaign.title}`,
-                                              description: `${campaign.description}`,
-                                              departmentName: `${campaign.departmentName}`,
-                                              departmentId: `${campaign.departmentId}`,
-                                              created_at: `${campaign.created_at}`,
-                                            },
-                                          }}
+                                        <IconButton
+                                          aria-label="Edit"
+                                          className={
+                                            classesBody.tableActionButton
+                                          }
                                         >
-                                          <Visibility className="iconWhiteColor" />
-                                        </Link>
-                                      </IconButton>
-                                    </Tooltip>
-                                    <Tooltip
-                                      id="tooltip-top-start"
-                                      title="Remove"
-                                      placement="top"
-                                      classes={{ tooltip: classesBody.tooltip }}
-                                    >
-                                      <IconButton
-                                        onClick={() =>
-                                          this.toggleDeleteModal(campaign.id)
-                                        }
-                                        aria-label="Close"
-                                        className={
-                                          classesBody.tableActionButton
-                                        }
+                                          <Link
+                                            to={{
+                                              pathname: `/admin/announcement/${campaign.id}`,
+                                              state: {
+                                                id: `${campaign.id}`,
+                                                createdby_name: `${campaign.createdby_name}`,
+                                                title: `${campaign.title}`,
+                                                description: `${campaign.description}`,
+                                                departmentName: `${campaign.departmentName}`,
+                                                created_at: `${campaign.created_at}`,
+                                              },
+                                            }}
+                                          >
+                                            <Visibility className="iconWhiteColor" />
+                                          </Link>
+                                        </IconButton>
+                                      </Tooltip>
+                                      <Tooltip
+                                        id="tooltip-top-start"
+                                        title="Remove"
+                                        placement="top"
+                                        classes={{
+                                          tooltip: classesBody.tooltip,
+                                        }}
                                       >
-                                        <Delete className="iconWhiteColor" />
-                                      </IconButton>
-                                    </Tooltip>
-                                  </TableCell>
-                                </TableRow>
-                              ),
-                            )}
-                          </TableBody>
-                        </Table>
+                                        <IconButton
+                                          onClick={() =>
+                                            this.toggleDeleteModal(campaign.id)
+                                          }
+                                          aria-label="Close"
+                                          className={
+                                            classesBody.tableActionButton
+                                          }
+                                        >
+                                          <Delete className="iconWhiteColor" />
+                                        </IconButton>
+                                      </Tooltip>
+                                    </TableCell>
+                                  </TableRow>
+                                ),
+                              )}
+                            </TableBody>
+                          </Table>
+                        </TableContainer>
                         <div className="d-flex flex-row justify-content-end">
                           <div className="p-2 d-flex align-items-center align-self-center">
                             <h6>1 - 5 of 20</h6>
@@ -425,7 +433,7 @@ class Announcement extends Component {
                       Submit
                     </Button>
                   )}
-                  <Button color="secondary" onClick={this.toggleAddModal}>
+                  <Button color="primary" onClick={this.toggleAddModal}>
                     Cancel
                   </Button>
                 </ModalFooter>
@@ -440,7 +448,7 @@ class Announcement extends Component {
                   Delete
                 </Button>
                 <Button
-                  color="danger"
+                  color="primary"
                   onClick={() => this.toggleDeleteModal(0)}
                 >
                   Cancel
