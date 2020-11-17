@@ -109,12 +109,12 @@ class Permissions extends Component {
                           <h4 className={classes.cardTitleWhite}>
                             Permissions
                           </h4>
-                          <p className={classes.cardCategoryWhite}>
+                          {/* <p className={classes.cardCategoryWhite}>
                             Last Updated{' '}
                             {this.props.izin.dataIzin[0] === undefined
                               ? '-'
                               : this.props.izin.dataIzin[0].startdate}
-                          </p>
+                          </p> */}
                         </div>
                       </CardHeader>
                       <CardBody>

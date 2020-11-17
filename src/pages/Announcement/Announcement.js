@@ -232,12 +232,12 @@ class Announcement extends Component {
                           <h4 className={classes.cardTitleWhite}>
                             Announcement
                           </h4>
-                          <p className={classes.cardCategoryWhite}>
+                          {/* <p className={classes.cardCategoryWhite}>
                             Last Updated{' '}
                             {this.props.campaign.dataCampaign[0] === undefined
                               ? '-'
                               : this.props.campaign.dataCampaign[0].created_at}
-                          </p>
+                          </p> */}
                         </div>
                       </CardHeader>
                       <CardBody>

@@ -49,7 +49,7 @@ class TicketingDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      date: props.location.state.date,
+      // date: props.location.state.date,
       id: props.location.state.id,
       assignId: props.location.state.assignId,
       no_ticket: props.location.state.no_ticket,
@@ -88,9 +88,9 @@ class TicketingDetail extends Component {
               <CardHeader color="danger">
                 <div className="d-flex flex-row justify-content-between">
                   <h4 className={classes.cardTitleWhite}>Ticketing Detail</h4>
-                  <p className={classes.cardCategoryWhite}>
+                  {/* <p className={classes.cardCategoryWhite}>
                     Created at {this.state.date}
-                  </p>
+                  </p> */}
                 </div>
               </CardHeader>
               <CardBody>

@@ -251,7 +251,7 @@ class Ticketing extends Component {
                       <CardHeader color="danger">
                         <div className="d-flex flex-row justify-content-between">
                           <h4 className={classes.cardTitleWhite}>Ticketing</h4>
-                          {this.props.ticket.dataAllTicket[0] === undefined ||
+                          {/* {this.props.ticket.dataAllTicket[0] === undefined ||
                           this.props.ticket.dataAllTicket === undefined ? (
                             <p className={classes.cardCategoryWhite}>
                               Last Updated -
@@ -273,7 +273,7 @@ class Ticketing extends Component {
                                 4,
                               )}
                             </p>
-                          )}
+                          )} */}
                         </div>
                       </CardHeader>
                       <CardBody>

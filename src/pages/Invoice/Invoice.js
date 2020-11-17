@@ -107,12 +107,12 @@ class Invoice extends Component {
                       <CardHeader color="warning">
                         <div className="d-flex flex-row justify-content-between">
                           <h4 className={classes.cardTitleWhite}>Waiting</h4>
-                          <p className={classes.cardCategoryWhite}>
+                          {/* <p className={classes.cardCategoryWhite}>
                             Last Updated{' '}
                             {this.props.invoice.dataInvoice[0] === undefined
                               ? '-'
                               : this.props.invoice.dataInvoice[0].updated_at}
-                          </p>
+                          </p> */}
                         </div>
                       </CardHeader>
                       <CardBody>
@@ -299,12 +299,12 @@ class Invoice extends Component {
                       <CardHeader color="success">
                         <div className="d-flex flex-row justify-content-between">
                           <h4 className={classes.cardTitleWhite}>Approved</h4>
-                          <p className={classes.cardCategoryWhite}>
+                          {/* <p className={classes.cardCategoryWhite}>
                             Last Updated{' '}
                             {this.props.invoice.dataInvoice[0] === undefined
                               ? '-'
                               : this.props.invoice.dataInvoice[0].updated_at}
-                          </p>
+                          </p> */}
                         </div>
                       </CardHeader>
                       <CardBody>
@@ -481,12 +481,12 @@ class Invoice extends Component {
                       <CardHeader color="danger">
                         <div className="d-flex flex-row justify-content-between">
                           <h4 className={classes.cardTitleWhite}>Rejected</h4>
-                          <p className={classes.cardCategoryWhite}>
+                          {/* <p className={classes.cardCategoryWhite}>
                             Last Updated{' '}
                             {this.props.invoice.dataInvoice[0] === undefined
                               ? '-'
                               : this.props.invoice.dataInvoice[0].updated_at}
-                          </p>
+                          </p> */}
                         </div>
                       </CardHeader>
                       <CardBody>
@@ -663,12 +663,12 @@ class Invoice extends Component {
                       <CardHeader color="primary">
                         <div className="d-flex flex-row justify-content-between">
                           <h4 className={classes.cardTitleWhite}>Processed</h4>
-                          <p className={classes.cardCategoryWhite}>
+                          {/* <p className={classes.cardCategoryWhite}>
                             Last Updated{' '}
                             {this.props.invoice.dataInvoice[0] === undefined
                               ? '-'
                               : this.props.invoice.dataInvoice[0].updated_at}
-                          </p>
+                          </p> */}
                         </div>
                       </CardHeader>
                       <CardBody>
@@ -845,12 +845,12 @@ class Invoice extends Component {
                       <CardHeader color="rose">
                         <div className="d-flex flex-row justify-content-between">
                           <h4 className={classes.cardTitleWhite}>Closed</h4>
-                          <p className={classes.cardCategoryWhite}>
+                          {/* <p className={classes.cardCategoryWhite}>
                             Last Updated{' '}
                             {this.props.invoice.dataInvoice[0] === undefined
                               ? '-'
                               : this.props.invoice.dataInvoice[0].updated_at}
-                          </p>
+                          </p> */}
                         </div>
                       </CardHeader>
                       <CardBody>

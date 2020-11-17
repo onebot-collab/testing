@@ -48,7 +48,7 @@ export default class ReportDetail extends Component {
     super(props)
     this.state = {
       nameUser: props.location.state.nameUser,
-      created_at: props.location.state.created_at,
+      // created_at: props.location.state.created_at,
       nameReport: props.location.state.nameReport,
       fileName: props.location.state.fileName,
       fileName2: props.location.state.fileName2,
@@ -72,9 +72,9 @@ export default class ReportDetail extends Component {
               <CardHeader color="danger">
                 <div className="d-flex flex-row justify-content-between">
                   <h4 className={classes.cardTitleWhite}>Report Detail</h4>
-                  <p className={classes.cardCategoryWhite}>
+                  {/* <p className={classes.cardCategoryWhite}>
                     Created at {this.state.created_at.slice(0, 10)}
-                  </p>
+                  </p> */}
                 </div>
               </CardHeader>
               <CardBody>

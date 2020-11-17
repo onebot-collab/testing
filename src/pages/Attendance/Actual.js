@@ -36,7 +36,7 @@ import CardHeader from '../../components/Card/CardHeader'
 import CardBody from '../../components/Card/CardBody'
 
 // core components
-import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
+// import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
 import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
 import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
@@ -64,7 +64,7 @@ class Attendance extends Component {
   }
 
   render() {
-    const classes = makeStyles(styles)
+    // const classes = makeStyles(styles)
     const classesHead = makeStyles(stylesHead)
     const classesBody = makeStyles(stylesBody)
     return (
@@ -116,13 +116,13 @@ class Attendance extends Component {
                     <>
                       <CardHeader color="danger">
                         <div className="d-flex flex-row justify-content-between">
-                          <h4 className={classes.cardTitleWhite}>Attendance</h4>
-                          <p className={classes.cardCategoryWhite}>
+                          <h4 className="col-12 col-sm-12">Attendance</h4>
+                          {/* <p className="col-6 col-sm-12">
                             Last Updated{' '}
                             {this.props.presence.dataAllLog[0] === undefined
                               ? '-'
                               : this.props.presence.dataAllLog[0].updated_at}
-                          </p>
+                          </p> */}
                         </div>
                       </CardHeader>
                       <CardBody>

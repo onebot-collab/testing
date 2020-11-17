@@ -93,9 +93,9 @@ class AttendanceDetail extends Component {
                   <h4 className={classes.cardTitleWhite}>
                     {this.props.location.state.nameUser} Attendance Report
                   </h4>
-                  <p className={classes.cardCategoryWhite}>
+                  {/* <p className={classes.cardCategoryWhite}>
                     {this.props.location.state.name}
-                  </p>
+                  </p> */}
                 </div>
               </CardHeader>
               {this.state.isLoadingFetch ? (

@@ -204,13 +204,13 @@ class Inventory extends Component {
                       <CardHeader color="danger">
                         <div className="d-flex flex-row justify-content-between">
                           <h4 className={classes.cardTitleWhite}>Inventory</h4>
-                          <p className={classes.cardCategoryWhite}>
+                          {/* <p className={classes.cardCategoryWhite}>
                             Last Updated{' '}
                             {this.props.inventory.dataInventory[0] === undefined
                               ? '-'
                               : this.props.inventory.dataInventory[0]
                                   .created_at}
-                          </p>
+                          </p> */}
                         </div>
                       </CardHeader>
                       <CardBody>

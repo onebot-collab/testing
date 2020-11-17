@@ -145,9 +145,9 @@ class AnnouncementDetail extends Component {
                   <h4 className={classes.cardTitleWhite}>
                     {this.props.location.state.title}
                   </h4>
-                  <p className={classes.cardCategoryWhite}>
+                  {/* <p className={classes.cardCategoryWhite}>
                     by {this.props.location.state.createdby_name}
-                  </p>
+                  </p> */}
                 </div>
               </CardHeader>
               <CardBody>

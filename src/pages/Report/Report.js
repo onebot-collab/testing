@@ -146,13 +146,19 @@ class Report extends Component {
                     <>
                       <CardHeader color="danger">
                         <div className="d-flex flex-row justify-content-between">
-                          <h4 className={classes.cardTitleWhite}>Report</h4>
-                          {this.props.report.dataAllReport[0] === undefined ? (
-                            <p className={classes.cardCategoryWhite}>
+                          <h4 className={(classes.cardTitleWhite, 'd-flex')}>
+                            Report
+                          </h4>
+                          {/* {this.props.report.dataAllReport[0] === undefined ? (
+                            <p
+                              className={(classes.cardCategoryWhite, 'd-flex')}
+                            >
                               Last Updated -
                             </p>
                           ) : (
-                            <p className={classes.cardCategoryWhite}>
+                            <p
+                              className={(classes.cardCategoryWhite, 'd-flex')}
+                            >
                               Last Updated{' '}
                               {this.props.report.dataAllReport[0].created_at.slice(
                                 8,
@@ -167,7 +173,7 @@ class Report extends Component {
                                 4,
                               )}
                             </p>
-                          )}
+                          )} */}
                         </div>
                       </CardHeader>
                       <CardBody>

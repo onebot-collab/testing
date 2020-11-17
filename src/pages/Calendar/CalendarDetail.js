@@ -87,9 +87,9 @@ export default class CalendarDetail extends Component {
             <Card>
               <CardHeader color="danger">
                 <h4 className={classes.cardTitleWhite}>Calendar Detail</h4>
-                <p className={classes.cardCategoryWhite}>
+                {/* <p className={classes.cardCategoryWhite}>
                   {this.props.location.state.date}
-                </p>
+                </p> */}
               </CardHeader>
               <CardBody>
                 <Grid item xs container direction="column" spacing={2}>
