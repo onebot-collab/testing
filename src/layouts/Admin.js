@@ -41,7 +41,7 @@ import UserDetail from '../pages/User/UserDetail'
 
 import styles from '../assets/jss/material-dashboard-react/layouts/adminStyle'
 
-import bgImage from '../assets/img/sidebar-2.jpg'
+import bgImage from '../assets/img/bgColor.png'
 import logo from '../assets/img/reactlogo.png'
 
 let ps
