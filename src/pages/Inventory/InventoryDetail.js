@@ -152,9 +152,9 @@ class InventoryDetail extends Component {
               <CardHeader color="danger">
                 <div className="d-flex flex-row justify-content-between">
                   <h4 className={classes.cardTitleWhite}>Inventory Detail</h4>
-                  <p className={classes.cardCategoryWhite}>
+                  {/* <p className={classes.cardCategoryWhite}>
                     Last Updated {this.props.location.state.created_at}
-                  </p>
+                  </p> */}
                 </div>
               </CardHeader>
               <CardBody>
