@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-useless-constructor */
 /* eslint-disable no-undef */
@@ -142,9 +143,16 @@ export default class PermissionsDetail extends Component {
                           <Attachment edge="start" />
                         </ListItemIcon>
                         <ListItemText>
-                          {this.state.file === 'izin/img.jpg'
-                            ? 'No file uploaded'
-                            : this.state.file}
+                          {this.state.file !== 'izin/img.jpg' ? (
+                            'No fle uploaded'
+                          ) : (
+                            <a
+                              href={`http://10.5.1.38:5000/${this.state.file}`}
+                              target="_blank"
+                            >
+                              {this.state.file.replace('izin/', '')}
+                            </a>
+                          )}
                         </ListItemText>
                         <ListItemIcon>
                           {this.state.file === 'izin/img.jpg' ? (

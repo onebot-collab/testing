@@ -30,4 +30,16 @@ const monthlyStats = (id, date) => ({
   payload: axios().get(`${URL}api/v1/permit/stats/${id}/${date}`),
 })
 
-export { listIzin, updateStatus, listIzinByUser, uploadFile, monthlyStats }
+const allIzin = () => ({
+  type: 'ALLIZIN',
+  payload: axios().get(`${URL}api/v1/permit`),
+})
+
+export {
+  listIzin,
+  updateStatus,
+  listIzinByUser,
+  uploadFile,
+  monthlyStats,
+  allIzin,
+}

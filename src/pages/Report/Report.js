@@ -206,7 +206,7 @@ class Report extends Component {
                                 </TableCell>
                                 <TableCell component="th">
                                   <p className="textPrimaryColor">
-                                    {res.fileName === 'report/file.pdf' ? (
+                                    {res.fileName === null ? (
                                       <span className="badge badge-secondary">
                                         No Attachment
                                       </span>
@@ -219,9 +219,9 @@ class Report extends Component {
                                 </TableCell>
                                 <TableCell component="th">
                                   <p className="textPrimaryColor">
-                                    {res.created_at.slice(8, 10)}-
+                                    {res.created_at.slice(8, 10)}
                                     {res.created_at.slice(5, 8)}
-                                    {res.created_at.slice(0, 4)}
+                                    {res.created_at.slice(0, 5)}
                                   </p>
                                 </TableCell>
                                 <TableCell className={classesBody.tableActions}>
@@ -234,6 +234,8 @@ class Report extends Component {
                                         created_at: `${res.created_at}`,
                                         nameReport: `${res.nameReport}`,
                                         fileName: `${res.fileName}`,
+                                        fileName2: `${res.fileName2}`,
+                                        fileName3: `${res.fileName3}`,
                                       },
                                     }}
                                   >

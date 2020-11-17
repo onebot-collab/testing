@@ -5,6 +5,7 @@ const initialState = {
   isLoadingStats: false,
   isError: false,
   dataIzin: [],
+  dataIzinAll: [],
   dataIzinUser: [],
   dataMonthly: [],
 }
@@ -32,6 +33,29 @@ const izin = (state = initialState, action) => {
         isLoadingIzin: false,
         isError: false,
         dataIzin: action.payload.data.data,
+      }
+    }
+    case 'ALLIZIN_PENDING': {
+      return {
+        ...state,
+        isLoadingIzin: true,
+        isError: false,
+      }
+    }
+    case 'ALLIZIN_REJECTED': {
+      return {
+        ...state,
+        isLoadingIzin: false,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'ALLIZIN_FULFILLED': {
+      return {
+        ...state,
+        isLoadingIzin: false,
+        isError: false,
+        dataIzinAll: action.payload.data.data,
       }
     }
     case 'GETIZINUSER_PENDING': {

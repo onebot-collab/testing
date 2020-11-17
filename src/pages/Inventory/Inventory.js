@@ -269,6 +269,7 @@ class Inventory extends Component {
                                       to={{
                                         pathname: `/admin/inventory/${res.id}`,
                                         state: {
+                                          id: `${res.id}`,
                                           name: `${res.name}`,
                                           brand: `${res.brand}`,
                                           serial_no: `${res.serial_no}`,
