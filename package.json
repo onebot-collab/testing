@@ -23,6 +23,7 @@
     "rc-rate": "^2.9.0",
     "react": "^16.14.0",
     "react-admin": "^3.9.5",
+    "react-big-calendar": "^0.28.6",
     "react-bootstrap": "^1.4.0",
     "react-chartist": "0.14.3",
     "react-classes": "^1.1.1",

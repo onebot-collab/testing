@@ -134,6 +134,9 @@ class ActualDashboard extends Component {
               <GridItem xs={12} sm={12} md={4}>
                 <Card chart>
                   <CardHeader color="danger">
+                    <h4 className={classes.cardTitle}>Completed Tasks</h4>
+                  </CardHeader>
+                  <CardBody>
                     <ChartistGraph
                       className="ct-chart"
                       data={dailySalesChart.data}
@@ -141,9 +144,7 @@ class ActualDashboard extends Component {
                       options={dailySalesChart.options}
                       listener={dailySalesChart.animation}
                     />
-                  </CardHeader>
-                  <CardBody>
-                    <h4 className={classes.cardTitle}>Completed Tasks</h4>
+
                     <p className={classes.cardCategory}>
                       {/* <span className={classes.successText}>
                         <ArrowUpward className={classes.upArrowCardCategory} />{' '}
@@ -163,6 +164,9 @@ class ActualDashboard extends Component {
               <GridItem xs={12} sm={12} md={4}>
                 <Card chart>
                   <CardHeader color="danger">
+                    <h4 className={classes.cardTitle}>Completed Tasks</h4>
+                  </CardHeader>
+                  <CardBody>
                     <ChartistGraph
                       className="ct-chart"
                       data={emailsSubscriptionChart.data}
@@ -173,9 +177,6 @@ class ActualDashboard extends Component {
                       }
                       listener={emailsSubscriptionChart.animation}
                     />
-                  </CardHeader>
-                  <CardBody>
-                    <h4 className={classes.cardTitle}>Completed Tasks</h4>
                     <p className={classes.cardCategory}>
                       Last Campaign Performance
                     </p>
@@ -190,6 +191,9 @@ class ActualDashboard extends Component {
               <GridItem xs={12} sm={12} md={4}>
                 <Card chart>
                   <CardHeader color="danger">
+                    <h4 className={classes.cardTitle}>Completed Tasks</h4>
+                  </CardHeader>
+                  <CardBody>
                     <ChartistGraph
                       className="ct-chart"
                       data={completedTasksChart.data}
@@ -197,9 +201,7 @@ class ActualDashboard extends Component {
                       options={completedTasksChart.options}
                       listener={completedTasksChart.animation}
                     />
-                  </CardHeader>
-                  <CardBody>
-                    <h4 className={classes.cardTitle}>Completed Tasks</h4>
+
                     <p className={classes.cardCategory}>
                       Last Campaign Performance
                     </p>

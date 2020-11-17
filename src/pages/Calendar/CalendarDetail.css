@@ -13,3 +13,7 @@
 .iconWhiteColor {
     color: aliceblue;
 }
+.hyperModal {
+    z-index: 1;
+    background-color: #2bde17;
+}

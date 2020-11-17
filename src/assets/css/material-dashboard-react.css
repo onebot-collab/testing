@@ -1,6 +1,6 @@
 
 .ct-grid {
-  stroke: rgba(255, 255, 255, 0.2);
+  stroke: rgb(105, 105, 105);
   stroke-width: 1px;
   stroke-dasharray: 2px;
 }
@@ -9,9 +9,21 @@
 .ct-series-a .ct-line,
 .ct-series-a .ct-bar,
 .ct-series-a .ct-slice-donut {
-  stroke: rgba(255, 255, 255, 0.8);
+  stroke: rgb(211, 34, 34);
 }
-
+.ct-label.ct-vertical.ct-start {
+  -webkit-box-align: flex-end;
+  -webkit-align-items: flex-end;
+  -ms-flex-align: flex-end;
+  align-items: flex-end;
+  -webkit-box-pack: flex-end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: flex-end;
+  justify-content: flex-end;
+  text-align: right;
+  text-anchor: end;
+  color: aliceblue;
+}
 .ct-label.ct-horizontal.ct-end {
   -webkit-box-align: flex-start;
   -webkit-align-items: flex-start;
@@ -23,10 +35,11 @@
   justify-content: flex-start;
   text-align: left;
   text-anchor: start;
+  color: aliceblue;
 }
 
 .ct-label {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(255, 255, 255);
 }
 
 .ct-chart-line .ct-label,
@@ -40,7 +53,7 @@
 }
 
 .ct-label {
-  fill: rgba(0, 0, 0, 0.4);
+  fill: rgb(255, 255, 255);
   line-height: 1;
 }
 html * {
@@ -49,7 +62,8 @@ html * {
 }
 body {
   background-color: #eeeeee;
-  color: #3c4858;
+  /* color: #3c4858; */
+  color: #ffffff;
   margin: 0;
   font-family: Roboto, Helvetica, Arial, sans-serif;
   font-weight: 300;
