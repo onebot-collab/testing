@@ -32,7 +32,8 @@ import {
   Input,
   CustomInput,
 } from 'reactstrap'
-import { getProfile } from '../../redux/actions/user'
+import swal from 'sweetalert2'
+import { getProfile, deleteUser } from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
 // import avatar from '../../assets/img/faces/marc.jpg'
 import GridItem from '../../components/Grid/GridItem'
@@ -61,6 +62,7 @@ class UserDetail extends Component {
       showUpdateModal: false,
       showDeleteModal: false,
       isLoadingFetch: true,
+      isLoadingDelete: false,
     }
     this.toggleUpdateModal = this.toggleUpdateModal.bind(this)
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this)
@@ -93,6 +95,29 @@ class UserDetail extends Component {
     this.props.getProfile(this.props.location.state.id).then(() => {
       this.setState({ isLoadingFetch: false })
     })
+  }
+
+  delete() {
+    this.setState({ isLoadingDelete: true })
+    const id = `${this.props.location.state.id}`
+    this.props
+      .deleteUser(id)
+      .then(() => {
+        this.setState({ isLoadingDelete: false })
+        this.props.history.push('/admin/user')
+        swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'User successsfully deleted',
+        })
+      })
+      .catch(() => {
+        swal.fire({
+          icon: 'error',
+          title: 'Failed',
+          text: 'Failed to delete user',
+        })
+      })
   }
 
   componentDidMount() {
@@ -462,12 +487,20 @@ class UserDetail extends Component {
                     ?
                   </ModalBody>
                   <ModalFooter>
-                    <Button
-                      color="secondary"
-                      onClick={() => this.toggleDeleteModal(0)}
-                    >
-                      Delete
-                    </Button>
+                    {this.state.isLoadingDelete ? (
+                      <Button color="secondary">
+                        <div
+                          className="spinner-border spinner-border-sm text-danger"
+                          role="status"
+                        >
+                          <span className="sr-only">Loading...</span>
+                        </div>
+                      </Button>
+                    ) : (
+                      <Button color="secondary" onClick={() => this.delete()}>
+                        Delete
+                      </Button>
+                    )}
                     <Button
                       color="danger"
                       onClick={() => this.toggleDeleteModal(0)}
@@ -490,6 +523,6 @@ const mapStateToProps = (state) => ({
   department: state.department,
   login: state.login,
 })
-const mapDispatchToProps = { getProfile, getDepartment }
+const mapDispatchToProps = { getProfile, getDepartment, deleteUser }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail)

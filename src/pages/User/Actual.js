@@ -132,6 +132,11 @@ class User extends Component {
           profilePicture: null,
         })
         this.fetch()
+        swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'User successsfully registered',
+        })
       })
       .catch(() => {
         swal.fire({
