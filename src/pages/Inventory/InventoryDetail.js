@@ -150,10 +150,12 @@ class InventoryDetail extends Component {
           <GridItem xs={12} sm={12} md={12}>
             <Card>
               <CardHeader color="danger">
-                <h4 className={classes.cardTitleWhite}>Inventory Detail</h4>
-                <p className={classes.cardCategoryWhite}>
-                  {this.props.location.state.created_at}
-                </p>
+                <div className="d-flex flex-row justify-content-between">
+                  <h4 className={classes.cardTitleWhite}>Inventory Detail</h4>
+                  <p className={classes.cardCategoryWhite}>
+                    Last Updated {this.props.location.state.created_at}
+                  </p>
+                </div>
               </CardHeader>
               <CardBody>
                 <Grid item xs container direction="row" spacing={2}>

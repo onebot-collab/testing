@@ -232,7 +232,7 @@ class UserDetail extends Component {
                             <Col xs={12} sm={12} md={4}>
                               <FormGroup>
                                 <Label for="exampleCheckbox">Time Type</Label>
-                                <div>
+                                <div className="d-flex flex-column">
                                   <CustomInput
                                     type="radio"
                                     id="exampleCustomRadio2"
@@ -421,12 +421,17 @@ class UserDetail extends Component {
                           </List>
                         </div>
                       </CardBody>
+                      <CardFooter>
+                        <Button onClick={this.toggleDeleteModal} color="danger">
+                          Delete {this.props.user.dataProfile[0].name}
+                        </Button>
+                      </CardFooter>
                     </Card>
-                    <CardFooter>
+                    {/* <CardFooter>
                       <Button onClick={this.toggleDeleteModal} color="danger">
                         Delete {this.props.user.dataProfile[0].name}
                       </Button>
-                    </CardFooter>
+                    </CardFooter> */}
                   </GridItem>
                 </GridContainer>
                 {/* Update Modal */}

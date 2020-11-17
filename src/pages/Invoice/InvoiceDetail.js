@@ -81,12 +81,14 @@ class InvoiceDetail extends Component {
           <GridItem xs={12} sm={12} md={12}>
             <Card>
               <CardHeader color="danger">
-                <h4 className={classes.cardTitleWhite}>
-                  {this.props.location.state.invoice_no}
-                </h4>
-                <p className={classes.cardCategoryWhite}>
-                  by {this.props.location.state.requestname}
-                </p>
+                <div className="d-flex flex-row justify-content-between">
+                  <h4 className={classes.cardTitleWhite}>
+                    {this.props.location.state.invoice_no}
+                  </h4>
+                  <p className={classes.cardCategoryWhite}>
+                    by {this.props.location.state.requestname}
+                  </p>
+                </div>
               </CardHeader>
               <CardBody>
                 <Grid item xs container direction="column" spacing={2}>

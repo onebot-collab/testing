@@ -114,13 +114,15 @@ class Attendance extends Component {
                   ) : (
                     <>
                       <CardHeader color="danger">
-                        <h4 className={classes.cardTitleWhite}>Attendance</h4>
-                        <p className={classes.cardCategoryWhite}>
-                          Last Updated{' '}
-                          {this.props.presence.dataAllLog[0] === undefined
-                            ? '-'
-                            : this.props.presence.dataAllLog[0].updated_at}
-                        </p>
+                        <div className="d-flex flex-row justify-content-between">
+                          <h4 className={classes.cardTitleWhite}>Attendance</h4>
+                          <p className={classes.cardCategoryWhite}>
+                            Last Updated{' '}
+                            {this.props.presence.dataAllLog[0] === undefined
+                              ? '-'
+                              : this.props.presence.dataAllLog[0].updated_at}
+                          </p>
+                        </div>
                       </CardHeader>
                       <CardBody>
                         <Table className={classesHead.table}>

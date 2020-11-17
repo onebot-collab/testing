@@ -227,13 +227,17 @@ class Announcement extends Component {
                   ) : (
                     <>
                       <CardHeader color="danger">
-                        <h4 className={classes.cardTitleWhite}>Announcement</h4>
-                        <p className={classes.cardCategoryWhite}>
-                          Last Updated{' '}
-                          {this.props.campaign.dataCampaign[0] === undefined
-                            ? '-'
-                            : this.props.campaign.dataCampaign[0].created_at}
-                        </p>
+                        <div className="d-flex flex-row justify-content-between">
+                          <h4 className={classes.cardTitleWhite}>
+                            Announcement
+                          </h4>
+                          <p className={classes.cardCategoryWhite}>
+                            Last Updated{' '}
+                            {this.props.campaign.dataCampaign[0] === undefined
+                              ? '-'
+                              : this.props.campaign.dataCampaign[0].created_at}
+                          </p>
+                        </div>
                       </CardHeader>
                       <CardBody>
                         <Table className={classesHead.table}>

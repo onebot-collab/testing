@@ -150,8 +150,56 @@ class CalendarScreen extends Component {
       {
         title: 'All Day Event very long title',
         allDay: true,
-        start: new Date(2020, 11, 0),
-        end: new Date(2020, 11, 1),
+        start: '2020-11-11',
+        end: '2020-11-15',
+      },
+      {
+        title: 'All Day Event very long title',
+        allDay: true,
+        start: '2020-11-11',
+        end: '2020-11-15',
+      },
+      {
+        title: 'All Day Event very long title',
+        allDay: true,
+        start: '2020-11-11',
+        end: '2020-11-15',
+      },
+      {
+        title: 'All Day Event very long title',
+        allDay: true,
+        start: '2020-11-11',
+        end: '2020-11-15',
+      },
+      {
+        title: 'All Day Event very long title',
+        allDay: true,
+        start: '2020-11-11',
+        end: '2020-11-15',
+      },
+      {
+        title: 'All Day Event very long title',
+        allDay: true,
+        start: '2020-11-11',
+        end: '2020-11-15',
+      },
+      {
+        title: 'All Day Event very long title',
+        allDay: true,
+        start: '2020-11-11',
+        end: '2020-11-15',
+      },
+      {
+        title: 'All Day Event very long title',
+        allDay: true,
+        start: '2020-11-11',
+        end: '2020-11-15',
+      },
+      {
+        title: 'All Day Event very long title',
+        allDay: true,
+        start: '2020-11-11',
+        end: '2020-11-15',
       },
       {
         title: 'All Day Event very long title',

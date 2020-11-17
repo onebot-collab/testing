@@ -177,6 +177,7 @@ class ActualDashboard extends Component {
                       }
                       listener={emailsSubscriptionChart.animation}
                     />
+
                     <p className={classes.cardCategory}>
                       Last Campaign Performance
                     </p>
@@ -217,7 +218,9 @@ class ActualDashboard extends Component {
             <GridContainer>
               <GridItem xs={12} sm={12} md={4}>
                 <Card chart>
-                  <CardHeader color="danger"></CardHeader>
+                  <CardHeader color="danger">
+                    <h4 className={classes.cardTitle}>Completed Tasks</h4>
+                  </CardHeader>
                   <CardBody>
                     <ChartistGraph
                       data={reportAttendanceChart.data}
@@ -230,7 +233,9 @@ class ActualDashboard extends Component {
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
                 <Card chart>
-                  <CardHeader color="danger"></CardHeader>
+                  <CardHeader color="danger">
+                    <h4 className={classes.cardTitle}>Completed Tasks</h4>
+                  </CardHeader>
                   <CardBody>
                     <ChartistGraph
                       data={reportAttendanceChart.data}
@@ -243,7 +248,9 @@ class ActualDashboard extends Component {
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
                 <Card chart>
-                  <CardHeader color="danger"></CardHeader>
+                  <CardHeader color="danger">
+                    <h4 className={classes.cardTitle}>Completed Tasks</h4>
+                  </CardHeader>
                   <CardBody>
                     <ChartistGraph
                       data={reportAttendanceChart.data}

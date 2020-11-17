@@ -105,13 +105,15 @@ class Invoice extends Component {
                   ) : (
                     <>
                       <CardHeader color="warning">
-                        <h4 className={classes.cardTitleWhite}>Waiting</h4>
-                        <p className={classes.cardCategoryWhite}>
-                          Last Updated{' '}
-                          {this.props.invoice.dataInvoice[0] === undefined
-                            ? '-'
-                            : this.props.invoice.dataInvoice[0].updated_at}
-                        </p>
+                        <div className="d-flex flex-row justify-content-between">
+                          <h4 className={classes.cardTitleWhite}>Waiting</h4>
+                          <p className={classes.cardCategoryWhite}>
+                            Last Updated{' '}
+                            {this.props.invoice.dataInvoice[0] === undefined
+                              ? '-'
+                              : this.props.invoice.dataInvoice[0].updated_at}
+                          </p>
+                        </div>
                       </CardHeader>
                       <CardBody>
                         <TableContainer>
@@ -295,13 +297,15 @@ class Invoice extends Component {
                   ) : (
                     <>
                       <CardHeader color="success">
-                        <h4 className={classes.cardTitleWhite}>Approved</h4>
-                        <p className={classes.cardCategoryWhite}>
-                          Last Updated{' '}
-                          {this.props.invoice.dataInvoice[0] === undefined
-                            ? '-'
-                            : this.props.invoice.dataInvoice[0].updated_at}
-                        </p>
+                        <div className="d-flex flex-row justify-content-between">
+                          <h4 className={classes.cardTitleWhite}>Approved</h4>
+                          <p className={classes.cardCategoryWhite}>
+                            Last Updated{' '}
+                            {this.props.invoice.dataInvoice[0] === undefined
+                              ? '-'
+                              : this.props.invoice.dataInvoice[0].updated_at}
+                          </p>
+                        </div>
                       </CardHeader>
                       <CardBody>
                         <TableContainer>
@@ -475,13 +479,15 @@ class Invoice extends Component {
                   ) : (
                     <>
                       <CardHeader color="danger">
-                        <h4 className={classes.cardTitleWhite}>Rejected</h4>
-                        <p className={classes.cardCategoryWhite}>
-                          Last Updated{' '}
-                          {this.props.invoice.dataInvoice[0] === undefined
-                            ? '-'
-                            : this.props.invoice.dataInvoice[0].updated_at}
-                        </p>
+                        <div className="d-flex flex-row justify-content-between">
+                          <h4 className={classes.cardTitleWhite}>Rejected</h4>
+                          <p className={classes.cardCategoryWhite}>
+                            Last Updated{' '}
+                            {this.props.invoice.dataInvoice[0] === undefined
+                              ? '-'
+                              : this.props.invoice.dataInvoice[0].updated_at}
+                          </p>
+                        </div>
                       </CardHeader>
                       <CardBody>
                         <TableContainer>
@@ -655,13 +661,15 @@ class Invoice extends Component {
                   ) : (
                     <>
                       <CardHeader color="primary">
-                        <h4 className={classes.cardTitleWhite}>Processed</h4>
-                        <p className={classes.cardCategoryWhite}>
-                          Last Updated{' '}
-                          {this.props.invoice.dataInvoice[0] === undefined
-                            ? '-'
-                            : this.props.invoice.dataInvoice[0].updated_at}
-                        </p>
+                        <div className="d-flex flex-row justify-content-between">
+                          <h4 className={classes.cardTitleWhite}>Processed</h4>
+                          <p className={classes.cardCategoryWhite}>
+                            Last Updated{' '}
+                            {this.props.invoice.dataInvoice[0] === undefined
+                              ? '-'
+                              : this.props.invoice.dataInvoice[0].updated_at}
+                          </p>
+                        </div>
                       </CardHeader>
                       <CardBody>
                         <TableContainer>
@@ -835,13 +843,15 @@ class Invoice extends Component {
                   ) : (
                     <>
                       <CardHeader color="rose">
-                        <h4 className={classes.cardTitleWhite}>Closed</h4>
-                        <p className={classes.cardCategoryWhite}>
-                          Last Updated{' '}
-                          {this.props.invoice.dataInvoice[0] === undefined
-                            ? '-'
-                            : this.props.invoice.dataInvoice[0].updated_at}
-                        </p>
+                        <div className="d-flex flex-row justify-content-between">
+                          <h4 className={classes.cardTitleWhite}>Closed</h4>
+                          <p className={classes.cardCategoryWhite}>
+                            Last Updated{' '}
+                            {this.props.invoice.dataInvoice[0] === undefined
+                              ? '-'
+                              : this.props.invoice.dataInvoice[0].updated_at}
+                          </p>
+                        </div>
                       </CardHeader>
                       <CardBody>
                         <TableContainer>
