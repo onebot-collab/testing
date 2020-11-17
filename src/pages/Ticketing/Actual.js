@@ -13,6 +13,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 // import Badge from '@material-ui/core/Badge'
 import Button from '@material-ui/core/Button'
 import Table from '@material-ui/core/Table'
+import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
 import TableBody from '@material-ui/core/TableBody'
@@ -276,165 +277,175 @@ class Ticketing extends Component {
                         </div>
                       </CardHeader>
                       <CardBody>
-                        <Table className={classesHead.table}>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">No</h5>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">Requester</h5>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">Assign To</h5>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">Observer</h5>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">Status</h5>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">On Time</h5>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">Created At</h5>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">Action</h5>
-                              </TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {this.props.ticket.dataAllTicket.map((res, i) => (
-                              <TableRow
-                                className={classesBody.tableRow}
-                                key={i}
-                              >
+                        <TableContainer>
+                          <Table className={classesHead.table}>
+                            <TableHead>
+                              <TableRow>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">
-                                    {res.no_ticket}
-                                  </p>
+                                  <h5 className="textPrimaryColor">No</h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">
-                                    {res.nameFrom}
-                                  </p>
+                                  <h5 className="textPrimaryColor">
+                                    Requester
+                                  </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">
-                                    {res.category === '2'
-                                      ? res.nameAssignGroup
-                                      : res.nameAssign}
-                                  </p>
+                                  <h5 className="textPrimaryColor">
+                                    Assign To
+                                  </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">
-                                    {res.nameObserve === null
-                                      ? '-'
-                                      : res.nameObserve}
-                                  </p>
+                                  <h5 className="textPrimaryColor">Observer</h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  {res.statusid === 1 ? (
-                                    <span className="badge badge-pill badge-warning">
-                                      Open
-                                    </span>
-                                  ) : res.statusid === 2 ? (
-                                    <span className="badge badge-pill badge-primary">
-                                      Processed
-                                    </span>
-                                  ) : res.statusid === 3 ? (
-                                    <span className="badge badge-pill badge-success">
-                                      Solved
-                                    </span>
-                                  ) : res.statusid === 4 ? (
-                                    <span className="badge badge-pill badge-light">
-                                      Closed
-                                    </span>
+                                  <h5 className="textPrimaryColor">Status</h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5 className="textPrimaryColor">On Time</h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5 className="textPrimaryColor">
+                                    Created At
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5 className="textPrimaryColor">Action</h5>
+                                </TableCell>
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              {this.props.ticket.dataAllTicket.map((res, i) => (
+                                <TableRow
+                                  className={classesBody.tableRow}
+                                  key={i}
+                                >
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.no_ticket}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.nameFrom}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.category === '2'
+                                        ? res.nameAssignGroup
+                                        : res.nameAssign}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.nameObserve === null
+                                        ? '-'
+                                        : res.nameObserve}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    {res.statusid === 1 ? (
+                                      <span className="badge badge-pill badge-warning">
+                                        Open
+                                      </span>
+                                    ) : res.statusid === 2 ? (
+                                      <span className="badge badge-pill badge-primary">
+                                        Processed
+                                      </span>
+                                    ) : res.statusid === 3 ? (
+                                      <span className="badge badge-pill badge-success">
+                                        Solved
+                                      </span>
+                                    ) : res.statusid === 4 ? (
+                                      <span className="badge badge-pill badge-light">
+                                        Closed
+                                      </span>
+                                    ) : (
+                                      <></>
+                                    )}
+                                  </TableCell>
+                                  {res.statusid < 4 ? (
+                                    <>
+                                      <TableCell
+                                        className={classesBody.tableActions}
+                                      >
+                                        <p>-</p>
+                                      </TableCell>
+                                    </>
                                   ) : (
-                                    <></>
-                                  )}
-                                </TableCell>
-                                {res.statusid < 4 ? (
-                                  <>
                                     <TableCell
                                       className={classesBody.tableActions}
                                     >
-                                      <p>-</p>
+                                      {res.isLate === '1' ? (
+                                        <Tooltip
+                                          id="tooltip-top-start"
+                                          title="Late"
+                                          placement="top"
+                                          classes={{
+                                            tooltip: classesBody.tooltip,
+                                          }}
+                                        >
+                                          <Cancel className="iconSecondaryColor" />
+                                        </Tooltip>
+                                      ) : (
+                                        <Tooltip
+                                          id="tooltip-top-start"
+                                          title="On time"
+                                          placement="top"
+                                          classes={{
+                                            tooltip: classesBody.tooltip,
+                                          }}
+                                        >
+                                          <CheckCircle className="iconPrimaryColor" />
+                                        </Tooltip>
+                                      )}
                                     </TableCell>
-                                  </>
-                                ) : (
+                                  )}
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.date.slice(8, 10)}-
+                                      {res.date.slice(5, 8)}
+                                      {res.date.slice(0, 4)}
+                                    </p>
+                                  </TableCell>
                                   <TableCell
                                     className={classesBody.tableActions}
                                   >
-                                    {res.isLate === '1' ? (
-                                      <Tooltip
-                                        id="tooltip-top-start"
-                                        title="Late"
-                                        placement="top"
-                                        classes={{
-                                          tooltip: classesBody.tooltip,
-                                        }}
-                                      >
-                                        <Cancel className="iconSecondaryColor" />
-                                      </Tooltip>
-                                    ) : (
-                                      <Tooltip
-                                        id="tooltip-top-start"
-                                        title="On time"
-                                        placement="top"
-                                        classes={{
-                                          tooltip: classesBody.tooltip,
-                                        }}
-                                      >
-                                        <CheckCircle className="iconPrimaryColor" />
-                                      </Tooltip>
-                                    )}
-                                  </TableCell>
-                                )}
-                                <TableCell component="th">
-                                  <p className="textPrimaryColor">
-                                    {res.date.slice(8, 10)}-
-                                    {res.date.slice(5, 8)}
-                                    {res.date.slice(0, 4)}
-                                  </p>
-                                </TableCell>
-                                <TableCell className={classesBody.tableActions}>
-                                  {' '}
-                                  <Link
-                                    to={{
-                                      pathname: `/admin/ticketing/${res.id}`,
-                                      state: {
-                                        id: `${res.id}`,
-                                        no_ticket: `${res.no_ticket}`,
-                                        title: `${res.title}`,
-                                        nameFrom: `${res.nameFrom}`,
-                                        nameAssign: `${res.nameAssign}`,
-                                        end_date: `${res.end_date}`,
-                                        description: `${res.description}`,
-                                        statusid: `${res.statusid}`,
-                                        date: `${res.date}`,
-                                        assignId: `${res.assignId}`,
-                                      },
-                                    }}
-                                  >
-                                    <Tooltip
-                                      id="tooltip-top-start"
-                                      title="Click to Detail Ticket"
-                                      placement="top"
-                                      classes={{
-                                        tooltip: classesBody.tooltip,
+                                    {' '}
+                                    <Link
+                                      to={{
+                                        pathname: `/admin/ticketing/${res.id}`,
+                                        state: {
+                                          id: `${res.id}`,
+                                          no_ticket: `${res.no_ticket}`,
+                                          title: `${res.title}`,
+                                          nameFrom: `${res.nameFrom}`,
+                                          nameAssign: `${res.nameAssign}`,
+                                          end_date: `${res.end_date}`,
+                                          description: `${res.description}`,
+                                          statusid: `${res.statusid}`,
+                                          date: `${res.date}`,
+                                          assignId: `${res.assignId}`,
+                                        },
                                       }}
                                     >
-                                      <Visibility className="iconWhiteColor" />
-                                    </Tooltip>
-                                  </Link>
-                                </TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
+                                      <Tooltip
+                                        id="tooltip-top-start"
+                                        title="Click to Detail Ticket"
+                                        placement="top"
+                                        classes={{
+                                          tooltip: classesBody.tooltip,
+                                        }}
+                                      >
+                                        <Visibility className="iconWhiteColor" />
+                                      </Tooltip>
+                                    </Link>
+                                  </TableCell>
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </TableContainer>
                         <div className="d-flex flex-row justify-content-end">
                           <div className="p-2 d-flex align-items-center align-self-center">
                             <h6>1 - 5 of 20</h6>

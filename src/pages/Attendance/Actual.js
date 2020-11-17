@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 import Table from '@material-ui/core/Table'
+import { TableContainer } from '@material-ui/core'
 import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
 import TableBody from '@material-ui/core/TableBody'
@@ -125,125 +126,148 @@ class Attendance extends Component {
                         </div>
                       </CardHeader>
                       <CardBody>
-                        <Table className={classesHead.table}>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell component="th">
-                                <h6 className="textPrimaryColor">Name</h6>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h6 className="textPrimaryColor">Department</h6>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h6 className="textPrimaryColor">Check In</h6>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h6 className="textPrimaryColor">Check Out</h6>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h6 className="textPrimaryColor">Date</h6>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h6 className="textPrimaryColor">On Time</h6>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h6 className="textPrimaryColor">Action</h6>
-                              </TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {this.props.presence.dataAllLog.map((res, i) => (
-                              <TableRow className={classes.tableRow} key={i}>
+                        <TableContainer>
+                          <Table className={classesHead.table}>
+                            <TableHead>
+                              <TableRow>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">
-                                    {res.nameUser}
-                                  </p>
+                                  <h6 className="textPrimaryColor">Name</h6>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">{res.name}</p>
+                                  <h6 className="textPrimaryColor">
+                                    Department
+                                  </h6>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">
-                                    {res.att_time}
-                                  </p>
+                                  <h6 className="textPrimaryColor">Check In</h6>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">
-                                    {res.end_time === null ? '-' : res.end_time}
-                                  </p>
+                                  <h6 className="textPrimaryColor">
+                                    Check Out
+                                  </h6>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">
-                                    {res.att_date}
-                                  </p>
+                                  <h6 className="textPrimaryColor">Date</h6>
                                 </TableCell>
-                                <TableCell className={classesBody.tableActions}>
-                                  {res.isLate === 1 ? (
-                                    <Tooltip
-                                      id="tooltip-top-start"
-                                      title="Late"
-                                      placement="top"
-                                      classes={{ tooltip: classesBody.tooltip }}
-                                    >
-                                      <Cancel className="iconSecondaryColor" />
-                                    </Tooltip>
-                                  ) : (
-                                    <Tooltip
-                                      id="tooltip-top-start"
-                                      title="On time"
-                                      placement="top"
-                                      classes={{ tooltip: classesBody.tooltip }}
-                                    >
-                                      <CheckCircle className="iconPrimaryColor" />
-                                    </Tooltip>
-                                  )}
+                                <TableCell component="th">
+                                  <h6 className="textPrimaryColor">On Time</h6>
                                 </TableCell>
-                                <TableCell className={classesBody.tableActions}>
-                                  <Link
-                                    to={{
-                                      pathname: `/admin/attendance/detail`,
-                                      state: {
-                                        nameUser: `${res.nameUser}`,
-                                        name: `${res.name}`,
-                                        user_id: `${res.user_id}`,
-                                      },
-                                    }}
-                                  >
-                                    <Tooltip
-                                      id="tooltip-top-start"
-                                      title="Click to Detail"
-                                      placement="top"
-                                      classes={{ tooltip: classesBody.tooltip }}
-                                    >
-                                      <Visibility className="iconWhiteColor" />
-                                    </Tooltip>
-                                  </Link>
+                                <TableCell component="th">
+                                  <h6 className="textPrimaryColor">Action</h6>
                                 </TableCell>
                               </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                        <div className="d-flex flex-row justify-content-end">
-                          <div className="p-2 d-flex align-items-center align-self-center">
-                            <h6>1 - 5 of 20</h6>
+                            </TableHead>
+                            <TableBody>
+                              {this.props.presence.dataAllLog.map((res, i) => (
+                                <TableRow
+                                  className={classesBody.tableRow}
+                                  key={i}
+                                >
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.nameUser}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.name}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.att_time}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.end_time === null
+                                        ? '-'
+                                        : res.end_time}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.att_date}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell
+                                    className={classesBody.tableActions}
+                                  >
+                                    {res.isLate === 1 ? (
+                                      <Tooltip
+                                        id="tooltip-top-start"
+                                        title="Late"
+                                        placement="top"
+                                        classes={{
+                                          tooltip: classesBody.tooltip,
+                                        }}
+                                      >
+                                        <Cancel className="iconSecondaryColor" />
+                                      </Tooltip>
+                                    ) : (
+                                      <Tooltip
+                                        id="tooltip-top-start"
+                                        title="On time"
+                                        placement="top"
+                                        classes={{
+                                          tooltip: classesBody.tooltip,
+                                        }}
+                                      >
+                                        <CheckCircle className="iconPrimaryColor" />
+                                      </Tooltip>
+                                    )}
+                                  </TableCell>
+                                  <TableCell
+                                    className={classesBody.tableActions}
+                                  >
+                                    <Link
+                                      to={{
+                                        pathname: `/admin/attendance/detail`,
+                                        state: {
+                                          nameUser: `${res.nameUser}`,
+                                          name: `${res.name}`,
+                                          user_id: `${res.user_id}`,
+                                        },
+                                      }}
+                                    >
+                                      <Tooltip
+                                        id="tooltip-top-start"
+                                        title="Click to Detail"
+                                        placement="top"
+                                        classes={{
+                                          tooltip: classesBody.tooltip,
+                                        }}
+                                      >
+                                        <Visibility className="iconWhiteColor" />
+                                      </Tooltip>
+                                    </Link>
+                                  </TableCell>
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                          <div className="d-flex flex-row justify-content-end">
+                            <div className="p-2 d-flex align-items-center align-self-center">
+                              <h6>1 - 5 of 20</h6>
+                            </div>
+                            <div className="p-2">
+                              <IconButton>
+                                <ArrowLeft
+                                  className="iconWhiteColor"
+                                  fontSize="large"
+                                />
+                              </IconButton>
+                            </div>
+                            <div className="p-2">
+                              <IconButton>
+                                <ArrowRight
+                                  className="iconWhiteColor"
+                                  fontSize="large"
+                                />
+                              </IconButton>
+                            </div>
                           </div>
-                          <div className="p-2">
-                            <IconButton>
-                              <ArrowLeft
-                                className="iconWhiteColor"
-                                fontSize="large"
-                              />
-                            </IconButton>
-                          </div>
-                          <div className="p-2">
-                            <IconButton>
-                              <ArrowRight
-                                className="iconWhiteColor"
-                                fontSize="large"
-                              />
-                            </IconButton>
-                          </div>
-                        </div>
+                        </TableContainer>
                       </CardBody>
                     </>
                   )}

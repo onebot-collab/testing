@@ -17,6 +17,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Table from '@material-ui/core/Table'
+import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
 import TableBody from '@material-ui/core/TableBody'
@@ -157,108 +158,110 @@ class AttendanceDetail extends Component {
                       md={8}
                       className="contentDescWrapper"
                     >
-                      <Table className={classesHead.table}>
-                        <TableHead>
-                          <TableRow>
-                            <TableCell component="th">
-                              <h6 className="textPrimaryColor">Check In</h6>
-                            </TableCell>
-                            <TableCell component="th">
-                              <h6 className="textPrimaryColor">Check Out</h6>
-                            </TableCell>
-                            <TableCell component="th">
-                              <h6 className="textPrimaryColor">Date</h6>
-                            </TableCell>
-                            <TableCell component="th">
-                              <h6 className="textPrimaryColor">On Time</h6>
-                            </TableCell>
-                          </TableRow>
-                        </TableHead>
-                        <TableBody>
-                          {this.props.presence.dataUserLog.length < 1 ? (
-                            <TableRow className={classes.tableRow}>
+                      <TableContainer>
+                        <Table className={classesHead.table}>
+                          <TableHead>
+                            <TableRow>
                               <TableCell component="th">
-                                <p className="textPrimaryColor">-</p>
+                                <h6 className="textPrimaryColor">Check In</h6>
                               </TableCell>
                               <TableCell component="th">
-                                <p className="textPrimaryColor">-</p>
+                                <h6 className="textPrimaryColor">Check Out</h6>
                               </TableCell>
                               <TableCell component="th">
-                                <p className="textPrimaryColor">-</p>
+                                <h6 className="textPrimaryColor">Date</h6>
                               </TableCell>
-                              <TableCell className={classesBody.tableActions}>
-                                <Tooltip
-                                  id="tooltip-top-start"
-                                  title="Late"
-                                  placement="top"
-                                  classes={{ tooltip: classesBody.tooltip }}
-                                >
-                                  <Cancel className="iconSecondaryColor" />
-                                </Tooltip>
-                                <Tooltip
-                                  id="tooltip-top-start"
-                                  title="On time"
-                                  placement="top"
-                                  classes={{ tooltip: classesBody.tooltip }}
-                                >
-                                  <CheckCircle className="iconPrimaryColor" />
-                                </Tooltip>
+                              <TableCell component="th">
+                                <h6 className="textPrimaryColor">On Time</h6>
                               </TableCell>
                             </TableRow>
-                          ) : (
-                            <>
-                              {this.props.presence.dataUserLog.map((res) => (
-                                <TableRow className={classes.tableRow}>
-                                  <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.att_time}
-                                    </p>
-                                  </TableCell>
-                                  <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.end_time === null
-                                        ? '-'
-                                        : res.end_time}
-                                    </p>
-                                  </TableCell>
-                                  <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.att_date}
-                                    </p>
-                                  </TableCell>
-                                  <TableCell
-                                    className={classesBody.tableActions}
+                          </TableHead>
+                          <TableBody>
+                            {this.props.presence.dataUserLog.length < 1 ? (
+                              <TableRow className={classesBody.tableRow}>
+                                <TableCell component="th">
+                                  <p className="textPrimaryColor">-</p>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <p className="textPrimaryColor">-</p>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <p className="textPrimaryColor">-</p>
+                                </TableCell>
+                                <TableCell className={classesBody.tableActions}>
+                                  <Tooltip
+                                    id="tooltip-top-start"
+                                    title="Late"
+                                    placement="top"
+                                    classes={{ tooltip: classesBody.tooltip }}
                                   >
-                                    {res.isLate === 0 ? (
-                                      <Tooltip
-                                        id="tooltip-top-start"
-                                        title="On time"
-                                        placement="top"
-                                        classes={{
-                                          tooltip: classesBody.tooltip,
-                                        }}
-                                      >
-                                        <CheckCircle className="iconPrimaryColor" />
-                                      </Tooltip>
-                                    ) : (
-                                      <Tooltip
-                                        id="tooltip-top-start"
-                                        title="Late"
-                                        placement="top"
-                                        classes={{
-                                          tooltip: classesBody.tooltip,
-                                        }}
-                                      >
-                                        <Cancel className="iconSecondaryColor" />
-                                      </Tooltip>
-                                    )}
-                                  </TableCell>
-                                </TableRow>
-                              ))}
-                            </>
-                          )}
-                        </TableBody>
-                      </Table>
+                                    <Cancel className="iconSecondaryColor" />
+                                  </Tooltip>
+                                  <Tooltip
+                                    id="tooltip-top-start"
+                                    title="On time"
+                                    placement="top"
+                                    classes={{ tooltip: classesBody.tooltip }}
+                                  >
+                                    <CheckCircle className="iconPrimaryColor" />
+                                  </Tooltip>
+                                </TableCell>
+                              </TableRow>
+                            ) : (
+                              <>
+                                {this.props.presence.dataUserLog.map((res) => (
+                                  <TableRow className={classesBody.tableRow}>
+                                    <TableCell component="th">
+                                      <p className="textPrimaryColor">
+                                        {res.att_time}
+                                      </p>
+                                    </TableCell>
+                                    <TableCell component="th">
+                                      <p className="textPrimaryColor">
+                                        {res.end_time === null
+                                          ? '-'
+                                          : res.end_time}
+                                      </p>
+                                    </TableCell>
+                                    <TableCell component="th">
+                                      <p className="textPrimaryColor">
+                                        {res.att_date}
+                                      </p>
+                                    </TableCell>
+                                    <TableCell
+                                      className={classesBody.tableActions}
+                                    >
+                                      {res.isLate === 0 ? (
+                                        <Tooltip
+                                          id="tooltip-top-start"
+                                          title="On time"
+                                          placement="top"
+                                          classes={{
+                                            tooltip: classesBody.tooltip,
+                                          }}
+                                        >
+                                          <CheckCircle className="iconPrimaryColor" />
+                                        </Tooltip>
+                                      ) : (
+                                        <Tooltip
+                                          id="tooltip-top-start"
+                                          title="Late"
+                                          placement="top"
+                                          classes={{
+                                            tooltip: classesBody.tooltip,
+                                          }}
+                                        >
+                                          <Cancel className="iconSecondaryColor" />
+                                        </Tooltip>
+                                      )}
+                                    </TableCell>
+                                  </TableRow>
+                                ))}
+                              </>
+                            )}
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
                       <div className="d-flex flex-row justify-content-end">
                         <div className="p-2 d-flex align-items-center align-self-center">
                           <h6>1 - 5 of 20</h6>

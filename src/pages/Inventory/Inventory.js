@@ -12,6 +12,7 @@ import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import Tooltip from '@material-ui/core/Tooltip'
 import Table from '@material-ui/core/Table'
+import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
 import TableBody from '@material-ui/core/TableBody'
@@ -213,93 +214,98 @@ class Inventory extends Component {
                         </div>
                       </CardHeader>
                       <CardBody>
-                        <Table className={classesHead.table}>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell component="th">
-                                <h6 className="textPrimaryColor">Image</h6>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h6 className="textPrimaryColor">Name</h6>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h6 className="textPrimaryColor">Brand</h6>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h6 className="textPrimaryColor">
-                                  Created Date
-                                </h6>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h6 className="textPrimaryColor">Action</h6>
-                              </TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {this.props.inventory.dataInventory.map(
-                              (res, i) => (
-                                <TableRow className={classes.tableRow} key={i}>
-                                  <TableCell
-                                    component="th"
-                                    className={classesBody.tablePicture}
+                        <TableContainer>
+                          <Table className={classesHead.table}>
+                            <TableHead>
+                              <TableRow>
+                                <TableCell component="th">
+                                  <h6 className="textPrimaryColor">Image</h6>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h6 className="textPrimaryColor">Name</h6>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h6 className="textPrimaryColor">Brand</h6>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h6 className="textPrimaryColor">
+                                    Created Date
+                                  </h6>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h6 className="textPrimaryColor">Action</h6>
+                                </TableCell>
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              {this.props.inventory.dataInventory.map(
+                                (res, i) => (
+                                  <TableRow
+                                    className={classes.tableRow}
+                                    key={i}
                                   >
-                                    <Avatar
-                                      src={`http://10.5.1.38:5000/${res.image_url}`}
-                                    />
-                                  </TableCell>
-                                  <TableCell
-                                    className="textPrimaryColor"
-                                    component="th"
-                                  >
-                                    {res.name}
-                                  </TableCell>
-                                  <TableCell
-                                    className="textPrimaryColor"
-                                    component="th"
-                                  >
-                                    {res.brand}
-                                  </TableCell>
-                                  <TableCell
-                                    className="textPrimaryColor"
-                                    component="th"
-                                  >
-                                    {res.date}
-                                  </TableCell>
-                                  <TableCell
-                                    className={classesBody.tableActions}
-                                  >
-                                    <Link
-                                      to={{
-                                        pathname: `/admin/inventory/${res.id}`,
-                                        state: {
-                                          id: `${res.id}`,
-                                          name: `${res.name}`,
-                                          brand: `${res.brand}`,
-                                          serial_no: `${res.serial_no}`,
-                                          exp_date: `${res.exp_date}`,
-                                          note: `${res.note}`,
-                                          created_at: `${res.created_at}`,
-                                          image_url: `${res.image_url}`,
-                                        },
-                                      }}
+                                    <TableCell
+                                      component="th"
+                                      className={classesBody.tablePicture}
                                     >
-                                      <Tooltip
-                                        id="tooltip-top-start"
-                                        title="Click to Detail"
-                                        placement="top"
-                                        classes={{
-                                          tooltip: classesBody.tooltip,
+                                      <Avatar
+                                        src={`http://10.5.1.38:5000/${res.image_url}`}
+                                      />
+                                    </TableCell>
+                                    <TableCell
+                                      className="textPrimaryColor"
+                                      component="th"
+                                    >
+                                      {res.name}
+                                    </TableCell>
+                                    <TableCell
+                                      className="textPrimaryColor"
+                                      component="th"
+                                    >
+                                      {res.brand}
+                                    </TableCell>
+                                    <TableCell
+                                      className="textPrimaryColor"
+                                      component="th"
+                                    >
+                                      {res.date}
+                                    </TableCell>
+                                    <TableCell
+                                      className={classesBody.tableActions}
+                                    >
+                                      <Link
+                                        to={{
+                                          pathname: `/admin/inventory/${res.id}`,
+                                          state: {
+                                            id: `${res.id}`,
+                                            name: `${res.name}`,
+                                            brand: `${res.brand}`,
+                                            serial_no: `${res.serial_no}`,
+                                            exp_date: `${res.exp_date}`,
+                                            note: `${res.note}`,
+                                            created_at: `${res.created_at}`,
+                                            image_url: `${res.image_url}`,
+                                          },
                                         }}
                                       >
-                                        <Visibility className="iconWhiteColor" />
-                                      </Tooltip>
-                                    </Link>
-                                  </TableCell>
-                                </TableRow>
-                              ),
-                            )}
-                          </TableBody>
-                        </Table>
+                                        <Tooltip
+                                          id="tooltip-top-start"
+                                          title="Click to Detail"
+                                          placement="top"
+                                          classes={{
+                                            tooltip: classesBody.tooltip,
+                                          }}
+                                        >
+                                          <Visibility className="iconWhiteColor" />
+                                        </Tooltip>
+                                      </Link>
+                                    </TableCell>
+                                  </TableRow>
+                                ),
+                              )}
+                            </TableBody>
+                          </Table>
+                        </TableContainer>
                         <div className="d-flex flex-row justify-content-end">
                           <div className="p-2 d-flex align-items-center align-self-center">
                             <h6>1 - 5 of 20</h6>

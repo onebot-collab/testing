@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 import Table from '@material-ui/core/Table'
+import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
 import TableBody from '@material-ui/core/TableBody'
@@ -117,108 +118,122 @@ class Permissions extends Component {
                         </div>
                       </CardHeader>
                       <CardBody>
-                        <Table className={classesHead.table}>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">Name</h5>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">Department</h5>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">Reason</h5>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">Status</h5>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">Responder</h5>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">Created At</h5>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">Action</h5>
-                              </TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {this.props.izin.dataIzinAll.map((res, i) => (
-                              <TableRow className={classes.tableRow} key={i}>
+                        <TableContainer>
+                          <Table className={classesHead.table}>
+                            <TableHead>
+                              <TableRow>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">
-                                    {res.nameuser}
-                                  </p>
+                                  <h5 className="textPrimaryColor">Name</h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">
-                                    {res.department}
-                                  </p>
+                                  <h5 className="textPrimaryColor">
+                                    Department
+                                  </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">{res.type}</p>
+                                  <h5 className="textPrimaryColor">Reason</h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  {res.status === 0 ? (
-                                    <span className="badge badge-pill badge-warning">
-                                      Waiting
-                                    </span>
-                                  ) : res.status === 1 ? (
-                                    <span className="badge badge-pill badge-success">
-                                      Approved
-                                    </span>
-                                  ) : res.status === 2 ? (
-                                    <span className="badge badge-pill badge-danger">
-                                      Rejected
-                                    </span>
-                                  ) : (
-                                    <></>
-                                  )}
+                                  <h5 className="textPrimaryColor">Status</h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">
-                                    {res.name_tosend}
-                                  </p>
+                                  <h5 className="textPrimaryColor">
+                                    Responder
+                                  </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">
-                                    {res.startdate}
-                                  </p>
+                                  <h5 className="textPrimaryColor">
+                                    Created At
+                                  </h5>
                                 </TableCell>
-                                <TableCell className={classesBody.tableActions}>
-                                  <Link
-                                    to={{
-                                      pathname: `/admin/permissions/${res.id}`,
-                                      state: {
-                                        id: `${res.id}`,
-                                        name: `${res.nameuser}`,
-                                        department: `${res.department}`,
-                                        file: `${res.file_upload}`,
-                                        startdate: `${res.startdate}`,
-                                        enddate: `${res.enddate}`,
-                                        type: `${res.type}`,
-                                        status: `${res.status}`,
-                                        reason: `${res.reason}`,
-                                        to_send: `${res.to_send}`,
-                                        name_tosend: `${res.name_tosend}`,
-                                      },
-                                    }}
-                                  >
-                                    <Tooltip
-                                      id="tooltip-top-start"
-                                      title="Click to Detail"
-                                      placement="top"
-                                      classes={{ tooltip: classesBody.tooltip }}
-                                    >
-                                      <Visibility className="iconWhiteColor" />
-                                    </Tooltip>
-                                  </Link>
+                                <TableCell component="th">
+                                  <h5 className="textPrimaryColor">Action</h5>
                                 </TableCell>
                               </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
+                            </TableHead>
+                            <TableBody>
+                              {this.props.izin.dataIzinAll.map((res, i) => (
+                                <TableRow className={classes.tableRow} key={i}>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.nameuser}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.department}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.type}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    {res.status === 0 ? (
+                                      <span className="badge badge-pill badge-warning">
+                                        Waiting
+                                      </span>
+                                    ) : res.status === 1 ? (
+                                      <span className="badge badge-pill badge-success">
+                                        Approved
+                                      </span>
+                                    ) : res.status === 2 ? (
+                                      <span className="badge badge-pill badge-danger">
+                                        Rejected
+                                      </span>
+                                    ) : (
+                                      <></>
+                                    )}
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.name_tosend}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.startdate}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell
+                                    className={classesBody.tableActions}
+                                  >
+                                    <Link
+                                      to={{
+                                        pathname: `/admin/permissions/${res.id}`,
+                                        state: {
+                                          id: `${res.id}`,
+                                          name: `${res.nameuser}`,
+                                          department: `${res.department}`,
+                                          file: `${res.file_upload}`,
+                                          startdate: `${res.startdate}`,
+                                          enddate: `${res.enddate}`,
+                                          type: `${res.type}`,
+                                          status: `${res.status}`,
+                                          reason: `${res.reason}`,
+                                          to_send: `${res.to_send}`,
+                                          name_tosend: `${res.name_tosend}`,
+                                        },
+                                      }}
+                                    >
+                                      <Tooltip
+                                        id="tooltip-top-start"
+                                        title="Click to Detail"
+                                        placement="top"
+                                        classes={{
+                                          tooltip: classesBody.tooltip,
+                                        }}
+                                      >
+                                        <Visibility className="iconWhiteColor" />
+                                      </Tooltip>
+                                    </Link>
+                                  </TableCell>
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </TableContainer>
                         <div className="d-flex flex-row justify-content-end">
                           <div className="p-2 d-flex align-items-center align-self-center">
                             <h6>1 - 5 of 20</h6>

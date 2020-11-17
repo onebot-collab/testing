@@ -12,6 +12,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
 import Tooltip from '@material-ui/core/Tooltip'
 import Table from '@material-ui/core/Table'
+import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
 import TableBody from '@material-ui/core/TableBody'
@@ -170,90 +171,100 @@ class Report extends Component {
                         </div>
                       </CardHeader>
                       <CardBody>
-                        <Table className={classesHead.table}>
-                          <TableHead>
-                            <TableRow>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">Name</h5>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">
-                                  Description
-                                </h5>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">Attachment</h5>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">Created At</h5>
-                              </TableCell>
-                              <TableCell component="th">
-                                <h5 className="textPrimaryColor">Action</h5>
-                              </TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {this.props.report.dataAllReport.map((res, i) => (
-                              <TableRow className={classes.tableRow} key={i}>
+                        <TableContainer>
+                          <Table className={classesHead.table}>
+                            <TableHead>
+                              <TableRow>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">
-                                    {res.nameUser}
-                                  </p>
+                                  <h5 className="textPrimaryColor">Name</h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">
-                                    {res.nameReport}
-                                  </p>
+                                  <h5 className="textPrimaryColor">
+                                    Description
+                                  </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">
-                                    {res.fileName === null ? (
-                                      <span className="badge badge-secondary">
-                                        No Attachment
-                                      </span>
-                                    ) : (
-                                      <span className="badge badge-success">
-                                        {res.fileName.slice(7)}
-                                      </span>
-                                    )}
-                                  </p>
+                                  <h5 className="textPrimaryColor">
+                                    Attachment
+                                  </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <p className="textPrimaryColor">
-                                    {res.created_at.slice(8, 10)}
-                                    {res.created_at.slice(5, 8)}
-                                    {res.created_at.slice(0, 5)}
-                                  </p>
+                                  <h5 className="textPrimaryColor">
+                                    Created At
+                                  </h5>
                                 </TableCell>
-                                <TableCell className={classesBody.tableActions}>
-                                  <Link
-                                    to={{
-                                      pathname: `/admin/report/${res.reportId}`,
-                                      state: {
-                                        id: `${res.reportId}`,
-                                        nameUser: `${res.nameUser}`,
-                                        created_at: `${res.created_at}`,
-                                        nameReport: `${res.nameReport}`,
-                                        fileName: `${res.fileName}`,
-                                        fileName2: `${res.fileName2}`,
-                                        fileName3: `${res.fileName3}`,
-                                      },
-                                    }}
-                                  >
-                                    <Tooltip
-                                      id="tooltip-top-start"
-                                      title="Click to Detail Report"
-                                      placement="top"
-                                      classes={{ tooltip: classesBody.tooltip }}
-                                    >
-                                      <Visibility className="iconWhiteColor" />
-                                    </Tooltip>
-                                  </Link>
+                                <TableCell component="th">
+                                  <h5 className="textPrimaryColor">Action</h5>
                                 </TableCell>
                               </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
+                            </TableHead>
+                            <TableBody>
+                              {this.props.report.dataAllReport.map((res, i) => (
+                                <TableRow className={classes.tableRow} key={i}>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.nameUser}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.nameReport}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.fileName === null ? (
+                                        <span className="badge badge-secondary">
+                                          No Attachment
+                                        </span>
+                                      ) : (
+                                        <span className="badge badge-success">
+                                          {res.fileName.slice(7)}
+                                        </span>
+                                      )}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">
+                                      {res.created_at.slice(8, 10)}
+                                      {res.created_at.slice(5, 8)}
+                                      {res.created_at.slice(0, 5)}
+                                    </p>
+                                  </TableCell>
+                                  <TableCell
+                                    className={classesBody.tableActions}
+                                  >
+                                    <Link
+                                      to={{
+                                        pathname: `/admin/report/${res.reportId}`,
+                                        state: {
+                                          id: `${res.reportId}`,
+                                          nameUser: `${res.nameUser}`,
+                                          created_at: `${res.created_at}`,
+                                          nameReport: `${res.nameReport}`,
+                                          fileName: `${res.fileName}`,
+                                          fileName2: `${res.fileName2}`,
+                                          fileName3: `${res.fileName3}`,
+                                        },
+                                      }}
+                                    >
+                                      <Tooltip
+                                        id="tooltip-top-start"
+                                        title="Click to Detail Report"
+                                        placement="top"
+                                        classes={{
+                                          tooltip: classesBody.tooltip,
+                                        }}
+                                      >
+                                        <Visibility className="iconWhiteColor" />
+                                      </Tooltip>
+                                    </Link>
+                                  </TableCell>
+                                </TableRow>
+                              ))}
+                            </TableBody>
+                          </Table>
+                        </TableContainer>
                         <div className="d-flex flex-row justify-content-end">
                           <div className="p-2 d-flex align-items-center align-self-center">
                             <h6>1 - 5 of 20</h6>

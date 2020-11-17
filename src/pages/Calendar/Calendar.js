@@ -24,6 +24,7 @@ import moment from 'moment'
 import Button from '@material-ui/core/Button'
 import Tooltip from '@material-ui/core/Tooltip'
 import Table from '@material-ui/core/Table'
+import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
 import TableBody from '@material-ui/core/TableBody'
@@ -276,117 +277,121 @@ class CalendarScreen extends Component {
                     {/* <p className="cardCategoryWhite">by Admin</p> */}
                   </CardHeader>
                   <CardBody>
-                    <Table className={classesHead.table}>
-                      <TableHead>
-                        <TableRow>
-                          <TableCell component="th">
-                            <h6 className="textPrimaryColor">Title</h6>
-                          </TableCell>
-                          <TableCell component="th">
+                    <TableContainer>
+                      <Table className={classesHead.table}>
+                        <TableHead>
+                          <TableRow>
+                            <TableCell component="th">
+                              <h6 className="textPrimaryColor">Title</h6>
+                            </TableCell>
+                            {/* <TableCell component="th">
                             <h6 className="textPrimaryColor">Description</h6>
-                          </TableCell>
-                          <TableCell component="th">
-                            <h6 className="textPrimaryColor">Category</h6>
-                          </TableCell>
-                          <TableCell component="th">
-                            <h6 className="textPrimaryColor">Action</h6>
-                          </TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {this.state.isLoadingFetchReminder ? (
-                          <center>
-                            <div
-                              className="d-flex align-self-center spinner-border text-white mt-2 mb-3"
-                              role="status"
-                            >
-                              <span className="sr-only">Loading...</span>
-                            </div>
-                          </center>
-                        ) : (
-                          <>
-                            {this.props.reminder.dataReminderToday.length <
-                            1 ? (
-                              <TableRow className={classes.tableRow}>
-                                <TableCell component="th">
-                                  <p className="textPrimaryColor">-</p>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <p className="textPrimaryColor">-</p>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <p className="textPrimaryColor">-</p>
-                                </TableCell>
-                                <TableCell className={classesBody.tableActions}>
-                                  <p className="textPrimaryColor">-</p>
-                                </TableCell>
-                              </TableRow>
-                            ) : (
-                              <>
-                                {this.props.reminder.dataReminderToday.map(
-                                  (res, i) => (
-                                    <TableRow
-                                      className={classes.tableRow}
-                                      key={i}
-                                    >
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.title}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
+                          </TableCell> */}
+                            <TableCell component="th">
+                              <h6 className="textPrimaryColor">Category</h6>
+                            </TableCell>
+                            <TableCell component="th">
+                              <h6 className="textPrimaryColor">Action</h6>
+                            </TableCell>
+                          </TableRow>
+                        </TableHead>
+                        <TableBody>
+                          {this.state.isLoadingFetchReminder ? (
+                            <center>
+                              <div
+                                className="d-flex align-self-center spinner-border text-white mt-2 mb-3"
+                                role="status"
+                              >
+                                <span className="sr-only">Loading...</span>
+                              </div>
+                            </center>
+                          ) : (
+                            <>
+                              {this.props.reminder.dataReminderToday.length <
+                              1 ? (
+                                <TableRow className={classes.tableRow}>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell
+                                    className={classesBody.tableActions}
+                                  >
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                </TableRow>
+                              ) : (
+                                <>
+                                  {this.props.reminder.dataReminderToday.map(
+                                    (res, i) => (
+                                      <TableRow
+                                        className={classes.tableRow}
+                                        key={i}
+                                      >
+                                        <TableCell component="th">
+                                          <p className="textPrimaryColor">
+                                            {res.title}
+                                          </p>
+                                        </TableCell>
+                                        {/* <TableCell component="th">
                                         <p className="textPrimaryColor">
                                           {res.description}
                                         </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.type_reminder === null
-                                            ? 'Event'
-                                            : res.type_reminder}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell
-                                        className={classesBody.tableActions}
-                                      >
-                                        <Tooltip
-                                          id="tooltip-top"
-                                          title="Edit Task"
-                                          placement="top"
-                                          classes={{
-                                            tooltip: classesBody.tooltip,
-                                          }}
+                                      </TableCell> */}
+                                        <TableCell component="th">
+                                          <p className="textPrimaryColor">
+                                            {res.type_reminder === null
+                                              ? 'Event'
+                                              : res.type_reminder}
+                                          </p>
+                                        </TableCell>
+                                        <TableCell
+                                          className={classesBody.tableActions}
                                         >
-                                          <IconButton
-                                            aria-label="Edit"
-                                            className={
-                                              classesBody.tableActionButton
-                                            }
+                                          <Tooltip
+                                            id="tooltip-top"
+                                            title="Edit Task"
+                                            placement="top"
+                                            classes={{
+                                              tooltip: classesBody.tooltip,
+                                            }}
                                           >
-                                            <Link
-                                              to={{
-                                                pathname: `/admin/calendar/detail`,
-                                                state: {
-                                                  date: `${res.date}`,
-                                                  title: `${res.title}`,
-                                                  type_reminder: `${res.type_reminder}`,
-                                                },
-                                              }}
+                                            <IconButton
+                                              aria-label="Edit"
+                                              className={
+                                                classesBody.tableActionButton
+                                              }
                                             >
-                                              <Visibility className="iconWhiteColor" />
-                                            </Link>
-                                          </IconButton>
-                                        </Tooltip>
-                                      </TableCell>
-                                    </TableRow>
-                                  ),
-                                )}
-                              </>
-                            )}
-                          </>
-                        )}
-                      </TableBody>
-                    </Table>
+                                              <Link
+                                                to={{
+                                                  pathname: `/admin/calendar/detail`,
+                                                  state: {
+                                                    date: `${res.date}`,
+                                                    title: `${res.title}`,
+                                                    type_reminder: `${res.type_reminder}`,
+                                                  },
+                                                }}
+                                              >
+                                                <Visibility className="iconWhiteColor" />
+                                              </Link>
+                                            </IconButton>
+                                          </Tooltip>
+                                        </TableCell>
+                                      </TableRow>
+                                    ),
+                                  )}
+                                </>
+                              )}
+                            </>
+                          )}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
                     <div className="d-flex flex-row justify-content-end">
                       <div className="p-2 d-flex align-items-center align-self-center">
                         <h6>1 - 5 of 20</h6>
@@ -458,7 +463,7 @@ class CalendarScreen extends Component {
                       Submit
                     </Button>
                   )}
-                  <Button color="secondary" onClick={this.toggleAddModal}>
+                  <Button color="primary" onClick={this.toggleAddModal}>
                     Cancel
                   </Button>
                 </ModalFooter>
