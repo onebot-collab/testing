@@ -17,9 +17,12 @@ const postCampaign = (dataSubmit) => ({
   payload: axios().post(`${URL}api/v1/broadcast`, qs.stringify(dataSubmit)),
 })
 
-const putCampaign = (dataSubmit, token, id) => ({
+const patchCampaign = (id, dataSubmit) => ({
   type: 'CAMPAIGNSTATUS',
-  payload: axios(token).put(`${URL}api/announcements/${id}`, dataSubmit),
+  payload: axios().patch(
+    `${URL}api/v1/broadcast/${id}`,
+    qs.stringify(dataSubmit),
+  ),
 })
 
 const deleteCampaign = (id) => ({
@@ -31,6 +34,6 @@ export {
   getAllCampaign,
   getCampaign,
   postCampaign,
-  putCampaign,
+  patchCampaign,
   deleteCampaign,
 }

@@ -317,6 +317,7 @@ class Announcement extends Component {
                                               title: `${campaign.title}`,
                                               description: `${campaign.description}`,
                                               departmentName: `${campaign.departmentName}`,
+                                              departmentId: `${campaign.departmentId}`,
                                               created_at: `${campaign.created_at}`,
                                             },
                                           }}
