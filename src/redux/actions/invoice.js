@@ -40,9 +40,29 @@ const uploadInvoiceImage = (dataSubmit, id) => ({
   payload: axios().patch(`${URL}api/v1/invoice/upload/${id}`, dataSubmit),
 })
 
-const invoiceByStatus = (id) => ({
-  type: 'INVOICESTATUS',
-  payload: axios().get(`${URL}api/v1/invoice/bystatus/${id}`),
+const invoiceWaiting = () => ({
+  type: 'INVOICEWAITING',
+  payload: axios().get(`${URL}api/v1/invoice/bystatus/0`),
+})
+
+const invoiceApproved = () => ({
+  type: 'INVOICEAPPROVED',
+  payload: axios().get(`${URL}api/v1/invoice/bystatus/1`),
+})
+
+const invoiceRejected = () => ({
+  type: 'INVOICEREJECTED',
+  payload: axios().get(`${URL}api/v1/invoice/bystatus/2`),
+})
+
+const invoiceProcessed = () => ({
+  type: 'INVOICEPROCESSED',
+  payload: axios().get(`${URL}api/v1/invoice/bystatus/3`),
+})
+
+const invoiceClosed = () => ({
+  type: 'INVOICECLOSED',
+  payload: axios().get(`${URL}api/v1/invoice/bystatus/4`),
 })
 
 export {
@@ -53,5 +73,9 @@ export {
   createInvoiceItem,
   listInvoiceItem,
   uploadInvoiceImage,
-  invoiceByStatus,
+  invoiceWaiting,
+  invoiceApproved,
+  invoiceRejected,
+  invoiceProcessed,
+  invoiceClosed,
 }

@@ -29,7 +29,13 @@ import ArrowRight from '@material-ui/icons/ArrowRight'
 import Visibility from '@material-ui/icons/Visibility'
 
 // import Check from '@material-ui/icons/Check'
-import { listInvoice } from '../../redux/actions/invoice'
+import {
+  invoiceWaiting,
+  invoiceApproved,
+  invoiceRejected,
+  invoiceProcessed,
+  invoiceClosed,
+} from '../../redux/actions/invoice'
 // core components
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
@@ -46,7 +52,11 @@ class Invoice extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isLoading: true,
+      isLoadingWaiting: true,
+      isLoadingApproved: true,
+      isLoadingRejected: true,
+      isLoadingProcessed: true,
+      isLoadingClosed: true,
     }
   }
 
@@ -55,8 +65,20 @@ class Invoice extends Component {
   }
 
   fetch() {
-    this.props.listInvoice().then(() => {
-      this.setState({ isLoading: false })
+    this.props.invoiceWaiting().then(() => {
+      this.setState({ isLoadingWaiting: false })
+    })
+    this.props.invoiceApproved().then(() => {
+      this.setState({ isLoadingApproved: false })
+    })
+    this.props.invoiceRejected().then(() => {
+      this.setState({ isLoadingRejected: false })
+    })
+    this.props.invoiceProcessed().then(() => {
+      this.setState({ isLoadingProcessed: false })
+    })
+    this.props.invoiceClosed().then(() => {
+      this.setState({ isLoadingClosed: false })
     })
   }
 
@@ -93,7 +115,7 @@ class Invoice extends Component {
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
                 <Card>
-                  {this.state.isLoading ? (
+                  {this.state.isLoadingWaiting ? (
                     <center>
                       <div
                         className="d-flex align-self-center spinner-border text-dark mt-2 mb-3"
@@ -150,98 +172,127 @@ class Invoice extends Component {
                               </TableRow>
                             </TableHead>
                             <TableBody>
-                              {this.props.invoice.dataInvoice.map((res, i) => (
+                              {this.props.invoice.dataInvoiceWaiting.length <
+                              1 ? (
+                                <TableRow className={classesBody.tableRow}>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell
+                                    className={classesBody.tableActions}
+                                  >
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                </TableRow>
+                              ) : (
                                 <>
-                                  {res.status === 5 ? (
-                                    <></>
-                                  ) : (
-                                    <TableRow
-                                      className={classesBody.tableRow}
-                                      key={i}
-                                    >
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.invoice_no}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.requestname}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          Rp {res.total_amount}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        {res.status === 0 ? (
-                                          <span className="badge badge-pill badge-warning">
-                                            Waiting
-                                          </span>
-                                        ) : res.status === 1 ? (
-                                          <span className="badge badge-pill badge-success">
-                                            Approved
-                                          </span>
-                                        ) : res.status === 2 ? (
-                                          <span className="badge badge-pill badge-danger">
-                                            Rejected
-                                          </span>
-                                        ) : res.status === 3 ? (
-                                          <span className="badge badge-pill badge-primary">
-                                            Processed
-                                          </span>
-                                        ) : res.status === 4 ? (
-                                          <span className="badge badge-pill badge-dark">
-                                            Closed
-                                          </span>
-                                        ) : (
-                                          <></>
-                                        )}
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.responder === null
-                                            ? '-'
-                                            : res.nameResponder}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.date}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell
-                                        className={classesBody.tableActions}
-                                      >
-                                        <Link
-                                          to={{
-                                            pathname: `/admin/invoice/${res.id}`,
-                                            state: {
-                                              id: `${res.id}`,
-                                              invoice_no: `${res.invoice_no}`,
-                                              requestname: `${res.requestname}`,
-                                              note: `${res.note}`,
-                                              total_amount: `${res.total_amount}`,
-                                            },
-                                          }}
+                                  {this.props.invoice.dataInvoiceWaiting.map(
+                                    (res, i) => (
+                                      <>
+                                        <TableRow
+                                          className={classesBody.tableRow}
+                                          key={i}
                                         >
-                                          <Tooltip
-                                            id="tooltip-top-start"
-                                            title="Click to Detail"
-                                            placement="top"
-                                            classes={{
-                                              tooltip: classesBody.tooltip,
-                                            }}
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.invoice_no}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.requestname}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              Rp {res.total_amount}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            {res.status === 0 ? (
+                                              <span className="badge badge-pill badge-warning">
+                                                Waiting
+                                              </span>
+                                            ) : res.status === 1 ? (
+                                              <span className="badge badge-pill badge-success">
+                                                Approved
+                                              </span>
+                                            ) : res.status === 2 ? (
+                                              <span className="badge badge-pill badge-danger">
+                                                Rejected
+                                              </span>
+                                            ) : res.status === 3 ? (
+                                              <span className="badge badge-pill badge-primary">
+                                                Processed
+                                              </span>
+                                            ) : res.status === 4 ? (
+                                              <span className="badge badge-pill badge-dark">
+                                                Closed
+                                              </span>
+                                            ) : (
+                                              <></>
+                                            )}
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.responder === null
+                                                ? '-'
+                                                : res.nameResponder}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.date}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell
+                                            className={classesBody.tableActions}
                                           >
-                                            <Visibility className="iconWhiteColor" />
-                                          </Tooltip>
-                                        </Link>
-                                      </TableCell>
-                                    </TableRow>
+                                            <Link
+                                              to={{
+                                                pathname: `/admin/invoice/${res.id}`,
+                                                state: {
+                                                  id: `${res.id}`,
+                                                  invoice_no: `${res.invoice_no}`,
+                                                  requestname: `${res.requestname}`,
+                                                  note: `${res.note}`,
+                                                  total_amount: `${res.total_amount}`,
+                                                },
+                                              }}
+                                            >
+                                              <Tooltip
+                                                id="tooltip-top-start"
+                                                title="Click to Detail"
+                                                placement="top"
+                                                classes={{
+                                                  tooltip: classesBody.tooltip,
+                                                }}
+                                              >
+                                                <Visibility className="iconWhiteColor" />
+                                              </Tooltip>
+                                            </Link>
+                                          </TableCell>
+                                        </TableRow>
+                                      </>
+                                    ),
                                   )}
                                 </>
-                              ))}
+                              )}
                             </TableBody>
                           </Table>
                           <div className="d-flex flex-row justify-content-end">
@@ -285,7 +336,7 @@ class Invoice extends Component {
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
                 <Card>
-                  {this.state.isLoading ? (
+                  {this.state.isLoadingApproved ? (
                     <center>
                       <div
                         className="d-flex align-self-center spinner-border text-dark mt-2 mb-3"
@@ -342,98 +393,127 @@ class Invoice extends Component {
                               </TableRow>
                             </TableHead>
                             <TableBody>
-                              {this.props.invoice.dataInvoice.map((res, i) => (
+                              {this.props.invoice.dataInvoiceApproved.length <
+                              1 ? (
+                                <TableRow className={classesBody.tableRow}>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell
+                                    className={classesBody.tableActions}
+                                  >
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                </TableRow>
+                              ) : (
                                 <>
-                                  {res.status === 5 ? (
-                                    <></>
-                                  ) : (
-                                    <TableRow
-                                      className={classesBody.tableRow}
-                                      key={i}
-                                    >
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.invoice_no}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.requestname}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          Rp {res.total_amount}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        {res.status === 0 ? (
-                                          <span className="badge badge-pill badge-warning">
-                                            Waiting
-                                          </span>
-                                        ) : res.status === 1 ? (
-                                          <span className="badge badge-pill badge-success">
-                                            Approved
-                                          </span>
-                                        ) : res.status === 2 ? (
-                                          <span className="badge badge-pill badge-danger">
-                                            Rejected
-                                          </span>
-                                        ) : res.status === 3 ? (
-                                          <span className="badge badge-pill badge-primary">
-                                            Processed
-                                          </span>
-                                        ) : res.status === 4 ? (
-                                          <span className="badge badge-pill badge-dark">
-                                            Closed
-                                          </span>
-                                        ) : (
-                                          <></>
-                                        )}
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.responder === null
-                                            ? '-'
-                                            : res.nameResponder}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.date}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell
-                                        className={classesBody.tableActions}
-                                      >
-                                        <Link
-                                          to={{
-                                            pathname: `/admin/invoice/${res.id}`,
-                                            state: {
-                                              id: `${res.id}`,
-                                              invoice_no: `${res.invoice_no}`,
-                                              requestname: `${res.requestname}`,
-                                              note: `${res.note}`,
-                                              total_amount: `${res.total_amount}`,
-                                            },
-                                          }}
+                                  {this.props.invoice.dataInvoiceApproved.map(
+                                    (res, i) => (
+                                      <>
+                                        <TableRow
+                                          className={classesBody.tableRow}
+                                          key={i}
                                         >
-                                          <Tooltip
-                                            id="tooltip-top-start"
-                                            title="Click to Detail"
-                                            placement="top"
-                                            classes={{
-                                              tooltip: classesBody.tooltip,
-                                            }}
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.invoice_no}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.requestname}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              Rp {res.total_amount}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            {res.status === 0 ? (
+                                              <span className="badge badge-pill badge-warning">
+                                                Waiting
+                                              </span>
+                                            ) : res.status === 1 ? (
+                                              <span className="badge badge-pill badge-success">
+                                                Approved
+                                              </span>
+                                            ) : res.status === 2 ? (
+                                              <span className="badge badge-pill badge-danger">
+                                                Rejected
+                                              </span>
+                                            ) : res.status === 3 ? (
+                                              <span className="badge badge-pill badge-primary">
+                                                Processed
+                                              </span>
+                                            ) : res.status === 4 ? (
+                                              <span className="badge badge-pill badge-dark">
+                                                Closed
+                                              </span>
+                                            ) : (
+                                              <></>
+                                            )}
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.responder === null
+                                                ? '-'
+                                                : res.nameResponder}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.date}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell
+                                            className={classesBody.tableActions}
                                           >
-                                            <Visibility className="iconWhiteColor" />
-                                          </Tooltip>
-                                        </Link>
-                                      </TableCell>
-                                    </TableRow>
+                                            <Link
+                                              to={{
+                                                pathname: `/admin/invoice/${res.id}`,
+                                                state: {
+                                                  id: `${res.id}`,
+                                                  invoice_no: `${res.invoice_no}`,
+                                                  requestname: `${res.requestname}`,
+                                                  note: `${res.note}`,
+                                                  total_amount: `${res.total_amount}`,
+                                                },
+                                              }}
+                                            >
+                                              <Tooltip
+                                                id="tooltip-top-start"
+                                                title="Click to Detail"
+                                                placement="top"
+                                                classes={{
+                                                  tooltip: classesBody.tooltip,
+                                                }}
+                                              >
+                                                <Visibility className="iconWhiteColor" />
+                                              </Tooltip>
+                                            </Link>
+                                          </TableCell>
+                                        </TableRow>
+                                      </>
+                                    ),
                                   )}
                                 </>
-                              ))}
+                              )}
                             </TableBody>
                           </Table>
                           <div className="d-flex flex-row justify-content-end">
@@ -467,7 +547,7 @@ class Invoice extends Component {
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
                 <Card>
-                  {this.state.isLoading ? (
+                  {this.state.isLoadingRejected ? (
                     <center>
                       <div
                         className="d-flex align-self-center spinner-border text-dark mt-2 mb-3"
@@ -524,98 +604,127 @@ class Invoice extends Component {
                               </TableRow>
                             </TableHead>
                             <TableBody>
-                              {this.props.invoice.dataInvoice.map((res, i) => (
+                              {this.props.invoice.dataInvoiceRejected.length <
+                              1 ? (
+                                <TableRow className={classesBody.tableRow}>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell
+                                    className={classesBody.tableActions}
+                                  >
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                </TableRow>
+                              ) : (
                                 <>
-                                  {res.status === 5 ? (
-                                    <></>
-                                  ) : (
-                                    <TableRow
-                                      className={classesBody.tableRow}
-                                      key={i}
-                                    >
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.invoice_no}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.requestname}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          Rp {res.total_amount}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        {res.status === 0 ? (
-                                          <span className="badge badge-pill badge-warning">
-                                            Waiting
-                                          </span>
-                                        ) : res.status === 1 ? (
-                                          <span className="badge badge-pill badge-success">
-                                            Approved
-                                          </span>
-                                        ) : res.status === 2 ? (
-                                          <span className="badge badge-pill badge-danger">
-                                            Rejected
-                                          </span>
-                                        ) : res.status === 3 ? (
-                                          <span className="badge badge-pill badge-primary">
-                                            Processed
-                                          </span>
-                                        ) : res.status === 4 ? (
-                                          <span className="badge badge-pill badge-dark">
-                                            Closed
-                                          </span>
-                                        ) : (
-                                          <></>
-                                        )}
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.responder === null
-                                            ? '-'
-                                            : res.nameResponder}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.date}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell
-                                        className={classesBody.tableActions}
-                                      >
-                                        <Link
-                                          to={{
-                                            pathname: `/admin/invoice/${res.id}`,
-                                            state: {
-                                              id: `${res.id}`,
-                                              invoice_no: `${res.invoice_no}`,
-                                              requestname: `${res.requestname}`,
-                                              note: `${res.note}`,
-                                              total_amount: `${res.total_amount}`,
-                                            },
-                                          }}
+                                  {this.props.invoice.dataInvoiceRejected.map(
+                                    (res, i) => (
+                                      <>
+                                        <TableRow
+                                          className={classesBody.tableRow}
+                                          key={i}
                                         >
-                                          <Tooltip
-                                            id="tooltip-top-start"
-                                            title="Click to Detail"
-                                            placement="top"
-                                            classes={{
-                                              tooltip: classesBody.tooltip,
-                                            }}
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.invoice_no}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.requestname}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              Rp {res.total_amount}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            {res.status === 0 ? (
+                                              <span className="badge badge-pill badge-warning">
+                                                Waiting
+                                              </span>
+                                            ) : res.status === 1 ? (
+                                              <span className="badge badge-pill badge-success">
+                                                Approved
+                                              </span>
+                                            ) : res.status === 2 ? (
+                                              <span className="badge badge-pill badge-danger">
+                                                Rejected
+                                              </span>
+                                            ) : res.status === 3 ? (
+                                              <span className="badge badge-pill badge-primary">
+                                                Processed
+                                              </span>
+                                            ) : res.status === 4 ? (
+                                              <span className="badge badge-pill badge-dark">
+                                                Closed
+                                              </span>
+                                            ) : (
+                                              <></>
+                                            )}
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.responder === null
+                                                ? '-'
+                                                : res.nameResponder}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.date}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell
+                                            className={classesBody.tableActions}
                                           >
-                                            <Visibility className="iconWhiteColor" />
-                                          </Tooltip>
-                                        </Link>
-                                      </TableCell>
-                                    </TableRow>
+                                            <Link
+                                              to={{
+                                                pathname: `/admin/invoice/${res.id}`,
+                                                state: {
+                                                  id: `${res.id}`,
+                                                  invoice_no: `${res.invoice_no}`,
+                                                  requestname: `${res.requestname}`,
+                                                  note: `${res.note}`,
+                                                  total_amount: `${res.total_amount}`,
+                                                },
+                                              }}
+                                            >
+                                              <Tooltip
+                                                id="tooltip-top-start"
+                                                title="Click to Detail"
+                                                placement="top"
+                                                classes={{
+                                                  tooltip: classesBody.tooltip,
+                                                }}
+                                              >
+                                                <Visibility className="iconWhiteColor" />
+                                              </Tooltip>
+                                            </Link>
+                                          </TableCell>
+                                        </TableRow>
+                                      </>
+                                    ),
                                   )}
                                 </>
-                              ))}
+                              )}
                             </TableBody>
                           </Table>
                           <div className="d-flex flex-row justify-content-end">
@@ -649,7 +758,7 @@ class Invoice extends Component {
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
                 <Card>
-                  {this.state.isLoading ? (
+                  {this.state.isLoadingProcessed ? (
                     <center>
                       <div
                         className="d-flex align-self-center spinner-border text-dark mt-2 mb-3"
@@ -706,98 +815,127 @@ class Invoice extends Component {
                               </TableRow>
                             </TableHead>
                             <TableBody>
-                              {this.props.invoice.dataInvoice.map((res, i) => (
+                              {this.props.invoice.dataInvoiceProcessed.length <
+                              1 ? (
+                                <TableRow className={classesBody.tableRow}>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell
+                                    className={classesBody.tableActions}
+                                  >
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                </TableRow>
+                              ) : (
                                 <>
-                                  {res.status === 5 ? (
-                                    <></>
-                                  ) : (
-                                    <TableRow
-                                      className={classesBody.tableRow}
-                                      key={i}
-                                    >
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.invoice_no}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.requestname}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          Rp {res.total_amount}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        {res.status === 0 ? (
-                                          <span className="badge badge-pill badge-warning">
-                                            Waiting
-                                          </span>
-                                        ) : res.status === 1 ? (
-                                          <span className="badge badge-pill badge-success">
-                                            Approved
-                                          </span>
-                                        ) : res.status === 2 ? (
-                                          <span className="badge badge-pill badge-danger">
-                                            Rejected
-                                          </span>
-                                        ) : res.status === 3 ? (
-                                          <span className="badge badge-pill badge-primary">
-                                            Processed
-                                          </span>
-                                        ) : res.status === 4 ? (
-                                          <span className="badge badge-pill badge-dark">
-                                            Closed
-                                          </span>
-                                        ) : (
-                                          <></>
-                                        )}
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.responder === null
-                                            ? '-'
-                                            : res.nameResponder}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.date}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell
-                                        className={classesBody.tableActions}
-                                      >
-                                        <Link
-                                          to={{
-                                            pathname: `/admin/invoice/${res.id}`,
-                                            state: {
-                                              id: `${res.id}`,
-                                              invoice_no: `${res.invoice_no}`,
-                                              requestname: `${res.requestname}`,
-                                              note: `${res.note}`,
-                                              total_amount: `${res.total_amount}`,
-                                            },
-                                          }}
+                                  {this.props.invoice.dataInvoiceProcessed.map(
+                                    (res, i) => (
+                                      <>
+                                        <TableRow
+                                          className={classesBody.tableRow}
+                                          key={i}
                                         >
-                                          <Tooltip
-                                            id="tooltip-top-start"
-                                            title="Click to Detail"
-                                            placement="top"
-                                            classes={{
-                                              tooltip: classesBody.tooltip,
-                                            }}
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.invoice_no}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.requestname}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              Rp {res.total_amount}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            {res.status === 0 ? (
+                                              <span className="badge badge-pill badge-warning">
+                                                Waiting
+                                              </span>
+                                            ) : res.status === 1 ? (
+                                              <span className="badge badge-pill badge-success">
+                                                Approved
+                                              </span>
+                                            ) : res.status === 2 ? (
+                                              <span className="badge badge-pill badge-danger">
+                                                Rejected
+                                              </span>
+                                            ) : res.status === 3 ? (
+                                              <span className="badge badge-pill badge-primary">
+                                                Processed
+                                              </span>
+                                            ) : res.status === 4 ? (
+                                              <span className="badge badge-pill badge-dark">
+                                                Closed
+                                              </span>
+                                            ) : (
+                                              <></>
+                                            )}
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.responder === null
+                                                ? '-'
+                                                : res.nameResponder}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.date}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell
+                                            className={classesBody.tableActions}
                                           >
-                                            <Visibility className="iconWhiteColor" />
-                                          </Tooltip>
-                                        </Link>
-                                      </TableCell>
-                                    </TableRow>
+                                            <Link
+                                              to={{
+                                                pathname: `/admin/invoice/${res.id}`,
+                                                state: {
+                                                  id: `${res.id}`,
+                                                  invoice_no: `${res.invoice_no}`,
+                                                  requestname: `${res.requestname}`,
+                                                  note: `${res.note}`,
+                                                  total_amount: `${res.total_amount}`,
+                                                },
+                                              }}
+                                            >
+                                              <Tooltip
+                                                id="tooltip-top-start"
+                                                title="Click to Detail"
+                                                placement="top"
+                                                classes={{
+                                                  tooltip: classesBody.tooltip,
+                                                }}
+                                              >
+                                                <Visibility className="iconWhiteColor" />
+                                              </Tooltip>
+                                            </Link>
+                                          </TableCell>
+                                        </TableRow>
+                                      </>
+                                    ),
                                   )}
                                 </>
-                              ))}
+                              )}
                             </TableBody>
                           </Table>
                           <div className="d-flex flex-row justify-content-end">
@@ -831,7 +969,7 @@ class Invoice extends Component {
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
                 <Card>
-                  {this.state.isLoading ? (
+                  {this.state.isLoadingClosed ? (
                     <center>
                       <div
                         className="d-flex align-self-center spinner-border text-dark mt-2 mb-3"
@@ -888,98 +1026,127 @@ class Invoice extends Component {
                               </TableRow>
                             </TableHead>
                             <TableBody>
-                              {this.props.invoice.dataInvoice.map((res, i) => (
+                              {this.props.invoice.dataInvoiceClosed.length <
+                              1 ? (
+                                <TableRow className={classesBody.tableRow}>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell component="th">
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                  <TableCell
+                                    className={classesBody.tableActions}
+                                  >
+                                    <p className="textPrimaryColor">-</p>
+                                  </TableCell>
+                                </TableRow>
+                              ) : (
                                 <>
-                                  {res.status === 5 ? (
-                                    <></>
-                                  ) : (
-                                    <TableRow
-                                      className={classesBody.tableRow}
-                                      key={i}
-                                    >
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.invoice_no}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.requestname}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          Rp {res.total_amount}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        {res.status === 0 ? (
-                                          <span className="badge badge-pill badge-warning">
-                                            Waiting
-                                          </span>
-                                        ) : res.status === 1 ? (
-                                          <span className="badge badge-pill badge-success">
-                                            Approved
-                                          </span>
-                                        ) : res.status === 2 ? (
-                                          <span className="badge badge-pill badge-danger">
-                                            Rejected
-                                          </span>
-                                        ) : res.status === 3 ? (
-                                          <span className="badge badge-pill badge-primary">
-                                            Processed
-                                          </span>
-                                        ) : res.status === 4 ? (
-                                          <span className="badge badge-pill badge-dark">
-                                            Closed
-                                          </span>
-                                        ) : (
-                                          <></>
-                                        )}
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.responder === null
-                                            ? '-'
-                                            : res.nameResponder}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell component="th">
-                                        <p className="textPrimaryColor">
-                                          {res.date}
-                                        </p>
-                                      </TableCell>
-                                      <TableCell
-                                        className={classesBody.tableActions}
-                                      >
-                                        <Link
-                                          to={{
-                                            pathname: `/admin/invoice/${res.id}`,
-                                            state: {
-                                              id: `${res.id}`,
-                                              invoice_no: `${res.invoice_no}`,
-                                              requestname: `${res.requestname}`,
-                                              note: `${res.note}`,
-                                              total_amount: `${res.total_amount}`,
-                                            },
-                                          }}
+                                  {this.props.invoice.dataInvoiceClosed.map(
+                                    (res, i) => (
+                                      <>
+                                        <TableRow
+                                          className={classesBody.tableRow}
+                                          key={i}
                                         >
-                                          <Tooltip
-                                            id="tooltip-top-start"
-                                            title="Click to Detail"
-                                            placement="top"
-                                            classes={{
-                                              tooltip: classesBody.tooltip,
-                                            }}
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.invoice_no}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.requestname}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              Rp {res.total_amount}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            {res.status === 0 ? (
+                                              <span className="badge badge-pill badge-warning">
+                                                Waiting
+                                              </span>
+                                            ) : res.status === 1 ? (
+                                              <span className="badge badge-pill badge-success">
+                                                Approved
+                                              </span>
+                                            ) : res.status === 2 ? (
+                                              <span className="badge badge-pill badge-danger">
+                                                Rejected
+                                              </span>
+                                            ) : res.status === 3 ? (
+                                              <span className="badge badge-pill badge-primary">
+                                                Processed
+                                              </span>
+                                            ) : res.status === 4 ? (
+                                              <span className="badge badge-pill badge-dark">
+                                                Closed
+                                              </span>
+                                            ) : (
+                                              <></>
+                                            )}
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.responder === null
+                                                ? '-'
+                                                : res.nameResponder}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell component="th">
+                                            <p className="textPrimaryColor">
+                                              {res.date}
+                                            </p>
+                                          </TableCell>
+                                          <TableCell
+                                            className={classesBody.tableActions}
                                           >
-                                            <Visibility className="iconWhiteColor" />
-                                          </Tooltip>
-                                        </Link>
-                                      </TableCell>
-                                    </TableRow>
+                                            <Link
+                                              to={{
+                                                pathname: `/admin/invoice/${res.id}`,
+                                                state: {
+                                                  id: `${res.id}`,
+                                                  invoice_no: `${res.invoice_no}`,
+                                                  requestname: `${res.requestname}`,
+                                                  note: `${res.note}`,
+                                                  total_amount: `${res.total_amount}`,
+                                                },
+                                              }}
+                                            >
+                                              <Tooltip
+                                                id="tooltip-top-start"
+                                                title="Click to Detail"
+                                                placement="top"
+                                                classes={{
+                                                  tooltip: classesBody.tooltip,
+                                                }}
+                                              >
+                                                <Visibility className="iconWhiteColor" />
+                                              </Tooltip>
+                                            </Link>
+                                          </TableCell>
+                                        </TableRow>
+                                      </>
+                                    ),
                                   )}
                                 </>
-                              ))}
+                              )}
                             </TableBody>
                           </Table>
                           <div className="d-flex flex-row justify-content-end">
@@ -1022,6 +1189,12 @@ const mapStateToProps = (state) => ({
   login: state.login,
 })
 
-const mapDispatchToProps = { listInvoice }
+const mapDispatchToProps = {
+  invoiceWaiting,
+  invoiceApproved,
+  invoiceRejected,
+  invoiceProcessed,
+  invoiceClosed,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Invoice)
