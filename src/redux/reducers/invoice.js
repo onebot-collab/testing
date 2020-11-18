@@ -2,8 +2,18 @@ const initialState = {
   isLoading: false,
   isLoadingItem: false,
   isLoadingStatus: false,
+  isLoadingWaiting: false,
+  isLoadingApproved: false,
+  isLoadingRejected: false,
+  isLoadingProcessed: false,
+  isLoadingClosed: false,
   isError: false,
   dataInvoice: [],
+  dataInvoiceWaiting: [],
+  dataInvoiceApproved: [],
+  dataInvoiceRejected: [],
+  dataInvoiceProcessed: [],
+  dataInvoiceClosed: [],
   dataInvoiceItem: [],
 }
 
@@ -53,6 +63,121 @@ const invoice = (state = initialState, action) => {
         isLoadingItem: false,
         isError: false,
         dataInvoiceItem: action.payload.data.data,
+      }
+    }
+    case 'INVOICEWAITING_PENDING': {
+      return {
+        ...state,
+        isLoadingWaiting: true,
+        isError: false,
+      }
+    }
+    case 'INVOICEWAITING_REJECTED': {
+      return {
+        ...state,
+        isLoadingWaiting: false,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'INVOICEWAITING_FULFILLED': {
+      return {
+        ...state,
+        isLoadingWaiting: false,
+        isError: false,
+        dataInvoiceWaiting: action.payload.data.data,
+      }
+    }
+    case 'INVOICEAPPROVED_PENDING': {
+      return {
+        ...state,
+        isLoadingApproved: true,
+        isError: false,
+      }
+    }
+    case 'INVOICEAPPROVED_REJECTED': {
+      return {
+        ...state,
+        isLoadingApproved: false,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'INVOICEAPPROVED_FULFILLED': {
+      return {
+        ...state,
+        isLoadingApproved: false,
+        isError: false,
+        dataInvoiceApproved: action.payload.data.data,
+      }
+    }
+    case 'INVOICEREJECTED_PENDING': {
+      return {
+        ...state,
+        isLoadingRejected: true,
+        isError: false,
+      }
+    }
+    case 'INVOICEREJECTED_REJECTED': {
+      return {
+        ...state,
+        isLoadingRejected: false,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'INVOICEREJECTED_FULFILLED': {
+      return {
+        ...state,
+        isLoadingRejected: false,
+        isError: false,
+        dataInvoiceRejected: action.payload.data.data,
+      }
+    }
+    case 'INVOICEPROCESSED_PENDING': {
+      return {
+        ...state,
+        isLoadingProcessed: true,
+        isError: false,
+      }
+    }
+    case 'INVOICEPROCESSED_REJECTED': {
+      return {
+        ...state,
+        isLoadingProcessed: false,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'INVOICEPROCESSED_FULFILLED': {
+      return {
+        ...state,
+        isLoadingProcessed: false,
+        isError: false,
+        dataInvoiceProcessed: action.payload.data.data,
+      }
+    }
+    case 'INVOICECLOSED_PENDING': {
+      return {
+        ...state,
+        isLoadingClosed: true,
+        isError: false,
+      }
+    }
+    case 'INVOICECLOSED_REJECTED': {
+      return {
+        ...state,
+        isLoadingClosed: false,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'INVOICECLOSED_FULFILLED': {
+      return {
+        ...state,
+        isLoadingClosed: false,
+        isError: false,
+        dataInvoiceClosed: action.payload.data.data,
       }
     }
     case 'INVOICESTATUS_PENDING': {
