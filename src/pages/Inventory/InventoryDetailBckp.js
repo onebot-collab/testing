@@ -209,6 +209,14 @@ class InventoryDetail extends Component {
                         </dl>
                       </div>
                     </div>
+                    <div className="col-12 col-md-12 col-xl-12 d-flex align-self-end align-items-end">
+                      <button
+                        type="button"
+                        className="btn btn-outline-danger btn-lg btn-block"
+                      >
+                        <Edit /> Edit {this.props.location.state.name}
+                      </button>
+                    </div>
                     {/* </div> */}
 
                     {/* <Button
@@ -243,15 +251,6 @@ class InventoryDetail extends Component {
                     </Button>
                   </Grid> */}
                 </Grid>
-                <div className="col-12 col-md-12 col-xl-12 d-flex align-self-end align-items-end mt-5">
-                  <button
-                    type="button"
-                    className="btn btn-outline-danger btn-lg btn-block"
-                    onClick={this.toggleEditModal}
-                  >
-                    <Edit /> Edit
-                  </button>
-                </div>
               </CardBody>
             </Card>
           </GridItem>

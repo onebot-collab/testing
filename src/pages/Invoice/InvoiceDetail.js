@@ -18,6 +18,7 @@ import Grid from '@material-ui/core/Grid'
 // import ListItemIcon from '@material-ui/core/ListItemIcon'
 // import ListItemText from '@material-ui/core/ListItemText'
 import Table from '@material-ui/core/Table'
+import TableContainer from '@material-ui/core/TableContainer'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 // import TableContainer from '@material-ui/core/TableContainer'
@@ -85,100 +86,102 @@ class InvoiceDetail extends Component {
                   <h4 className={classes.cardTitleWhite}>
                     {this.props.location.state.invoice_no}
                   </h4>
-                  <p className={classes.cardCategoryWhite}>
+                  {/* <p className={classes.cardCategoryWhite}>
                     by {this.props.location.state.requestname}
-                  </p>
+                  </p> */}
                 </div>
               </CardHeader>
               <CardBody>
                 <Grid item xs container direction="column" spacing={2}>
-                  <Table aria-label="spanning table">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell align="center">
-                          <h6 className="textWidthTitle">Item</h6>
-                        </TableCell>
-                        <TableCell />
-                        <TableCell>
-                          <h6 className="textWidthTitle">@ Price</h6>
-                        </TableCell>
-                        <TableCell align="center">
-                          <h6 className="textWidthTitle">Qty</h6>
-                        </TableCell>
-                        <TableCell align="right">
-                          <h6 className="textWidthTitle">Sum</h6>
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {this.state.isLoadingFetch ? (
-                        <center>
-                          <div
-                            className="d-flex align-self-center spinner-border text-white mt-2 mb-3"
-                            role="status"
-                          >
-                            <span className="sr-only">Loading...</span>
-                          </div>
-                        </center>
-                      ) : (
-                        <>
-                          {this.props.invoice.dataInvoiceItem.length < 1 ? (
+                  <TableContainer>
+                    <Table aria-label="spanning table">
+                      <TableHead>
+                        <TableRow>
+                          <TableCell align="center">
+                            <h6 className="textWidthTitle">Item</h6>
+                          </TableCell>
+                          <TableCell />
+                          <TableCell>
+                            <h6 className="textWidthTitle">@ Price</h6>
+                          </TableCell>
+                          <TableCell align="center">
+                            <h6 className="textWidthTitle">Qty</h6>
+                          </TableCell>
+                          <TableCell align="right">
+                            <h6 className="textWidthTitle">Sum</h6>
+                          </TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {this.state.isLoadingFetch ? (
+                          <center>
+                            <div
+                              className="d-flex align-self-center spinner-border text-white mt-2 mb-3"
+                              role="status"
+                            >
+                              <span className="sr-only">Loading...</span>
+                            </div>
+                          </center>
+                        ) : (
+                          <>
+                            {this.props.invoice.dataInvoiceItem.length < 1 ? (
+                              <TableRow>
+                                <TableCell align="center">-</TableCell>
+                                <TableCell />
+                                <TableCell align="center">-</TableCell>
+                                <TableCell />
+                                <TableCell align="right">Rp. -</TableCell>
+                              </TableRow>
+                            ) : (
+                              <>
+                                {this.props.invoice.dataInvoiceItem.map(
+                                  (res, i) => (
+                                    <TableRow key={i}>
+                                      <TableCell align="center">
+                                        {res.name}
+                                      </TableCell>
+                                      <TableCell />
+                                      <TableCell>Rp. {res.price}</TableCell>
+                                      <TableCell align="center">
+                                        {res.qty}
+                                      </TableCell>
+                                      <TableCell align="right">
+                                        Rp. {res.price}
+                                      </TableCell>
+                                    </TableRow>
+                                  ),
+                                )}
+                              </>
+                            )}
                             <TableRow>
-                              <TableCell align="center">-</TableCell>
                               <TableCell />
-                              <TableCell align="center">-</TableCell>
                               <TableCell />
-                              <TableCell align="right">Rp. -</TableCell>
+                              <TableCell />
+                              <TableCell align="right">
+                                <h6 className="textWidthTitle">Subtotal</h6>
+                              </TableCell>
+                              <TableCell align="right">
+                                <h6>Rp -</h6>
+                              </TableCell>
                             </TableRow>
-                          ) : (
-                            <>
-                              {this.props.invoice.dataInvoiceItem.map(
-                                (res, i) => (
-                                  <TableRow key={i}>
-                                    <TableCell align="center">
-                                      {res.name}
-                                    </TableCell>
-                                    <TableCell />
-                                    <TableCell>Rp. {res.price}</TableCell>
-                                    <TableCell align="center">
-                                      {res.qty}
-                                    </TableCell>
-                                    <TableCell align="right">
-                                      Rp. {res.price}
-                                    </TableCell>
-                                  </TableRow>
-                                ),
-                              )}
-                            </>
-                          )}
-                          <TableRow>
-                            <TableCell />
-                            <TableCell />
-                            <TableCell />
-                            <TableCell align="right">
-                              <h6 className="textWidthTitle">Subtotal</h6>
-                            </TableCell>
-                            <TableCell align="right">
-                              <h6>Rp -</h6>
-                            </TableCell>
-                          </TableRow>
-                          <TableRow>
-                            <TableCell />
-                            <TableCell />
-                            <TableCell />
-                            <TableCell align="right">
-                              <h6 className="textWidthTitle">Total</h6>
-                            </TableCell>
-                            <TableCell align="right">
-                              <h6>
-                                Rp {this.props.location.state.total_amount}
-                              </h6>
-                            </TableCell>
-                          </TableRow>
-                        </>
-                      )}
-                    </TableBody>
-                  </Table>
+                            <TableRow>
+                              <TableCell />
+                              <TableCell />
+                              <TableCell />
+                              <TableCell align="right">
+                                <h6 className="textWidthTitle">Total</h6>
+                              </TableCell>
+                              <TableCell align="right">
+                                <h6>
+                                  Rp {this.props.location.state.total_amount}
+                                </h6>
+                              </TableCell>
+                            </TableRow>
+                          </>
+                        )}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
                   {/* <Grid item xs>
                     <ListItem className="listItemWidth">
                       <ListItemText>

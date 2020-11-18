@@ -112,15 +112,15 @@ class AttendanceDetail extends Component {
                   <Grid item xs container direction="row" spacing={2}>
                     <Grid item xs={12} sm={12} md={4}>
                       <div className="d-flex justify-content-center">
-                        <Paper className="wrapperNoImage" elevation={3}>
+                        <Paper elevation={3}>
                           <ChartistGraph
-                            className="chartPie"
+                            className="chartPie d-flex justify-content-center"
                             data={reportAttendanceChart.data}
                             type="Pie"
                             options={reportAttendanceChart.options}
                           />
-                          <div className="d-flex justify-content-center">
-                            <div className="d-flex flex-row pb-2 pl-4">
+                          <div className="d-flex justify-content-center ">
+                            <div className="d-flex flex-row pb-2 pl-2">
                               <span className="badge badge-pill badge-danger align-self-center justify-content-start">
                                 %
                               </span>
@@ -142,7 +142,7 @@ class AttendanceDetail extends Component {
                               <span className="badge badge-pill badge-light align-self-center justify-content-start">
                                 %
                               </span>
-                              <div className="d-flex justify-content-end pl-2">
+                              <div className="d-flex justify-content-end pl-2 pr-2">
                                 {' '}
                                 Leave
                               </div>
