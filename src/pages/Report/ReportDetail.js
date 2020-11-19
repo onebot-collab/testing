@@ -51,8 +51,8 @@ export default class ReportDetail extends Component {
       // created_at: props.location.state.created_at,
       nameReport: props.location.state.nameReport,
       fileName: props.location.state.fileName,
-      fileName2: props.location.state.fileName2,
-      fileName3: props.location.state.fileName3,
+      // fileName2: props.location.state.fileName2,
+      // fileName3: props.location.state.fileName3,
     }
   }
 
@@ -126,7 +126,7 @@ export default class ReportDetail extends Component {
                       </ListItem>
                     </Paper>
                   </Grid>
-                  <Grid item xs>
+                  {/* <Grid item xs>
                     <Paper
                       // onClick={() => window.location.href('/admin')}
                       href="www.google.com"
@@ -157,8 +157,8 @@ export default class ReportDetail extends Component {
                         </ListItemIcon>
                       </ListItem>
                     </Paper>
-                  </Grid>
-                  <Grid item xs>
+                  </Grid> */}
+                  {/* <Grid item xs>
                     <Paper
                       // onClick={() => window.location.href('/admin')}
                       href="www.google.com"
@@ -189,7 +189,7 @@ export default class ReportDetail extends Component {
                         </ListItemIcon>
                       </ListItem>
                     </Paper>
-                  </Grid>
+                  </Grid> */}
                   {/* <Grid item xs>
                     <Button
                       variant="outlined"
