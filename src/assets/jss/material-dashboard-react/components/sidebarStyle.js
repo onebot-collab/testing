@@ -133,6 +133,7 @@ const sidebarStyle = (theme) => ({
     marginBottom: '0',
     listStyle: 'none',
     position: 'unset',
+    // backgroundColor: 'green',
   },
   item: {
     position: 'relative',
@@ -145,12 +146,12 @@ const sidebarStyle = (theme) => ({
   itemLink: {
     width: 'auto',
     transition: 'all 300ms linear',
-    margin: '10px 15px 0',
+    margin: '10px 0 0',
     borderRadius: '3px',
     position: 'relative',
     display: 'block',
-    padding: '0 0 0 10px',
-    borderWidth: 5,
+    padding: '0 10px 0 0',
+    // backgroundColor: 'orange',
     ...defaultFont,
   },
   itemIcon: {
@@ -181,6 +182,9 @@ const sidebarStyle = (theme) => ({
   },
   whiteFont: {
     color: whiteColor,
+  },
+  redFont: {
+    color: '#b71c1c',
   },
   purple: {
     backgroundColor: primaryColor[0],
@@ -243,8 +247,8 @@ const sidebarStyle = (theme) => ({
     backgroundColor: '#303030',
   },
   activeSidebarFront: {
-    width: '2%',
-    backgroundColor: 'green',
+    width: '100%',
+    backgroundColor: '#000000',
   },
   red: {
     backgroundColor: dangerColor[0],

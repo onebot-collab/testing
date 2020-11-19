@@ -45,6 +45,12 @@ export default function Sidebar(props) {
         const whiteFontClasses = classNames({
           [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path)
         });
+        const redIconClasses = classNames({
+          [" " + classes.redFont]: activeRoute(prop.layout + prop.path)
+        });
+        const blackBackgoroundClasses = classNames({
+          [" " + classes.activeSidebarFront]: activeRoute(prop.layout + prop.path)
+        });
         return (
           <NavLink
             to={prop.layout + prop.path}
@@ -52,11 +58,14 @@ export default function Sidebar(props) {
             activeClassName="active"
             key={key}
           >
+            
             <ListItem button className={classes.itemLink + listItemClasses}>
-              <ListItem className={classes.activeSidebar}>
+            <ListItem className={blackBackgoroundClasses}>
+              
+                
               {typeof prop.icon === "string" ? (
                 <Icon
-                  className={classNames(classes.itemIcon, whiteFontClasses, {
+                  className={classNames(classes.itemIcon, redIconClasses, {
                     [classes.itemIconRTL]: props.rtlActive
                   })}
                 >
@@ -64,7 +73,7 @@ export default function Sidebar(props) {
                 </Icon>
               ) : (
                 <prop.icon
-                  className={classNames(classes.itemIcon, whiteFontClasses, {
+                  className={classNames(classes.itemIcon, redIconClasses, {
                     [classes.itemIconRTL]: props.rtlActive
                   })}
                 />
@@ -76,6 +85,7 @@ export default function Sidebar(props) {
                 })}
                 disableTypography={true}
               />
+            
               </ListItem>
             </ListItem>
           </NavLink>
