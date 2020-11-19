@@ -39,12 +39,17 @@ import { Visibility } from '@material-ui/icons'
 import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
 import Add from '@material-ui/icons/Add'
+import Delete from '@material-ui/icons/Delete'
 // import Delete from '@material-ui/icons/Delete'
 
 // import Check from '@material-ui/icons/Check'
 
 // redux
-import { getInventoryHome, postInventory } from '../../redux/actions/inventory'
+import {
+  getInventoryHome,
+  postInventory,
+  deleteInventory,
+} from '../../redux/actions/inventory'
 
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -71,16 +76,20 @@ class Inventory extends Component {
       isLoading: true,
       isLoadingAddInventory: false,
       showAddModal: false,
+      showDeleteModal: false,
       name: '',
       brand: '',
       serialNo: '',
       note: '',
       expDate: '',
       fileInventory: '',
+      deleteId: 0,
     }
     this.toggleAddModal = this.toggleAddModal.bind(this)
+    this.toggleDeleteModal = this.toggleDeleteModal.bind(this)
     this.addInventory = this.addInventory.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.delete = this.delete.bind(this)
   }
 
   fetch() {
@@ -100,6 +109,13 @@ class Inventory extends Component {
   toggleAddModal() {
     this.setState({
       showAddModal: !this.state.showAddModal,
+    })
+  }
+
+  toggleDeleteModal(id) {
+    this.setState({
+      showDeleteModal: !this.state.showDeleteModal,
+      deleteId: id,
     })
   }
 
@@ -143,6 +159,27 @@ class Inventory extends Component {
           icon: 'error',
           title: 'Failed',
           text: 'Failed to create inventory',
+        })
+      })
+  }
+
+  delete() {
+    this.props
+      .deleteInventory(this.state.deleteId)
+      .then(() => {
+        this.fetch()
+        this.setState({ showDeleteModal: false })
+        swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Inventory successfully deleted',
+        })
+      })
+      .catch(() => {
+        swal.fire({
+          icon: 'error',
+          title: 'Failed',
+          text: 'Failed to delete inventory',
         })
       })
   }
@@ -299,6 +336,26 @@ class Inventory extends Component {
                                           <Visibility className="iconWhiteColor" />
                                         </Tooltip>
                                       </Link>
+                                      <Tooltip
+                                        id="tooltip-top-start"
+                                        title="Remove"
+                                        placement="top"
+                                        classes={{
+                                          tooltip: classesBody.tooltip,
+                                        }}
+                                      >
+                                        <IconButton
+                                          onClick={() =>
+                                            this.toggleDeleteModal(res.id)
+                                          }
+                                          aria-label="Close"
+                                          className={
+                                            classesBody.tableActionButton
+                                          }
+                                        >
+                                          <Delete className="iconWhiteColor" />
+                                        </IconButton>
+                                      </Tooltip>
                                     </TableCell>
                                   </TableRow>
                                 ),
@@ -407,6 +464,21 @@ class Inventory extends Component {
                     </ModalFooter>
                   </Form>
                 </Modal>
+                {/* Delete Modal */}
+                <Modal isOpen={this.state.showDeleteModal}>
+                  <ModalBody className="h4">Are you sure?</ModalBody>
+                  <ModalFooter>
+                    <Button color="secondary" onClick={this.delete}>
+                      Delete
+                    </Button>
+                    <Button
+                      color="primary"
+                      onClick={() => this.toggleDeleteModal(0)}
+                    >
+                      Cancel
+                    </Button>
+                  </ModalFooter>
+                </Modal>
               </>
             )}
           </div>
@@ -421,6 +493,6 @@ const mapStateToProps = (state) => ({
   login: state.login,
 })
 
-const mapDispatchToProps = { getInventoryHome, postInventory }
+const mapDispatchToProps = { getInventoryHome, postInventory, deleteInventory }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Inventory)
