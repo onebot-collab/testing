@@ -1,6 +1,7 @@
 /*eslint-disable*/
 import React from "react";
 import classNames from "classnames";
+import './Sidebar.css'
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 // @material-ui/core components
@@ -52,6 +53,7 @@ export default function Sidebar(props) {
             key={key}
           >
             <ListItem button className={classes.itemLink + listItemClasses}>
+              <ListItem className={classes.activeSidebar}>
               {typeof prop.icon === "string" ? (
                 <Icon
                   className={classNames(classes.itemIcon, whiteFontClasses, {
@@ -74,6 +76,7 @@ export default function Sidebar(props) {
                 })}
                 disableTypography={true}
               />
+              </ListItem>
             </ListItem>
           </NavLink>
         );
