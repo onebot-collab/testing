@@ -164,10 +164,12 @@ class Ticketing extends Component {
                         <CardIcon color="danger">
                           <Store />
                         </CardIcon>
-                        <p className="cardCategory">Open</p>
-                        <h3 className="cardTitle">
-                          {this.props.ticket.dataTicketStats[0].Open}
-                        </h3>
+                        <div className="pr-2">
+                          <p className="cardCategory">Open</p>
+                          <h3 className="cardTitle">
+                            {this.props.ticket.dataTicketStats[0].Open}
+                          </h3>
+                        </div>
                       </CardHeader>
                     </Card>
                   </GridItem>
@@ -181,10 +183,12 @@ class Ticketing extends Component {
                         <CardIcon color="danger">
                           <Store />
                         </CardIcon>
-                        <p className="cardCategory">Processed</p>
-                        <h3 className="cardTitle">
-                          {this.props.ticket.dataTicketStats[0].InProgress}
-                        </h3>
+                        <div className="pr-2">
+                          <p className="cardCategory">Processed</p>
+                          <h3 className="cardTitle">
+                            {this.props.ticket.dataTicketStats[0].InProgress}
+                          </h3>
+                        </div>
                       </CardHeader>
                     </Card>
                   </GridItem>
@@ -198,10 +202,12 @@ class Ticketing extends Component {
                         <CardIcon color="danger">
                           <Store />
                         </CardIcon>
-                        <p className="cardCategory">Solved</p>
-                        <h3 className="cardTitle">
-                          {this.props.ticket.dataTicketStats[0].Solved}
-                        </h3>
+                        <div className="pr-2">
+                          <p className="cardCategory">Solved</p>
+                          <h3 className="cardTitle">
+                            {this.props.ticket.dataTicketStats[0].Solved}
+                          </h3>
+                        </div>
                       </CardHeader>
                     </Card>
                   </GridItem>
@@ -215,10 +221,12 @@ class Ticketing extends Component {
                         <CardIcon color="danger">
                           <Accessibility />
                         </CardIcon>
-                        <p className="cardCategory">Closed</p>
-                        <h3 className="cardTitle">
-                          {this.props.ticket.dataTicketStats[0].Closed}
-                        </h3>
+                        <div className="pr-2">
+                          <p className="cardCategory">Closed</p>
+                          <h3 className="cardTitle">
+                            {this.props.ticket.dataTicketStats[0].Closed}
+                          </h3>
+                        </div>
                       </CardHeader>
                     </Card>
                   </GridItem>

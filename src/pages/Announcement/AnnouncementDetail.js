@@ -10,13 +10,13 @@ import './AnnouncementDetail.css'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
 // import Box from '@material-ui/core/Box'
-import Grid from '@material-ui/core/Grid'
+// import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
+// import Typography from '@material-ui/core/Typography'
 // import Paper from '@material-ui/core/Paper'
-import ListItem from '@material-ui/core/ListItem'
+// import ListItem from '@material-ui/core/ListItem'
 // import ListItemIcon from '@material-ui/core/ListItemIcon'
-import ListItemText from '@material-ui/core/ListItemText'
+// import ListItemText from '@material-ui/core/ListItemText'
 // import { Link } from 'react-router-dom'
 import Select from 'react-select'
 import {
@@ -30,12 +30,11 @@ import {
 import swal from 'sweetalert2'
 
 // @material-ui/icons
-// import Edit from '@material-ui/icons/Edit'
+import Edit from '@material-ui/icons/Edit'
 // import { Visibility } from '@material-ui/icons'
 // import CalendarToday from '@material-ui/icons/CalendarToday'
 // import Apartment from '@material-ui/icons/Apartment'
 // import AssignmentInd from '@material-ui/icons/AssignmentInd'
-import Edit from '@material-ui/icons/Edit'
 // import Attachment from '@material-ui/icons/Attachment'
 // import CheckCircle from '@material-ui/icons/CheckCircle'
 // import Cancel from '@material-ui/icons/Cancel'
@@ -151,8 +150,43 @@ class AnnouncementDetail extends Component {
                 </div>
               </CardHeader>
               <CardBody>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item xs>
+                <div className="column">
+                  <div className="col-12 col-md-12 col-xl-12">
+                    <dl className="row">
+                      <dt className="col-sm-2"> Created at</dt>
+                      <dd className="col-sm-10">
+                        {' '}
+                        {this.props.location.state.created_at}
+                      </dd>
+                    </dl>
+                  </div>
+                  <div className="col-12 col-md-12 col-xl-12">
+                    <dl className="row">
+                      <dt className="col-sm-2"> Department</dt>
+                      <dd className="col-sm-10">
+                        {' '}
+                        {this.props.location.state.departmentName}
+                      </dd>
+                    </dl>
+                  </div>
+                  <div className="col-12 col-md-12 col-xl-12">
+                    <dl className="row">
+                      <dt className="col-sm-2"> Description</dt>
+                      <dd className="col-sm-10">
+                        {' '}
+                        {this.props.location.state.description}
+                      </dd>
+                    </dl>
+                  </div>
+                  <blockquote className="blockquote text-right">
+                    <footer className="blockquote-footer">
+                      by {this.props.location.state.createdby_name}{' '}
+                    </footer>
+                  </blockquote>
+                </div>
+
+                {/* <Grid item xs container direction="column" spacing={2}>
+                  <Grid item xs> 
                     <ListItem className="listItemWidth">
                       <ListItemText>
                         <Typography variant="subtitle1">
@@ -170,7 +204,7 @@ class AnnouncementDetail extends Component {
                       </p>
                     </Typography>
                   </Grid>
-                  {/* <Grid item xs>
+                  <Grid item xs>
                     <Paper elevation={2} className="d-flex flex-row p-3">
                       <ListItem>
                         <ListItemIcon>
@@ -186,8 +220,8 @@ class AnnouncementDetail extends Component {
                         </ListItemIcon>
                       </ListItem>
                     </Paper>
-                  </Grid> */}
-                </Grid>
+                  </Grid>
+                </Grid> */}
               </CardBody>
             </Card>
           </GridItem>

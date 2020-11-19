@@ -133,6 +133,7 @@ const sidebarStyle = (theme) => ({
     marginBottom: '0',
     listStyle: 'none',
     position: 'unset',
+    // backgroundColor: 'green',
   },
   item: {
     position: 'relative',
@@ -145,12 +146,12 @@ const sidebarStyle = (theme) => ({
   itemLink: {
     width: 'auto',
     transition: 'all 300ms linear',
-    margin: '10px 15px 0',
+    margin: '10px 0 0',
     borderRadius: '3px',
     position: 'relative',
     display: 'block',
-    padding: '5px 15px',
-    backgroundColor: 'transparent',
+    padding: '0 10px 0 0',
+    // backgroundColor: 'orange',
     ...defaultFont,
   },
   itemIcon: {
@@ -181,6 +182,9 @@ const sidebarStyle = (theme) => ({
   },
   whiteFont: {
     color: whiteColor,
+  },
+  redFont: {
+    color: '#b71c1c',
   },
   purple: {
     backgroundColor: primaryColor[0],
@@ -238,21 +242,29 @@ const sidebarStyle = (theme) => ({
       )},.12), 0 7px 8px -5px rgba(${hexToRgb(warningColor[0])},.2)`,
     },
   },
+  activeSidebar: {
+    width: '100%',
+    backgroundColor: '#303030',
+  },
+  activeSidebarFront: {
+    width: '100%',
+    backgroundColor: '#000000',
+  },
   red: {
     backgroundColor: dangerColor[0],
-    boxShadow: `0 12px 20px -10px rgba(${hexToRgb(
-      dangerColor[0],
-    )},.28), 0 4px 20px 0 rgba(${hexToRgb(
-      blackColor,
-    )},.12), 0 7px 8px -5px rgba(${hexToRgb(dangerColor[0])},.2)`,
-    '&:hover,&:focus': {
-      backgroundColor: dangerColor[0],
-      boxShadow: `0 12px 20px -10px rgba(${hexToRgb(
-        dangerColor[0],
-      )},.28), 0 4px 20px 0 rgba(${hexToRgb(
-        blackColor,
-      )},.12), 0 7px 8px -5px rgba(${hexToRgb(dangerColor[0])},.2)`,
-    },
+    // boxShadow: `0 12px 20px -10px rgba(${hexToRgb(
+    //   dangerColor[0],
+    // )},.28), 0 4px 20px 0 rgba(${hexToRgb(
+    //   blackColor,
+    // )},.12), 0 7px 8px -5px rgba(${hexToRgb(dangerColor[0])},.2)`,
+    // '&:hover,&:focus': {
+    //   backgroundColor: dangerColor[0],
+    //   boxShadow: `0 12px 20px -10px rgba(${hexToRgb(
+    //     dangerColor[0],
+    //   )},.28), 0 4px 20px 0 rgba(${hexToRgb(
+    //     blackColor,
+    //   )},.12), 0 7px 8px -5px rgba(${hexToRgb(dangerColor[0])},.2)`,
+    // },
   },
   sidebarWrapper: {
     position: 'relative',

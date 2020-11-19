@@ -10,11 +10,11 @@ import './CalendarDetail.css'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
 // import Box from '@material-ui/core/Box'
-import Grid from '@material-ui/core/Grid'
+// import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
-import Typography from '@material-ui/core/Typography'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
+// import Typography from '@material-ui/core/Typography'
+// import ListItem from '@material-ui/core/ListItem'
+// import ListItemText from '@material-ui/core/ListItemText'
 // import { Link } from 'react-router-dom'
 import Select from 'react-select'
 import {
@@ -92,7 +92,37 @@ export default class CalendarDetail extends Component {
                 </p> */}
               </CardHeader>
               <CardBody>
-                <Grid item xs container direction="column" spacing={2}>
+                <div className="column">
+                  <div className="col-12 col-md-12 col-xl-12">
+                    <dl className="row">
+                      <dt className="col-sm-2"> Type</dt>
+                      <dd className="col-sm-10">
+                        {this.props.location.state.type_reminder === 'null'
+                          ? 'Event'
+                          : this.props.location.state.type_reminder}
+                      </dd>
+                    </dl>
+                  </div>
+                  <div className="col-12 col-md-12 col-xl-12">
+                    <dl className="row">
+                      <dt className="col-sm-2"> Title</dt>
+                      <dd className="col-sm-10">
+                        {' '}
+                        {this.props.location.state.title}
+                      </dd>
+                    </dl>
+                  </div>
+                  <div className="col-12 col-md-12 col-xl-12">
+                    <dl className="row">
+                      <dt className="col-sm-2"> Date</dt>
+                      <dd className="col-sm-10">
+                        {' '}
+                        {this.props.location.state.date}
+                      </dd>
+                    </dl>
+                  </div>
+                </div>
+                {/* <Grid item xs container direction="column" spacing={2}>
                   <Grid item xs>
                     <ListItem className="listItemWidth">
                       <ListItemText>
@@ -110,7 +140,7 @@ export default class CalendarDetail extends Component {
                       </p>
                     </Typography>
                   </Grid>
-                  {/* <Grid item xs>
+                  <Grid item xs>
                     <Paper elevation={2} className="d-flex flex-row p-3">
                       <ListItem>
                         <ListItemIcon>
@@ -126,8 +156,8 @@ export default class CalendarDetail extends Component {
                         </ListItemIcon>
                       </ListItem>
                     </Paper>
-                  </Grid> */}
-                  {/* <Grid item xs>
+                  </Grid>
+                   <Grid item xs>
                     <Button
                       variant="outlined"
                       color="secondary"
@@ -148,8 +178,8 @@ export default class CalendarDetail extends Component {
                     >
                       Reject
                     </Button>
-                  </Grid> */}
-                </Grid>
+                  </Grid>
+                </Grid> */}
               </CardBody>
             </Card>
           </GridItem>
