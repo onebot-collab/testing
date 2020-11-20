@@ -20,4 +20,23 @@ const createReminder = (dataSubmit) => ({
   payload: axios().post(`${URL}api/v1/reminder`, qs.stringify(dataSubmit)),
 })
 
-export { getReminder, getReminderByDay, createReminder }
+const updateReminder = (id, dataSubmit) => ({
+  type: 'REMINDERSTATUS',
+  payload: axios().patch(
+    `${URL}api/v1/reminder/${id}`,
+    qs.stringify(dataSubmit),
+  ),
+})
+
+const deleteReminder = (id) => ({
+  type: 'REMINDERSTATUS',
+  payload: axios().delete(`${URL}api/v1/reminder/${id}`),
+})
+
+export {
+  getReminder,
+  getReminderByDay,
+  createReminder,
+  updateReminder,
+  deleteReminder,
+}

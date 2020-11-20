@@ -8,7 +8,7 @@ const getAdmin = () => ({
 
 const getUser = () => ({
   type: 'GETUSER',
-  payload: axios().get(`${URL}api/v1/chat/allcontact`),
+  payload: axios().get(`${URL}api/v1/user/allbyusers/0`),
 })
 
 const registerUser = (dataSubmit) => ({
