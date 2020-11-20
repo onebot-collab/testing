@@ -16,7 +16,7 @@ import Paper from '@material-ui/core/Paper'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
@@ -75,7 +75,7 @@ export default class PermissionsDetail extends Component {
                 <h4 className={classes.cardTitleWhite}>Permissions Detail</h4>
               </CardHeader>
               <CardBody>
-                <Grid item xs container direction="column" spacing={2}>
+                <Grid item xs container direction="column">
                   <Grid item xs>
                     <ListItem className="listItemWidth">
                       <ListItemText>
@@ -189,6 +189,12 @@ export default class PermissionsDetail extends Component {
                       Reject
                     </Button>
                   </Grid> */}
+                  <Link
+                    to="/admin/permissions"
+                    className="btn btn-block btn-outline-danger mt-4"
+                  >
+                    Close
+                  </Link>
                 </Grid>
               </CardBody>
             </Card>

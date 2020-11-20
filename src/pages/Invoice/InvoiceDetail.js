@@ -24,7 +24,7 @@ import TableCell from '@material-ui/core/TableCell'
 // import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
@@ -233,6 +233,12 @@ class InvoiceDetail extends Component {
                     </Button>
                   </Grid> */}
                 </Grid>
+                <Link
+                  to="/admin/invoice"
+                  className="btn btn-block btn-outline-danger mt-5"
+                >
+                  Close
+                </Link>
               </CardBody>
             </Card>
           </GridItem>

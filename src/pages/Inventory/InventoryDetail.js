@@ -18,7 +18,7 @@ import Paper from '@material-ui/core/Paper'
 // import ListItem from '@material-ui/core/ListItem'
 // import ListItemIcon from '@material-ui/core/ListItemIcon'
 // import ListItemText from '@material-ui/core/ListItemText'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {
   Form,
   FormGroup,
@@ -32,7 +32,7 @@ import {
 import moment from 'moment'
 import swal from 'sweetalert2'
 // @material-ui/icons
-import Edit from '@material-ui/icons/Edit'
+// import Edit from '@material-ui/icons/Edit'
 // import { Visibility } from '@material-ui/icons'
 
 // import Check from '@material-ui/icons/Check'
@@ -243,14 +243,24 @@ class InventoryDetail extends Component {
                     </Button>
                   </Grid> */}
                 </Grid>
-                <div className="col-12 col-md-12 col-xl-12 d-flex align-self-end align-items-end mt-5">
-                  <button
-                    type="button"
-                    className="btn btn-outline-danger btn-lg btn-block"
-                    onClick={this.toggleEditModal}
-                  >
-                    <Edit /> Edit
-                  </button>
+                <div className="d-flex flex-row justify-content-between pt-3">
+                  <div className="d-flex flex-fill p-2">
+                    <button
+                      type="button"
+                      className="btn btn-block btn-outline-danger"
+                      onClick={this.toggleEditModal}
+                    >
+                      Edit
+                    </button>
+                  </div>
+                  <div className="d-flex flex-fill p-2">
+                    <Link
+                      to="/admin/inventory"
+                      className="btn btn-block btn-outline-danger"
+                    >
+                      Close
+                    </Link>
+                  </div>
                 </div>
               </CardBody>
             </Card>

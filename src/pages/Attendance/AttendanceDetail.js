@@ -23,7 +23,7 @@ import TableCell from '@material-ui/core/TableCell'
 import TableBody from '@material-ui/core/TableBody'
 import TableRow from '@material-ui/core/TableRow'
 import Tooltip from '@material-ui/core/Tooltip'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 // @material-ui/icons
 import { Cancel, CheckCircle, ArrowLeft, ArrowRight } from '@material-ui/icons'
@@ -93,6 +93,7 @@ class AttendanceDetail extends Component {
                   <h4 className={classes.cardTitleWhite}>
                     {this.props.location.state.nameUser} Attendance Report
                   </h4>
+
                   {/* <p className={classes.cardCategoryWhite}>
                     {this.props.location.state.name}
                   </p> */}
@@ -114,7 +115,7 @@ class AttendanceDetail extends Component {
                       <div className="d-flex justify-content-center">
                         <Paper elevation={3}>
                           <ChartistGraph
-                            className="chartPie d-flex justify-content-center"
+                            className="chartPie"
                             data={reportAttendanceChart.data}
                             type="Pie"
                             options={reportAttendanceChart.options}
@@ -150,14 +151,46 @@ class AttendanceDetail extends Component {
                           </div>
                         </Paper>
                       </div>
+                      <div className="d-flex flex-column justify-content-around p-4 mt-3">
+                        <Paper
+                          elevation={2}
+                          className="d-flex flex-column p-2 m-1 tableFooter"
+                        >
+                          <p className="textPrimaryColor align-self-center">
+                            Target Monthly Hours
+                          </p>
+                          <h3 className="textPrimaryColor align-self-center">
+                            200 Hours
+                          </h3>
+                        </Paper>
+                        <Paper
+                          elevation={2}
+                          className="d-flex flex-column p-2 m-1 tableFooter"
+                        >
+                          <p className="textPrimaryColor align-self-center">
+                            Achieved Monthly Hours
+                          </p>
+                          <h3 className="textPrimaryColor align-self-center">
+                            175 Hours
+                          </h3>
+                          {/* <Box display="flex" alignItems="center">
+                          <Box width="80%" mr={1}>
+                            <LinearProgress variant="determinate" />
+                          </Box>
+                          <Box minWidth={35}>
+                            <Typography variant="body2" color="textSecondary">
+                              100%
+                            </Typography>
+                          </Box>
+                        </Box> */}
+                          <LinearProgress
+                            variant="determinate"
+                            value={this.state.attendance}
+                          />
+                        </Paper>
+                      </div>
                     </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={12}
-                      md={8}
-                      className="contentDescWrapper"
-                    >
+                    <Grid item xs={12} sm={12} md={8}>
                       <TableContainer>
                         <Table className={classesHead.table}>
                           <TableHead>
@@ -283,45 +316,6 @@ class AttendanceDetail extends Component {
                           </IconButton>
                         </div>
                       </div>
-
-                      <div className="d-flex flex-row justify-content-around p-3 mt-3">
-                        <Paper
-                          elevation={2}
-                          className="d-flex flex-column p-2 m-1 tableFooter"
-                        >
-                          <p className="textPrimaryColor align-self-center">
-                            Target Monthly Hours
-                          </p>
-                          <h3 className="textPrimaryColor align-self-center">
-                            200 Hours
-                          </h3>
-                        </Paper>
-                        <Paper
-                          elevation={2}
-                          className="d-flex flex-column p-2 m-1 tableFooter"
-                        >
-                          <p className="textPrimaryColor align-self-center">
-                            Achieved Monthly Hours
-                          </p>
-                          <h3 className="textPrimaryColor align-self-center">
-                            175 Hours
-                          </h3>
-                          {/* <Box display="flex" alignItems="center">
-                          <Box width="80%" mr={1}>
-                            <LinearProgress variant="determinate" />
-                          </Box>
-                          <Box minWidth={35}>
-                            <Typography variant="body2" color="textSecondary">
-                              100%
-                            </Typography>
-                          </Box>
-                        </Box> */}
-                          <LinearProgress
-                            variant="determinate"
-                            value={this.state.attendance}
-                          />
-                        </Paper>
-                      </div>
                     </Grid>
                     {/* <Grid item xs>
                     <Button
@@ -346,6 +340,14 @@ class AttendanceDetail extends Component {
                     </Button>
                   </Grid> */}
                   </Grid>
+                  <div className="pl-4 pr-4">
+                    <Link
+                      to="/admin/attendance"
+                      className="btn btn-block btn-outline-danger"
+                    >
+                      Close
+                    </Link>
+                  </div>
                 </CardBody>
               )}
             </Card>
