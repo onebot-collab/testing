@@ -429,6 +429,8 @@ class Ticketing extends Component {
                                           title: `${res.title}`,
                                           nameFrom: `${res.nameFrom}`,
                                           nameAssign: `${res.nameAssign}`,
+                                          nameObserve: `${res.nameObserve}`,
+                                          start_date: `${res.start_date}`,
                                           end_date: `${res.end_date}`,
                                           description: `${res.description}`,
                                           statusid: `${res.statusid}`,

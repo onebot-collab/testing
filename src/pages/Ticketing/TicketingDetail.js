@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-useless-constructor */
 /* eslint-disable no-undef */
@@ -15,11 +16,15 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import ListItem from '@material-ui/core/ListItem'
+// import Accordion from '@material-ui/core/Accordion'
+// import AccordionDetails from '@material-ui/core/AccordionDetails'
+// import AccordionSummary from '@material-ui/core/AccordionSummary'
 // import ListItemIcon from '@material-ui/core/ListItemIcon'
 // import ListItemText from '@material-ui/core/ListItemText'
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 // @material-ui/icons
+// import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 // import Edit from '@material-ui/icons/Edit'
 // import { Visibility } from '@material-ui/icons'
 // import CalendarToday from '@material-ui/icons/CalendarToday'
@@ -56,6 +61,8 @@ class TicketingDetail extends Component {
       title: props.location.state.title,
       nameFrom: props.location.state.nameFrom,
       nameAssign: props.location.state.nameAssign,
+      nameObserve: props.location.state.nameObserve,
+      start_date: props.location.state.start_date,
       end_date: props.location.state.end_date,
       description: props.location.state.description,
       statusid: props.location.state.statusid,
@@ -87,19 +94,21 @@ class TicketingDetail extends Component {
             <Card>
               <CardHeader color="danger">
                 <div className="d-flex flex-row justify-content-between">
-                  <h4 className={classes.cardTitleWhite}>Ticketing Detail</h4>
+                  <h4 className={classes.cardTitleWhite}>
+                    {this.state.no_ticket}
+                  </h4>
                   {/* <p className={classes.cardCategoryWhite}>
                     Created at {this.state.date}
                   </p> */}
                 </div>
               </CardHeader>
               <CardBody>
-                <Grid item xs container direction="column" spacing={2}>
-                  <Grid item xs>
+                <div className="d-flex flex-column">
+                  <div>
                     <ListItem className="d-flex flex-row justify-content-between">
                       <div className="d-flex flex-column justify-content-start">
-                        <h2>{this.state.no_ticket}</h2>
-                        <h5>{this.state.title}</h5>
+                        {/* <h2>{this.state.no_ticket}</h2> */}
+                        <h2>{this.state.title}</h2>
                       </div>
                       <div className="d-flex align-items-center">
                         {/* <h3>
@@ -131,24 +140,70 @@ class TicketingDetail extends Component {
                         </h3>
                       </div>
                     </ListItem>
-                    <ListItem className="textBodyRow">
-                      <h6 className="textBodyBold">From : </h6>
-                      <h6> {this.state.nameFrom}</h6>
-                    </ListItem>
-                    <ListItem className="textBodyRow">
-                      <h6 className="textBodyBold">To : </h6>
-                      <h6> {this.state.nameAssign}</h6>
-                    </ListItem>
-                    <ListItem className="textBodyRow">
-                      <h6 className="textBodyBold">End Date : </h6>
-                      <h6> {this.state.end_date}</h6>
-                    </ListItem>
-                    <Typography variant="body2" className="paperGridCentre">
-                      <p className="textPrimaryColor">
-                        {this.state.description}
-                      </p>
-                    </Typography>
-                  </Grid>
+                    <div className="mt-3 mb-3 pl-4">
+                      <dl className="row">
+                        <dt className="col-sm-2">
+                          <h6 className="textBodyBold">From</h6>
+                        </dt>
+                        <dd className="col-sm-10">
+                          <h6>: {this.state.nameFrom}</h6>
+                        </dd>
+                      </dl>
+                      <dl className="row">
+                        <dt className="col-sm-2">
+                          <h6 className="textBodyBold">Assign To</h6>
+                        </dt>
+                        <dd className="col-sm-10">
+                          <h6>: {this.state.nameAssign}</h6>
+                        </dd>
+                      </dl>
+                      <dl className="row">
+                        <dt className="col-sm-2">
+                          <h6 className="textBodyBold">Observer by</h6>
+                        </dt>
+                        <dd className="col-sm-10">
+                          <h6>: {this.state.nameObserve}</h6>
+                        </dd>
+                      </dl>
+                      <dl className="row">
+                        <dt className="col-sm-2">
+                          <h6 className="textBodyBold">
+                            Start Date / End Date
+                          </h6>
+                        </dt>
+                        <dd className="col-sm-10">
+                          <h6>
+                            : {this.state.start_date} / {this.state.end_date}
+                          </h6>
+                        </dd>
+                      </dl>
+                      <dl className="row">
+                        <dt className="col-sm-2">
+                          <h6 className="textBodyBold">Description</h6>
+                        </dt>
+                        <dd className="col-sm-10">
+                          <h6>: {this.state.description}</h6>
+                        </dd>
+                      </dl>
+                      {/* <Accordion>
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel1a-content"
+                          id="panel1a-header"
+                        >
+                          <ExpandMoreIcon />
+                          <Typography>Dashboard</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <Typography>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            elit. Suspendisse malesuada lacus ex, sit amet
+                            blandit leo lobortis eget.
+                          </Typography>
+                        </AccordionDetails>
+                      </Accordion> */}
+                    </div>
+                  </div>
                   {this.state.isLoading ? (
                     <center>
                       <div
@@ -234,7 +289,13 @@ class TicketingDetail extends Component {
                       )}
                     </>
                   )}
-                </Grid>
+                  <Link
+                    to="/admin/ticketing"
+                    className="btn btn-block btn-outline-danger mt-4"
+                  >
+                    Close
+                  </Link>
+                </div>
               </CardBody>
             </Card>
           </GridItem>

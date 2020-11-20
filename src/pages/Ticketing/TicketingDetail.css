@@ -58,9 +58,7 @@
   color: aliceblue;
 }
 .listItemRow {
-    flex-direction: row;
-    justify-content: space-between;
-    background-color: #2bde17;
+    background-color: #383838;
 }
 #flexDirection {
     flex-direction: column !important;

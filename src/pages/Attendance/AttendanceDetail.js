@@ -93,7 +93,19 @@ class AttendanceDetail extends Component {
                   <h4 className={classes.cardTitleWhite}>
                     {this.props.location.state.nameUser} Attendance Report
                   </h4>
-
+                  {/* <Link to="/admin/attendance" className="CancelIcon mb-5">
+                    <Tooltip
+                      id="tooltip-top-start"
+                      title="Close Detail"
+                      placement="top"
+                      classes={{ tooltip: classesBody.tooltip }}
+                    >
+                      <Cancel />
+                    </Tooltip>
+                  </Link> */}
+                  {/* <h4 className={classes.cardTitleWhite}>
+                    <Cancel />
+                  </h4> */}
                   {/* <p className={classes.cardCategoryWhite}>
                     {this.props.location.state.name}
                   </p> */}
