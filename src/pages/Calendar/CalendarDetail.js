@@ -5,7 +5,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react'
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 import './CalendarDetail.css'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
@@ -16,7 +16,7 @@ import Button from '@material-ui/core/Button'
 // import ListItem from '@material-ui/core/ListItem'
 // import ListItemText from '@material-ui/core/ListItemText'
 // import { Link } from 'react-router-dom'
-import Select from 'react-select'
+// import Select from 'react-select'
 import {
   Form,
   Modal,
@@ -25,6 +25,8 @@ import {
   ModalFooter,
   Input,
 } from 'reactstrap'
+import moment from 'moment'
+import swal from 'sweetalert2'
 // @material-ui/icons
 import Edit from '@material-ui/icons/Edit'
 // import CheckCircle from '@material-ui/icons/CheckCircle'
@@ -32,6 +34,7 @@ import Edit from '@material-ui/icons/Edit'
 
 // import Check from '@material-ui/icons/Check'
 // core components
+import { updateReminder } from '../../redux/actions/reminder'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -43,11 +46,15 @@ import styles from '../../assets/jss/material-dashboard-react/views/dashboardSty
 // import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
 // import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
-export default class CalendarDetail extends Component {
+class CalendarDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
       showEditModal: false,
+      title: this.props.location.state.title,
+      description: this.props.location.state.description,
+      date: this.props.location.state.date,
+      isLoadingUpdate: false,
     }
     this.toggleEditModal = this.toggleEditModal.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -61,6 +68,34 @@ export default class CalendarDetail extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
+  }
+
+  update() {
+    this.setState({ isLoadingUpdate: true })
+    const { id } = this.props.location.state
+    const dataSubmit = {
+      title: this.state.title,
+      description: this.state.description,
+      date: `${moment(this.state.date).format('YYYY-MM-DD')}`,
+    }
+    this.props
+      .updateReminder(id, dataSubmit)
+      .then(() => {
+        this.setState({ isLoadingUpdate: false, showEditModal: false })
+        swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Event successfully updated',
+        })
+        this.props.history.push('/admin/calendar')
+      })
+      .catch(() => {
+        swal.fire({
+          icon: 'error',
+          title: 'Failed',
+          text: 'Failed to update event',
+        })
+      })
   }
 
   componentDidMount() {}
@@ -117,7 +152,20 @@ export default class CalendarDetail extends Component {
                       <dt className="col-sm-2"> Date</dt>
                       <dd className="col-sm-10">
                         {' '}
-                        {this.props.location.state.date}
+                        {moment(this.props.location.state.date).format(
+                          'DD-MM-YYYY',
+                        )}
+                      </dd>
+                    </dl>
+                  </div>
+                  <div className="col-12 col-md-12 col-xl-12">
+                    <dl className="row">
+                      <dt className="col-sm-2"> Description</dt>
+                      <dd className="col-sm-10">
+                        {' '}
+                        {this.props.location.state.description === 'null'
+                          ? '-'
+                          : this.props.location.state.description}
                       </dd>
                     </dl>
                   </div>
@@ -195,6 +243,7 @@ export default class CalendarDetail extends Component {
                 name="title"
                 className="mb-2 shadow-none"
                 onChange={this.handleChange}
+                value={this.state.title}
               />
               <h6>Description</h6>
               <Input
@@ -202,20 +251,19 @@ export default class CalendarDetail extends Component {
                 name="description"
                 className="mb-2 shadow-none"
                 onChange={this.handleChange}
+                value={this.state.description}
               />
               <h6>Date</h6>
               <Input
-                value={this.state.birthDate}
+                value={moment(this.state.date).format('YYYY-MM-DD')}
                 type="date"
-                name="dateAdd"
+                name="date"
                 className="mb-2 shadow-none"
                 onChange={this.handleChange}
               />
-              <h6>Type</h6>
-              <Select />
             </ModalBody>
             <ModalFooter>
-              {this.state.isLoadingAddReminder ? (
+              {this.state.isLoadingUpdate ? (
                 <Button color="primary">
                   <div
                     className="spinner-border spinner-border-sm text-danger"
@@ -228,7 +276,7 @@ export default class CalendarDetail extends Component {
                 <Button
                   color="secondary"
                   onClick={() => {
-                    alert('Edit Alert')
+                    this.update()
                   }}
                 >
                   Submit
@@ -244,3 +292,10 @@ export default class CalendarDetail extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  reminder: state.reminder,
+})
+const mapDispatchToProps = { updateReminder }
+
+export default connect(mapStateToProps, mapDispatchToProps)(CalendarDetail)

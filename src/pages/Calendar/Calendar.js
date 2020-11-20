@@ -35,8 +35,13 @@ import Add from '@material-ui/icons/Add'
 import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
 import Visibility from '@material-ui/icons/Visibility'
+import Delete from '@material-ui/icons/Delete'
 // core components
-import { createReminder, getReminderByDay } from '../../redux/actions/reminder'
+import {
+  createReminder,
+  getReminderByDay,
+  deleteReminder,
+} from '../../redux/actions/reminder'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -66,6 +71,9 @@ class CalendarScreen extends Component {
       description: '',
       type: 0,
       isLoadingAddReminder: false,
+      deleteId: 0,
+      showDeleteModal: false,
+      isLoadingDelete: false,
     }
     this.toggleAddModal = this.toggleAddModal.bind(this)
     this.addReminder = this.addReminder.bind(this)
@@ -105,6 +113,8 @@ class CalendarScreen extends Component {
           title: 'Success',
           text: 'Event successfully created',
         })
+        const date = moment().format().slice(0, 10)
+        this.fetchReminder(date)
       })
       .catch(() => {
         swal.fire({
@@ -115,9 +125,39 @@ class CalendarScreen extends Component {
       })
   }
 
+  deleteAct() {
+    this.setState({ isLoadingDelete: true })
+    this.props
+      .deleteReminder(this.state.deleteId)
+      .then(() => {
+        this.setState({ isLoadingDelete: false, showDeleteModal: false })
+        const date = moment().format().slice(0, 10)
+        this.fetchReminder(date)
+        swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Event successfully deleted',
+        })
+      })
+      .catch(() => {
+        swal.fire({
+          icon: 'error',
+          title: 'Failed',
+          text: 'Failed to delete event',
+        })
+      })
+  }
+
   toggleAddModal() {
     this.setState({
       showAddModal: !this.state.showAddModal,
+    })
+  }
+
+  toggleDeleteModal(id) {
+    this.setState({
+      showDeleteModal: !this.state.showDeleteModal,
+      deleteId: id,
     })
   }
 
@@ -371,14 +411,36 @@ class CalendarScreen extends Component {
                                                 to={{
                                                   pathname: `/admin/calendar/detail`,
                                                   state: {
+                                                    id: `${res.id}`,
                                                     date: `${res.date}`,
                                                     title: `${res.title}`,
                                                     type_reminder: `${res.type_reminder}`,
+                                                    description: `${res.description}`,
                                                   },
                                                 }}
                                               >
                                                 <Visibility className="iconWhiteColor" />
                                               </Link>
+                                            </IconButton>
+                                          </Tooltip>
+                                          <Tooltip
+                                            id="tooltip-top-start"
+                                            title="Remove"
+                                            placement="top"
+                                            classes={{
+                                              tooltip: classesBody.tooltip,
+                                            }}
+                                          >
+                                            <IconButton
+                                              onClick={() =>
+                                                this.toggleDeleteModal(res.id)
+                                              }
+                                              aria-label="Close"
+                                              className={
+                                                classesBody.tableActionButton
+                                              }
+                                            >
+                                              <Delete className="iconWhiteColor" />
                                             </IconButton>
                                           </Tooltip>
                                         </TableCell>
@@ -469,6 +531,32 @@ class CalendarScreen extends Component {
                 </ModalFooter>
               </Form>
             </Modal>
+            {/* Delete Modal */}
+            <Modal isOpen={this.state.showDeleteModal}>
+              <ModalBody className="h4">Are you sure?</ModalBody>
+              <ModalFooter>
+                {this.state.isLoadingDelete ? (
+                  <Button color="secondary" onClick={this.deleteAct}>
+                    <div
+                      className="spinner-border spinner-border-sm text-white"
+                      role="status"
+                    >
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  </Button>
+                ) : (
+                  <Button color="secondary" onClick={this.deleteAct}>
+                    Delete
+                  </Button>
+                )}
+                <Button
+                  color="primary"
+                  onClick={() => this.toggleDeleteModal(0)}
+                >
+                  Cancel
+                </Button>
+              </ModalFooter>
+            </Modal>
           </>
         )}
       </div>
@@ -480,6 +568,6 @@ const mapStateToProps = (state) => ({
   reminder: state.reminder,
   login: state.login,
 })
-const mapDispatchToProps = { createReminder, getReminderByDay }
+const mapDispatchToProps = { createReminder, getReminderByDay, deleteReminder }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalendarScreen)
