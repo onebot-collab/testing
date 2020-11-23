@@ -45,6 +45,7 @@ import Edit from '@material-ui/icons/Edit'
 // } from '../../redux/actions/campaign'
 import { getDepartment } from '../../redux/actions/department'
 import { patchCampaign } from '../../redux/actions/campaign'
+import { sendNotif } from '../../redux/actions/fcm'
 
 // import Check from '@material-ui/icons/Check'
 // core components
@@ -88,6 +89,24 @@ class AnnouncementDetail extends Component {
     })
   }
 
+  pressed() {
+    const dataSubmit = {
+      to: '/topics/gmi',
+      notification: {
+        title: 'Announcement Updated',
+        body: `${this.state.title}`,
+        mutable_content: true,
+        sound: 'Tri-tone',
+      },
+      data: {
+        route: 'Campaign',
+        initialRoute: 'Campaign',
+      },
+    }
+
+    this.props.sendNotif(dataSubmit)
+  }
+
   update() {
     this.setState({ isLoadingUpdate: true })
     const id = `${this.props.location.state.id}`
@@ -107,6 +126,7 @@ class AnnouncementDetail extends Component {
           title: 'Success',
           text: 'Announcement successfully edited',
         })
+        // this.pressed()
       })
       .catch(() => {
         swal.fire({
@@ -290,6 +310,7 @@ class AnnouncementDetail extends Component {
 const mapDispatchToProps = {
   getDepartment,
   patchCampaign,
+  sendNotif,
 }
 const mapStateToProps = (state) => ({
   department: state.department,

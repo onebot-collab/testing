@@ -35,6 +35,7 @@ import {
 import swal from 'sweetalert2'
 import { getProfile, deleteUser } from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
+import { sendNotif } from '../../redux/actions/fcm'
 // import avatar from '../../assets/img/faces/marc.jpg'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
@@ -95,6 +96,24 @@ class UserDetail extends Component {
     this.props.getProfile(this.props.location.state.id).then(() => {
       this.setState({ isLoadingFetch: false })
     })
+  }
+
+  pressedDelete() {
+    const dataSubmit = {
+      to: '/topics/gmiadmin',
+      notification: {
+        title: 'A User has been removed',
+        body: `${this.props.login.dataLogin.name} removed ${this.props.user.dataProfile[0].name}`,
+        mutable_content: true,
+        sound: 'Tri-tone',
+      },
+      data: {
+        route: 'Inventory',
+        initialRoute: 'Inventory',
+      },
+    }
+
+    this.props.sendNotif(dataSubmit)
   }
 
   delete() {
@@ -523,6 +542,6 @@ const mapStateToProps = (state) => ({
   department: state.department,
   login: state.login,
 })
-const mapDispatchToProps = { getProfile, getDepartment, deleteUser }
+const mapDispatchToProps = { getProfile, getDepartment, deleteUser, sendNotif }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail)

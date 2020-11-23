@@ -43,6 +43,7 @@ import {
   postCampaign,
 } from '../../redux/actions/campaign'
 import { getDepartment } from '../../redux/actions/department'
+import { sendNotif } from '../../redux/actions/fcm'
 // import Check from '@material-ui/icons/Check'
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -133,6 +134,24 @@ class Announcement extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
+  pressed() {
+    const dataSubmit = {
+      to: '/topics/gmi',
+      notification: {
+        title: 'Announcement',
+        body: `${this.state.title}`,
+        mutable_content: true,
+        sound: 'Tri-tone',
+      },
+      data: {
+        route: 'Campaign',
+        initialRoute: 'Campaign',
+      },
+    }
+
+    this.props.sendNotif(dataSubmit)
+  }
+
   addAnnouncement(e) {
     e.preventDefault()
     this.setState({ isLoadingAddCampaign: true })
@@ -153,6 +172,7 @@ class Announcement extends Component {
           text: 'Announcement successfully created',
         })
         this.fetch()
+        // this.pressed()
       })
       .catch(() => {
         this.setState({ isLoadingAddCampaign: false })
@@ -473,6 +493,7 @@ const mapDispatchToProps = {
   deleteCampaign,
   postCampaign,
   getDepartment,
+  sendNotif,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Announcement)

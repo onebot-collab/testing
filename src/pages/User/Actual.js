@@ -45,6 +45,7 @@ import CardFooter from '../../components/Card/CardFooter'
 
 import { getUser, registerUser } from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
+import { sendNotif } from '../../redux/actions/fcm'
 
 class User extends Component {
   constructor(props) {
@@ -82,6 +83,24 @@ class User extends Component {
 
   redirect() {
     this.props.history.push('/login')
+  }
+
+  pressed() {
+    const dataSubmit = {
+      to: '/topics/gmiadmin',
+      notification: {
+        title: 'New User Registered',
+        body: `${this.props.login.dataLogin.name} add ${this.state.name}`,
+        mutable_content: true,
+        sound: 'Tri-tone',
+      },
+      data: {
+        route: 'Inventory',
+        initialRoute: 'Inventory',
+      },
+    }
+
+    this.props.sendNotif(dataSubmit)
   }
 
   register(event) {
@@ -137,6 +156,7 @@ class User extends Component {
           title: 'Success',
           text: 'User successsfully registered',
         })
+        // this.pressed()
       })
       .catch(() => {
         swal.fire({
@@ -636,6 +656,6 @@ const mapStateToProps = (state) => ({
   user: state.user,
   department: state.department,
 })
-const mapDispatchToProps = { getUser, registerUser, getDepartment }
+const mapDispatchToProps = { getUser, registerUser, getDepartment, sendNotif }
 
 export default connect(mapStateToProps, mapDispatchToProps)(User)
