@@ -1,3 +1,7 @@
+/* eslint-disable vars-on-top */
+/* eslint-disable no-var */
+/* eslint-disable no-redeclare */
+/* eslint-disable block-scoped-var */
 /* eslint-disable radix */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/no-array-index-key */
@@ -134,19 +138,35 @@ class Announcement extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  pressed() {
-    const dataSubmit = {
-      to: '/topics/gmi',
-      notification: {
-        title: 'Announcement',
-        body: `${this.state.title}`,
-        mutable_content: true,
-        sound: 'Tri-tone',
-      },
-      data: {
-        route: 'Campaign',
-        initialRoute: 'Campaign',
-      },
+  pressed(id) {
+    if (id !== 1) {
+      var dataSubmit = {
+        to: `/topics/gmid${id}`,
+        notification: {
+          title: 'Announcement',
+          body: `${this.state.title}`,
+          mutable_content: true,
+          sound: 'Tri-tone',
+        },
+        data: {
+          route: 'Campaign',
+          initialRoute: 'Campaign',
+        },
+      }
+    } else {
+      var dataSubmit = {
+        to: '/topics/gmi',
+        notification: {
+          title: 'Announcement',
+          body: `${this.state.title}`,
+          mutable_content: true,
+          sound: 'Tri-tone',
+        },
+        data: {
+          route: 'Campaign',
+          initialRoute: 'Campaign',
+        },
+      }
     }
 
     this.props.sendNotif(dataSubmit)
@@ -172,7 +192,7 @@ class Announcement extends Component {
           text: 'Announcement successfully created',
         })
         this.fetch()
-        // this.pressed()
+        // this.pressed(dataSubmit.department)
       })
       .catch(() => {
         this.setState({ isLoadingAddCampaign: false })

@@ -1,3 +1,8 @@
+/* eslint-disable no-redeclare */
+/* eslint-disable block-scoped-var */
+/* eslint-disable vars-on-top */
+/* eslint-disable no-shadow */
+/* eslint-disable no-var */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable no-nested-ternary */
@@ -89,19 +94,35 @@ class AnnouncementDetail extends Component {
     })
   }
 
-  pressed() {
-    const dataSubmit = {
-      to: '/topics/gmi',
-      notification: {
-        title: 'Announcement Updated',
-        body: `${this.state.title}`,
-        mutable_content: true,
-        sound: 'Tri-tone',
-      },
-      data: {
-        route: 'Campaign',
-        initialRoute: 'Campaign',
-      },
+  pressed(id) {
+    if (id !== 1) {
+      var dataSubmit = {
+        to: `/topics/gmid${id}`,
+        notification: {
+          title: 'Announcement Updated',
+          body: `${this.state.title}`,
+          mutable_content: true,
+          sound: 'Tri-tone',
+        },
+        data: {
+          route: 'Campaign',
+          initialRoute: 'Campaign',
+        },
+      }
+    } else {
+      var dataSubmit = {
+        to: '/topics/gmi',
+        notification: {
+          title: 'Announcement Updated',
+          body: `${this.state.title}`,
+          mutable_content: true,
+          sound: 'Tri-tone',
+        },
+        data: {
+          route: 'Campaign',
+          initialRoute: 'Campaign',
+        },
+      }
     }
 
     this.props.sendNotif(dataSubmit)
@@ -126,7 +147,7 @@ class AnnouncementDetail extends Component {
           title: 'Success',
           text: 'Announcement successfully edited',
         })
-        // this.pressed()
+        // this.pressed(dataSubmit.department)
       })
       .catch(() => {
         swal.fire({
