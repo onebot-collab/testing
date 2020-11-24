@@ -132,7 +132,7 @@ export default function SearchAppBar() {
           >
             <ListItem button>
               <ListItemAvatar>
-                <Avatar src={`http://10.5.1.38:5000/${imgProfile}`} />
+                <Avatar src={`http://10.7.1.38:5000/${imgProfile}`} />
               </ListItemAvatar>
               <ListItemText className={classes.textColor}>{name}</ListItemText>
             </ListItem>

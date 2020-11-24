@@ -147,7 +147,7 @@ export default class PermissionsDetail extends Component {
                             'No fle uploaded'
                           ) : (
                             <a
-                              href={`http://10.5.1.38:5000/${this.state.file}`}
+                              href={`http://10.7.1.38:5000/${this.state.file}`}
                               target="_blank"
                             >
                               {this.state.file.replace('izin/', '')}
