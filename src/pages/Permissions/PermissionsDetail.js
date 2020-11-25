@@ -143,7 +143,7 @@ export default class PermissionsDetail extends Component {
                           <Attachment edge="start" />
                         </ListItemIcon>
                         <ListItemText>
-                          {this.state.file !== 'izin/img.jpg' ? (
+                          {this.state.file === 'izin/img.jpg' ? (
                             'No fle uploaded'
                           ) : (
                             <a
