@@ -107,7 +107,7 @@ class Permissions extends Component {
                       <CardHeader color="danger">
                         <div className="d-flex flex-row justify-content-between">
                           <h4 className={classes.cardTitleWhite}>
-                            Permissions
+                            Leave Application
                           </h4>
                           {/* <p className={classes.cardCategoryWhite}>
                             Last Updated{' '}
