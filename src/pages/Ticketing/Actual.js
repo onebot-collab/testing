@@ -458,7 +458,9 @@ class Ticketing extends Component {
                         </TableContainer>
                         <div className="d-flex flex-row justify-content-end">
                           <div className="p-2 d-flex align-items-center align-self-center">
-                            <h6>1 - 5 of 20</h6>
+                            <h6>
+                              1 - 5 of {this.props.ticket.dataAllTicket.length}
+                            </h6>
                           </div>
                           <div className="p-2">
                             <IconButton>
