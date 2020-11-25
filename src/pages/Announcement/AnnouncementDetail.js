@@ -1,8 +1,3 @@
-/* eslint-disable no-redeclare */
-/* eslint-disable block-scoped-var */
-/* eslint-disable vars-on-top */
-/* eslint-disable no-shadow */
-/* eslint-disable no-var */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable no-nested-ternary */
@@ -50,7 +45,6 @@ import Edit from '@material-ui/icons/Edit'
 // } from '../../redux/actions/campaign'
 import { getDepartment } from '../../redux/actions/department'
 import { patchCampaign } from '../../redux/actions/campaign'
-import { sendNotif } from '../../redux/actions/fcm'
 
 // import Check from '@material-ui/icons/Check'
 // core components
@@ -94,40 +88,6 @@ class AnnouncementDetail extends Component {
     })
   }
 
-  pressed(id) {
-    if (id !== 1) {
-      var dataSubmit = {
-        to: `/topics/gmid${id}`,
-        notification: {
-          title: 'Announcement Updated',
-          body: `${this.state.title}`,
-          mutable_content: true,
-          sound: 'Tri-tone',
-        },
-        data: {
-          route: 'Campaign',
-          initialRoute: 'Campaign',
-        },
-      }
-    } else {
-      var dataSubmit = {
-        to: '/topics/gmi',
-        notification: {
-          title: 'Announcement Updated',
-          body: `${this.state.title}`,
-          mutable_content: true,
-          sound: 'Tri-tone',
-        },
-        data: {
-          route: 'Campaign',
-          initialRoute: 'Campaign',
-        },
-      }
-    }
-
-    this.props.sendNotif(dataSubmit)
-  }
-
   update() {
     this.setState({ isLoadingUpdate: true })
     const id = `${this.props.location.state.id}`
@@ -147,7 +107,6 @@ class AnnouncementDetail extends Component {
           title: 'Success',
           text: 'Announcement successfully edited',
         })
-        // this.pressed(dataSubmit.department)
       })
       .catch(() => {
         swal.fire({
@@ -331,7 +290,6 @@ class AnnouncementDetail extends Component {
 const mapDispatchToProps = {
   getDepartment,
   patchCampaign,
-  sendNotif,
 }
 const mapStateToProps = (state) => ({
   department: state.department,

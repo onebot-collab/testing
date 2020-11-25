@@ -45,7 +45,6 @@ import CardFooter from '../../components/Card/CardFooter'
 
 import { getUser, registerUser } from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
-import { sendNotif } from '../../redux/actions/fcm'
 
 class User extends Component {
   constructor(props) {
@@ -83,24 +82,6 @@ class User extends Component {
 
   redirect() {
     this.props.history.push('/login')
-  }
-
-  pressed() {
-    const dataSubmit = {
-      to: '/topics/gmiadmin',
-      notification: {
-        title: 'New User Registered',
-        body: `${this.props.login.dataLogin.name} add ${this.state.name}`,
-        mutable_content: true,
-        sound: 'Tri-tone',
-      },
-      data: {
-        route: 'Inventory',
-        initialRoute: 'Inventory',
-      },
-    }
-
-    this.props.sendNotif(dataSubmit)
   }
 
   register(event) {
@@ -156,7 +137,6 @@ class User extends Component {
           title: 'Success',
           text: 'User successsfully registered',
         })
-        // this.pressed()
       })
       .catch(() => {
         swal.fire({
@@ -598,18 +578,6 @@ class User extends Component {
                                       pathname: `/admin/user/${res.id}`,
                                       state: {
                                         id: `${res.id}`,
-                                        name: `${res.name}`,
-                                        email: `${res.email}`,
-                                        phone: `${res.phone}`,
-                                        photo_url: `${res.photo_url}`,
-                                        birthdate: `${res.birthdate}`,
-                                        joined_date: `${res.joined_date}`,
-                                        role: `${res.role}`,
-                                        address: `${res.address}`,
-                                        department_id: `${res.department_id}`,
-                                        departmentName: `${res.departmentName}`,
-                                        typeTime: `${res.typeTime}`,
-                                        total_leave: `${res.total_leave}`,
                                       },
                                     }}
                                   >
@@ -630,9 +598,7 @@ class User extends Component {
                           </List>
                           <div className="d-flex flex-row justify-content-end">
                             <div className="p-2 d-flex align-items-center align-self-center">
-                              <h6>
-                                1 - 5 of {this.props.user.dataUser.length}
-                              </h6>
+                              <h6>1 - 5 of 20</h6>
                             </div>
                             <div className="p-2">
                               <IconButton>
@@ -670,6 +636,6 @@ const mapStateToProps = (state) => ({
   user: state.user,
   department: state.department,
 })
-const mapDispatchToProps = { getUser, registerUser, getDepartment, sendNotif }
+const mapDispatchToProps = { getUser, registerUser, getDepartment }
 
 export default connect(mapStateToProps, mapDispatchToProps)(User)

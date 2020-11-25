@@ -297,10 +297,7 @@ class Invoice extends Component {
                           </Table>
                           <div className="d-flex flex-row justify-content-end">
                             <div className="p-2 d-flex align-items-center align-self-center">
-                              <h6>
-                                1 - 5 of{' '}
-                                {this.props.invoice.dataInvoiceWaiting.length}
-                              </h6>
+                              <h6>1 - 5 of 20</h6>
                             </div>
                             <div className="p-2">
                               <IconButton>
@@ -521,10 +518,7 @@ class Invoice extends Component {
                           </Table>
                           <div className="d-flex flex-row justify-content-end">
                             <div className="p-2 d-flex align-items-center align-self-center">
-                              <h6>
-                                1 - 5 of{' '}
-                                {this.props.invoice.dataInvoiceApproved.length}
-                              </h6>
+                              <h6>1 - 5 of 20</h6>
                             </div>
                             <div className="p-2">
                               <IconButton>
@@ -735,10 +729,7 @@ class Invoice extends Component {
                           </Table>
                           <div className="d-flex flex-row justify-content-end">
                             <div className="p-2 d-flex align-items-center align-self-center">
-                              <h6>
-                                1 - 5 of{' '}
-                                {this.props.invoice.dataInvoiceRejected.length}
-                              </h6>
+                              <h6>1 - 5 of 20</h6>
                             </div>
                             <div className="p-2">
                               <IconButton>
@@ -949,10 +940,7 @@ class Invoice extends Component {
                           </Table>
                           <div className="d-flex flex-row justify-content-end">
                             <div className="p-2 d-flex align-items-center align-self-center">
-                              <h6>
-                                1 - 5 of{' '}
-                                {this.props.invoice.dataInvoiceProcessed.length}
-                              </h6>
+                              <h6>1 - 5 of 20</h6>
                             </div>
                             <div className="p-2">
                               <IconButton>
@@ -1163,10 +1151,7 @@ class Invoice extends Component {
                           </Table>
                           <div className="d-flex flex-row justify-content-end">
                             <div className="p-2 d-flex align-items-center align-self-center">
-                              <h6>
-                                1 - 5 of{' '}
-                                {this.props.invoice.dataInvoiceClosed.length}
-                              </h6>
+                              <h6>1 - 5 of 20</h6>
                             </div>
                             <div className="p-2">
                               <IconButton>

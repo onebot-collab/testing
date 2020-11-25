@@ -72,9 +72,7 @@ export default class PermissionsDetail extends Component {
           <GridItem xs={12} sm={12} md={12}>
             <Card>
               <CardHeader color="danger">
-                <h4 className={classes.cardTitleWhite}>
-                  Leave Application Detail
-                </h4>
+                <h4 className={classes.cardTitleWhite}>Permissions Detail</h4>
               </CardHeader>
               <CardBody>
                 <Grid item xs container direction="column">
@@ -84,7 +82,7 @@ export default class PermissionsDetail extends Component {
                         <Typography variant="subtitle1">
                           {this.state.name}
                           <p className={classes.cardCategoryWhite}>
-                            {this.state.startdate} {'>'} {this.state.enddate}
+                            {this.state.startdate} - {this.state.enddate}
                           </p>
                         </Typography>
                       </ListItemText>
@@ -145,8 +143,8 @@ export default class PermissionsDetail extends Component {
                           <Attachment edge="start" />
                         </ListItemIcon>
                         <ListItemText>
-                          {this.state.file === 'izin/img.jpg' ? (
-                            'No Attachment'
+                          {this.state.file !== 'izin/img.jpg' ? (
+                            'No fle uploaded'
                           ) : (
                             <a
                               href={`http://10.7.1.38:5000/${this.state.file}`}
@@ -192,7 +190,7 @@ export default class PermissionsDetail extends Component {
                     </Button>
                   </Grid> */}
                   <Link
-                    to="/admin/leave-application"
+                    to="/admin/permissions"
                     className="btn btn-block btn-outline-danger mt-4"
                   >
                     Close

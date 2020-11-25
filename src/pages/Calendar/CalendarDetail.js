@@ -35,7 +35,6 @@ import Edit from '@material-ui/icons/Edit'
 // import Check from '@material-ui/icons/Check'
 // core components
 import { updateReminder } from '../../redux/actions/reminder'
-import { sendNotif } from '../../redux/actions/fcm'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -71,24 +70,6 @@ class CalendarDetail extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  pressed() {
-    const dataSubmit = {
-      to: '/topics/gmi',
-      notification: {
-        title: 'Reminder Updated',
-        body: `${this.state.title}`,
-        mutable_content: true,
-        sound: 'Tri-tone',
-      },
-      data: {
-        route: 'Reminder',
-        initialRoute: 'Reminder',
-      },
-    }
-
-    this.props.sendNotif(dataSubmit)
-  }
-
   update() {
     this.setState({ isLoadingUpdate: true })
     const { id } = this.props.location.state
@@ -107,7 +88,6 @@ class CalendarDetail extends Component {
           text: 'Event successfully updated',
         })
         this.props.history.push('/admin/calendar')
-        // this.pressed()
       })
       .catch(() => {
         swal.fire({
@@ -316,6 +296,6 @@ class CalendarDetail extends Component {
 const mapStateToProps = (state) => ({
   reminder: state.reminder,
 })
-const mapDispatchToProps = { updateReminder, sendNotif }
+const mapDispatchToProps = { updateReminder }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalendarDetail)

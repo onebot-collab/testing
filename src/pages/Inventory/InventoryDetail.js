@@ -38,7 +38,6 @@ import swal from 'sweetalert2'
 // import Check from '@material-ui/icons/Check'
 // core components
 import { patchInventory } from '../../redux/actions/inventory'
-import { sendNotif } from '../../redux/actions/fcm'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -84,24 +83,6 @@ class InventoryDetail extends Component {
     })
   }
 
-  pressed() {
-    const dataSubmit = {
-      to: '/topics/gmiadmin',
-      notification: {
-        title: 'Inventory Updated',
-        body: `${this.props.login.dataLogin.name} update ${this.state.name}`,
-        mutable_content: true,
-        sound: 'Tri-tone',
-      },
-      data: {
-        route: 'Inventory',
-        initialRoute: 'Inventory',
-      },
-    }
-
-    this.props.sendNotif(dataSubmit)
-  }
-
   update() {
     this.setState({ isLoadingUpdate: true })
     const id = `${this.props.location.state.id}`
@@ -138,7 +119,6 @@ class InventoryDetail extends Component {
           title: 'Success',
           text: 'Inventory successfully edited',
         })
-        // this.pressed()
       })
       .catch(() => {
         swal.fire({
@@ -379,6 +359,6 @@ class InventoryDetail extends Component {
 const mapStateToProps = (state) => ({
   inventory: state.inventory,
 })
-const mapDispatchToProps = { patchInventory, sendNotif }
+const mapDispatchToProps = { patchInventory }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InventoryDetail)
