@@ -106,15 +106,21 @@ export default class ReportDetail extends Component {
                           <Attachment edge="start" />
                         </ListItemIcon>
                         <ListItemText>
-                          <a
-                            target="_blank"
-                            href={`http://10.7.1.38:5000/${this.state.fileName}`}
-                          >
-                            {this.state.fileName.replace('report/', '')}
-                          </a>
+                          {this.state.fileName === 'null' ? (
+                            'No Attachment'
+                          ) : (
+                            <>
+                              <a
+                                target="_blank"
+                                href={`http://10.7.1.38:5000/${this.state.fileName}`}
+                              >
+                                {this.state.fileName.replace('report/', '')}
+                              </a>
+                            </>
+                          )}
                         </ListItemText>
                         <ListItemIcon>
-                          {this.state.fileName === 'report/file.pdf' ? (
+                          {this.state.fileName === 'null' ? (
                             <Cancel edge="end" className="CancelColor" />
                           ) : (
                             <CheckCircle
