@@ -1,3 +1,7 @@
+/* eslint-disable vars-on-top */
+/* eslint-disable no-var */
+/* eslint-disable no-redeclare */
+/* eslint-disable block-scoped-var */
 /* eslint-disable radix */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/no-array-index-key */
@@ -43,6 +47,7 @@ import {
   postCampaign,
 } from '../../redux/actions/campaign'
 import { getDepartment } from '../../redux/actions/department'
+import { sendNotif } from '../../redux/actions/fcm'
 // import Check from '@material-ui/icons/Check'
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -133,6 +138,40 @@ class Announcement extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
+  pressed(id) {
+    if (id !== 1) {
+      var dataSubmit = {
+        to: `/topics/gmid${id}`,
+        notification: {
+          title: 'Announcement',
+          body: `${this.state.title}`,
+          mutable_content: true,
+          sound: 'Tri-tone',
+        },
+        data: {
+          route: 'Campaign',
+          initialRoute: 'Campaign',
+        },
+      }
+    } else {
+      var dataSubmit = {
+        to: '/topics/gmi',
+        notification: {
+          title: 'Announcement',
+          body: `${this.state.title}`,
+          mutable_content: true,
+          sound: 'Tri-tone',
+        },
+        data: {
+          route: 'Campaign',
+          initialRoute: 'Campaign',
+        },
+      }
+    }
+
+    this.props.sendNotif(dataSubmit)
+  }
+
   addAnnouncement(e) {
     e.preventDefault()
     this.setState({ isLoadingAddCampaign: true })
@@ -153,6 +192,7 @@ class Announcement extends Component {
           text: 'Announcement successfully created',
         })
         this.fetch()
+        // this.pressed(dataSubmit.department)
       })
       .catch(() => {
         this.setState({ isLoadingAddCampaign: false })
@@ -364,7 +404,9 @@ class Announcement extends Component {
                         </TableContainer>
                         <div className="d-flex flex-row justify-content-end">
                           <div className="p-2 d-flex align-items-center align-self-center">
-                            <h6>1 - 5 of 20</h6>
+                            <h6>
+                              1 - 5 of {this.props.campaign.dataCampaign.length}
+                            </h6>
                           </div>
                           <div className="p-2">
                             <IconButton>
@@ -473,6 +515,7 @@ const mapDispatchToProps = {
   deleteCampaign,
   postCampaign,
   getDepartment,
+  sendNotif,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Announcement)

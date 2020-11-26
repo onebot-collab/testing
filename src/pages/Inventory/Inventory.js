@@ -51,6 +51,7 @@ import {
   postInventory,
   deleteInventory,
 } from '../../redux/actions/inventory'
+import { sendNotif } from '../../redux/actions/fcm'
 
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -120,6 +121,24 @@ class Inventory extends Component {
     })
   }
 
+  pressed() {
+    const dataSubmit = {
+      to: '/topics/gmiadmin',
+      notification: {
+        title: 'New Inventory Added',
+        body: `${this.props.login.dataLogin.name} add new inventory`,
+        mutable_content: true,
+        sound: 'Tri-tone',
+      },
+      data: {
+        route: 'Inventory',
+        initialRoute: 'Inventory',
+      },
+    }
+
+    this.props.sendNotif(dataSubmit)
+  }
+
   addInventory() {
     this.setState({ isLoadingAddInventory: true })
     const expDate = `${this.state.expDate.slice(
@@ -154,6 +173,7 @@ class Inventory extends Component {
           title: 'Success',
           text: 'Inventory successfully created',
         })
+        // this.pressed()
       })
       .catch(() => {
         swal.fire({
@@ -366,7 +386,10 @@ class Inventory extends Component {
                         </TableContainer>
                         <div className="d-flex flex-row justify-content-end">
                           <div className="p-2 d-flex align-items-center align-self-center">
-                            <h6>1 - 5 of 20</h6>
+                            <h6>
+                              1 - 5 of{' '}
+                              {this.props.inventory.dataInventory.length}
+                            </h6>
                           </div>
                           <div className="p-2">
                             <IconButton>
@@ -494,6 +517,11 @@ const mapStateToProps = (state) => ({
   login: state.login,
 })
 
-const mapDispatchToProps = { getInventoryHome, postInventory, deleteInventory }
+const mapDispatchToProps = {
+  getInventoryHome,
+  postInventory,
+  deleteInventory,
+  sendNotif,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Inventory)

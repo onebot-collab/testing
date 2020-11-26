@@ -42,6 +42,7 @@ import {
   getReminderByDay,
   deleteReminder,
 } from '../../redux/actions/reminder'
+import { sendNotif } from '../../redux/actions/fcm'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -86,6 +87,24 @@ class CalendarScreen extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
+  }
+
+  pressed() {
+    const dataSubmit = {
+      to: '/topics/gmi',
+      notification: {
+        title: 'New Reminder',
+        body: `${this.state.title}`,
+        mutable_content: true,
+        sound: 'Tri-tone',
+      },
+      data: {
+        route: 'Reminder',
+        initialRoute: 'Reminder',
+      },
+    }
+
+    this.props.sendNotif(dataSubmit)
   }
 
   addReminder() {
@@ -456,7 +475,10 @@ class CalendarScreen extends Component {
                     </TableContainer>
                     <div className="d-flex flex-row justify-content-end">
                       <div className="p-2 d-flex align-items-center align-self-center">
-                        <h6>1 - 5 of 20</h6>
+                        <h6>
+                          1 - 5 of{' '}
+                          {this.props.reminder.dataReminderToday.length}
+                        </h6>
                       </div>
                       <div className="p-2">
                         <IconButton>
@@ -568,6 +590,11 @@ const mapStateToProps = (state) => ({
   reminder: state.reminder,
   login: state.login,
 })
-const mapDispatchToProps = { createReminder, getReminderByDay, deleteReminder }
+const mapDispatchToProps = {
+  createReminder,
+  getReminderByDay,
+  deleteReminder,
+  sendNotif,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalendarScreen)
