@@ -146,7 +146,7 @@ export default class PermissionsDetail extends Component {
                         </ListItemIcon>
                         <ListItemText>
                           {this.state.file === 'izin/img.jpg' ? (
-                            'No fle uploaded'
+                            'No Attachment'
                           ) : (
                             <a
                               href={`http://10.7.1.38:5000/${this.state.file}`}
