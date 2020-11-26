@@ -33,8 +33,10 @@ import {
   CustomInput,
 } from 'reactstrap'
 import swal from 'sweetalert2'
+import moment from 'moment'
 import { getProfile, deleteUser } from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
+import { sendNotif } from '../../redux/actions/fcm'
 // import avatar from '../../assets/img/faces/marc.jpg'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
@@ -50,15 +52,20 @@ class UserDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: ``,
-      email: ``,
-      phone: ``,
+      name: `${this.props.location.state.name}`,
+      email: `${this.props.location.state.email}`,
+      phone: `${this.props.location.state.phone}`,
       password: '',
       passcode: '',
-      birthDate: ``,
-      address: ``,
-      role: ``,
-      department: ``,
+      birthDate: `${moment(this.props.location.state.birthdate).format(
+        'YYYY-MM-DD',
+      )}`,
+      joined_date: `${moment(this.props.location.state.joined_date).format(
+        'YYYY-MM-DD',
+      )}`,
+      address: `${this.props.location.state.address}`,
+      role: `${this.props.location.state.role}`,
+      department_id: `${this.props.location.state.department_id}`,
       showUpdateModal: false,
       showDeleteModal: false,
       isLoadingFetch: true,
@@ -95,6 +102,24 @@ class UserDetail extends Component {
     this.props.getProfile(this.props.location.state.id).then(() => {
       this.setState({ isLoadingFetch: false })
     })
+  }
+
+  pressedDelete() {
+    const dataSubmit = {
+      to: '/topics/gmiadmin',
+      notification: {
+        title: 'A User has been removed',
+        body: `${this.props.login.dataLogin.name} removed ${this.props.user.dataProfile[0].name}`,
+        mutable_content: true,
+        sound: 'Tri-tone',
+      },
+      data: {
+        route: 'Inventory',
+        initialRoute: 'Inventory',
+      },
+    }
+
+    this.props.sendNotif(dataSubmit)
   }
 
   delete() {
@@ -168,7 +193,6 @@ class UserDetail extends Component {
                                 <Input
                                   value={this.state.name}
                                   name="name"
-                                  placeholder={`${this.props.user.dataProfile[0].name}`}
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -179,7 +203,6 @@ class UserDetail extends Component {
                                 <Input
                                   value={this.state.email}
                                   name="email"
-                                  placeholder={`${this.props.user.dataProfile[0].email}`}
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -190,7 +213,6 @@ class UserDetail extends Component {
                                 <Input
                                   value={this.state.phone}
                                   name="phone"
-                                  placeholder={`${this.props.user.dataProfile[0].phone}`}
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -244,7 +266,7 @@ class UserDetail extends Component {
                               <FormGroup>
                                 <Label for="exampleSelect">Department</Label>
                                 <Input
-                                  value={this.state.department}
+                                  value={this.state.department_id}
                                   type="select"
                                   name="department"
                                   onChange={this.handleChange}
@@ -294,6 +316,7 @@ class UserDetail extends Component {
                               <FormGroup>
                                 <Label for="exampleDate">Joined Date</Label>
                                 <Input
+                                  value={this.state.joined_date}
                                   type="date"
                                   name="joinedDate"
                                   id="exampleDate"
@@ -322,7 +345,6 @@ class UserDetail extends Component {
                                 <Input
                                   value={this.state.address}
                                   name="address"
-                                  placeholder={`${this.props.user.dataProfile[0].address}`}
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -523,6 +545,6 @@ const mapStateToProps = (state) => ({
   department: state.department,
   login: state.login,
 })
-const mapDispatchToProps = { getProfile, getDepartment, deleteUser }
+const mapDispatchToProps = { getProfile, getDepartment, deleteUser, sendNotif }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail)

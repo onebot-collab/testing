@@ -598,6 +598,18 @@ class User extends Component {
                                       pathname: `/admin/user/${res.id}`,
                                       state: {
                                         id: `${res.id}`,
+                                        name: `${res.name}`,
+                                        email: `${res.email}`,
+                                        phone: `${res.phone}`,
+                                        photo_url: `${res.photo_url}`,
+                                        birthdate: `${res.birthdate}`,
+                                        joined_date: `${res.joined_date}`,
+                                        role: `${res.role}`,
+                                        address: `${res.address}`,
+                                        department_id: `${res.department_id}`,
+                                        departmentName: `${res.departmentName}`,
+                                        typeTime: `${res.typeTime}`,
+                                        total_leave: `${res.total_leave}`,
                                       },
                                     }}
                                   >
