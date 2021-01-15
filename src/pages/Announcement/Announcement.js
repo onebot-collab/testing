@@ -86,14 +86,14 @@ class Announcement extends Component {
   }
 
   fetch() {
-    this.props.getAllCampaign().then(() => {
+    this.props.getAllCampaign(this.props.login.token).then(() => {
       this.setState({ isLoadingCampaign: false })
     })
   }
 
   deleteAct() {
     this.props
-      .deleteCampaign(this.state.deleteId)
+      .deleteCampaign(this.state.deleteId, this.props.login.token)
       .then(() => {
         swal.fire({
           icon: 'success',
@@ -367,6 +367,7 @@ class Announcement extends Component {
                                                 title: `${campaign.title}`,
                                                 description: `${campaign.description}`,
                                                 departmentName: `${campaign.departmentName}`,
+                                                departmentId: `${campaign.departmentId}`,
                                                 created_at: `${campaign.created_at}`,
                                               },
                                             }}

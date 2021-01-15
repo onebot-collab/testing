@@ -2,9 +2,9 @@ import qs from 'querystring'
 import axios from '../../services/axios'
 const URL = 'http://localhost:21212/'
 
-const getAllCampaign = () => ({
+const getAllCampaign = (token) => ({
   type: 'GETCAMPAIGN',
-  payload: axios().get(`${URL}api/v1/broadcast/`),
+  payload: axios(token).get(`${URL}api/v1/broadcast/`),
 })
 
 const getCampaign = (id) => ({
@@ -17,17 +17,17 @@ const postCampaign = (dataSubmit) => ({
   payload: axios().post(`${URL}api/v1/broadcast`, qs.stringify(dataSubmit)),
 })
 
-const patchCampaign = (id, dataSubmit) => ({
+const patchCampaign = (id, dataSubmit, token) => ({
   type: 'CAMPAIGNSTATUS',
-  payload: axios().patch(
+  payload: axios(token).patch(
     `${URL}api/v1/broadcast/${id}`,
     qs.stringify(dataSubmit),
   ),
 })
 
-const deleteCampaign = (id) => ({
+const deleteCampaign = (id, token) => ({
   type: 'CAMPAIGNSTATUS',
-  payload: axios().delete(`${URL}api/v1/broadcast/${id}`),
+  payload: axios(token).delete(`${URL}api/v1/broadcast/${id}`),
 })
 
 export {

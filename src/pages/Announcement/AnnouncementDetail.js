@@ -4,6 +4,7 @@
 /* eslint-disable no-useless-constructor */
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
+/* eslint-disable radix */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import './AnnouncementDetail.css'
@@ -94,11 +95,11 @@ class AnnouncementDetail extends Component {
     const dataSubmit = {
       title: this.state.title,
       description: this.state.description,
-      department: this.state.departmentId,
+      department: parseInt(this.state.departmentId),
     }
 
     this.props
-      .patchCampaign(id, dataSubmit)
+      .patchCampaign(id, dataSubmit, this.props.login.token)
       .then(() => {
         this.setState({ isLoadingUpdate: false })
         this.props.history.push('/admin/announcement')
@@ -134,7 +135,7 @@ class AnnouncementDetail extends Component {
           // className="buttonAdd"
           startIcon={<Edit />}
         >
-          Edit
+          {this.props.location.state.departmentId}
         </Button>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
@@ -294,6 +295,7 @@ const mapDispatchToProps = {
 const mapStateToProps = (state) => ({
   department: state.department,
   campaign: state.campaign,
+  login: state.login,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AnnouncementDetail)
