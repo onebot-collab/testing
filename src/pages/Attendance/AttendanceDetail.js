@@ -54,9 +54,11 @@ class AttendanceDetail extends Component {
 
   fetchUserLog() {
     this.setState({ isLoadingFetch: true })
-    this.props.userLogHistory(this.props.location.state.user_id).then(() => {
-      this.setState({ isLoadingFetch: false })
-    })
+    this.props
+      .userLogHistory(this.props.location.state.user_id, this.props.login.token)
+      .then(() => {
+        this.setState({ isLoadingFetch: false })
+      })
   }
 
   componentDidMount() {
@@ -374,6 +376,7 @@ class AttendanceDetail extends Component {
 
 const mapStateToProps = (state) => ({
   presence: state.presence,
+  login: state.login,
 })
 const mapDispatchToProps = { userLogHistory }
 

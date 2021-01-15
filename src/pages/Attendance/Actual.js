@@ -50,7 +50,7 @@ class Attendance extends Component {
   }
 
   fetch() {
-    this.props.allLog().then(() => {
+    this.props.allLog(this.props.login.token).then(() => {
       this.setState({ isLoading: false })
     })
   }

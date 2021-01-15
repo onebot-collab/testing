@@ -33,14 +33,14 @@ const lastCheck = (id) => ({
   payload: axios().get(`${URL}api/v1/absent/lastcheck/${id}`),
 })
 
-const userLogHistory = (id) => ({
+const userLogHistory = (id, token) => ({
   type: 'USERLOG',
-  payload: axios().get(`${URL}api/v1/absent/allinout/${id}`),
+  payload: axios(token).get(`${URL}api/v1/absent/allinout/${id}`),
 })
 
-const allLog = () => ({
+const allLog = (token) => ({
   type: 'ALLLOG',
-  payload: axios().get(`${URL}api/v1/absent/allinout/`),
+  payload: axios(token).get(`${URL}api/v1/absent/allinout/`),
 })
 
 export {
