@@ -149,7 +149,7 @@ export default class PermissionsDetail extends Component {
                             'No Attachment'
                           ) : (
                             <a
-                              href={`http://10.7.1.38:5000/${this.state.file}`}
+                              href={`http://localhost:21212/${this.state.file}`}
                               target="_blank"
                             >
                               {this.state.file.replace('izin/', '')}

@@ -1,18 +1,18 @@
 import qs from 'querystring'
 import axios from '../../services/axios'
-const REACT_APP_URL = 'http://10.7.1.38:5000/'
+const REACT_APP_URL = 'http://localhost:21212/'
 
 const loginAuth = (dataSubmit) => ({
   type: 'LOGIN',
   payload: axios().post(
-    `${REACT_APP_URL}api/v1/auth/login`,
+    `${REACT_APP_URL}api/v1/auth/twofa`,
     qs.stringify(dataSubmit),
   ),
 })
 
-const logoutAuth = () => ({
+const logoutAuth = (token) => ({
   type: 'LOGOUT',
-  payload: '',
+  payload: axios(token).get(`${REACT_APP_URL}api/v1/auth/logout`),
 })
 
 export { loginAuth, logoutAuth }

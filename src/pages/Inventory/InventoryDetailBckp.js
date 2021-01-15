@@ -157,7 +157,7 @@ class InventoryDetail extends Component {
                       <Paper className="wrapperNoImage" elevation={3}>
                         <img
                           className="rounded mx-auto d-block img-responsive wrapperImage"
-                          src={`http://10.7.1.38:5000/${this.props.location.state.image_url}`}
+                          src={`http://localhost:21212/${this.props.location.state.image_url}`}
                           alt="inventory img"
                         />
                       </Paper>

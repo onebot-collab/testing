@@ -85,6 +85,10 @@ export default function SearchAppBar() {
   const [openProfile, setOpenProfile] = React.useState(null)
   const classes = useStyles()
 
+  const name = useSelector((state) => state.login.dataLogin.name)
+  const imgProfile = useSelector((state) => state.login.dataLogin.photo_url)
+  const token = useSelector((state) => state.login.token)
+
   const handleClickProfile = (event) => {
     if (openProfile && openProfile.contains(event.target)) {
       setOpenProfile(null)
@@ -98,11 +102,11 @@ export default function SearchAppBar() {
   // const dispatch = useDispatch()
   const history = useHistory()
   const LogoutAct = () => {
-    history.push('/')
+    history.push({
+      pathname: '/login',
+      state: { token },
+    })
   }
-
-  const name = useSelector((state) => state.login.dataLogin.name)
-  const imgProfile = useSelector((state) => state.login.dataLogin.photo_url)
 
   return (
     <div className={classes.root}>
@@ -132,7 +136,7 @@ export default function SearchAppBar() {
           >
             <ListItem button>
               <ListItemAvatar>
-                <Avatar src={`http://10.7.1.38:5000/${imgProfile}`} />
+                <Avatar src={`http://localhost:21212/${imgProfile}`} />
               </ListItemAvatar>
               <ListItemText className={classes.textColor}>{name}</ListItemText>
             </ListItem>

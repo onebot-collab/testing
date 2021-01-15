@@ -384,10 +384,10 @@ class UserDetail extends Component {
                       <CardAvatar profile>
                         <a
                           target="_blank"
-                          href={`http://10.7.1.38:5000/${this.props.user.dataProfile[0].photo_url}`}
+                          href={`http://localhost:21212/${this.props.user.dataProfile[0].photo_url}`}
                         >
                           <img
-                            src={`http://10.7.1.38:5000/${this.props.user.dataProfile[0].photo_url}`}
+                            src={`http://localhost:21212/${this.props.user.dataProfile[0].photo_url}`}
                             alt="img"
                           />
                         </a>

@@ -1,5 +1,5 @@
 import axios from '../../services/axios'
-const URL = 'http://10.7.1.38:5000/'
+const URL = 'http://localhost:21212/'
 
 const getDepartment = () => ({
   type: 'DEPARTMENT',

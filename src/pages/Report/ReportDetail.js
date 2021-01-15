@@ -112,7 +112,7 @@ export default class ReportDetail extends Component {
                             <>
                               <a
                                 target="_blank"
-                                href={`http://10.7.1.38:5000/${this.state.fileName}`}
+                                href={`http://localhost:21212/${this.state.fileName}`}
                               >
                                 {this.state.fileName.replace('report/', '')}
                               </a>
@@ -146,7 +146,7 @@ export default class ReportDetail extends Component {
                         <ListItemText>
                           <a
                             target="_blank"
-                            href={`http://10.7.1.38:5000/${this.state.fileName2}`}
+                            href={`http://localhost:21212/${this.state.fileName2}`}
                           >
                             {this.state.fileName2.replace('report/', '')}
                           </a>
@@ -178,7 +178,7 @@ export default class ReportDetail extends Component {
                         <ListItemText>
                           <a
                             target="_blank"
-                            href={`http://10.7.1.38:5000/${this.state.fileName3}`}
+                            href={`http://localhost:21212/${this.state.fileName3}`}
                           >
                             {this.state.fileName3.replace('report/', '')}
                           </a>

@@ -32,7 +32,21 @@ const login = (state = initialState, action) => {
         dataLogin: action.payload.data.data,
       }
     }
-    case 'LOGOUT': {
+    case 'LOGOUT_PENDING': {
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      }
+    }
+    case 'LOGOUT_REJECTED': {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+      }
+    }
+    case 'LOGOUT_FULLFILED': {
       return {
         ...state,
         isLoading: false,

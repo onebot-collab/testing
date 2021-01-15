@@ -15,8 +15,8 @@ class LoginPage extends Component {
     super(props)
     this.state = {
       email: '',
-      password: '',
-      passcode: '',
+      password: '12345678',
+      passcode: '123456',
     }
     this.handlerChange = this.handlerChange.bind(this)
     this.login = this.login.bind(this)
@@ -33,6 +33,7 @@ class LoginPage extends Component {
       email,
       password,
       passcode,
+      platform: '1',
     }
 
     this.props
@@ -45,17 +46,19 @@ class LoginPage extends Component {
           text: 'Welcome',
         })
       })
-      .catch(() => {
+      .catch((res) => {
         swal.fire({
           icon: 'error',
           title: 'Failed',
-          text: "Data doesn't match our records",
+          text: `${res.response.data.message}`,
         })
       })
   }
 
   componentDidMount() {
-    this.props.logoutAuth()
+    if (this.props.location.state !== undefined) {
+      this.props.logoutAuth(this.props.location.state.token)
+    }
   }
 
   render() {
