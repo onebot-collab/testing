@@ -20,9 +20,9 @@ const createReminder = (dataSubmit, token) => ({
   payload: axios(token).post(`${URL}api/v1/reminder`, qs.stringify(dataSubmit)),
 })
 
-const updateReminder = (id, dataSubmit) => ({
+const updateReminder = (id, dataSubmit, token) => ({
   type: 'REMINDERSTATUS',
-  payload: axios().patch(
+  payload: axios(token).patch(
     `${URL}api/v1/reminder/${id}`,
     qs.stringify(dataSubmit),
   ),
