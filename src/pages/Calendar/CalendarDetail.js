@@ -79,7 +79,7 @@ class CalendarDetail extends Component {
       date: `${moment(this.state.date).format('YYYY-MM-DD')}`,
     }
     this.props
-      .updateReminder(id, dataSubmit)
+      .updateReminder(id, dataSubmit, this.props.login.token)
       .then(() => {
         this.setState({ isLoadingUpdate: false, showEditModal: false })
         swal.fire({
@@ -295,6 +295,7 @@ class CalendarDetail extends Component {
 
 const mapStateToProps = (state) => ({
   reminder: state.reminder,
+  login: state.login,
 })
 const mapDispatchToProps = { updateReminder }
 

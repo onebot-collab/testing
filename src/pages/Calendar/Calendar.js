@@ -78,6 +78,7 @@ class CalendarScreen extends Component {
     }
     this.toggleAddModal = this.toggleAddModal.bind(this)
     this.addReminder = this.addReminder.bind(this)
+    this.deleteAct = this.deleteAct.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
 
@@ -117,7 +118,7 @@ class CalendarScreen extends Component {
     }
 
     this.props
-      .createReminder(dataSubmit)
+      .createReminder(dataSubmit, this.props.login.token)
       .then(() => {
         this.setState({
           showAddModal: false,
@@ -145,9 +146,10 @@ class CalendarScreen extends Component {
   }
 
   deleteAct() {
+    console.log(this.state.deleteId)
     this.setState({ isLoadingDelete: true })
     this.props
-      .deleteReminder(this.state.deleteId)
+      .deleteReminder(this.state.deleteId, this.props.login.token)
       .then(() => {
         this.setState({ isLoadingDelete: false, showDeleteModal: false })
         const date = moment().format().slice(0, 10)
@@ -181,7 +183,6 @@ class CalendarScreen extends Component {
   }
 
   onClickDay(e) {
-    console.log(e)
     this.fetchReminder(moment(e).format('YYYY-MM-DD'))
   }
 
@@ -191,7 +192,7 @@ class CalendarScreen extends Component {
       date: day,
     }
 
-    this.props.getReminderByDay(dataSubmit).then(() => {
+    this.props.getReminderByDay(dataSubmit, this.props.login.token).then(() => {
       this.setState({ isLoadingFetchReminder: false })
     })
   }

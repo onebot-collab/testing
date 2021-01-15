@@ -7,17 +7,17 @@ const getReminder = () => ({
   payload: axios().get(`${URL}api/v1/reminder`),
 })
 
-const getReminderByDay = (dataSubmit) => ({
+const getReminderByDay = (dataSubmit, token) => ({
   type: 'REMINDERTODAY',
-  payload: axios().post(
+  payload: axios(token).post(
     `${URL}api/v1/reminder/remindertoday`,
     qs.stringify(dataSubmit),
   ),
 })
 
-const createReminder = (dataSubmit) => ({
+const createReminder = (dataSubmit, token) => ({
   type: 'REMINDERSTATUS',
-  payload: axios().post(`${URL}api/v1/reminder`, qs.stringify(dataSubmit)),
+  payload: axios(token).post(`${URL}api/v1/reminder`, qs.stringify(dataSubmit)),
 })
 
 const updateReminder = (id, dataSubmit) => ({
@@ -28,9 +28,9 @@ const updateReminder = (id, dataSubmit) => ({
   ),
 })
 
-const deleteReminder = (id) => ({
+const deleteReminder = (id, token) => ({
   type: 'REMINDERSTATUS',
-  payload: axios().delete(`${URL}api/v1/reminder/${id}`),
+  payload: axios(token).delete(`${URL}api/v1/reminder/${id}`),
 })
 
 export {
