@@ -110,7 +110,7 @@ class InventoryDetail extends Component {
       )
     }
     this.props
-      .patchInventory(dataSubmit, id)
+      .patchInventory(dataSubmit, id, this.props.login.token)
       .then(() => {
         this.setState({ isLoadingUpdate: false })
         this.props.history.push('/admin/inventory')
@@ -358,6 +358,7 @@ class InventoryDetail extends Component {
 
 const mapStateToProps = (state) => ({
   inventory: state.inventory,
+  login: state.login,
 })
 const mapDispatchToProps = { patchInventory }
 

@@ -6,24 +6,24 @@ const getInventory = (sort) => ({
   payload: axios().get(`${URL}api/v1/inventory?${sort}=1`),
 })
 
-const getInventoryHome = () => ({
+const getInventoryHome = (token) => ({
   type: 'GETINVENTORY',
-  payload: axios().get(`${URL}api/v1/inventory?sort=0`),
+  payload: axios(token).get(`${URL}api/v1/inventory?sort=0`),
 })
 
-const postInventory = (dataSubmit) => ({
+const postInventory = (dataSubmit, token) => ({
   type: 'INVENTORYSTATUS',
-  payload: axios().post(`${URL}api/v1/inventory`, dataSubmit),
+  payload: axios(token).post(`${URL}api/v1/inventory`, dataSubmit),
 })
 
-const patchInventory = (dataSubmit, id) => ({
+const patchInventory = (dataSubmit, id, token) => ({
   type: 'INVENTORYSTATUS',
-  payload: axios().patch(`${URL}api/v1/inventory/${id}`, dataSubmit),
+  payload: axios(token).patch(`${URL}api/v1/inventory/${id}`, dataSubmit),
 })
 
-const deleteInventory = (id) => ({
+const deleteInventory = (id, token) => ({
   type: 'INVENTORYSTATUS',
-  payload: axios().delete(`${URL}api/v1/inventory/${id}`),
+  payload: axios(token).delete(`${URL}api/v1/inventory/${id}`),
 })
 
 export {

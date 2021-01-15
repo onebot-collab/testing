@@ -95,7 +95,7 @@ class Inventory extends Component {
   }
 
   fetch() {
-    this.props.getInventoryHome().then(() => {
+    this.props.getInventoryHome(this.props.login.token).then(() => {
       this.setState({ isLoading: false })
     })
   }
@@ -156,7 +156,7 @@ class Inventory extends Component {
     dataSubmit.append('fileinventory', this.state.fileInventory)
 
     this.props
-      .postInventory(dataSubmit)
+      .postInventory(dataSubmit, this.props.login.token)
       .then(() => {
         this.fetch()
         this.setState({
@@ -186,7 +186,7 @@ class Inventory extends Component {
 
   delete() {
     this.props
-      .deleteInventory(this.state.deleteId)
+      .deleteInventory(this.state.deleteId, this.props.login.token)
       .then(() => {
         this.fetch()
         this.setState({ showDeleteModal: false })
