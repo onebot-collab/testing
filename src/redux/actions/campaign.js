@@ -12,9 +12,12 @@ const getCampaign = (id) => ({
   payload: axios().get(`${URL}api/v1/broadcast/all/${id}`),
 })
 
-const postCampaign = (dataSubmit) => ({
+const postCampaign = (dataSubmit, token) => ({
   type: 'CAMPAIGNSTATUS',
-  payload: axios().post(`${URL}api/v1/broadcast`, qs.stringify(dataSubmit)),
+  payload: axios(token).post(
+    `${URL}api/v1/broadcast`,
+    qs.stringify(dataSubmit),
+  ),
 })
 
 const patchCampaign = (id, dataSubmit, token) => ({

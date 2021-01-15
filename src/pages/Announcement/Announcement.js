@@ -183,7 +183,7 @@ class Announcement extends Component {
     }
 
     this.props
-      .postCampaign(dataSubmit)
+      .postCampaign(dataSubmit, this.props.login.token)
       .then(() => {
         this.setState({ isLoadingAddCampaign: false, showAddModal: false })
         swal.fire({
