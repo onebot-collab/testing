@@ -4,7 +4,7 @@ const URL = 'http://localhost:21212/'
 
 const getAllCampaign = (token) => ({
   type: 'GETCAMPAIGN',
-  payload: axios(token).get(`${URL}api/v1/broadcast/`),
+  payload: axios(token).get(`${URL}api/v1/broadcast?limit=15`),
 })
 
 const getCampaign = (id) => ({

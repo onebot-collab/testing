@@ -10,7 +10,7 @@ const getReminder = () => ({
 const getReminderByDay = (dataSubmit, token) => ({
   type: 'REMINDERTODAY',
   payload: axios(token).post(
-    `${URL}api/v1/reminder/remindertoday`,
+    `${URL}api/v1/reminder/remindertoday?limit=15`,
     qs.stringify(dataSubmit),
   ),
 })

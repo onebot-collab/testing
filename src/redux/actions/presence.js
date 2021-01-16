@@ -40,7 +40,7 @@ const userLogHistory = (id, token) => ({
 
 const allLog = (token) => ({
   type: 'ALLLOG',
-  payload: axios(token).get(`${URL}api/v1/absent/allinout/`),
+  payload: axios(token).get(`${URL}api/v1/absent/allinout?limit=15`),
 })
 
 export {
