@@ -131,8 +131,8 @@ class UserDetail extends Component {
         sound: 'Tri-tone',
       },
       data: {
-        route: 'Inventory',
-        initialRoute: 'Inventory',
+        route: 'HomeDrawer',
+        initialRoute: 'HomeDrawer',
       },
     }
 
@@ -190,12 +190,12 @@ class UserDetail extends Component {
           text: 'User successsfully updated',
         })
       })
-      .catch(() => {
+      .catch((res) => {
         this.setState({isLoadingUpdate: false})
         swal.fire({
           icon: 'error',
           title: 'Failed',
-          text: 'Failed to update user',
+          text: `${res.response.data.message}`,
         })
       })
   }
