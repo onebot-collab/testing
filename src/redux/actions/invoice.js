@@ -30,9 +30,9 @@ const createInvoiceItem = (dataSubmit) => ({
   payload: axios().post(`${URL}api/v1/invoiceitem`, qs.stringify(dataSubmit)),
 })
 
-const listInvoiceItem = (id) => ({
+const listInvoiceItem = (id, token) => ({
   type: 'INVOICEITEM',
-  payload: axios().get(`${URL}api/v1/invoiceitem/${id}`),
+  payload: axios(token).get(`${URL}api/v1/invoiceitem/${id}`),
 })
 
 const uploadInvoiceImage = (dataSubmit, id) => ({
@@ -40,29 +40,29 @@ const uploadInvoiceImage = (dataSubmit, id) => ({
   payload: axios().patch(`${URL}api/v1/invoice/upload/${id}`, dataSubmit),
 })
 
-const invoiceWaiting = () => ({
+const invoiceWaiting = (token) => ({
   type: 'INVOICEWAITING',
-  payload: axios().get(`${URL}api/v1/invoice/bystatus/0`),
+  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/0`),
 })
 
-const invoiceApproved = () => ({
+const invoiceApproved = (token) => ({
   type: 'INVOICEAPPROVED',
-  payload: axios().get(`${URL}api/v1/invoice/bystatus/1`),
+  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/1`),
 })
 
-const invoiceRejected = () => ({
+const invoiceRejected = (token) => ({
   type: 'INVOICEREJECTED',
-  payload: axios().get(`${URL}api/v1/invoice/bystatus/2`),
+  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/2`),
 })
 
-const invoiceProcessed = () => ({
+const invoiceProcessed = (token) => ({
   type: 'INVOICEPROCESSED',
-  payload: axios().get(`${URL}api/v1/invoice/bystatus/3`),
+  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/3`),
 })
 
-const invoiceClosed = () => ({
+const invoiceClosed = (token) => ({
   type: 'INVOICECLOSED',
-  payload: axios().get(`${URL}api/v1/invoice/bystatus/4`),
+  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/4`),
 })
 
 export {

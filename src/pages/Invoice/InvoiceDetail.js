@@ -61,9 +61,11 @@ class InvoiceDetail extends Component {
 
   fetchItem() {
     this.setState({ isLoadingFetch: true })
-    this.props.listInvoiceItem(this.props.location.state.id).then(() => {
-      this.setState({ isLoadingFetch: false })
-    })
+    this.props
+      .listInvoiceItem(this.props.location.state.id, this.props.login.token)
+      .then(() => {
+        this.setState({ isLoadingFetch: false })
+      })
   }
 
   componentDidMount() {
@@ -146,7 +148,7 @@ class InvoiceDetail extends Component {
                                         {res.qty}
                                       </TableCell>
                                       <TableCell align="right">
-                                        Rp. {res.price}
+                                        Rp. {res.price * res.qty}
                                       </TableCell>
                                     </TableRow>
                                   ),
@@ -250,6 +252,7 @@ class InvoiceDetail extends Component {
 
 const mapStateToProps = (state) => ({
   invoice: state.invoice,
+  login: state.login,
 })
 const mapDispatchToProps = { listInvoiceItem }
 

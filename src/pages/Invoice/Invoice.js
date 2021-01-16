@@ -65,20 +65,22 @@ class Invoice extends Component {
   }
 
   fetch() {
-    this.props.invoiceWaiting().then(() => {
+    const { token } = this.props.login
+
+    this.props.invoiceWaiting(token).then(() => {
       this.setState({ isLoadingWaiting: false })
-    })
-    this.props.invoiceApproved().then(() => {
-      this.setState({ isLoadingApproved: false })
-    })
-    this.props.invoiceRejected().then(() => {
-      this.setState({ isLoadingRejected: false })
-    })
-    this.props.invoiceProcessed().then(() => {
-      this.setState({ isLoadingProcessed: false })
-    })
-    this.props.invoiceClosed().then(() => {
-      this.setState({ isLoadingClosed: false })
+      this.props.invoiceApproved(token).then(() => {
+        this.setState({ isLoadingApproved: false })
+        this.props.invoiceRejected(token).then(() => {
+          this.setState({ isLoadingRejected: false })
+          this.props.invoiceProcessed(token).then(() => {
+            this.setState({ isLoadingProcessed: false })
+            this.props.invoiceClosed(token).then(() => {
+              this.setState({ isLoadingClosed: false })
+            })
+          })
+        })
+      })
     })
   }
 
