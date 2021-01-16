@@ -3,7 +3,7 @@
   // more configuration options here!
   "rules": {
     "react/prefer-stateless-function" : "off",
-    "prettier/prettier": ["error", {
+    "prettier/prettier": ["warn", {
       "endOfLine":"auto"
     }]
   }

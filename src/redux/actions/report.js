@@ -1,9 +1,9 @@
 import axios from '../../services/axios'
 const URL = 'http://localhost:21212/'
 
-const getAllReport = () => ({
+const getAllReport = (token) => ({
   type: 'GETALLREPORT',
-  payload: axios().get(`${URL}api/v1/report`),
+  payload: axios(token).get(`${URL}api/v1/report`),
 })
 
 const getUserReport = (id) => ({

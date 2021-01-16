@@ -71,7 +71,6 @@ class Report extends Component {
 
   handleChange(selectedOption) {
     this.setState({ selectedOption })
-    console.log(`Option selected:`, selectedOption)
   }
 
   redirect() {
@@ -79,7 +78,7 @@ class Report extends Component {
   }
 
   fetch() {
-    this.props.getAllReport().then(() => {
+    this.props.getAllReport(this.props.login.token).then(() => {
       this.setState({ isLoading: false })
     })
   }
@@ -219,13 +218,13 @@ class Report extends Component {
                                   </TableCell>
                                   <TableCell component="th">
                                     <p className="textPrimaryColor">
-                                      {res.fileName === null ? (
+                                      {res.fileName === 'public/report/img.jpg' ? (
                                         <span className="badge badge-secondary">
                                           No Attachment
                                         </span>
                                       ) : (
                                         <span className="badge badge-success">
-                                          {res.fileName.slice(7)}
+                                          {res.fileName.replace('public/report/', '')}
                                         </span>
                                       )}
                                     </p>

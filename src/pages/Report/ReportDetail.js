@@ -106,7 +106,7 @@ export default class ReportDetail extends Component {
                           <Attachment edge="start" />
                         </ListItemIcon>
                         <ListItemText>
-                          {this.state.fileName === 'null' ? (
+                          {this.state.fileName === 'public/report/img.jpg' ? (
                             'No Attachment'
                           ) : (
                             <>
@@ -114,13 +114,14 @@ export default class ReportDetail extends Component {
                                 target="_blank"
                                 href={`http://localhost:21212/${this.state.fileName}`}
                               >
-                                {this.state.fileName.replace('report/', '')}
+                                {this.state.fileName.replace(
+                                  'public/report/', '')}
                               </a>
                             </>
                           )}
                         </ListItemText>
                         <ListItemIcon>
-                          {this.state.fileName === 'null' ? (
+                          {this.state.fileName === 'public/report/img.jpg' ? (
                             <Cancel edge="end" className="CancelColor" />
                           ) : (
                             <CheckCircle
