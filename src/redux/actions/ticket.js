@@ -42,9 +42,9 @@ const ticketPoint = (dataSubmit) => ({
   payload: axios().post(`${URL}api/v1/score/observe`, qs.stringify(dataSubmit)),
 })
 
-const getTicketScore = (ticketId, assignId) => ({
+const getTicketScore = (ticketId, assignId, token) => ({
   type: 'TICKETSCORE',
-  payload: axios().get(`${URL}api/v1/score/request/${ticketId}/${assignId}`),
+  payload: axios(token).get(`${URL}api/v1/score/request/${ticketId}/${assignId}`),
 })
 
 const getTicketPoint = (ticketId, assignId) => ({
@@ -67,14 +67,14 @@ const getTicketClosed = () => ({
   payload: axios().get(`${URL}api/v1/ticket/closed`),
 })
 
-const getAllTicket = () => ({
+const getAllTicket = (token) => ({
   type: 'ALLTICKET',
-  payload: axios().get(`${URL}api/v1/ticket`),
+  payload: axios(token).get(`${URL}api/v1/ticket`),
 })
 
-const getTicketStats = () => ({
+const getTicketStats = (token) => ({
   type: 'TICKETSTATS',
-  payload: axios().get(`${URL}api/v1/ticket/stats`),
+  payload: axios(token).get(`${URL}api/v1/ticket/stats`),
 })
 
 export {

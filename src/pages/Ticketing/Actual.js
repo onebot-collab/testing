@@ -95,14 +95,14 @@ class Ticketing extends Component {
   }
 
   fetch() {
-    this.props.getAllTicket().then(() => {
+    this.props.getAllTicket(this.props.login.token).then(() => {
       this.setState({ isLoading: false })
     })
   }
 
   fetchStats() {
     this.setState({ isLoadingStats: true })
-    this.props.getTicketStats().then(() => {
+    this.props.getTicketStats(this.props.login.token).then(() => {
       this.setState({ isLoadingStats: false })
     })
   }

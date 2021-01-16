@@ -72,7 +72,7 @@ class TicketingDetail extends Component {
 
   fetchScore() {
     this.setState({ isLoading: true })
-    this.props.getTicketScore(this.state.id, this.state.assignId).then(() => {
+    this.props.getTicketScore(this.state.id, this.state.assignId, this.props.login.token).then(() => {
       this.setState({ isLoading: false })
     })
   }
@@ -307,6 +307,7 @@ class TicketingDetail extends Component {
 
 const mapStateToProps = (state) => ({
   ticket: state.ticket,
+  login: state.login,
 })
 const mapDispatchToProps = { getTicketScore }
 
