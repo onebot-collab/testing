@@ -30,9 +30,9 @@ const monthlyStats = (id, date) => ({
   payload: axios().get(`${URL}api/v1/permit/stats/${id}/${date}`),
 })
 
-const allIzin = () => ({
+const allIzin = (token) => ({
   type: 'ALLIZIN',
-  payload: axios().get(`${URL}api/v1/permit`),
+  payload: axios(token).get(`${URL}api/v1/permit`),
 })
 
 export {

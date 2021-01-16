@@ -145,19 +145,19 @@ export default class PermissionsDetail extends Component {
                           <Attachment edge="start" />
                         </ListItemIcon>
                         <ListItemText>
-                          {this.state.file === 'izin/img.jpg' ? (
+                          {this.state.file === 'public/izin/img.jpg' ? (
                             'No Attachment'
                           ) : (
                             <a
                               href={`http://localhost:21212/${this.state.file}`}
                               target="_blank"
                             >
-                              {this.state.file.replace('izin/', '')}
+                              {this.state.file.replace('public/izin/', '')}
                             </a>
                           )}
                         </ListItemText>
                         <ListItemIcon>
-                          {this.state.file === 'izin/img.jpg' ? (
+                          {this.state.file === 'public/izin/img.jpg' ? (
                             <Cancel edge="end" className="CancelColor" />
                           ) : (
                             <CheckCircle

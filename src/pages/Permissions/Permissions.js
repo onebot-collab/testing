@@ -49,7 +49,7 @@ class Permissions extends Component {
   }
 
   fetch() {
-    this.props.allIzin().then(() => {
+    this.props.allIzin(this.props.login.token).then(() => {
       this.setState({ isLoading: false })
     })
   }
