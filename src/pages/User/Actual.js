@@ -170,7 +170,7 @@ class User extends Component {
 
   componentDidMount() {
     this.fetch()
-    this.props.getDepartment()
+    this.props.getDepartment(this.props.login.token)
   }
 
   render() {

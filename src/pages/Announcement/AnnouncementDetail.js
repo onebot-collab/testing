@@ -119,7 +119,7 @@ class AnnouncementDetail extends Component {
   }
 
   componentDidMount() {
-    this.props.getDepartment()
+    this.props.getDepartment(this.props.login.token)
   }
 
   render() {

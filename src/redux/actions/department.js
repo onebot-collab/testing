@@ -1,14 +1,14 @@
 import axios from '../../services/axios'
 const URL = 'http://localhost:21212/'
 
-const getDepartment = () => ({
+const getDepartment = (token) => ({
   type: 'DEPARTMENT',
-  payload: axios().get(`${URL}api/v1/department`),
+  payload: axios(token).get(`${URL}api/v1/department`),
 })
 
-const getUserDepartment = (id) => ({
+const getUserDepartment = (id, token) => ({
   type: 'DEPARTMENTUSER',
-  payload: axios().get(`${URL}api/v1/permit/${id}`),
+  payload: axios(token).get(`${URL}api/v1/permit/${id}`),
 })
 
 export { getDepartment, getUserDepartment }

@@ -147,7 +147,7 @@ class UserDetail extends Component {
 
   componentDidMount() {
     this.fetchProfile()
-    this.props.getDepartment()
+    this.props.getDepartment(this.propslogin.token)
   }
 
   render() {
