@@ -76,7 +76,7 @@ class User extends Component {
 
   fetch() {
     this.setState({ isLoadingUser: true })
-    this.props.getUser().then(() => {
+    this.props.getUser(this.props.login.token).then(() => {
       this.setState({ isLoadingUser: false })
     })
   }
@@ -133,7 +133,7 @@ class User extends Component {
     dataSubmit.append('photo', this.state.profilePicture)
 
     this.props
-      .registerUser(dataSubmit)
+      .registerUser(dataSubmit, this.props.login.token)
       .then(() => {
         this.setState({
           isLoadingRegister: false,

@@ -6,24 +6,29 @@ const getAdmin = () => ({
   payload: axios().get(`${URL}api/v1/user/allbyadmin`),
 })
 
-const getUser = () => ({
+const getUser = (token) => ({
   type: 'GETUSER',
-  payload: axios().get(`${URL}api/v1/user/allbyusers/0`),
+  payload: axios(token).get(`${URL}api/v1/user/allbyusers/0`),
 })
 
-const registerUser = (dataSubmit) => ({
+const registerUser = (dataSubmit, token) => ({
   type: 'REGISTER',
-  payload: axios().post(`${URL}api/v1/auth/register`, dataSubmit),
+  payload: axios(token).post(`${URL}api/v1/auth/register`, dataSubmit),
 })
 
-const getProfile = (id) => ({
+const getProfile = (id, token) => ({
   type: 'PROFILE',
-  payload: axios().get(`${URL}api/v1/profile/${id}`),
+  payload: axios(token).get(`${URL}api/v1/profile/${id}`),
 })
 
-const deleteUser = (id) => ({
+const deleteUser = (id, token) => ({
   type: 'POST',
-  payload: axios().delete(`${URL}api/v1/user/${id}`),
+  payload: axios(token).delete(`${URL}api/v1/user/${id}`),
 })
 
-export { getAdmin, getUser, registerUser, getProfile, deleteUser }
+const updateUser = (id, dataSubmit, token) => ({
+  type: 'POST',
+  payload: axios(token).post(`${URL}api/v1/user/updateuser/${id}`, dataSubmit),
+})
+
+export { getAdmin, getUser, registerUser, getProfile, deleteUser, updateUser }

@@ -34,7 +34,7 @@ import {
 } from 'reactstrap'
 import swal from 'sweetalert2'
 import moment from 'moment'
-import { getProfile, deleteUser } from '../../redux/actions/user'
+import { getProfile, deleteUser, updateUser } from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
 import { sendNotif } from '../../redux/actions/fcm'
 // import avatar from '../../assets/img/faces/marc.jpg'
@@ -70,6 +70,23 @@ class UserDetail extends Component {
       showDeleteModal: false,
       isLoadingFetch: true,
       isLoadingDelete: false,
+      isLoadingUpdate: false,
+      nameInput: `${this.props.location.state.name}`,
+      emailInput: `${this.props.location.state.email}`,
+      passwordInput: '',
+      passcodeInput: '',
+      phoneInput: `${this.props.location.state.phone}`,
+      roleInput: `${this.props.location.state.role}`,
+      departmentInput: `${this.props.location.state.department_id}`,
+      timeTypeInput: '',
+      joinedDateInput: `${moment(this.props.location.state.joined_date).format(
+        'YYYY-MM-DD',
+      )}`,
+      birthDateInput: `${moment(this.props.location.state.birthdate).format(
+        'YYYY-MM-DD',
+      )}`,
+      addressInput: `${this.props.location.state.address}`,
+      avatar: null,
     }
     this.toggleUpdateModal = this.toggleUpdateModal.bind(this)
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this)
@@ -99,7 +116,7 @@ class UserDetail extends Component {
 
   fetchProfile() {
     this.setState({ isLoadingFetch: true })
-    this.props.getProfile(this.props.location.state.id).then(() => {
+    this.props.getProfile(this.props.location.state.id, this.props.login.token).then(() => {
       this.setState({ isLoadingFetch: false })
     })
   }
@@ -122,11 +139,72 @@ class UserDetail extends Component {
     this.props.sendNotif(dataSubmit)
   }
 
+  update() {
+    this.setState({isLoadingUpdate: true})
+    const dataSubmit = new FormData()
+    if (this.state.nameInput !== this.state.name) {
+      dataSubmit.append('name', this.state.nameInput)
+    }
+    if (this.state.emailInput !== this.state.email) {
+      dataSubmit.append('email', this.state.emailInput)
+    }
+    if (this.state.passwordInput !== '') {
+      dataSubmit.append('password', this.state.passwordInput)
+    }
+    if (this.state.passcodeInput !== '') {
+      dataSubmit.append('passcode', this.state.passcodeInput)
+    }
+    if (this.state.phoneInput !== this.state.phone) {
+      dataSubmit.append('phone', this.state.phoneInput)
+    }
+    if (this.state.roleInput !== this.state.role) {
+      dataSubmit.append('role', this.state.roleInput)
+    }
+    if (this.state.departmentId !== this.state.department_id) {
+      dataSubmit.append('department_id', this.state.department_id)
+    }
+    if (this.state.addressInput !== this.state.address) {
+      dataSubmit.append('address', this.state.addressInput)
+    }
+    if (this.state.timeTypeInput !== '') {
+      dataSubmit.append('time_type_id', this.state.timeTypeInput)
+    }
+    if (this.state.joinedDateInput !== this.state.joined_date) {
+      dataSubmit.append('joined_date', this.state.timeTypeInput)
+    }
+    if (this.state.birthDateInput !== this.state.birthDate) {
+      dataSubmit.append('birthdate', this.state.birthDateInput)
+    }
+    if (this.state.avatar !== null) {
+      dataSubmit.append('avatar', this.state.avatar)
+    }
+
+    this.props
+      .updateUser(this.props.location.state.id, dataSubmit, this.props.login.token)
+      .then(() => {
+        this.setState({ isLoadingUpdate: false })
+        this.props.history.push('/admin/user')
+        swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'User successsfully updated',
+        })
+      })
+      .catch(() => {
+        this.setState({isLoadingUpdate: false})
+        swal.fire({
+          icon: 'error',
+          title: 'Failed',
+          text: 'Failed to update user',
+        })
+      })
+  }
+
   delete() {
     this.setState({ isLoadingDelete: true })
     const id = `${this.props.location.state.id}`
     this.props
-      .deleteUser(id)
+      .deleteUser(id, this.props.login.token)
       .then(() => {
         this.setState({ isLoadingDelete: false })
         this.props.history.push('/admin/user')
@@ -147,7 +225,7 @@ class UserDetail extends Component {
 
   componentDidMount() {
     this.fetchProfile()
-    this.props.getDepartment(this.propslogin.token)
+    this.props.getDepartment(this.props.login.token)
   }
 
   render() {
@@ -191,8 +269,8 @@ class UserDetail extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Name</Label>
                                 <Input
-                                  value={this.state.name}
-                                  name="name"
+                                  value={this.state.nameInput}
+                                  name="nameInput"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -201,8 +279,8 @@ class UserDetail extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Email</Label>
                                 <Input
-                                  value={this.state.email}
-                                  name="email"
+                                  value={this.state.emailInput}
+                                  name="emailInput"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -211,8 +289,8 @@ class UserDetail extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Phone</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.phoneInput}
+                                  name="phoneInput"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -223,9 +301,9 @@ class UserDetail extends Component {
                               <FormGroup>
                                 <Label for="examplePassword">Password</Label>
                                 <Input
-                                  value={this.state.password}
+                                  value={this.state.passwordInput}
                                   type="password"
-                                  name="password"
+                                  name="passwordInput"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -234,9 +312,9 @@ class UserDetail extends Component {
                               <FormGroup>
                                 <Label for="examplePassword">Passcode</Label>
                                 <Input
-                                  value={this.state.passcode}
+                                  value={this.state.passcodeInput}
                                   type="password"
-                                  name="passcode"
+                                  name="passcodeInput"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -247,9 +325,9 @@ class UserDetail extends Component {
                               <FormGroup>
                                 <Label for="exampleSelect">Role</Label>
                                 <Input
-                                  value={this.state.role}
+                                  value={this.state.roleInput}
                                   type="select"
-                                  name="role"
+                                  name="roleInput"
                                   id="exampleSelect"
                                   onChange={this.handleChange}
                                 >
@@ -266,9 +344,9 @@ class UserDetail extends Component {
                               <FormGroup>
                                 <Label for="exampleSelect">Department</Label>
                                 <Input
-                                  value={this.state.department_id}
+                                  value={this.state.departmentInput}
                                   type="select"
-                                  name="department"
+                                  name="departmentInput"
                                   onChange={this.handleChange}
                                   id="exampleSelect"
                                 >
@@ -283,7 +361,7 @@ class UserDetail extends Component {
                                   <CustomInput
                                     type="radio"
                                     id="exampleCustomRadio2"
-                                    name="timeType"
+                                    name="timeTypeInput"
                                     label="Free Hours"
                                     value={1}
                                     onChange={(e) => this.handleChange(e)}
@@ -292,7 +370,7 @@ class UserDetail extends Component {
                                   <CustomInput
                                     type="radio"
                                     id="exampleCustomRadio"
-                                    name="timeType"
+                                    name="timeTypeInput"
                                     label="Office Hours"
                                     value={3}
                                     onChange={(e) => this.handleChange(e)}
@@ -301,7 +379,7 @@ class UserDetail extends Component {
                                   <CustomInput
                                     type="radio"
                                     id="exampleCustomRadio3"
-                                    name="timeType"
+                                    name="timeTypeInput"
                                     label="Security"
                                     value={2}
                                     onChange={(e) => this.handleChange(e)}
@@ -316,9 +394,9 @@ class UserDetail extends Component {
                               <FormGroup>
                                 <Label for="exampleDate">Joined Date</Label>
                                 <Input
-                                  value={this.state.joined_date}
+                                  value={this.state.joinedDateInput}
                                   type="date"
-                                  name="joinedDate"
+                                  name="joinedDateInput"
                                   id="exampleDate"
                                   placeholder="date placeholder"
                                   onChange={(e) => this.handleChange(e)}
@@ -329,9 +407,9 @@ class UserDetail extends Component {
                               <FormGroup>
                                 <Label for="exampleDate">Birth Date</Label>
                                 <Input
-                                  value={this.state.birthDate}
+                                  value={this.state.birthDateInput}
                                   type="date"
-                                  name="birthDate"
+                                  name="birthDateInput"
                                   onChange={(e) => this.handleChange(e)}
                                   id="exampleDate"
                                   placeholder="date placeholder"
@@ -343,8 +421,8 @@ class UserDetail extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Address</Label>
                                 <Input
-                                  value={this.state.address}
-                                  name="address"
+                                  value={this.state.addressInput}
+                                  name="addressInput"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -360,12 +438,12 @@ class UserDetail extends Component {
                                 <CustomInput
                                   type="file"
                                   id="exampleCustomFileBrowser"
-                                  name="profilePicture"
-                                  //   onChange={(e) =>
-                                  //     this.setState({
-                                  //       profilePicture: e.target.files[0],
-                                  //     })
-                                  //   }
+                                  name="avatar"
+                                    onChange={(e) =>
+                                      this.setState({
+                                        avatar: e.target.files[0],
+                                      })
+                                    }
                                 />
                               </FormGroup>
                             </Col>
@@ -487,12 +565,26 @@ class UserDetail extends Component {
                     Update Profile {this.props.user.dataProfile[0].name} ?
                   </ModalBody>
                   <ModalFooter>
-                    <Button
-                      color="secondary"
-                      onClick={() => this.toggleUpdateModal(0)}
-                    >
-                      Submit
-                    </Button>
+                    {this.state.isLoadingUpdate ? (
+                      <Button color="secondary">
+                        <div
+                          className="spinner-border spinner-border-sm text-danger"
+                          role="status"
+                        >
+                          <span className="sr-only">Loading...</span>
+                        </div>
+                      </Button>
+                    ):(
+                      <Button
+                        color="secondary"
+                        onClick={() => {
+                          this.toggleUpdateModal(0)
+                          this.update()
+                        }}
+                      >
+                        Submit
+                      </Button>
+                    )}
                     <Button
                       color="danger"
                       onClick={() => this.toggleUpdateModal(0)}
@@ -545,6 +637,6 @@ const mapStateToProps = (state) => ({
   department: state.department,
   login: state.login,
 })
-const mapDispatchToProps = { getProfile, getDepartment, deleteUser, sendNotif }
+const mapDispatchToProps = { getProfile, getDepartment, deleteUser, sendNotif, updateUser }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail)
