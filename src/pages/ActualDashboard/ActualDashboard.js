@@ -284,7 +284,7 @@ class ActualDashboard extends Component {
                         </span>
                         <div className="d-flex justify-content-end pl-2">
                           {' '}
-                          Is Late
+                          Late
                         </div>
                       </div>
                       <div className="d-flex flex-row  pl-4">
