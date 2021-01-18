@@ -188,7 +188,7 @@ const reportAttendanceChart = {
     series: [62, 32, 6],
   },
   options: {
-    height: '175px',
+    height: '193px',
     donut: true,
     donutWidth: 40,
     donutSolid: true,

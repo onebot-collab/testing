@@ -16,6 +16,7 @@ const dashboardStyle = {
   },
   stats: {
     color: grayColor[0],
+    backgroundColor: 'white',
     display: 'inline-flex',
     fontSize: '12px',
     lineHeight: '22px',
@@ -34,6 +35,10 @@ const dashboardStyle = {
       marginRight: '3px',
       marginLeft: '3px',
     },
+  },
+  statsContentText: {
+    color: grayColor[0],
+    fontSize: '10px',
   },
   cardCategory: {
     color: dangerColor[2],

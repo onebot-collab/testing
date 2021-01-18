@@ -75,18 +75,46 @@ class Announcement extends Component {
       title: '',
       description: '',
       deleteId: 0,
+      search: '',
+      page: 1,
     }
     this.fetch = this.fetch.bind(this)
     this.deleteAct = this.deleteAct.bind(this)
     this.toggleAddModal = this.toggleAddModal.bind(this)
     this.handleDepartmentChange = this.handleDepartmentChange.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
     this.addAnnouncement = this.addAnnouncement.bind(this)
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this)
+    this.nextPage = this.nextPage.bind(this)
+    this.prevPage = this.prevPage.bind(this)
+  }
+
+  handleSearch(event) {
+    this.setState({ [event.target.name]: event.target.value })
+    setTimeout(() => {
+      this.fetch()
+    }, 100);
+  }
+
+  nextPage() {
+    this.setState({ page: this.state.page + 1 })
+    setTimeout(() => {
+      this.fetch()
+    }, 100);
+  }
+
+  prevPage() {
+    if (this.state.page > 1) {
+      this.setState({ page: this.state.page - 1 })
+      setTimeout(() => {
+        this.fetch()
+      }, 100);
+    }
   }
 
   fetch() {
-    this.props.getAllCampaign(this.props.login.token).then(() => {
+    this.props.getAllCampaign(this.props.login.token, this.state.search, this.state.page).then(() => {
       this.setState({ isLoadingCampaign: false })
     })
   }
@@ -240,6 +268,8 @@ class Announcement extends Component {
               <form className="form-inline">
                 <input
                   className="form-control mr-sm-2"
+                  name="search"
+                  onChange={this.handleSearch}
                   type="search"
                   placeholder="Type Something ..."
                   aria-label="Search"
@@ -417,6 +447,9 @@ class Announcement extends Component {
                               />
                             </IconButton>
                           </div>
+                          <div>
+                              <p>{this.state.page}</p>
+                            </div>
                           <div className="p-2">
                             <IconButton>
                               <ArrowRight
