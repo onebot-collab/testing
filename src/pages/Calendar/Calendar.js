@@ -41,6 +41,7 @@ import {
   createReminder,
   getReminderByDay,
   deleteReminder,
+  getReminder,
 } from '../../redux/actions/reminder'
 import { sendNotif } from '../../redux/actions/fcm'
 import GridItem from '../../components/Grid/GridItem'
@@ -232,84 +233,15 @@ class CalendarScreen extends Component {
     const date = moment().format().slice(0, 10)
     // const final = date.toString().slice(0, 10)
     this.fetchReminder(date)
+    this.props.getReminder(this.props.login.token)
   }
 
   render() {
     const classes = makeStyles(styles)
     const classesHead = makeStyles(stylesHead)
     const classesBody = makeStyles(stylesBody)
-    const events = [
-      {
-        title: 'All Day Event very long title',
-        allDay: true,
-        start: '2020-11-11',
-        end: '2020-11-15',
-      },
-      {
-        title: 'All Day Event very long title',
-        allDay: true,
-        start: '2020-11-11',
-        end: '2020-11-15',
-      },
-      {
-        title: 'All Day Event very long title',
-        allDay: true,
-        start: '2020-11-11',
-        end: '2020-11-15',
-      },
-      {
-        title: 'All Day Event very long title',
-        allDay: true,
-        start: '2020-11-11',
-        end: '2020-11-15',
-      },
-      {
-        title: 'All Day Event very long title',
-        allDay: true,
-        start: '2020-11-11',
-        end: '2020-11-15',
-      },
-      {
-        title: 'All Day Event very long title',
-        allDay: true,
-        start: '2020-11-11',
-        end: '2020-11-15',
-      },
-      {
-        title: 'All Day Event very long title',
-        allDay: true,
-        start: '2020-11-11',
-        end: '2020-11-15',
-      },
-      {
-        title: 'All Day Event very long title',
-        allDay: true,
-        start: '2020-11-11',
-        end: '2020-11-15',
-      },
-      {
-        title: 'All Day Event very long title',
-        allDay: true,
-        start: '2020-11-11',
-        end: '2020-11-15',
-      },
-      {
-        title: 'All Day Event very long title',
-        allDay: true,
-        start: new Date(2020, 11, 0),
-        end: new Date(2020, 11, 1),
-      },
-      {
-        title: 'Long Event',
-        start: new Date(2020, 11, 7),
-        end: new Date(2020, 11, 10),
-      },
-      {
-        title: 'DTS STARTS',
-        start: new Date(2020, 11, 13, 0, 0, 0),
-        end: new Date(2020, 11, 20, 0, 0, 0),
-      },
-    ]
+    const events = this.props.reminder.dataReminder
+
     return (
       <div>
         {!this.props.login.token ? (
@@ -366,7 +298,7 @@ class CalendarScreen extends Component {
               <GridItem xs={12} sm={12} md={4}>
                 <Card>
                   <CardHeader color="danger">
-                    <h4 className="cardTitleWhite">Event</h4>
+                    <h4 className="cardTitleWhite">Today Events</h4>
                     {/* <p className="cardCategoryWhite">by Admin</p> */}
                   </CardHeader>
                   <CardBody>
@@ -631,6 +563,7 @@ const mapDispatchToProps = {
   createReminder,
   getReminderByDay,
   deleteReminder,
+  getReminder,
   sendNotif,
 }
 
