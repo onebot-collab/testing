@@ -86,16 +86,44 @@ class Inventory extends Component {
       expDate: '',
       fileInventory: '',
       deleteId: 0,
+      search: '',
+      page: 1,
     }
     this.toggleAddModal = this.toggleAddModal.bind(this)
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this)
     this.addInventory = this.addInventory.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.delete = this.delete.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
+    this.nextPage = this.nextPage.bind(this)
+    this.prevPage = this.prevPage.bind(this)
+  }
+
+  handleSearch(event) {
+    this.setState({ [event.target.name]: event.target.value })
+    setTimeout(() => {
+      this.fetch()
+    }, 100);
+  }
+
+  nextPage() {
+    this.setState({ page: this.state.page + 1 })
+    setTimeout(() => {
+      this.fetch()
+    }, 100);
+  }
+
+  prevPage() {
+    if (this.state.page > 1) {
+      this.setState({ page: this.state.page - 1 })
+      setTimeout(() => {
+        this.fetch()
+      }, 100);
+    }
   }
 
   fetch() {
-    this.props.getInventoryHome(this.props.login.token).then(() => {
+    this.props.getInventoryHome(this.props.login.token, this.state.search, this.state.page).then(() => {
       this.setState({ isLoading: false })
     })
   }
@@ -244,6 +272,8 @@ class Inventory extends Component {
                     <input
                       className="form-control mr-sm-2"
                       type="search"
+                      name="search"
+                      onChange={this.handleSearch}
                       placeholder="Type Something ..."
                       aria-label="Search"
                     ></input>
@@ -392,15 +422,18 @@ class Inventory extends Component {
                             </h6>
                           </div>
                           <div className="p-2">
-                            <IconButton>
+                            <IconButton onClick={this.prevPage}>
                               <ArrowLeft
                                 className="iconWhiteColor"
                                 fontSize="large"
                               />
                             </IconButton>
                           </div>
+                          <div>
+                            <p>{this.state.page}</p>
+                          </div>
                           <div className="p-2">
-                            <IconButton>
+                            <IconButton onClick={this.nextPage}>
                               <ArrowRight
                                 className="iconWhiteColor"
                                 fontSize="large"

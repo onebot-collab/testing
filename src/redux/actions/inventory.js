@@ -6,9 +6,9 @@ const getInventory = (sort) => ({
   payload: axios().get(`${URL}api/v1/inventory?${sort}=1`),
 })
 
-const getInventoryHome = (token) => ({
+const getInventoryHome = (token, search, page) => ({
   type: 'GETINVENTORY',
-  payload: axios(token).get(`${URL}api/v1/inventory?sort=0&limit=15`),
+  payload: axios(token).get(`${URL}api/v1/inventory?sort=0&limit=15&search=${search}&page=${page}`),
 })
 
 const postInventory = (dataSubmit, token) => ({
