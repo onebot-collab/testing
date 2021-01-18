@@ -2,15 +2,15 @@ import qs from 'querystring'
 import axios from '../../services/axios'
 const URL = 'http://localhost:21212/'
 
-const getReminder = () => ({
+const getReminder = (token) => ({
   type: 'REMINDER',
-  payload: axios().get(`${URL}api/v1/reminder`),
+  payload: axios(token).get(`${URL}api/v1/reminder`),
 })
 
-const getReminderByDay = (dataSubmit, token) => ({
+const getReminderByDay = (dataSubmit, token, search, page) => ({
   type: 'REMINDERTODAY',
   payload: axios(token).post(
-    `${URL}api/v1/reminder/remindertoday?limit=15`,
+    `${URL}api/v1/reminder/remindertoday?limit=15&search=${search}&page=${page}`,
     qs.stringify(dataSubmit),
   ),
 })

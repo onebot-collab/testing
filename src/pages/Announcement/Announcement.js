@@ -440,7 +440,7 @@ class Announcement extends Component {
                             </h6>
                           </div>
                           <div className="p-2">
-                            <IconButton>
+                            <IconButton onClick={this.prevPage}>
                               <ArrowLeft
                                 className="iconWhiteColor"
                                 fontSize="large"
@@ -448,10 +448,15 @@ class Announcement extends Component {
                             </IconButton>
                           </div>
                           <div>
+<<<<<<< HEAD
                               <p>{this.state.page}</p>
                             </div>
+=======
+                            <p>{this.state.page}</p>
+                          </div>
+>>>>>>> bde7367e41efe6c2cfeeeff3e68dbd942b43f865
                           <div className="p-2">
-                            <IconButton>
+                            <IconButton onClick={this.nextPage}>
                               <ArrowRight
                                 className="iconWhiteColor"
                                 fontSize="large"

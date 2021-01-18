@@ -1,6 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
+/* eslint-disable react/no-access-state-in-setstate */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import { connect } from 'react-redux'
@@ -57,6 +58,80 @@ class Invoice extends Component {
       isLoadingRejected: true,
       isLoadingProcessed: true,
       isLoadingClosed: true,
+      search: '',
+      pageWaiting: 1,
+      pageApproved: 1,
+      pageRejected: 1,
+      pageProcessed: 1,
+      pageClosed: 1,
+    }
+    this.handleSearch = this.handleSearch.bind(this)
+    this.nextPage = this.nextPage.bind(this)
+    this.prevPage = this.prevPage.bind(this)
+  }
+
+  handleSearch(event) {
+    this.setState({ [event.target.name]: event.target.value })
+    setTimeout(() => {
+      this.fetch()
+    }, 100);
+  }
+
+  nextPage(id) {
+    if (id === 1) {
+      this.setState({ pageWaiting: this.state.pageWaiting + 1 })
+      setTimeout(() => {
+        this.fetch()
+      }, 100);
+    } else if (id === 2) {
+      this.setState({ pageApproved: this.state.pageApproved + 1 })
+      setTimeout(() => {
+        this.fetch()
+      }, 100);
+    } else if (id === 3) {
+      this.setState({ pageRejected: this.state.pageRejected + 1 })
+      setTimeout(() => {
+        this.fetch()
+      }, 100);
+    } else if (id === 4) {
+      this.setState({ pageProcessed: this.state.pageProcessed + 1 })
+      setTimeout(() => {
+        this.fetch()
+      }, 100);
+    } else if (id === 5) {
+      this.setState({ pageClosed: this.state.pageClosed + 1 })
+      setTimeout(() => {
+        this.fetch()
+      }, 100);
+    }
+  }
+
+  prevPage(id) {
+    if (this.state.pageWaiting > 1 && id === 1) {
+      this.setState({ pageWaiting: this.state.pageWaiting - 1 })
+      setTimeout(() => {
+        this.fetch()
+      }, 100);
+    } else if (this.state.pageApproved > 1 && id === 2) {
+      this.setState({ pageApproved: this.state.pageApproved - 1 })
+      setTimeout(() => {
+        this.fetch()
+      }, 100);
+    } else if (this.state.pageRejected > 1 && id === 3)  {
+      this.setState({ pageRejected: this.state.pageRejected - 1 })
+      setTimeout(() => {
+        this.fetch()
+      }, 100);
+    } else if (this.state.pageProcessed > 1 && id === 4) {
+      this.setState({ pageProcessed: this.state.pageProcessed - 1 })
+      setTimeout(() => {
+        this.fetch()
+      }, 100);
+    } else if (this.state.pageClosed > 1 && id === 5) {
+      this.setState({ pageClosed: this.state.pageClosed - 1 })
+      setTimeout(() => {
+        this.fetch()
+      }, 100);
     }
   }
 
@@ -67,15 +142,15 @@ class Invoice extends Component {
   fetch() {
     const { token } = this.props.login
 
-    this.props.invoiceWaiting(token).then(() => {
+    this.props.invoiceWaiting(token, this.state.search, this.state.pageWaiting).then(() => {
       this.setState({ isLoadingWaiting: false })
-      this.props.invoiceApproved(token).then(() => {
+      this.props.invoiceApproved(token, this.state.search, this.state.pageApproved).then(() => {
         this.setState({ isLoadingApproved: false })
-        this.props.invoiceRejected(token).then(() => {
+        this.props.invoiceRejected(token, this.state.search, this.state.pageRejected).then(() => {
           this.setState({ isLoadingRejected: false })
-          this.props.invoiceProcessed(token).then(() => {
+          this.props.invoiceProcessed(token, this.state.search, this.state.pageProcessed).then(() => {
             this.setState({ isLoadingProcessed: false })
-            this.props.invoiceClosed(token).then(() => {
+            this.props.invoiceClosed(token, this.state.search, this.state.pageClosed).then(() => {
               this.setState({ isLoadingClosed: false })
             })
           })
@@ -103,6 +178,8 @@ class Invoice extends Component {
                 <input
                   className="form-control mr-sm-2"
                   type="search"
+                  name="search"
+                  onChange={this.handleSearch}
                   placeholder="Type Something ..."
                   aria-label="Search"
                 ></input>
@@ -305,15 +382,18 @@ class Invoice extends Component {
                               </h6>
                             </div>
                             <div className="p-2">
-                              <IconButton>
+                              <IconButton onClick={() => this.prevPage(1)}>
                                 <ArrowLeft
                                   className="iconWhiteColor"
                                   fontSize="large"
                                 />
                               </IconButton>
                             </div>
+                            <div>
+                            <p>{this.state.pageWaiting}</p>
+                          </div>
                             <div className="p-2">
-                              <IconButton>
+                              <IconButton onClick={() => this.nextPage(1)}>
                                 <ArrowRight
                                   className="iconWhiteColor"
                                   fontSize="large"
@@ -529,15 +609,18 @@ class Invoice extends Component {
                               </h6>
                             </div>
                             <div className="p-2">
-                              <IconButton>
+                              <IconButton onClick={() => this.prevPage(2)}>
                                 <ArrowLeft
                                   className="iconWhiteColor"
                                   fontSize="large"
                                 />
                               </IconButton>
                             </div>
+                            <div>
+                            <p>{this.state.pageApproved}</p>
+                          </div>
                             <div className="p-2">
-                              <IconButton>
+                              <IconButton onClick={() => this.nextPage(2)}>
                                 <ArrowRight
                                   className="iconWhiteColor"
                                   fontSize="large"
@@ -743,15 +826,18 @@ class Invoice extends Component {
                               </h6>
                             </div>
                             <div className="p-2">
-                              <IconButton>
+                              <IconButton onClick={() => this.prevPage(3)}>
                                 <ArrowLeft
                                   className="iconWhiteColor"
                                   fontSize="large"
                                 />
                               </IconButton>
                             </div>
+                            <div>
+                            <p>{this.state.pageRejected}</p>
+                          </div>
                             <div className="p-2">
-                              <IconButton>
+                              <IconButton onClick={() => this.nextPage(3)}>
                                 <ArrowRight
                                   className="iconWhiteColor"
                                   fontSize="large"
@@ -957,15 +1043,18 @@ class Invoice extends Component {
                               </h6>
                             </div>
                             <div className="p-2">
-                              <IconButton>
+                              <IconButton onClick={() => this.prevPage(4)}>
                                 <ArrowLeft
                                   className="iconWhiteColor"
                                   fontSize="large"
                                 />
                               </IconButton>
                             </div>
+                            <div>
+                            <p>{this.state.pageProcessed}</p>
+                          </div>
                             <div className="p-2">
-                              <IconButton>
+                              <IconButton onClick={() => this.nextPage(4)}>
                                 <ArrowRight
                                   className="iconWhiteColor"
                                   fontSize="large"
@@ -1171,15 +1260,18 @@ class Invoice extends Component {
                               </h6>
                             </div>
                             <div className="p-2">
-                              <IconButton>
+                              <IconButton onClick={() => this.prevPage(5)}>
                                 <ArrowLeft
                                   className="iconWhiteColor"
                                   fontSize="large"
                                 />
                               </IconButton>
                             </div>
+                            <div>
+                            <p>{this.state.pageClosed}</p>
+                          </div>
                             <div className="p-2">
-                              <IconButton>
+                              <IconButton onClick={() => this.nextPage(5)}>
                                 <ArrowRight
                                   className="iconWhiteColor"
                                   fontSize="large"
