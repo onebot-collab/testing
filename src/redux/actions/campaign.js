@@ -2,9 +2,9 @@ import qs from 'querystring'
 import axios from '../../services/axios'
 const URL = 'http://localhost:21212/'
 
-const getAllCampaign = (token) => ({
+const getAllCampaign = (token, search, page) => ({
   type: 'GETCAMPAIGN',
-  payload: axios(token).get(`${URL}api/v1/broadcast?limit=15`),
+  payload: axios(token).get(`${URL}api/v1/broadcast?limit=15&search=${search}&page=${page}`),
 })
 
 const getCampaign = (id) => ({

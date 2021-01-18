@@ -1,5 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
+/* eslint-disable react/no-access-state-in-setstate */
 import React, { Component } from 'react'
 import './Actual.css'
 // import { connect } from 'react-redux'
@@ -45,12 +46,40 @@ class Attendance extends Component {
     super(props)
     this.state = {
       isLoading: true,
+      search: '',
+      page: 1,
     }
     this.fetch = this.fetch.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
+    this.nextPage = this.nextPage.bind(this)
+    this.prevPage = this.prevPage.bind(this)
+  }
+
+  handleSearch(event) {
+    this.setState({ [event.target.name]: event.target.value })
+    setTimeout(() => {
+      this.fetch()
+    }, 100);
+  }
+
+  nextPage() {
+    this.setState({ page: this.state.page + 1 })
+    setTimeout(() => {
+      this.fetch()
+    }, 100);
+  }
+
+  prevPage() {
+    if (this.state.page > 1) {
+      this.setState({ page: this.state.page - 1 })
+      setTimeout(() => {
+        this.fetch()
+      }, 100);
+    }
   }
 
   fetch() {
-    this.props.allLog(this.props.login.token).then(() => {
+    this.props.allLog(this.props.login.token, this.state.search, this.state.page).then(() => {
       this.setState({ isLoading: false })
     })
   }
@@ -87,6 +116,8 @@ class Attendance extends Component {
               <form className="form-inline">
                 <input
                   className="form-control mr-sm-2"
+                  name="search"
+                  onChange={this.handleSearch}
                   type="search"
                   placeholder="Type Something ..."
                   aria-label="Search"
@@ -253,15 +284,18 @@ class Attendance extends Component {
                               </h6>
                             </div>
                             <div className="p-2">
-                              <IconButton>
+                              <IconButton onClick={this.prevPage} >
                                 <ArrowLeft
                                   className="iconWhiteColor"
                                   fontSize="large"
                                 />
                               </IconButton>
                             </div>
+                            <div>
+                              <p>{this.state.page}</p>
+                            </div>
                             <div className="p-2">
-                              <IconButton>
+                              <IconButton onClick={this.nextPage}>
                                 <ArrowRight
                                   className="iconWhiteColor"
                                   fontSize="large"
