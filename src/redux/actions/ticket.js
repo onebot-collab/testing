@@ -69,7 +69,7 @@ const getTicketClosed = () => ({
 
 const getAllTicket = (token) => ({
   type: 'ALLTICKET',
-  payload: axios(token).get(`${URL}api/v1/ticket`),
+  payload: axios(token).get(`${URL}api/v1/ticket?limit=15`),
 })
 
 const getTicketStats = (token) => ({

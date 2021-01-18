@@ -42,27 +42,27 @@ const uploadInvoiceImage = (dataSubmit, id) => ({
 
 const invoiceWaiting = (token) => ({
   type: 'INVOICEWAITING',
-  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/0`),
+  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/0?limit=15`),
 })
 
 const invoiceApproved = (token) => ({
   type: 'INVOICEAPPROVED',
-  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/1`),
+  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/1?limit=15`),
 })
 
 const invoiceRejected = (token) => ({
   type: 'INVOICEREJECTED',
-  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/2`),
+  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/2?limit=15`),
 })
 
 const invoiceProcessed = (token) => ({
   type: 'INVOICEPROCESSED',
-  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/3`),
+  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/3?limit=15`),
 })
 
 const invoiceClosed = (token) => ({
   type: 'INVOICECLOSED',
-  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/4`),
+  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/4?limit=15`),
 })
 
 export {

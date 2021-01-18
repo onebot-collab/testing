@@ -3,7 +3,7 @@ const URL = 'http://localhost:21212/'
 
 const getAllReport = (token) => ({
   type: 'GETALLREPORT',
-  payload: axios(token).get(`${URL}api/v1/report`),
+  payload: axios(token).get(`${URL}api/v1/report?limit=15`),
 })
 
 const getUserReport = (id) => ({

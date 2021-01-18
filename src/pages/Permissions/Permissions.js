@@ -237,7 +237,7 @@ class Permissions extends Component {
                         <div className="d-flex flex-row justify-content-end">
                           <div className="p-2 d-flex align-items-center align-self-center">
                             <h6>
-                              1 - 5 of {this.props.izin.dataIzinAll.length}
+                              1 - 15 of {this.props.izin.dataIzinAll.length}
                             </h6>
                           </div>
                           <div className="p-2">
