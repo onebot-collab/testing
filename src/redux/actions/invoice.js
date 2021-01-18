@@ -40,29 +40,29 @@ const uploadInvoiceImage = (dataSubmit, id) => ({
   payload: axios().patch(`${URL}api/v1/invoice/upload/${id}`, dataSubmit),
 })
 
-const invoiceWaiting = (token) => ({
+const invoiceWaiting = (token, search, page) => ({
   type: 'INVOICEWAITING',
-  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/0?limit=15`),
+  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/0?limit=15&search=${search}&page=${page}`),
 })
 
-const invoiceApproved = (token) => ({
+const invoiceApproved = (token, search, page) => ({
   type: 'INVOICEAPPROVED',
-  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/1?limit=15`),
+  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/1?limit=15&search=${search}&page=${page}`),
 })
 
-const invoiceRejected = (token) => ({
+const invoiceRejected = (token, search, page) => ({
   type: 'INVOICEREJECTED',
-  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/2?limit=15`),
+  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/2?limit=15&search=${search}&page=${page}`),
 })
 
-const invoiceProcessed = (token) => ({
+const invoiceProcessed = (token, search, page) => ({
   type: 'INVOICEPROCESSED',
-  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/3?limit=15`),
+  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/3?limit=15&search=${search}&page=${page}`),
 })
 
-const invoiceClosed = (token) => ({
+const invoiceClosed = (token, search, page) => ({
   type: 'INVOICECLOSED',
-  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/4?limit=15`),
+  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/4?limit=15&search=${search}&page=${page}`),
 })
 
 export {
