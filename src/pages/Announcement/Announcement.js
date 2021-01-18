@@ -448,8 +448,8 @@ class Announcement extends Component {
                             </IconButton>
                           </div>
                           <div>
-                              <p>{this.state.page}</p>
-                            </div>
+                            <p>{this.state.page}</p>
+                          </div>
                           <div className="p-2">
                             <IconButton onClick={this.nextPage}>
                               <ArrowRight

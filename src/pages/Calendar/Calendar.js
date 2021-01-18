@@ -75,11 +75,42 @@ class CalendarScreen extends Component {
       deleteId: 0,
       showDeleteModal: false,
       isLoadingDelete: false,
+      search: '',
+      page: 1,
     }
     this.toggleAddModal = this.toggleAddModal.bind(this)
     this.addReminder = this.addReminder.bind(this)
     this.deleteAct = this.deleteAct.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.nextPage = this.nextPage.bind(this)
+    this.prevPage = this.prevPage.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
+  }
+
+  handleSearch(event) {
+    this.setState({ [event.target.name]: event.target.value })
+    setTimeout(() => {
+      const date = moment().format().slice(0, 10)
+      this.fetchReminder(date)
+    }, 100);
+  }
+
+  nextPage() {
+    this.setState({ page: this.state.page + 1 })
+    setTimeout(() => {
+      const date = moment().format().slice(0, 10)
+      this.fetchReminder(date)
+    }, 100);
+  }
+
+  prevPage() {
+    if (this.state.page > 1) {
+      this.setState({ page: this.state.page - 1 })
+      setTimeout(() => {
+        const date = moment().format().slice(0, 10)
+        this.fetchReminder(date)
+      }, 100);
+    }
   }
 
   redirect() {
@@ -192,7 +223,7 @@ class CalendarScreen extends Component {
       date: day,
     }
 
-    this.props.getReminderByDay(dataSubmit, this.props.login.token).then(() => {
+    this.props.getReminderByDay(dataSubmit, this.props.login.token, this.state.search, this.state.page).then(() => {
       this.setState({ isLoadingFetchReminder: false })
     })
   }
@@ -299,6 +330,8 @@ class CalendarScreen extends Component {
                 <input
                   className="form-control mr-sm-2"
                   type="search"
+                  name="search"
+                  onChange={this.handleSearch}
                   placeholder="Type Something ..."
                   aria-label="Search"
                 ></input>
@@ -482,15 +515,18 @@ class CalendarScreen extends Component {
                         </h6>
                       </div>
                       <div className="p-2">
-                        <IconButton>
+                        <IconButton onClick={this.prevPage}>
                           <ArrowLeft
                             className="iconWhiteColor"
                             fontSize="large"
                           />
                         </IconButton>
                       </div>
+                      <div>
+                        <p>{this.state.page}</p>
+                      </div>
                       <div className="p-2">
-                        <IconButton>
+                        <IconButton onClick={this.nextPage}>
                           <ArrowRight
                             className="iconWhiteColor"
                             fontSize="large"
