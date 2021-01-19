@@ -3,6 +3,7 @@ const initialState = {
   isError: false,
   dataAdmin: [],
   dataUser: [],
+  infoUser: [],
   dataProfile: [],
 }
 
@@ -52,6 +53,7 @@ const user = (state = initialState, action) => {
         isLoading: false,
         isError: false,
         dataUser: action.payload.data.data,
+        infoUser: action.payload.data.pageInfo,
       }
     }
     case 'REGISTER_PENDING': {

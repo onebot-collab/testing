@@ -30,7 +30,7 @@ const inventory = (state = initialState, action) => {
         isLoadingInventory: false,
         isError: false,
         dataInventory: action.payload.data.data,
-        infoInventory: action.payload.data.pageInfo.pageInfo,
+        infoInventory: action.payload.data.pageInfo,
       }
     }
     case 'INVENTORYSTATUS_PENDING': {

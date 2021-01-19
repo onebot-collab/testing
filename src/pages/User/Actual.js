@@ -87,10 +87,12 @@ class User extends Component {
   }
 
   nextPage() {
-    this.setState({ page: this.state.page + 1 })
-    setTimeout(() => {
-      this.fetch()
-    }, 100);
+    if (this.state.page < this.props.user.infoUser.totalPage) {
+      this.setState({ page: this.state.page + 1 })
+      setTimeout(() => {
+        this.fetch()
+      }, 100);
+    }
   }
 
   prevPage() {
@@ -659,11 +661,20 @@ class User extends Component {
                             ))}
                           </List>
                           <div className="d-flex flex-row justify-content-end">
-                            <div className="p-2 d-flex align-items-center align-self-center">
-                              <h6>
-                                1 - 15 of {this.props.user.dataUser.length}
-                              </h6>
-                            </div>
+                            {this.state.isLoadingUser ? (
+                              <div
+                                className="spinner-border spinner-border-sm text-light"
+                                role="status"
+                              >
+                                <span className="sr-only">Loading...</span>
+                              </div>
+                            ):(
+                              <div className="p-2 d-flex align-items-center align-self-center">
+                                <h6>
+                                  15 of {this.props.user.infoUser.totalData}
+                                </h6>
+                              </div>
+                            )}
                             <div className="p-2">
                               <IconButton onClick={this.prevPage}>
                                 <ArrowLeft
