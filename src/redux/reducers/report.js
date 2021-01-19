@@ -3,6 +3,7 @@ const initialState = {
   isLoadingDelete: false,
   isError: false,
   dataAllReport: [],
+  infoAllReport: [],
   dataUserReport: [],
 }
 
@@ -29,6 +30,7 @@ const report = (state = initialState, action) => {
         isLoading: false,
         isError: false,
         dataAllReport: action.payload.data.data,
+        infoAllReport: action.payload.data.pageInfo,
       }
     }
     case 'GETUSERREPORT_PENDING': {
