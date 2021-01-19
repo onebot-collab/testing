@@ -97,10 +97,12 @@ class Ticketing extends Component {
   }
 
   nextPage() {
-    this.setState({ page: this.state.page + 1 })
-    setTimeout(() => {
-      this.fetch()
-    }, 100);
+    if (this.state.page < this.props.ticket.infoAllTicket.totalPage) {
+      this.setState({ page: this.state.page + 1 })
+      setTimeout(() => {
+        this.fetch()
+      }, 100);
+    }
   }
 
   prevPage() {
@@ -489,7 +491,7 @@ class Ticketing extends Component {
                         <div className="d-flex flex-row justify-content-end">
                           <div className="p-2 d-flex align-items-center align-self-center">
                             <h6>
-                              1 - 15 of {this.props.ticket.dataAllTicket.length}
+                              15 of {this.props.ticket.infoAllTicket.totalData}
                             </h6>
                           </div>
                           <div className="p-2">

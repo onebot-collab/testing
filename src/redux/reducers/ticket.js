@@ -8,6 +8,7 @@ const initialState = {
   isError: false,
   dataTicket: [],
   dataAllTicket: [],
+  infoAllTicket: [],
   dataTicketSent: [],
   dataTicketDepartment: [],
   dataMyTicket: [],
@@ -42,6 +43,7 @@ const ticket = (state = initialState, action) => {
         isLoading: false,
         isError: false,
         dataAllTicket: action.payload.data.data,
+        infoAllTicket: action.payload.data.pageInfo,
       }
     }
     case 'GETTICKET_PENDING': {
