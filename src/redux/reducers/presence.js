@@ -9,6 +9,7 @@ const initialState = {
   isLoadingUserLog: false,
   isLoadingAllLog: false,
   dataAllLog: [],
+  infoAllLog: [],
 }
 
 const presence = (state = initialState, action) => {
@@ -125,6 +126,7 @@ const presence = (state = initialState, action) => {
         isLoadingAllLog: false,
         isError: false,
         dataAllLog: action.payload.data.data,
+        infoAllLog: action.payload.data.pageInfo,
       }
     }
     default: {

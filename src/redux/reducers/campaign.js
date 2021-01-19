@@ -4,6 +4,7 @@ const initialState = {
   isError: false,
   errorMsg: '',
   dataCampaign: [],
+  infoCampaign: [],
 }
 
 const campaign = (state = initialState, action) => {
@@ -29,6 +30,7 @@ const campaign = (state = initialState, action) => {
         isLoadingCampaign: false,
         isError: false,
         dataCampaign: action.payload.data.data,
+        infoCampaign: action.payload.data.pageInfo,
       }
     }
     case 'CAMPAIGNSTATUS_PENDING': {

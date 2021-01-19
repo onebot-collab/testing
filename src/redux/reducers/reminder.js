@@ -5,6 +5,7 @@ const initialState = {
   isError: false,
   dataReminder: [],
   dataReminderToday: [],
+  infoReminderToday: [],
 }
 
 const reminder = (state = initialState, action) => {
@@ -53,6 +54,7 @@ const reminder = (state = initialState, action) => {
         isLoadingToday: false,
         isError: false,
         dataReminderToday: action.payload.data.data,
+        infoReminderToday: action.payload.data.pageInfo,
       }
     }
     case 'REMINDERSTATUS_PENDING': {

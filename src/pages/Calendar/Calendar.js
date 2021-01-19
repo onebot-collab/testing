@@ -97,11 +97,13 @@ class CalendarScreen extends Component {
   }
 
   nextPage() {
-    this.setState({ page: this.state.page + 1 })
-    setTimeout(() => {
-      const date = moment().format().slice(0, 10)
-      this.fetchReminder(date)
-    }, 100);
+    if (this.state.page < this.props.reminder.infoReminderToday.totalPage) {
+      this.setState({ page: this.state.page + 1 })
+      setTimeout(() => {
+        const date = moment().format().slice(0, 10)
+        this.fetchReminder(date)
+      }, 100);
+    }
   }
 
   prevPage() {
@@ -439,33 +441,44 @@ class CalendarScreen extends Component {
                         </TableBody>
                       </Table>
                     </TableContainer>
-                    <div className="d-flex flex-row justify-content-end">
-                      <div className="p-2 d-flex align-items-center align-self-center">
-                        <h6>
-                          1 - 15 of{' '}
-                          {this.props.reminder.dataReminderToday.length}
-                        </h6>
+                    {this.state.isLoadingFetchReminder ? (
+                      <center>
+                        <div
+                          className="d-flex align-self-center spinner-border text-white mt-2 mb-3"
+                          role="status"
+                        >
+                          <span className="sr-only">Loading...</span>
+                        </div>
+                      </center>
+                    ) : (
+                      <div className="d-flex flex-row justify-content-end">
+                        <div className="p-2 d-flex align-items-center align-self-center">
+                          <h6>
+                            1 - 15 of{' '}
+                            {this.props.reminder.infoReminderToday.totalData}
+                          </h6>
+                        </div>
+                        <div className="p-2">
+                          <IconButton onClick={this.prevPage}>
+                            <ArrowLeft
+                              className="iconWhiteColor"
+                              fontSize="large"
+                            />
+                          </IconButton>
+                        </div>
+                        <div>
+                          <p>{this.state.page}</p>
+                        </div>
+                        <div className="p-2">
+                          <IconButton onClick={this.nextPage}>
+                            <ArrowRight
+                              className="iconWhiteColor"
+                              fontSize="large"
+                            />
+                          </IconButton>
+                        </div>
                       </div>
-                      <div className="p-2">
-                        <IconButton onClick={this.prevPage}>
-                          <ArrowLeft
-                            className="iconWhiteColor"
-                            fontSize="large"
-                          />
-                        </IconButton>
-                      </div>
-                      <div>
-                        <p>{this.state.page}</p>
-                      </div>
-                      <div className="p-2">
-                        <IconButton onClick={this.nextPage}>
-                          <ArrowRight
-                            className="iconWhiteColor"
-                            fontSize="large"
-                          />
-                        </IconButton>
-                      </div>
-                    </div>
+                    )}
                   </CardBody>
                   <CardFooter></CardFooter>
                 </Card>
