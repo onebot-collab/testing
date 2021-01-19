@@ -4,6 +4,7 @@ const initialState = {
   isError: false,
   errorMsg: '',
   dataInventory: [],
+  infoInventory: [],
 }
 
 const inventory = (state = initialState, action) => {
@@ -29,6 +30,7 @@ const inventory = (state = initialState, action) => {
         isLoadingInventory: false,
         isError: false,
         dataInventory: action.payload.data.data,
+        infoInventory: action.payload.data.pageInfo.pageInfo,
       }
     }
     case 'INVENTORYSTATUS_PENDING': {
@@ -58,7 +60,6 @@ const inventory = (state = initialState, action) => {
         isLoadingInventory: false,
         isError: false,
         dataInventory: false,
-        dataINVENTORYSTATUS: false,
       }
     }
     default: {
