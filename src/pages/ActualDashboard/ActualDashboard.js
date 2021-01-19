@@ -25,6 +25,8 @@ import CardIcon from '../../components/Card/CardIcon'
 import CardBody from '../../components/Card/CardBody'
 import CardFooter from '../../components/Card/CardFooter'
 
+import {permitStats} from '../../redux/actions/izin'
+
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
 const Chartist = require('chartist')
 // const useStyles(){
@@ -34,10 +36,24 @@ class ActualDashboard extends Component {
   constructor(props) {
     super(props)
     this.redirect = this.redirect.bind(this)
+    this.state = {
+      isLoadingStatsPermit: true,
+    }
   }
 
   redirect() {
     this.props.history.push('/login')
+  }
+
+  fetchStatsPermit() {
+    this.setState({isLoadingStatsPermit: true})
+    this.props.permitStats(this.props.login.token).then(() => {
+      this.setState({isLoadingStatsPermit: false})
+    })
+  }
+
+  componentDidMount() {
+    this.fetchStatsPermit()
   }
 
   // useStyles(){
@@ -177,10 +193,17 @@ class ActualDashboard extends Component {
                       <Assignment />
                     </CardIcon>
                     <p className={classes.cardCategory}>Medical Leave</p>
-                    <h1 className={classes.cardTitle}>
                       {/* 49/50 <small>GB</small> */}
-                      00
-                    </h1>
+                      {this.state.isLoadingStatsPermit ? (
+                        <div
+                          className="spinner-border spinner-border-sm text-danger"
+                          role="status"
+                        >
+                          <span className="sr-only">Loading...</span>
+                        </div>
+                      ):(
+                        <h1 className={classes.cardTitle}>{this.props.izin.statsPermit[0].sickness}</h1>
+                      )}
                   </CardHeader>
                   <CardFooter stats>
                       <Update />
@@ -195,7 +218,16 @@ class ActualDashboard extends Component {
                       <AssignmentInd />
                     </CardIcon>
                     <p className={classes.cardCategory}>Permit</p>
-                    <h1 className={classes.cardTitle}>00</h1>
+                    {this.state.isLoadingStatsPermit ? (
+                        <div
+                          className="spinner-border spinner-border-sm text-danger"
+                          role="status"
+                        >
+                          <span className="sr-only">Loading...</span>
+                        </div>
+                      ):(
+                        <h1 className={classes.cardTitle}>{this.props.izin.statsPermit[0].permit}</h1>
+                      )}
                   </CardHeader>
                   <CardFooter stats>
                       <Update />
@@ -210,7 +242,16 @@ class ActualDashboard extends Component {
                       <AssignmentReturnIcon />
                     </CardIcon>
                     <p className={classes.cardCategory}>Leave</p>
-                    <h1 className={classes.cardTitle}>00</h1>
+                    {this.state.isLoadingStatsPermit ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-danger"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ):(
+                      <h1 className={classes.cardTitle}>{this.props.izin.statsPermit[0].total_leave}</h1>
+                    )}
                   </CardHeader>
                   <CardFooter stats>
                       <Update />
@@ -225,7 +266,16 @@ class ActualDashboard extends Component {
                       <AssignmentLate />
                     </CardIcon>
                     <p className={classes.cardCategory}>Late Coming</p>
-                    <h1 className={classes.cardTitle}>00</h1>
+                    {this.state.isLoadingStatsPermit ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-danger"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ):(
+                      <h1 className={classes.cardTitle}>{this.props.izin.statsPermit[0].latecoming}</h1>
+                    )}
                   </CardHeader>
                   <CardFooter stats>
                     <Update /> Happy Day, No requested incoming
@@ -237,7 +287,7 @@ class ActualDashboard extends Component {
               <GridItem xs={12} sm={12} md={4}>
                 <Card chart>
                   <CardHeader color="danger">
-                    <h4 className={classes.cardTitle}>Ticket Completed</h4>
+                    <h4 className={classes.cardTitle}>Completed Tickets</h4>
                   </CardHeader>
                   <CardBody>
                     <ChartistGraph
@@ -267,7 +317,7 @@ class ActualDashboard extends Component {
               <GridItem xs={12} sm={12} md={4}>
                 <Card chart>
                   <CardHeader color="danger">
-                    <h4 className={classes.cardTitle}>Attendance Statistic</h4>
+                    <h4 className={classes.cardTitle}>Attendance Statistics</h4>
                   </CardHeader>
                   <CardBody>
                     <ChartistGraph
@@ -288,7 +338,7 @@ class ActualDashboard extends Component {
                         </div>
                       </div>
                       <div className="d-flex flex-row  pl-4">
-                        <span className="badge badge-pill badge-warning align-self-center justify-content-start">
+                        <span className="badge badge-pill badge-success align-self-center justify-content-start">
                           %
                         </span>
                         <div className="d-flex justify-content-end pl-2">
@@ -297,7 +347,7 @@ class ActualDashboard extends Component {
                         </div>
                       </div>
                       <div className="d-flex flex-row  pl-4">
-                        <span className="badge badge-pill badge-light align-self-center justify-content-start">
+                        <span className="badge badge-pill badge-warning align-self-center justify-content-start">
                           %
                         </span>
                         <div className="d-flex justify-content-end pl-2 pr-2">
@@ -312,7 +362,7 @@ class ActualDashboard extends Component {
               <GridItem xs={12} sm={12} md={4}>
                 <Card chart>
                   <CardHeader color="danger">
-                    <h4 className={classes.cardTitle}>Report Incoming</h4>
+                    <h4 className={classes.cardTitle}>Incoming Reports</h4>
                   </CardHeader>
                   <CardBody>
                     <ChartistGraph
@@ -349,6 +399,8 @@ class ActualDashboard extends Component {
 
 const mapStateToProps = (state) => ({
   login: state.login,
+  izin: state.izin,
 })
+const mapDispatchToProps = {permitStats}
 
-export default connect(mapStateToProps, null)(ActualDashboard)
+export default connect(mapStateToProps, mapDispatchToProps)(ActualDashboard)

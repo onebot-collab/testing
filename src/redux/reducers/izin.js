@@ -9,6 +9,7 @@ const initialState = {
   infoIzinAll: [],
   dataIzinUser: [],
   dataMonthly: [],
+  statsPermit: [],
 }
 
 const izin = (state = initialState, action) => {
@@ -104,6 +105,29 @@ const izin = (state = initialState, action) => {
         isLoadingStats: false,
         isError: false,
         dataMonthly: action.payload.data.data,
+      }
+    }
+    case 'PERMITSTATS_PENDING': {
+      return {
+        ...state,
+        isLoadingStats: true,
+        isError: false,
+      }
+    }
+    case 'PERMITSTATS_REJECTED': {
+      return {
+        ...state,
+        isLoadingStats: false,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'PERMITSTATS_FULFILLED': {
+      return {
+        ...state,
+        isLoadingStats: false,
+        isError: false,
+        statsPermit: action.payload.data.data,
       }
     }
     case 'STATUSIZIN_PENDING': {

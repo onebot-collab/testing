@@ -35,6 +35,11 @@ const allIzin = (token, search, page) => ({
   payload: axios(token).get(`${URL}api/v1/permit?limit=15&search=${search}&page=${page}`),
 })
 
+const permitStats = (token) => ({
+  type: 'PERMITSTATS',
+  payload: axios(token).get(`${URL}api/v1/stats/permit/allusers?type=3`),
+})
+
 export {
   listIzin,
   updateStatus,
@@ -42,4 +47,5 @@ export {
   uploadFile,
   monthlyStats,
   allIzin,
+  permitStats,
 }
