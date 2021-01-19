@@ -65,8 +65,13 @@ class User extends Component {
       profilePicture: null,
       isLoadingUser: false,
       isLoadingRegister: false,
+      search: '',
+      page: 1,
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
+    this.prevPage = this.prevPage.bind(this)
+    this.nextPage = this.nextPage.bind(this)
     this.register = this.register.bind(this)
   }
 
@@ -74,9 +79,32 @@ class User extends Component {
     this.setState({ [event.target.name]: event.target.value })
   }
 
+  handleSearch(event) {
+    this.setState({ [event.target.name]: event.target.value })
+    setTimeout(() => {
+      this.fetch()
+    }, 100);
+  }
+
+  nextPage() {
+    this.setState({ page: this.state.page + 1 })
+    setTimeout(() => {
+      this.fetch()
+    }, 100);
+  }
+
+  prevPage() {
+    if (this.state.page > 1) {
+      this.setState({ page: this.state.page - 1 })
+      setTimeout(() => {
+        this.fetch()
+      }, 100);
+    }
+  }
+
   fetch() {
     this.setState({ isLoadingUser: true })
-    this.props.getUser(this.props.login.token).then(() => {
+    this.props.getUser(this.props.login.token, this.state.search, this.state.page).then(() => {
       this.setState({ isLoadingUser: false })
     })
   }
@@ -192,6 +220,8 @@ class User extends Component {
                 <input
                   className="form-control mr-sm-2"
                   type="search"
+                  name="search"
+                  onChange={this.handleSearch}
                   placeholder="Type Something ..."
                   aria-label="Search"
                 ></input>
@@ -635,15 +665,18 @@ class User extends Component {
                               </h6>
                             </div>
                             <div className="p-2">
-                              <IconButton>
+                              <IconButton onClick={this.prevPage}>
                                 <ArrowLeft
                                   className="iconWhiteColor"
                                   fontSize="large"
                                 />
                               </IconButton>
                             </div>
+                            <div>
+                              <p>{this.state.page}</p>
+                            </div>
                             <div className="p-2">
-                              <IconButton>
+                              <IconButton onClick={this.nextPage}>
                                 <ArrowRight
                                   className="iconWhiteColor"
                                   fontSize="large"
