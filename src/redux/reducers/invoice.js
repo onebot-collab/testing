@@ -14,6 +14,11 @@ const initialState = {
   dataInvoiceRejected: [],
   dataInvoiceProcessed: [],
   dataInvoiceClosed: [],
+  infoInvoiceWaiting: [],
+  infoInvoiceApproved: [],
+  infoInvoiceRejected: [],
+  infoInvoiceProcessed: [],
+  infoInvoiceClosed: [],
   dataInvoiceItem: [],
 }
 
@@ -86,6 +91,7 @@ const invoice = (state = initialState, action) => {
         isLoadingWaiting: false,
         isError: false,
         dataInvoiceWaiting: action.payload.data.data,
+        infoInvoiceWaiting: action.payload.data.pageInfo,
       }
     }
     case 'INVOICEAPPROVED_PENDING': {
@@ -109,6 +115,7 @@ const invoice = (state = initialState, action) => {
         isLoadingApproved: false,
         isError: false,
         dataInvoiceApproved: action.payload.data.data,
+        infoInvoiceApproved: action.payload.data.pageInfo,
       }
     }
     case 'INVOICEREJECTED_PENDING': {
@@ -132,6 +139,7 @@ const invoice = (state = initialState, action) => {
         isLoadingRejected: false,
         isError: false,
         dataInvoiceRejected: action.payload.data.data,
+        infoInvoiceRejected: action.payload.data.pageInfo,
       }
     }
     case 'INVOICEPROCESSED_PENDING': {
@@ -155,6 +163,7 @@ const invoice = (state = initialState, action) => {
         isLoadingProcessed: false,
         isError: false,
         dataInvoiceProcessed: action.payload.data.data,
+        infoInvoiceProcessed: action.payload.data.pageInfo,
       }
     }
     case 'INVOICECLOSED_PENDING': {
@@ -178,6 +187,7 @@ const invoice = (state = initialState, action) => {
         isLoadingClosed: false,
         isError: false,
         dataInvoiceClosed: action.payload.data.data,
+        infoInvoiceClosed: action.payload.data.pageInfo,
       }
     }
     case 'INVOICESTATUS_PENDING': {

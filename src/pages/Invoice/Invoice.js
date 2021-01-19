@@ -78,27 +78,27 @@ class Invoice extends Component {
   }
 
   nextPage(id) {
-    if (id === 1) {
+    if (id === 1 && this.state.pageWaiting < this.props.invoice.infoInvoiceWaiting.totalPage) {
       this.setState({ pageWaiting: this.state.pageWaiting + 1 })
       setTimeout(() => {
         this.fetch()
       }, 100);
-    } else if (id === 2) {
+    } else if (id === 2 && this.state.pageApproved < this.props.invoice.infoInvoiceApproved.totalPage) {
       this.setState({ pageApproved: this.state.pageApproved + 1 })
       setTimeout(() => {
         this.fetch()
       }, 100);
-    } else if (id === 3) {
+    } else if (id === 3 && this.state.pageRejected < this.props.invoice.infoInvoiceRejected.totalPage) {
       this.setState({ pageRejected: this.state.pageRejected + 1 })
       setTimeout(() => {
         this.fetch()
       }, 100);
-    } else if (id === 4) {
+    } else if (id === 4 && this.state.pageProcessed < this.props.invoice.infoInvoiceProcessedpageProcessed.totalPage) {
       this.setState({ pageProcessed: this.state.pageProcessed + 1 })
       setTimeout(() => {
         this.fetch()
       }, 100);
-    } else if (id === 5) {
+    } else if (id === 5 && this.state.pageClosed < this.props.invoice.infoInvoiceClosed.totalPage) {
       this.setState({ pageClosed: this.state.pageClosed + 1 })
       setTimeout(() => {
         this.fetch()
@@ -377,8 +377,8 @@ class Invoice extends Component {
                           <div className="d-flex flex-row justify-content-end">
                             <div className="p-2 d-flex align-items-center align-self-center">
                               <h6>
-                                1 - 15 of{' '}
-                                {this.props.invoice.dataInvoiceWaiting.length}
+                                15 of{' '}
+                                {this.props.invoice.infoInvoiceWaiting.totalData}
                               </h6>
                             </div>
                             <div className="p-2">
@@ -604,8 +604,8 @@ class Invoice extends Component {
                           <div className="d-flex flex-row justify-content-end">
                             <div className="p-2 d-flex align-items-center align-self-center">
                               <h6>
-                                1 - 15 of{' '}
-                                {this.props.invoice.dataInvoiceApproved.length}
+                                15 of{' '}
+                                {this.props.invoice.infoInvoiceApproved.totalData}
                               </h6>
                             </div>
                             <div className="p-2">
@@ -821,8 +821,8 @@ class Invoice extends Component {
                           <div className="d-flex flex-row justify-content-end">
                             <div className="p-2 d-flex align-items-center align-self-center">
                               <h6>
-                                1 - 15 of{' '}
-                                {this.props.invoice.dataInvoiceRejected.length}
+                                15 of{' '}
+                                {this.props.invoice.infoInvoiceRejected.totalData}
                               </h6>
                             </div>
                             <div className="p-2">
@@ -1038,8 +1038,8 @@ class Invoice extends Component {
                           <div className="d-flex flex-row justify-content-end">
                             <div className="p-2 d-flex align-items-center align-self-center">
                               <h6>
-                                1 - 15 of{' '}
-                                {this.props.invoice.dataInvoiceProcessed.length}
+                                15 of{' '}
+                                {this.props.invoice.infoInvoiceProcessed.totalData}
                               </h6>
                             </div>
                             <div className="p-2">
@@ -1255,8 +1255,8 @@ class Invoice extends Component {
                           <div className="d-flex flex-row justify-content-end">
                             <div className="p-2 d-flex align-items-center align-self-center">
                               <h6>
-                                1 - 15 of{' '}
-                                {this.props.invoice.dataInvoiceClosed.length}
+                                15 of{' '}
+                                {this.props.invoice.infoInvoiceClosed.totalData}
                               </h6>
                             </div>
                             <div className="p-2">

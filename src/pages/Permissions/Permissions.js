@@ -62,6 +62,7 @@ class Permissions extends Component {
   }
 
   nextPage() {
+    if (this.state.page < this.props.izin.infoIzinAll.totalPage)
     this.setState({ page: this.state.page + 1 })
     setTimeout(() => {
       this.fetch()
@@ -268,7 +269,7 @@ class Permissions extends Component {
                         <div className="d-flex flex-row justify-content-end">
                           <div className="p-2 d-flex align-items-center align-self-center">
                             <h6>
-                              1 - 15 of {this.props.izin.dataIzinAll.length}
+                              15 of {this.props.izin.infoIzinAll.totalData}
                             </h6>
                           </div>
                           <div className="p-2">

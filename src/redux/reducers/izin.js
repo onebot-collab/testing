@@ -6,6 +6,7 @@ const initialState = {
   isError: false,
   dataIzin: [],
   dataIzinAll: [],
+  infoIzinAll: [],
   dataIzinUser: [],
   dataMonthly: [],
 }
@@ -56,6 +57,7 @@ const izin = (state = initialState, action) => {
         isLoadingIzin: false,
         isError: false,
         dataIzinAll: action.payload.data.data,
+        infoIzinAll: action.payload.data.pageInfo,
       }
     }
     case 'GETIZINUSER_PENDING': {
