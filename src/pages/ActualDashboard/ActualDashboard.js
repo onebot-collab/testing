@@ -26,6 +26,7 @@ import CardBody from '../../components/Card/CardBody'
 import CardFooter from '../../components/Card/CardFooter'
 
 import {permitStats} from '../../redux/actions/izin'
+import {statsAttendance} from '../../redux/actions/presence'
 
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
 const Chartist = require('chartist')
@@ -38,6 +39,7 @@ class ActualDashboard extends Component {
     this.redirect = this.redirect.bind(this)
     this.state = {
       isLoadingStatsPermit: true,
+      isLoadingStatsAttendance: true,
     }
   }
 
@@ -52,8 +54,16 @@ class ActualDashboard extends Component {
     })
   }
 
+  fetchStatsAttendance() {
+    this.setState({isLoadingStatsAttendance: true})
+    this.props.statsAttendance(this.props.login.token).then(() => {
+      this.setState({isLoadingStatsAttendance: false})
+    })
+  }
+
   componentDidMount() {
     this.fetchStatsPermit()
+    this.fetchStatsAttendance()
   }
 
   // useStyles(){
@@ -114,20 +124,28 @@ class ActualDashboard extends Component {
       },
     }
 
-    const reportAttendanceChart = {
-      data: {
-        labels: ['62%', '32%', '6%'],
-        series: [62, 32, 6],
-      },
-      options: {
-        height: '193px',
-        donut: true,
-        donutWidth: 40,
-        donutSolid: true,
-        startAngle: 270,
-        showLabel: true,
-      },
-    }
+    // const reportAttendanceChart = {
+    //   data: {
+    //     labels: [
+    //       `${this.props.presence.statsAttendance.isLate}%`,
+    //       `${this.props.presence.statsAttendance.notLate}%`,
+    //       `${this.props.presence.statsAttendance.permit}%`,
+    //     ],
+    //     series: [
+    //       this.props.presence.statsAttendance.isLate,
+    //       this.props.presence.statsAttendance.notLate,
+    //       this.props.presence.statsAttendance.permit
+    //     ],
+    //   },
+    //   options: {
+    //     height: '193px',
+    //     donut: true,
+    //     donutWidth: 40,
+    //     donutSolid: true,
+    //     startAngle: 270,
+    //     showLabel: true,
+    //   },
+    // }
 
     const incomingReportChart = {
       data: {
@@ -320,11 +338,38 @@ class ActualDashboard extends Component {
                     <h4 className={classes.cardTitle}>Attendance Statistics</h4>
                   </CardHeader>
                   <CardBody>
-                    <ChartistGraph
-                      data={reportAttendanceChart.data}
-                      type="Pie"
-                      options={reportAttendanceChart.options}
-                    />
+                    {this.state.isLoadingStatsAttendance ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-danger"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ):(
+                      <ChartistGraph
+                        data={{
+                          labels: [
+                            `${this.props.presence.statsAttendance.isLate}%`,
+                            `${this.props.presence.statsAttendance.notLate}%`,
+                            `${this.props.presence.statsAttendance.permit}%`,
+                          ],
+                          series: [
+                            this.props.presence.statsAttendance.isLate,
+                            this.props.presence.statsAttendance.notLate,
+                            this.props.presence.statsAttendance.permit
+                          ],
+                        }}
+                        type="Pie"
+                        options={{
+                          height: '193px',
+                          donut: true,
+                          donutWidth: 40,
+                          donutSolid: true,
+                          startAngle: 270,
+                          showLabel: true,
+                        }}
+                      />
+                    )}
                   </CardBody>
                   <CardFooter chart>
                     <div className="d-flex justify-content-center ">
@@ -400,7 +445,8 @@ class ActualDashboard extends Component {
 const mapStateToProps = (state) => ({
   login: state.login,
   izin: state.izin,
+  presence: state.presence,
 })
-const mapDispatchToProps = {permitStats}
+const mapDispatchToProps = {permitStats, statsAttendance}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActualDashboard)

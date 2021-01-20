@@ -10,6 +10,7 @@ const initialState = {
   isLoadingAllLog: false,
   dataAllLog: [],
   infoAllLog: [],
+  statsAttendance: [],
 }
 
 const presence = (state = initialState, action) => {
@@ -127,6 +128,29 @@ const presence = (state = initialState, action) => {
         isError: false,
         dataAllLog: action.payload.data.data,
         infoAllLog: action.payload.data.pageInfo,
+      }
+    }
+    case 'STATSATTENDANCE_PENDING': {
+      return {
+        ...state,
+        isLoadingAllLog: true,
+        isError: false,
+      }
+    }
+    case 'STATSATTENDANCE_REJECTED': {
+      return {
+        ...state,
+        isLoadingAllLog: false,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'STATSATTENDANCE_FULFILLED': {
+      return {
+        ...state,
+        isLoadingAllLog: false,
+        isError: false,
+        statsAttendance: action.payload.data.data,
       }
     }
     default: {

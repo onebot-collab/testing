@@ -43,6 +43,11 @@ const allLog = (token, search, page) => ({
   payload: axios(token).get(`${URL}api/v1/absent/allinout?limit=15&search=${search}&page=${page}`),
 })
 
+const statsAttendance = (token) => ({
+  type: 'STATSATTENDANCE',
+  payload: axios(token).get(`${URL}api/v1/stats/attendances/allusers?type=4`),
+})
+
 export {
   checkIn,
   checkOut,
@@ -51,4 +56,5 @@ export {
   userLogHistory,
   lastCheck,
   allLog,
+  statsAttendance,
 }
