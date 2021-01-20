@@ -5,6 +5,7 @@ const initialState = {
   dataAllReport: [],
   infoAllReport: [],
   dataUserReport: [],
+  statsReport: [],
 }
 
 const report = (state = initialState, action) => {
@@ -98,6 +99,29 @@ const report = (state = initialState, action) => {
         ...state,
         isLoadingDelete: false,
         isError: false,
+      }
+    }
+    case 'STATSREPORT_PENDING': {
+      return {
+        ...state,
+        isLoadingDelete: true,
+        isError: false,
+      }
+    }
+    case 'STATSREPORT_REJECTED': {
+      return {
+        ...state,
+        isLoadingDelete: false,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'STATSREPORT_FULFILLED': {
+      return {
+        ...state,
+        isLoadingDelete: false,
+        isError: false,
+        statsReport: action.payload.data.data,
       }
     }
     default: {

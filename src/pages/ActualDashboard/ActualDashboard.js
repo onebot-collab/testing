@@ -28,6 +28,7 @@ import CardFooter from '../../components/Card/CardFooter'
 import {permitStats} from '../../redux/actions/izin'
 import {statsAttendance} from '../../redux/actions/presence'
 import {statsTicketClosed} from '../../redux/actions/ticket'
+import {statsReport} from '../../redux/actions/report'
 
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
 const Chartist = require('chartist')
@@ -42,6 +43,7 @@ class ActualDashboard extends Component {
       isLoadingStatsPermit: true,
       isLoadingStatsAttendance: true,
       isLoadingTicketClosed: true,
+      isLoadingStatsReport: true,
     }
   }
 
@@ -70,10 +72,18 @@ class ActualDashboard extends Component {
     })
   }
 
+  fetchStatsReport() {
+    this.setState({isLoadingStatsReport: true})
+    this.props.statsReport(this.props.login.token).then(() => {
+      this.setState({isLoadingStatsReport: false})
+    })
+  }
+
   componentDidMount() {
     this.fetchStatsPermit()
     this.fetchStatsAttendance()
     this.fetchStatsTicketClosed()
+    this.fetchStatsReport()
   }
 
   // useStyles(){
@@ -420,14 +430,37 @@ class ActualDashboard extends Component {
                     <h4 className={classes.cardTitle}>Incoming Reports</h4>
                   </CardHeader>
                   <CardBody>
-                    <ChartistGraph
-                      className="ct-chart"
-                      data={incomingReportChart.data}
-                      type="Line"
-                      options={incomingReportChart.options}
-                      listener={incomingReportChart.animation}
-                    />
-
+                    {this.state.isLoadingStatsReport ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-danger"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ):(
+                      <ChartistGraph
+                        className="ct-chart"
+                        data={
+                          {
+                            labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                            series: [
+                              [
+                                this.props.report.statsReport[1].countId,
+                                this.props.report.statsReport[2].countId,
+                                this.props.report.statsReport[3].countId,
+                                this.props.report.statsReport[4].countId,
+                                this.props.report.statsReport[5].countId,
+                                this.props.report.statsReport[6].countId,
+                                this.props.report.statsReport[0].countId,
+                              ]
+                            ],
+                          }
+                        }
+                        type="Line"
+                        options={incomingReportChart.options}
+                        listener={incomingReportChart.animation}
+                      />
+                    )}
                     <p className={classes.cardCategory}>
                       {/* <span className={classes.successText}>
                         <ArrowUpward className={classes.upArrowCardCategory} />{' '}
@@ -457,7 +490,8 @@ const mapStateToProps = (state) => ({
   izin: state.izin,
   presence: state.presence,
   ticket: state.ticket,
+  report: state.report,
 })
-const mapDispatchToProps = {permitStats, statsAttendance, statsTicketClosed}
+const mapDispatchToProps = {permitStats, statsAttendance, statsTicketClosed, statsReport}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActualDashboard)

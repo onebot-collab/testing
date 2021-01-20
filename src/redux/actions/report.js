@@ -21,4 +21,9 @@ const deleteReport = (id) => ({
   payload: axios().delete(`${URL}api/v1/report/${id}`),
 })
 
-export { getAllReport, getUserReport, createReport, deleteReport }
+const statsReport = (token) => ({
+  type: 'STATSREPORT',
+  payload: axios(token).get(`${URL}api/v1/stats/report/allusers?type=2`),
+})
+
+export { getAllReport, getUserReport, createReport, deleteReport, statsReport }
