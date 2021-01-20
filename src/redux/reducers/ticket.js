@@ -18,6 +18,7 @@ const initialState = {
   dataTicketComment: [],
   dataTicketCLosed: [],
   dataTicketStats: [],
+  statsTicketClosed: [],
 }
 
 const ticket = (state = initialState, action) => {
@@ -296,6 +297,29 @@ const ticket = (state = initialState, action) => {
         isLoadingStats: false,
         isError: false,
         dataTicketStats: action.payload.data.data,
+      }
+    }
+    case 'TICKETSTATSCLOSED_PENDING': {
+      return {
+        ...state,
+        isLoadingStats: true,
+        isError: false,
+      }
+    }
+    case 'TICKETSTATSCLOSED_REJECTED': {
+      return {
+        ...state,
+        isLoadingStats: false,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'TICKETSTATSCLOSED_FULFILLED': {
+      return {
+        ...state,
+        isLoadingStats: false,
+        isError: false,
+        statsTicketClosed: action.payload.data.data,
       }
     }
     default: {

@@ -27,6 +27,7 @@ import CardFooter from '../../components/Card/CardFooter'
 
 import {permitStats} from '../../redux/actions/izin'
 import {statsAttendance} from '../../redux/actions/presence'
+import {statsTicketClosed} from '../../redux/actions/ticket'
 
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
 const Chartist = require('chartist')
@@ -40,6 +41,7 @@ class ActualDashboard extends Component {
     this.state = {
       isLoadingStatsPermit: true,
       isLoadingStatsAttendance: true,
+      isLoadingTicketClosed: true,
     }
   }
 
@@ -61,9 +63,17 @@ class ActualDashboard extends Component {
     })
   }
 
+  fetchStatsTicketClosed() {
+    this.setState({isLoadingTicketClosed: true})
+    this.props.statsTicketClosed(this.props.login.token).then(() => {
+      this.setState({isLoadingTicketClosed: false})
+    })
+  }
+
   componentDidMount() {
     this.fetchStatsPermit()
     this.fetchStatsAttendance()
+    this.fetchStatsTicketClosed()
   }
 
   // useStyles(){
@@ -84,7 +94,7 @@ class ActualDashboard extends Component {
           tension: 0,
         }),
         low: 0,
-        high: 25,
+        high: 10,
         chartPadding: {
           top: 0,
           right: 0,
@@ -123,29 +133,6 @@ class ActualDashboard extends Component {
         },
       },
     }
-
-    // const reportAttendanceChart = {
-    //   data: {
-    //     labels: [
-    //       `${this.props.presence.statsAttendance.isLate}%`,
-    //       `${this.props.presence.statsAttendance.notLate}%`,
-    //       `${this.props.presence.statsAttendance.permit}%`,
-    //     ],
-    //     series: [
-    //       this.props.presence.statsAttendance.isLate,
-    //       this.props.presence.statsAttendance.notLate,
-    //       this.props.presence.statsAttendance.permit
-    //     ],
-    //   },
-    //   options: {
-    //     height: '193px',
-    //     donut: true,
-    //     donutWidth: 40,
-    //     donutSolid: true,
-    //     startAngle: 270,
-    //     showLabel: true,
-    //   },
-    // }
 
     const incomingReportChart = {
       data: {
@@ -308,14 +295,37 @@ class ActualDashboard extends Component {
                     <h4 className={classes.cardTitle}>Completed Tickets</h4>
                   </CardHeader>
                   <CardBody>
-                    <ChartistGraph
-                      className="ct-chart"
-                      data={ticketCompletedChart.data}
-                      type="Line"
-                      options={ticketCompletedChart.options}
-                      listener={ticketCompletedChart.animation}
-                    />
-
+                    {this.state.isLoadingTicketClosed ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-danger"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ):(
+                      <ChartistGraph
+                        className="ct-chart"
+                        data={
+                          {
+                            labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                            series: [
+                              [
+                                this.props.ticket.statsTicketClosed[1].countId,
+                                this.props.ticket.statsTicketClosed[2].countId,
+                                this.props.ticket.statsTicketClosed[3].countId,
+                                this.props.ticket.statsTicketClosed[4].countId,
+                                this.props.ticket.statsTicketClosed[5].countId,
+                                this.props.ticket.statsTicketClosed[6].countId,
+                                this.props.ticket.statsTicketClosed[0].countId,
+                              ]
+                            ],
+                          }
+                        }
+                        type="Line"
+                        options={ticketCompletedChart.options}
+                        listener={ticketCompletedChart.animation}
+                      />
+                    )}
                     <p className={classes.cardCategory}>
                       {/* <span className={classes.successText}>
                         <ArrowUpward className={classes.upArrowCardCategory} />{' '}
@@ -446,7 +456,8 @@ const mapStateToProps = (state) => ({
   login: state.login,
   izin: state.izin,
   presence: state.presence,
+  ticket: state.ticket,
 })
-const mapDispatchToProps = {permitStats, statsAttendance}
+const mapDispatchToProps = {permitStats, statsAttendance, statsTicketClosed}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActualDashboard)
