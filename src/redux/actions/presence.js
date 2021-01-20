@@ -33,9 +33,9 @@ const lastCheck = (id) => ({
   payload: axios().get(`${URL}api/v1/absent/lastcheck/${id}`),
 })
 
-const userLogHistory = (id, token) => ({
+const userLogHistory = (id, token, page) => ({
   type: 'USERLOG',
-  payload: axios(token).get(`${URL}api/v1/absent/allinout/${id}`),
+  payload: axios(token).get(`${URL}api/v1/absent/allinout/${id}?limit=15&page=${page}`),
 })
 
 const allLog = (token, search, page) => ({

@@ -3,6 +3,7 @@
 /* eslint-disable no-useless-constructor */
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
+/* eslint-disable react/no-access-state-in-setstate */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ChartistGraph from 'react-chartist'
@@ -49,13 +50,34 @@ class AttendanceDetail extends Component {
     this.state = {
       attendance: 85,
       isLoadingFetch: false,
+      page: 1,
+    }
+    this.nextPage = this.nextPage.bind(this)
+    this.prevPage = this.prevPage.bind(this)
+  }
+
+  nextPage() {
+    if (this.state.page < this.props.presence.infoUserLog.totalPage) {
+      this.setState({ page: this.state.page + 1 })
+      setTimeout(() => {
+        this.fetchUserLog()
+      }, 100);
+    }
+  }
+
+  prevPage() {
+    if (this.state.page > 1) {
+      this.setState({ page: this.state.page - 1 })
+      setTimeout(() => {
+        this.fetchUserLog()
+      }, 100);
     }
   }
 
   fetchUserLog() {
     this.setState({ isLoadingFetch: true })
     this.props
-      .userLogHistory(this.props.location.state.user_id, this.props.login.token)
+      .userLogHistory(this.props.location.state.user_id, this.props.login.token, this.state.page)
       .then(() => {
         this.setState({ isLoadingFetch: false })
       })
@@ -312,19 +334,22 @@ class AttendanceDetail extends Component {
                       <div className="d-flex flex-row justify-content-end">
                         <div className="p-2 d-flex align-items-center align-self-center">
                           <h6>
-                            1 - 5 of {this.props.presence.dataUserLog.length}
+                            15 of {this.props.presence.infoUserLog.totalData}
                           </h6>
                         </div>
                         <div className="p-2">
-                          <IconButton>
+                          <IconButton onClick={this.prevPage}>
                             <ArrowLeft
                               className="iconWhiteColor"
                               fontSize="large"
                             />
                           </IconButton>
                         </div>
+                        <div>
+                            <p>{this.state.page}</p>
+                          </div>
                         <div className="p-2">
-                          <IconButton>
+                          <IconButton onClick={this.nextPage}>
                             <ArrowRight
                               className="iconWhiteColor"
                               fontSize="large"

@@ -6,6 +6,7 @@ const initialState = {
   dataLastCheck: [],
   isLoadingLastCheck: false,
   dataUserLog: [],
+  infoUserLog: [],
   isLoadingUserLog: false,
   isLoadingAllLog: false,
   dataAllLog: [],
@@ -104,6 +105,7 @@ const presence = (state = initialState, action) => {
         isLoadingUserLog: false,
         isError: false,
         dataUserLog: action.payload.data.data,
+        infoUserLog: action.payload.data.pageInfo,
       }
     }
     case 'ALLLOG_PENDING': {
