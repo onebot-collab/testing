@@ -48,6 +48,11 @@ const statsAttendance = (token) => ({
   payload: axios(token).get(`${URL}api/v1/stats/attendances/allusers?type=4`),
 })
 
+const statsUserAttendance = (token, id) => ({
+  type: 'STATSUSERATTENDANCE',
+  payload: axios(token).get(`${URL}api/v1/stats/attendances/byuser?type=2&userId=${id}`),
+})
+
 export {
   checkIn,
   checkOut,
@@ -57,4 +62,5 @@ export {
   lastCheck,
   allLog,
   statsAttendance,
+  statsUserAttendance,
 }

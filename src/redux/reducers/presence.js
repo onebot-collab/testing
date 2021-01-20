@@ -12,6 +12,7 @@ const initialState = {
   dataAllLog: [],
   infoAllLog: [],
   statsAttendance: [],
+  statsUserAttendance: [],
 }
 
 const presence = (state = initialState, action) => {
@@ -153,6 +154,29 @@ const presence = (state = initialState, action) => {
         isLoadingAllLog: false,
         isError: false,
         statsAttendance: action.payload.data.data,
+      }
+    }
+    case 'STATSUSERATTENDANCE_PENDING': {
+      return {
+        ...state,
+        isLoadingAllLog: true,
+        isError: false,
+      }
+    }
+    case 'STATSUSERATTENDANCE_REJECTED': {
+      return {
+        ...state,
+        isLoadingAllLog: false,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'STATSUSERATTENDANCE_FULFILLED': {
+      return {
+        ...state,
+        isLoadingAllLog: false,
+        isError: false,
+        statsUserAttendance: action.payload.data.data,
       }
     }
     default: {

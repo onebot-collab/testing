@@ -30,7 +30,7 @@ import { Link } from 'react-router-dom'
 import { Cancel, CheckCircle, ArrowLeft, ArrowRight } from '@material-ui/icons'
 
 // core components
-import { userLogHistory } from '../../redux/actions/presence'
+import { userLogHistory, statsUserAttendance } from '../../redux/actions/presence'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -48,8 +48,8 @@ class AttendanceDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      attendance: 85,
       isLoadingFetch: false,
+      isLoadingStats: true,
       page: 1,
     }
     this.nextPage = this.nextPage.bind(this)
@@ -74,6 +74,13 @@ class AttendanceDetail extends Component {
     }
   }
 
+  fetchUserStats() {
+    this.setState({isLoadingStats: true})
+    this.props.statsUserAttendance(this.props.login.token, this.props.location.state.user_id).then(() => {
+      this.setState({isLoadingStats: false})
+    })
+  }
+
   fetchUserLog() {
     this.setState({ isLoadingFetch: true })
     this.props
@@ -85,6 +92,7 @@ class AttendanceDetail extends Component {
 
   componentDidMount() {
     this.fetchUserLog()
+    this.fetchUserStats()
   }
 
   renderEvents() {}
@@ -148,83 +156,100 @@ class AttendanceDetail extends Component {
                 <CardBody>
                   <Grid item xs container direction="row" spacing={2}>
                     <Grid item xs={12} sm={12} md={4}>
-                      <div className="d-flex justify-content-center">
-                        <Paper elevation={3}>
-                          <ChartistGraph
-                            className="chartPie"
-                            data={reportAttendanceChart.data}
-                            type="Pie"
-                            options={reportAttendanceChart.options}
-                          />
-                          <div className="d-flex justify-content-center ">
-                            <div className="d-flex flex-row pb-2 pl-2">
-                              <span className="badge badge-pill badge-danger align-self-center justify-content-start">
-                                %
-                              </span>
-                              <div className="d-flex justify-content-end pl-2">
-                                {' '}
-                                Is Late
+                      {this.state.isLoadingStats ? (
+                        <></>
+                      ):(
+                        <>
+                          <div className="d-flex justify-content-center">
+                            <Paper elevation={3}>
+                              <ChartistGraph
+                                className="chartPie"
+                                data={{
+                                  labels: [
+                                    `${this.props.presence.statsUserAttendance.isLate}%`,
+                                    `${this.props.presence.statsUserAttendance.notLate}%`,
+                                    `${this.props.presence.statsUserAttendance.permit}%`,
+                                  ],
+                                  series: [
+                                    this.props.presence.statsUserAttendance.isLate,
+                                    this.props.presence.statsUserAttendance.notLate,
+                                    this.props.presence.statsUserAttendance.permit,
+                                  ],
+                                }}
+                                type="Pie"
+                                options={reportAttendanceChart.options}
+                              />
+                              <div className="d-flex justify-content-center ">
+                                <div className="d-flex flex-row pb-2 pl-2">
+                                  <span className="badge badge-pill badge-danger align-self-center justify-content-start">
+                                    %
+                                  </span>
+                                  <div className="d-flex justify-content-end pl-2">
+                                    {' '}
+                                    Is Late
+                                  </div>
+                                </div>
+                                <div className="d-flex flex-row pb-2 pl-4">
+                                  <span className="badge badge-pill badge-warning align-self-center justify-content-start">
+                                    %
+                                  </span>
+                                  <div className="d-flex justify-content-end pl-2">
+                                    {' '}
+                                    On Time
+                                  </div>
+                                </div>
+                                <div className="d-flex flex-row pb-2 pl-4">
+                                  <span className="badge badge-pill badge-light align-self-center justify-content-start">
+                                    %
+                                  </span>
+                                  <div className="d-flex justify-content-end pl-2 pr-2">
+                                    {' '}
+                                    Leave
+                                  </div>
+                                </div>
                               </div>
-                            </div>
-                            <div className="d-flex flex-row pb-2 pl-4">
-                              <span className="badge badge-pill badge-warning align-self-center justify-content-start">
-                                %
-                              </span>
-                              <div className="d-flex justify-content-end pl-2">
-                                {' '}
-                                On Time
-                              </div>
-                            </div>
-                            <div className="d-flex flex-row pb-2 pl-4">
-                              <span className="badge badge-pill badge-light align-self-center justify-content-start">
-                                %
-                              </span>
-                              <div className="d-flex justify-content-end pl-2 pr-2">
-                                {' '}
-                                Leave
-                              </div>
-                            </div>
+                            </Paper>
                           </div>
-                        </Paper>
-                      </div>
-                      <div className="d-flex flex-column justify-content-around p-4 mt-3">
-                        <Paper
-                          elevation={2}
-                          className="d-flex flex-column p-2 m-1 tableFooter"
-                        >
-                          <p className="textPrimaryColor align-self-center">
-                            Target Monthly Hours
-                          </p>
-                          <h3 className="textPrimaryColor align-self-center">
-                            200 Hours
-                          </h3>
-                        </Paper>
-                        <Paper
-                          elevation={2}
-                          className="d-flex flex-column p-2 m-1 tableFooter"
-                        >
-                          <p className="textPrimaryColor align-self-center">
-                            Achieved Monthly Hours
-                          </p>
-                          <h3 className="textPrimaryColor align-self-center">
-                            175 Hours
-                          </h3>
-                          {/* <Box display="flex" alignItems="center">
-                          <Box width="80%" mr={1}>
-                            <LinearProgress variant="determinate" />
-                          </Box>
-                          <Box minWidth={35}>
-                            <Typography variant="body2" color="textSecondary">
-                              100%
-                            </Typography>
-                          </Box>
-                        </Box> */}
-                          <LinearProgress
-                            variant="determinate"
-                            value={this.state.attendance}
-                          />
-                        </Paper>
-                      </div>
+                          <div className="d-flex flex-column justify-content-around p-4 mt-3">
+                            <Paper
+                              elevation={2}
+                              className="d-flex flex-column p-2 m-1 tableFooter"
+                            >
+                              <p className="textPrimaryColor align-self-center">
+                                Target Weekly Hours
+                              </p>
+                              <h3 className="textPrimaryColor align-self-center">
+                                46 Hours
+                              </h3>
+                            </Paper>
+                            <Paper
+                              elevation={2}
+                              className="d-flex flex-column p-2 m-1 tableFooter"
+                            >
+                              <p className="textPrimaryColor align-self-center">
+                                Achieved Weekly Hours
+                              </p>
+                              <h3 className="textPrimaryColor align-self-center">
+                                {this.props.presence.statsUserAttendance.totalWorkingInHours} Hours
+                              </h3>
+                              {/* <Box display="flex" alignItems="center">
+                                <Box width="80%" mr={1}>
+                                  <LinearProgress variant="determinate" />
+                                </Box>
+                                <Box minWidth={35}>
+                                  <Typography variant="body2" color="textSecondary">
+                                    100%
+                                  </Typography>
+                                </Box>
+                              </Box> */}
+                              <LinearProgress
+                                variant="determinate"
+                                value={(this.props.presence.statsUserAttendance.totalWorkingInHours/46) * 100}
+                              />
+                            </Paper>
+                          </div>
+                        </>
+                      )}
                     </Grid>
                     <Grid item xs={12} sm={12} md={8}>
                       <TableContainer>
@@ -403,6 +428,6 @@ const mapStateToProps = (state) => ({
   presence: state.presence,
   login: state.login,
 })
-const mapDispatchToProps = { userLogHistory }
+const mapDispatchToProps = { userLogHistory, statsUserAttendance }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AttendanceDetail)
