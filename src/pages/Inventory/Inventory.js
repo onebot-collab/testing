@@ -2,6 +2,7 @@
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
+/* eslint-disable react/no-unused-state */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import './Inventory.css'
@@ -36,11 +37,7 @@ import {
 import swal from 'sweetalert2'
 
 // @material-ui/icons
-import { Visibility } from '@material-ui/icons'
-import ArrowLeft from '@material-ui/icons/ArrowLeft'
-import ArrowRight from '@material-ui/icons/ArrowRight'
-import Add from '@material-ui/icons/Add'
-import Delete from '@material-ui/icons/Delete'
+import { Visibility, Delete, Add, ArrowLeft, ArrowRight, Print } from '@material-ui/icons'
 // import Delete from '@material-ui/icons/Delete'
 // import Check from '@material-ui/icons/Check'
 // import Edit from '@material-ui/icons/Edit'
@@ -50,6 +47,7 @@ import {
   getInventoryHome,
   postInventory,
   deleteInventory,
+  exportInventory,
 } from '../../redux/actions/inventory'
 import { sendNotif } from '../../redux/actions/fcm'
 
@@ -77,6 +75,7 @@ class Inventory extends Component {
     this.state = {
       isLoading: true,
       isLoadingAddInventory: false,
+      isLoadingExportInventory: true,
       showAddModal: false,
       showDeleteModal: false,
       name: '',
@@ -97,6 +96,7 @@ class Inventory extends Component {
     this.handleSearch = this.handleSearch.bind(this)
     this.nextPage = this.nextPage.bind(this)
     this.prevPage = this.prevPage.bind(this)
+    this.export = this.export.bind(this)
   }
 
   handleSearch(event) {
@@ -126,6 +126,19 @@ class Inventory extends Component {
   fetch() {
     this.props.getInventoryHome(this.props.login.token, this.state.search, this.state.page).then(() => {
       this.setState({ isLoading: false })
+    })
+  }
+
+  export() {
+    this.setState({isLoadingExportInventory: true})
+    this.props.exportInventory(this.props.login.token).then((res) => {
+      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'file.pdf');
+      document.body.appendChild(link);
+      link.click();
+      this.setState({isLoadingExportInventory: true})
     })
   }
 
@@ -164,7 +177,7 @@ class Inventory extends Component {
         initialRoute: 'Inventory',
       },
     }
-
+  
     this.props.sendNotif(dataSubmit)
   }
 
@@ -261,7 +274,7 @@ class Inventory extends Component {
               <>
                 <nav className="navbar navbar-light bg-light">
                   <Button
-                    onClick={this.toggleAddModal}
+                    onClick={this.addInventory}
                     variant="contained"
                     color="primary"
                     // className="buttonAdd"
@@ -269,22 +282,40 @@ class Inventory extends Component {
                   >
                     Add
                   </Button>
-                  <form className="form-inline">
-                    <input
-                      className="form-control mr-sm-2"
-                      type="search"
-                      name="search"
-                      onChange={this.handleSearch}
-                      placeholder="Type Something ..."
-                      aria-label="Search"
-                    ></input>
+                  <div className="d-flex flex-row">
+                    <form className="form-inline mr-5">
+                      <input
+                        className="form-control mr-sm-2"
+                        type="search"
+                        name="search"
+                        onChange={this.handleSearch}
+                        placeholder="Type Something ..."
+                        aria-label="Search"
+                      ></input>
+                      <button
+                        className="btn btn-outline-danger my-2 my-sm-0"
+                        type="submit"
+                      >
+                        Search
+                      </button>
+                    </form>
                     <button
-                      className="btn btn-outline-danger my-2 my-sm-0"
+                      className="btn btn-danger my-2 my-sm-0"
                       type="submit"
+                      onClick={this.export}
                     >
-                      Search
+                      <Tooltip
+                        id="tooltip-top-start"
+                        title="Click to Detail"
+                        placement="top"
+                        classes={{
+                          tooltip: classesBody.tooltip,
+                        }}
+                      >
+                        <Print className="iconWhiteColor" />
+                      </Tooltip>
                     </button>
-                  </form>
+                  </div>
                 </nav>
 
                 <GridContainer>
@@ -556,6 +587,7 @@ const mapDispatchToProps = {
   postInventory,
   deleteInventory,
   sendNotif,
+  exportInventory
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Inventory)

@@ -26,10 +26,16 @@ const deleteInventory = (id, token) => ({
   payload: axios(token).delete(`${URL}api/v1/inventory/${id}`),
 })
 
+const exportInventory = (token) => ({
+  type: 'INVENTORYSTATUS',
+  payload: axios(token).get(`${URL}api/v1/inventory?downloadPdf=1`, {responseType: 'blob'}),
+})
+
 export {
   getInventory,
   getInventoryHome,
   postInventory,
   patchInventory,
   deleteInventory,
+  exportInventory,
 }
