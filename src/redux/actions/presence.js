@@ -40,7 +40,7 @@ const userLogHistory = (id, token, page) => ({
 
 const exportUserLogHistory = (id, token) => ({
   type: 'CHECKLOG',
-  payload: axios(token).get(`${URL}api/v1/absent/allinout/${id}?downloadPdf=1`),
+  payload: axios(token).get(`${URL}api/v1/absent/allinout/${id}?downloadPdf=1`, {responseType: 'blob'}),
 })
 
 const allLog = (token, search, page) => ({
@@ -50,7 +50,7 @@ const allLog = (token, search, page) => ({
 
 const exportAllLog = (token) => ({
   type: 'CHECKLOG',
-  payload: axios(token).get(`${URL}api/v1/absent/allinout?downloadPdf=1`),
+  payload: axios(token).get(`${URL}api/v1/absent/allinout?downloadPdf=1`, {responseType: 'blob'}),
 })
 
 const statsAttendance = (token) => ({

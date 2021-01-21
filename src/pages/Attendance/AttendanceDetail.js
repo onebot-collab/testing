@@ -25,12 +25,13 @@ import TableBody from '@material-ui/core/TableBody'
 import TableRow from '@material-ui/core/TableRow'
 import Tooltip from '@material-ui/core/Tooltip'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 
 // @material-ui/icons
-import { Cancel, CheckCircle, ArrowLeft, ArrowRight } from '@material-ui/icons'
+import { Cancel, CheckCircle, ArrowLeft, ArrowRight, Print } from '@material-ui/icons'
 
 // core components
-import { userLogHistory, statsUserAttendance } from '../../redux/actions/presence'
+import { userLogHistory, statsUserAttendance, exportUserLogHistory } from '../../redux/actions/presence'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -50,10 +51,12 @@ class AttendanceDetail extends Component {
     this.state = {
       isLoadingFetch: false,
       isLoadingStats: true,
+      isLoadingExportUserLog: false,
       page: 1,
     }
     this.nextPage = this.nextPage.bind(this)
     this.prevPage = this.prevPage.bind(this)
+    this.export = this.export.bind(this)
   }
 
   nextPage() {
@@ -87,7 +90,20 @@ class AttendanceDetail extends Component {
       .userLogHistory(this.props.location.state.user_id, this.props.login.token, this.state.page)
       .then(() => {
         this.setState({ isLoadingFetch: false })
-      })
+    })
+  }
+
+  export() {
+    this.setState({isLoadingExportUserLog: true})
+    this.props.exportUserLogHistory(this.props.location.state.user_id, this.props.login.token).then((res) => {
+      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `Report-${this.props.location.state.nameUser}'s-Attendance_${moment().format('DD-MM-YY')}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      this.setState({isLoadingExportUserLog: false})
+    })
   }
 
   componentDidMount() {
@@ -117,6 +133,35 @@ class AttendanceDetail extends Component {
     }
     return (
       <div>
+         <nav className="navbar navbar-light bg-light d-flex justify-content-end">
+            <div className="d-flex flex-row">
+              <button
+                className="btn btn-danger my-2 my-sm-0"
+                type="submit"
+                onClick={this.export}
+              >
+                <Tooltip
+                  id="tooltip-top-start"
+                  title="Export to PDF"
+                  placement="top"
+                  classes={{
+                    tooltip: classesBody.tooltip,
+                  }}
+                >
+                  {this.state.isLoadingExportUserLog ? (
+                    <div
+                      className="spinner-border spinner-border-sm text-white"
+                      role="status"
+                    >
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ):(
+                    <Print className="iconWhiteColor" />
+                  )}
+                </Tooltip>
+              </button>
+            </div>
+          </nav>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <Card>
@@ -428,6 +473,6 @@ const mapStateToProps = (state) => ({
   presence: state.presence,
   login: state.login,
 })
-const mapDispatchToProps = { userLogHistory, statsUserAttendance }
+const mapDispatchToProps = { userLogHistory, statsUserAttendance, exportUserLogHistory }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AttendanceDetail)
