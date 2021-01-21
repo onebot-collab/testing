@@ -19,14 +19,16 @@ import TableRow from '@material-ui/core/TableRow'
 // import Button from '@material-ui/core/Button'
 // import Fab from '@material-ui/core/Fab'
 
+import moment from 'moment'
+
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
 import Visibility from '@material-ui/icons/Visibility'
 // import File from '@material-ui/icons/InsertDriveFile'
 import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
-import { Cancel, CheckCircle } from '@material-ui/icons'
-import { allLog } from '../../redux/actions/presence'
+import { Cancel, CheckCircle, Print } from '@material-ui/icons'
+import { allLog, exportAllLog } from '../../redux/actions/presence'
 
 // import Check from '@material-ui/icons/Check'
 // core components
@@ -46,6 +48,7 @@ class Attendance extends Component {
     super(props)
     this.state = {
       isLoading: true,
+      isLoadingExportAllLog: false,
       search: '',
       page: 1,
     }
@@ -53,6 +56,7 @@ class Attendance extends Component {
     this.handleSearch = this.handleSearch.bind(this)
     this.nextPage = this.nextPage.bind(this)
     this.prevPage = this.prevPage.bind(this)
+    this.export = this.export.bind(this)
   }
 
   handleSearch(event) {
@@ -86,6 +90,19 @@ class Attendance extends Component {
     })
   }
 
+  export() {
+    this.setState({isLoadingExportAllLog: true})
+    this.props.exportAllLog(this.props.login.token).then((res) => {
+      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `Report-All-User-Attendance_${moment().format('DD-MM-YY')}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      this.setState({isLoadingExportAllLog: false})
+    })
+  }
+
   redirect() {
     this.props.history.push('/login')
   }
@@ -115,22 +132,49 @@ class Attendance extends Component {
               </Button>
             </Link> */}
             <nav className="navbar navbar-light bg-light d-flex justify-content-end">
-              <form className="form-inline">
-                <input
-                  className="form-control mr-sm-2"
-                  name="search"
-                  onChange={this.handleSearch}
-                  type="search"
-                  placeholder="Type Something ..."
-                  aria-label="Search"
-                ></input>
+              <div className="d-flex flex-row">
+                <form className="form-inline mr-5">
+                  <input
+                    className="form-control mr-sm-2"
+                    type="search"
+                    name="search"
+                    onChange={this.handleSearch}
+                    placeholder="Type Something ..."
+                    aria-label="Search"
+                  ></input>
+                  <button
+                    className="btn btn-outline-danger my-2 my-sm-0"
+                    type="submit"
+                  >
+                    Search
+                  </button>
+                </form>
                 <button
-                  className="btn btn-outline-danger my-2 my-sm-0"
+                  className="btn btn-danger my-2 my-sm-0"
                   type="submit"
+                  onClick={this.export}
                 >
-                  Search
+                  <Tooltip
+                    id="tooltip-top-start"
+                    title="Export to PDF"
+                    placement="top"
+                    classes={{
+                      tooltip: classesBody.tooltip,
+                    }}
+                  >
+                    {this.state.isLoadingExportAllLog ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-white"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ):(
+                      <Print className="iconWhiteColor" />
+                    )}
+                  </Tooltip>
                 </button>
-              </form>
+              </div>
             </nav>
 
             <GridContainer>
@@ -323,6 +367,6 @@ const mapStateToProps = (state) => ({
   presence: state.presence,
   login: state.login,
 })
-const mapDispatchToProps = { allLog }
+const mapDispatchToProps = { allLog, exportAllLog }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Attendance)

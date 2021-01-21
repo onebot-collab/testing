@@ -35,6 +35,7 @@ import {
   CustomInput,
 } from 'reactstrap'
 import swal from 'sweetalert2'
+import moment from 'moment'
 
 // @material-ui/icons
 import { Visibility, Delete, Add, ArrowLeft, ArrowRight, Print } from '@material-ui/icons'
@@ -75,7 +76,7 @@ class Inventory extends Component {
     this.state = {
       isLoading: true,
       isLoadingAddInventory: false,
-      isLoadingExportInventory: true,
+      isLoadingExportInventory: false,
       showAddModal: false,
       showDeleteModal: false,
       name: '',
@@ -135,10 +136,10 @@ class Inventory extends Component {
       const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', 'file.pdf');
+      link.setAttribute('download', `Inventory-Report_${moment().format('DD-MM-YY')}.pdf`);
       document.body.appendChild(link);
       link.click();
-      this.setState({isLoadingExportInventory: true})
+      this.setState({isLoadingExportInventory: false})
     })
   }
 
@@ -306,13 +307,22 @@ class Inventory extends Component {
                     >
                       <Tooltip
                         id="tooltip-top-start"
-                        title="Click to Detail"
+                        title="Export to PDF"
                         placement="top"
                         classes={{
                           tooltip: classesBody.tooltip,
                         }}
                       >
-                        <Print className="iconWhiteColor" />
+                        {this.state.isLoadingExportInventory ? (
+                          <div
+                            className="spinner-border spinner-border-sm text-white"
+                            role="status"
+                          >
+                            <span className="sr-only">Loading...</span>
+                          </div>
+                        ):(
+                          <Print className="iconWhiteColor" />
+                        )}
                       </Tooltip>
                     </button>
                   </div>
