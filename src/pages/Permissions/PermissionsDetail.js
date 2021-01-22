@@ -4,6 +4,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 // import { connect } from 'react-redux'
 import './PermissionsDetail.css'
 import 'react-pro-sidebar/dist/css/styles.css'
@@ -13,10 +14,12 @@ import Grid from '@material-ui/core/Grid'
 // import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
+import Tooltip from '@material-ui/core/Tooltip'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
@@ -28,6 +31,10 @@ import Assignment from '@material-ui/icons/Assignment'
 import Attachment from '@material-ui/icons/Attachment'
 import CheckCircle from '@material-ui/icons/CheckCircle'
 import Cancel from '@material-ui/icons/Cancel'
+import Print from '@material-ui/icons/Print'
+
+
+import { exportIzinDetail } from '../../redux/actions/izin'
 
 // import Check from '@material-ui/icons/Check'
 // core components
@@ -39,10 +46,9 @@ import CardBody from '../../components/Card/CardBody'
 
 // core components
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
-// import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
-// import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
+import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
-export default class PermissionsDetail extends Component {
+class PermissionsDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -55,7 +61,22 @@ export default class PermissionsDetail extends Component {
       name_tosend: props.location.state.name_tosend,
       file: props.location.state.file,
       reason: props.location.state.reason,
+      isLoadingExportIzinDetail: false, 
     }
+    this.export = this.export.bind(this)
+  }
+
+  export() {
+    this.setState({isLoadingExportIzinDetail: true})
+    this.props.exportIzinDetail(this.props.login.token, this.props.location.state.id).then((res) => {
+      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `Report-Leave-Application-Detail-${this.props.location.state.id}_${moment().format('DD-MM-YY')}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      this.setState({isLoadingExportIzinDetail: false})
+    })
   }
 
   componentDidMount() {}
@@ -64,10 +85,38 @@ export default class PermissionsDetail extends Component {
 
   render() {
     const classes = makeStyles(styles)
-    // const classesHead = makeStyles(stylesHead)
-    // const classesBody = makeStyles(stylesBody)
+    const classesBody = makeStyles(stylesBody)
     return (
       <div>
+        <nav className="navbar navbar-light bg-light d-flex justify-content-end">
+          <div className="d-flex flex-row">
+            <button
+              className="btn btn-danger my-2 my-sm-0"
+              type="submit"
+              onClick={this.export}
+            >
+              <Tooltip
+                id="tooltip-top-start"
+                title="Export to PDF"
+                placement="top"
+                classes={{
+                  tooltip: classesBody.tooltip,
+                }}
+              >
+                {this.state.isLoadingExportIzinDetail ? (
+                  <div
+                    className="spinner-border spinner-border-sm text-white"
+                    role="status"
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                ):(
+                  <Print className="iconWhiteColor" />
+                )}
+              </Tooltip>
+            </button>
+          </div>
+        </nav>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <Card>
@@ -206,3 +255,12 @@ export default class PermissionsDetail extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  login: state.login,
+  izin: state.izin,
+})
+
+const mapDispatchToProps = { exportIzinDetail }
+
+export default connect(mapStateToProps, mapDispatchToProps)(PermissionsDetail)

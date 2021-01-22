@@ -26,4 +26,16 @@ const statsReport = (token) => ({
   payload: axios(token).get(`${URL}api/v1/stats/report/allusers?type=2`),
 })
 
-export { getAllReport, getUserReport, createReport, deleteReport, statsReport }
+const exportReportDetail = (token, id) => ({
+  type: 'REPORT',
+  payload: axios(token).get(`${URL}api/v1/report/reportbyid/${id}?downloadPdf=1`, {responseType: 'blob'}),
+})
+
+export {
+  getAllReport,
+  getUserReport,
+  createReport,
+  deleteReport,
+  statsReport,
+  exportReportDetail,
+}

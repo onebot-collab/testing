@@ -14,6 +14,50 @@ const initialState = {
 
 const izin = (state = initialState, action) => {
   switch (action.type) {
+    case 'EXPORTIZINDETAIL_PENDING': {
+      return {
+        ...state,
+        isLoadingIzin: true,
+        isError: false,
+      }
+    }
+    case 'EXPORTIZINDETAIL_REJECTED': {
+      return {
+        ...state,
+        isLoadingIzin: false,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'EXPORTIZINDETAIL_FULFILLED': {
+      return {
+        ...state,
+        isLoadingIzin: false,
+        isError: false,
+      }
+    }
+    case 'EXPORTIZIN_PENDING': {
+      return {
+        ...state,
+        isLoadingIzin: true,
+        isError: false,
+      }
+    }
+    case 'EXPORTIZIN_REJECTED': {
+      return {
+        ...state,
+        isLoadingIzin: false,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'EXPORTIZIN_FULFILLED': {
+      return {
+        ...state,
+        isLoadingIzin: false,
+        isError: false,
+      }
+    }
     case 'GETIZIN_PENDING': {
       return {
         ...state,

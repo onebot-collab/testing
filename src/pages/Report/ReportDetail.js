@@ -5,6 +5,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 // import { connect } from 'react-redux'
 import './ReportDetail.css'
 import 'react-pro-sidebar/dist/css/styles.css'
@@ -14,6 +15,7 @@ import Grid from '@material-ui/core/Grid'
 // import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
+import Tooltip from '@material-ui/core/Tooltip'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -29,6 +31,9 @@ import { Link } from 'react-router-dom'
 import Attachment from '@material-ui/icons/Attachment'
 import CheckCircle from '@material-ui/icons/CheckCircle'
 import Cancel from '@material-ui/icons/Cancel'
+import Print from '@material-ui/icons/Print'
+
+import moment from 'moment'
 
 // import Check from '@material-ui/icons/Check'
 // core components
@@ -38,15 +43,17 @@ import Card from '../../components/Card/Card'
 import CardHeader from '../../components/Card/CardHeader'
 import CardBody from '../../components/Card/CardBody'
 
+import { exportReportDetail } from '../../redux/actions/report'
 // core components
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
 // import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
-// import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
+import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
-export default class ReportDetail extends Component {
+class ReportDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      isLoadingExportReportDetail: false,
       nameUser: props.location.state.nameUser,
       // created_at: props.location.state.created_at,
       nameReport: props.location.state.nameReport,
@@ -54,6 +61,20 @@ export default class ReportDetail extends Component {
       // fileName2: props.location.state.fileName2,
       // fileName3: props.location.state.fileName3,
     }
+    this.export = this.export.bind(this)
+  }
+
+  export() {
+    this.setState({isLoadingExportReportDetail: true})
+    this.props.exportReportDetail(this.props.login.token, this.props.location.state.id).then((res) => {
+      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `Report-Report-Detail-${this.props.location.state.id}-${this.props.location.state.id}_${moment().format('DD-MM-YY')}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      this.setState({isLoadingExportReportDetail: false})
+    })
   }
 
   componentDidMount() {}
@@ -63,9 +84,38 @@ export default class ReportDetail extends Component {
   render() {
     const classes = makeStyles(styles)
     // const classesHead = makeStyles(stylesHead)
-    // const classesBody = makeStyles(stylesBody)
+    const classesBody = makeStyles(stylesBody)
     return (
       <div>
+        <nav className="navbar navbar-light bg-light d-flex justify-content-end">
+          <div className="d-flex flex-row">
+            <button
+              className="btn btn-danger my-2 my-sm-0"
+              type="submit"
+              onClick={this.export}
+            >
+              <Tooltip
+                id="tooltip-top-start"
+                title="Export to PDF"
+                placement="top"
+                classes={{
+                  tooltip: classesBody.tooltip,
+                }}
+              >
+                {this.state.isLoadingExportReportDetail ? (
+                  <div
+                    className="spinner-border spinner-border-sm text-white"
+                    role="status"
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                ):(
+                  <Print className="iconWhiteColor" />
+                )}
+              </Tooltip>
+            </button>
+          </div>
+        </nav>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <Card>
@@ -133,92 +183,6 @@ export default class ReportDetail extends Component {
                       </ListItem>
                     </Paper>
                   </Grid>
-                  {/* <Grid item xs>
-                    <Paper
-                      // onClick={() => window.location.href('/admin')}
-                      href="www.google.com"
-                      elevation={2}
-                      className="d-flex flex-row p-3"
-                    >
-                      <ListItem>
-                        <ListItemIcon>
-                          <Attachment edge="start" />
-                        </ListItemIcon>
-                        <ListItemText>
-                          <a
-                            target="_blank"
-                            href={`http://localhost:21212/${this.state.fileName2}`}
-                          >
-                            {this.state.fileName2.replace('report/', '')}
-                          </a>
-                        </ListItemText>
-                        <ListItemIcon>
-                          {this.state.fileName2 === 'report/file.pdf' ? (
-                            <Cancel edge="end" className="CancelColor" />
-                          ) : (
-                            <CheckCircle
-                              edge="end"
-                              className="CheckCircleColor"
-                            />
-                          )}
-                        </ListItemIcon>
-                      </ListItem>
-                    </Paper>
-                  </Grid> */}
-                  {/* <Grid item xs>
-                    <Paper
-                      // onClick={() => window.location.href('/admin')}
-                      href="www.google.com"
-                      elevation={2}
-                      className="d-flex flex-row p-3"
-                    >
-                      <ListItem>
-                        <ListItemIcon>
-                          <Attachment edge="start" />
-                        </ListItemIcon>
-                        <ListItemText>
-                          <a
-                            target="_blank"
-                            href={`http://localhost:21212/${this.state.fileName3}`}
-                          >
-                            {this.state.fileName3.replace('report/', '')}
-                          </a>
-                        </ListItemText>
-                        <ListItemIcon>
-                          {this.state.fileName3 === 'report/file.pdf' ? (
-                            <Cancel edge="end" className="CancelColor" />
-                          ) : (
-                            <CheckCircle
-                              edge="end"
-                              className="CheckCircleColor"
-                            />
-                          )}
-                        </ListItemIcon>
-                      </ListItem>
-                    </Paper>
-                  </Grid> */}
-                  {/* <Grid item xs>
-                    <Button
-                      variant="outlined"
-                      color="secondary"
-                      className="ButtonApprove mb-3"
-                      onClick={() => {
-                        alert('Approved')
-                      }}
-                    >
-                      Approve
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      className="ButtonRejected mb-3"
-                      onClick={() => {
-                        alert('Rejected')
-                      }}
-                    >
-                      Reject
-                    </Button>
-                  </Grid> */}
                   <Link
                     to="/admin/report"
                     className="btn btn-block btn-outline-danger mt-4"
@@ -234,3 +198,11 @@ export default class ReportDetail extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  login: state.login,
+  report: state.report,
+})
+const mapDispatchToProps = { exportReportDetail }
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReportDetail)

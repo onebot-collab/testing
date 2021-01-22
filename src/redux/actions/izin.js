@@ -35,6 +35,16 @@ const allIzin = (token, search, page) => ({
   payload: axios(token).get(`${URL}api/v1/permit?limit=15&search=${search}&page=${page}`),
 })
 
+const exportAllIzin = (token) => ({
+  type: 'EXPORTIZIN',
+  payload: axios(token).get(`${URL}api/v1/permit?downloadPdf=1`, {responseType: 'blob'}),
+})
+
+const exportIzinDetail = (token, id) => ({
+  type: 'EXPORTIZINDETAIL',
+  payload: axios(token).get(`${URL}api/v1/permit/permitbyid/${id}?downloadPdf=1`, {responseType: 'blob'}),
+})
+
 const permitStats = (token) => ({
   type: 'PERMITSTATS',
   payload: axios(token).get(`${URL}api/v1/stats/permit/allusers?type=3`),
@@ -48,4 +58,6 @@ export {
   monthlyStats,
   allIzin,
   permitStats,
+  exportAllIzin,
+  exportIzinDetail,
 }

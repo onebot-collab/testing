@@ -20,13 +20,15 @@ import TableRow from '@material-ui/core/TableRow'
 // import Fab from '@material-ui/core/Fab'
 
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
 // import CheckCircle from '@material-ui/icons/CheckCircle'
 import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
 import Visibility from '@material-ui/icons/Visibility'
-import { allIzin } from '../../redux/actions/izin'
+import Print from '@material-ui/icons/Print'
+import { allIzin, exportAllIzin } from '../../redux/actions/izin'
 
 // import Check from '@material-ui/icons/Check'
 // core components
@@ -46,12 +48,14 @@ class Permissions extends Component {
     super(props)
     this.state = {
       isLoading: true,
+      isLoadingExportAllIzin: false,
       search: '',
       page: 1,
     }
     this.handleSearch = this.handleSearch.bind(this)
     this.nextPage = this.nextPage.bind(this)
     this.prevPage = this.prevPage.bind(this)
+    this.export = this.export.bind(this)
   }
 
   handleSearch(event) {
@@ -84,6 +88,19 @@ class Permissions extends Component {
     })
   }
 
+  export() {
+    this.setState({isLoadingExportAllIzin: true})
+    this.props.exportAllIzin(this.props.login.token).then((res) => {
+      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `Report-All-Leave-Application_${moment().format('DD-MM-YY')}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      this.setState({isLoadingExportAllIzin: false})
+    })
+  }
+
   redirect() {
     this.props.history.push('/login')
   }
@@ -103,22 +120,49 @@ class Permissions extends Component {
         ) : (
           <>
             <nav className="navbar navbar-light bg-light d-flex justify-content-end">
-              <form className="form-inline">
-                <input
-                  className="form-control mr-sm-2"
-                  type="search"
-                  name="search"
-                  onChange={this.handleSearch}
-                  placeholder="Type Something ..."
-                  aria-label="Search"
-                ></input>
+              <div className="d-flex flex-row">
+                <form className="form-inline mr-5">
+                  <input
+                    className="form-control mr-sm-2"
+                    type="search"
+                    name="search"
+                    onChange={this.handleSearch}
+                    placeholder="Type Something ..."
+                    aria-label="Search"
+                  ></input>
+                  <button
+                    className="btn btn-outline-danger my-2 my-sm-0"
+                    type="submit"
+                  >
+                    Search
+                  </button>
+                </form>
                 <button
-                  className="btn btn-outline-danger my-2 my-sm-0"
+                  className="btn btn-danger my-2 my-sm-0"
                   type="submit"
+                  onClick={this.export}
                 >
-                  Search
+                  <Tooltip
+                    id="tooltip-top-start"
+                    title="Export to PDF"
+                    placement="top"
+                    classes={{
+                      tooltip: classesBody.tooltip,
+                    }}
+                  >
+                    {this.state.isLoadingExportAllIzin ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-white"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ):(
+                      <Print className="iconWhiteColor" />
+                    )}
+                  </Tooltip>
                 </button>
-              </form>
+              </div>
             </nav>
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
@@ -310,6 +354,6 @@ const mapStateToProps = (state) => ({
   izin: state.izin,
 })
 
-const mapDispatchToProps = { allIzin }
+const mapDispatchToProps = { allIzin, exportAllIzin }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Permissions)
