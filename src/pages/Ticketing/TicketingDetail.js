@@ -173,7 +173,7 @@ class TicketingDetail extends Component {
                         </dt>
                         <dd className="col-sm-10">
                           <h6>
-                            : {this.state.start_date} / {this.state.end_date}
+                            : {`${this.state.start_date}`} / {this.state.end_date}
                           </h6>
                         </dd>
                       </dl>
