@@ -220,10 +220,16 @@ class ActualDashboard extends Component {
                         <h1 className={classes.cardTitle}>{this.props.izin.statsPermit.dataStats[0].sickness}</h1>
                       )}
                   </CardHeader>
-                  <CardFooter stats>
+                  {this.state.isLoadingStatsPermit ? (
+                    <></>
+                  ):(
+                    <CardFooter stats>
                       <Update />
-                      Requested by Samantha, 3 days ago
-                  </CardFooter>
+                      {this.props.izin.statsPermit.dataStats[0].sickness > 0 ? 
+                      `Recently requested by ${this.props.izin.statsPermit.dataLatestUser[0].sickness}`
+                      : 'There is no incoming request right now'}
+                    </CardFooter>
+                  )}
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={6} md={3}>
@@ -244,10 +250,16 @@ class ActualDashboard extends Component {
                         <h1 className={classes.cardTitle}>{this.props.izin.statsPermit.dataStats[0].permit}</h1>
                       )}
                   </CardHeader>
-                  <CardFooter stats>
+                  {this.state.isLoadingStatsPermit ? (
+                    <></>
+                  ):(
+                    <CardFooter stats>
                       <Update />
-                      Requested by Samantha, 3 days ago
-                  </CardFooter>
+                      {this.props.izin.statsPermit.dataStats[0].permit > 0 ? 
+                      `Recently requested by ${this.props.izin.statsPermit.dataLatestUser[0].permit}`
+                      : 'There is no incoming request right now'}
+                    </CardFooter>
+                  )}
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={6} md={3}>
@@ -268,10 +280,16 @@ class ActualDashboard extends Component {
                       <h1 className={classes.cardTitle}>{this.props.izin.statsPermit.dataStats[0].total_leave}</h1>
                     )}
                   </CardHeader>
-                  <CardFooter stats>
+                  {this.state.isLoadingStatsPermit ? (
+                    <></>
+                  ):(
+                    <CardFooter stats>
                       <Update />
-                      Requested by Samantha, 3 days ago
-                  </CardFooter>
+                      {this.props.izin.statsPermit.dataStats[0].total_leave > 0 ? 
+                      `Recently requested by ${this.props.izin.statsPermit.dataLatestUser[0].total_leave}`
+                      : 'There is no incoming request right now'}
+                    </CardFooter>
+                  )}
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={6} md={3}>
@@ -292,9 +310,16 @@ class ActualDashboard extends Component {
                       <h1 className={classes.cardTitle}>{this.props.izin.statsPermit.dataStats[0].latecoming}</h1>
                     )}
                   </CardHeader>
-                  <CardFooter stats>
-                    <Update /> There is no incoming request right now
-                  </CardFooter>
+                  {this.state.isLoadingStatsPermit ? (
+                    <></>
+                  ):(
+                    <CardFooter stats>
+                      <Update />
+                      {this.props.izin.statsPermit.dataStats[0].latecoming > 0 ? 
+                      `Recently requested by ${this.props.izin.statsPermit.dataLatestUser[0].latecoming}`
+                      : 'There is no incoming request right now'}
+                    </CardFooter>
+                  )}
                 </Card>
               </GridItem>
             </GridContainer>
