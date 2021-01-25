@@ -30,6 +30,9 @@ import Visibility from '@material-ui/icons/Visibility'
 import Accessibility from '@material-ui/icons/Accessibility'
 import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
+import Print from '@material-ui/icons/Print'
+
+import moment from 'moment'
 
 // Add Reactstrap
 import {
@@ -42,7 +45,7 @@ import {
 } from 'reactstrap'
 import Select from 'react-select'
 
-import { getAllTicket, getTicketStats } from '../../redux/actions/ticket'
+import { getAllTicket, getTicketStats, exportAllTicket } from '../../redux/actions/ticket'
 // core components
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
@@ -74,6 +77,7 @@ class Ticketing extends Component {
       selectedOption: false,
       isLoading: true,
       isLoadingStats: true,
+      isLoadingExportAllTicket: false,
       search: '',
       page: 1,
     }
@@ -82,6 +86,7 @@ class Ticketing extends Component {
     this.prevPage = this.prevPage.bind(this)
     this.nextPage = this.nextPage.bind(this)
     this.toggleAddModal = this.toggleAddModal.bind(this)
+    this.export = this.export.bind(this)
   }
 
   handleChange(selectedOption) {
@@ -137,6 +142,19 @@ class Ticketing extends Component {
     })
   }
 
+  export() {
+    this.setState({isLoadingExportAllTicket: true})
+    this.props.exportAllTicket(this.props.login.token).then((res) => {
+      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `Report-All-Ticket${moment().format('DD-MM-YY')}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      this.setState({isLoadingExportAllTicket: false})
+    })
+  }
+
   componentDidMount() {
     this.fetch()
     this.fetchStats()
@@ -157,22 +175,49 @@ class Ticketing extends Component {
         ) : (
           <>
             <nav className="navbar navbar-light bg-light d-flex justify-content-end">
-              <form className="form-inline">
-                <input
-                  className="form-control mr-sm-2"
-                  type="search"
-                  name="search"
-                  onChange={this.handleSearch}
-                  placeholder="Type Something ..."
-                  aria-label="Search"
-                ></input>
+              <div className="d-flex flex-row">
+                <form className="form-inline mr-5">
+                  <input
+                    className="form-control mr-sm-2"
+                    type="search"
+                    name="search"
+                    onChange={this.handleSearch}
+                    placeholder="Type Something ..."
+                    aria-label="Search"
+                  ></input>
+                  <button
+                    className="btn btn-outline-danger my-2 my-sm-0"
+                    type="submit"
+                  >
+                    Search
+                  </button>
+                </form>
                 <button
-                  className="btn btn-outline-danger my-2 my-sm-0"
+                  className="btn btn-danger my-2 my-sm-0"
                   type="submit"
+                  onClick={this.export}
                 >
-                  Search
+                  <Tooltip
+                    id="tooltip-top-start"
+                    title="Export to PDF"
+                    placement="top"
+                    classes={{
+                      tooltip: classesBody.tooltip,
+                    }}
+                  >
+                    {this.state.isLoadingExportAllTicket ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-white"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ):(
+                      <Print className="iconWhiteColor" />
+                    )}
+                  </Tooltip>
                 </button>
-              </form>
+              </div>
             </nav>
             <GridContainer>
               {this.state.isLoadingStats ? (
@@ -581,6 +626,6 @@ const mapStateToProps = (state) => ({
   login: state.login,
   ticket: state.ticket,
 })
-const mapDispatchToProps = { getAllTicket, getTicketStats }
+const mapDispatchToProps = { getAllTicket, getTicketStats, exportAllTicket }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ticketing)

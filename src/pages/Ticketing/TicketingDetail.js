@@ -16,6 +16,10 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import ListItem from '@material-ui/core/ListItem'
+import Tooltip from '@material-ui/core/Tooltip'
+import Print from '@material-ui/icons/Print'
+
+import moment from 'moment'
 // import Accordion from '@material-ui/core/Accordion'
 // import AccordionDetails from '@material-ui/core/AccordionDetails'
 // import AccordionSummary from '@material-ui/core/AccordionSummary'
@@ -38,7 +42,7 @@ import { Link } from 'react-router-dom'
 // import Check from '@material-ui/icons/Check'
 // core components
 import { connect } from 'react-redux'
-import { getTicketScore } from '../../redux/actions/ticket'
+import { getTicketScore, exportDetailTicket } from '../../redux/actions/ticket'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -48,7 +52,7 @@ import CardBody from '../../components/Card/CardBody'
 // core components
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
 // import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
-// import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
+import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
 class TicketingDetail extends Component {
   constructor(props) {
@@ -67,13 +71,28 @@ class TicketingDetail extends Component {
       description: props.location.state.description,
       statusid: props.location.state.statusid,
       isLoading: false,
+      isLoadingExportDetailTicket: false,
     }
+    this.export = this.export.bind(this)
   }
 
   fetchScore() {
     this.setState({ isLoading: true })
     this.props.getTicketScore(this.state.id, this.state.assignId, this.props.login.token).then(() => {
       this.setState({ isLoading: false })
+    })
+  }
+
+  export() {
+    this.setState({isLoadingExportDetailTicket: true})
+    this.props.exportDetailTicket(this.props.login.token, this.props.location.state.id).then((res) => {
+      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `Report-Ticket-${this.props.location.state.no_ticket}_${moment().format('DD-MM-YY')}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      this.setState({isLoadingExportDetailTicket: false})
     })
   }
 
@@ -86,9 +105,38 @@ class TicketingDetail extends Component {
   render() {
     const classes = makeStyles(styles)
     // const classesHead = makeStyles(stylesHead)
-    // const classesBody = makeStyles(stylesBody)
+    const classesBody = makeStyles(stylesBody)
     return (
       <div>
+        <nav className="navbar navbar-light bg-light d-flex justify-content-end">
+          <div className="d-flex flex-row">
+            <button
+              className="btn btn-danger my-2 my-sm-0"
+              type="submit"
+              onClick={this.export}
+            >
+              <Tooltip
+                id="tooltip-top-start"
+                title="Export to PDF"
+                placement="top"
+                classes={{
+                  tooltip: classesBody.tooltip,
+                }}
+              >
+                {this.state.isLoadingExportDetailTicket ? (
+                  <div
+                    className="spinner-border spinner-border-sm text-white"
+                    role="status"
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                ):(
+                  <Print className="iconWhiteColor" />
+                )}
+              </Tooltip>
+            </button>
+          </div>
+        </nav>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <Card>
@@ -309,6 +357,6 @@ const mapStateToProps = (state) => ({
   ticket: state.ticket,
   login: state.login,
 })
-const mapDispatchToProps = { getTicketScore }
+const mapDispatchToProps = { getTicketScore, exportDetailTicket }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TicketingDetail)

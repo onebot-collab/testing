@@ -82,6 +82,16 @@ const statsTicketClosed = (token) => ({
   payload: axios(token).get(`${URL}api/v1/stats/ticketclosed/allusers?type=2`),
 })
 
+const exportAllTicket = (token) => ({
+  type: 'TICKETSENT',
+  payload: axios(token).get(`${URL}api/v1/ticket?downloadPdf=1`, {responseType: 'blob'}),
+})
+
+const exportDetailTicket = (token, ticketId) => ({
+  type: 'TICKETSENT',
+  payload: axios(token).get(`${URL}api/v1/ticket/detailticket/${ticketId}?downloadPdf=1`, {responseType: 'blob'}),
+})
+
 export {
   createTicket,
   getTicketSent,
@@ -99,4 +109,6 @@ export {
   getAllTicket,
   getTicketStats,
   statsTicketClosed,
+  exportAllTicket,
+  exportDetailTicket,
 }
