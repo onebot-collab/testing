@@ -65,6 +65,16 @@ const invoiceClosed = (token, search, page) => ({
   payload: axios(token).get(`${URL}api/v1/invoice/bystatus/4?limit=15&search=${search}&page=${page}`),
 })
 
+const exportAllInvoice = (token) => ({
+  type: 'INVOICESTATUS',
+  payload: axios(token).get(`${URL}api/v1/invoice?downloadPdf=1`, {responseType: 'blob'}),
+})
+
+const exportInvoiceDetail = (token, id) => ({
+  type: 'INVOICESTATUS',
+  payload: axios(token).get(`${URL}api/v1/invoiceitem/${id}?downloadPdf=1`, {responseType: 'blob'}),
+})
+
 export {
   listInvoice,
   listInvoiceUser,
@@ -78,4 +88,6 @@ export {
   invoiceRejected,
   invoiceProcessed,
   invoiceClosed,
+  exportAllInvoice,
+  exportInvoiceDetail,
 }

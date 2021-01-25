@@ -11,6 +11,8 @@ import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
 // import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
+import Tooltip from '@material-ui/core/Tooltip'
+import Print from '@material-ui/icons/Print'
 // import Button from '@material-ui/core/Button'
 // import Typography from '@material-ui/core/Typography'
 // import Paper from '@material-ui/core/Paper'
@@ -26,6 +28,8 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import { Link } from 'react-router-dom'
 
+import moment from 'moment'
+
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
 // import { Visibility } from '@material-ui/icons'
@@ -39,7 +43,7 @@ import { Link } from 'react-router-dom'
 
 // import Check from '@material-ui/icons/Check'
 // core components
-import { listInvoiceItem } from '../../redux/actions/invoice'
+import { listInvoiceItem, exportInvoiceDetail } from '../../redux/actions/invoice'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -49,14 +53,16 @@ import CardBody from '../../components/Card/CardBody'
 // core components
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
 // import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
-// import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
+import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
 class InvoiceDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
       isLoadingFetch: false,
+      isLoadingExportInvoiceDetail: false,
     }
+    this.export = this.export.bind(this)
   }
 
   fetchItem() {
@@ -72,14 +78,56 @@ class InvoiceDetail extends Component {
     this.fetchItem()
   }
 
+  export() {
+    this.setState({isLoadingExportInvoiceDetail: true})
+    this.props.exportInvoiceDetail(this.props.login.token, this.props.location.state.id).then((res) => {
+      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `Report-Invoice-${this.props.location.state.invoice_no}_${moment().format('DD-MM-YY')}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      this.setState({isLoadingExportInvoiceDetail: false})
+    })
+  }
+
   renderEvents() {}
 
   render() {
     const classes = makeStyles(styles)
     // const classesHead = makeStyles(stylesHead)
-    // const classesBody = makeStyles(stylesBody)
+    const classesBody = makeStyles(stylesBody)
     return (
       <div>
+        <nav className="navbar navbar-light bg-light d-flex justify-content-end">
+          <div className="d-flex flex-row">
+            <button
+              className="btn btn-danger my-2 my-sm-0"
+              type="submit"
+              onClick={this.export}
+            >
+              <Tooltip
+                id="tooltip-top-start"
+                title="Export to PDF"
+                placement="top"
+                classes={{
+                  tooltip: classesBody.tooltip,
+                }}
+              >
+                {this.state.isLoadingExportInvoiceDetail ? (
+                  <div
+                    className="spinner-border spinner-border-sm text-white"
+                    role="status"
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                ):(
+                  <Print className="iconWhiteColor" />
+                )}
+              </Tooltip>
+            </button>
+          </div>
+        </nav>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <Card>
@@ -254,6 +302,6 @@ const mapStateToProps = (state) => ({
   invoice: state.invoice,
   login: state.login,
 })
-const mapDispatchToProps = { listInvoiceItem }
+const mapDispatchToProps = { listInvoiceItem, exportInvoiceDetail }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InvoiceDetail)

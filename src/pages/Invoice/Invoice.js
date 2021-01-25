@@ -28,6 +28,9 @@ import TableRow from '@material-ui/core/TableRow'
 import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
 import Visibility from '@material-ui/icons/Visibility'
+import Print from '@material-ui/icons/Print'
+
+import moment from 'moment'
 
 // import Check from '@material-ui/icons/Check'
 import {
@@ -36,6 +39,7 @@ import {
   invoiceRejected,
   invoiceProcessed,
   invoiceClosed,
+  exportAllInvoice,
 } from '../../redux/actions/invoice'
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -58,6 +62,7 @@ class Invoice extends Component {
       isLoadingRejected: true,
       isLoadingProcessed: true,
       isLoadingClosed: true,
+      isLoadingExportAllInvoice: false,
       search: '',
       pageWaiting: 1,
       pageApproved: 1,
@@ -68,6 +73,7 @@ class Invoice extends Component {
     this.handleSearch = this.handleSearch.bind(this)
     this.nextPage = this.nextPage.bind(this)
     this.prevPage = this.prevPage.bind(this)
+    this.export = this.export.bind(this)
   }
 
   handleSearch(event) {
@@ -135,6 +141,19 @@ class Invoice extends Component {
     }
   }
 
+  export() {
+    this.setState({isLoadingExportAllInvoice: true})
+    this.props.exportAllInvoice(this.props.login.token).then((res) => {
+      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `Report-All-Invoice_${moment().format('DD-MM-YY')}.pdf`);
+      document.body.appendChild(link);
+      link.click();
+      this.setState({isLoadingExportAllInvoice: false})
+    })
+  }
+
   redirect() {
     this.props.history.push('login')
   }
@@ -174,22 +193,49 @@ class Invoice extends Component {
         ) : (
           <>
             <nav className="navbar navbar-light bg-light d-flex justify-content-end">
-              <form className="form-inline">
-                <input
-                  className="form-control mr-sm-2"
-                  type="search"
-                  name="search"
-                  onChange={this.handleSearch}
-                  placeholder="Type Something ..."
-                  aria-label="Search"
-                ></input>
+              <div className="d-flex flex-row">
+                <form className="form-inline mr-5">
+                  <input
+                    className="form-control mr-sm-2"
+                    type="search"
+                    name="search"
+                    onChange={this.handleSearch}
+                    placeholder="Type Something ..."
+                    aria-label="Search"
+                  ></input>
+                  <button
+                    className="btn btn-outline-danger my-2 my-sm-0"
+                    type="submit"
+                  >
+                    Search
+                  </button>
+                </form>
                 <button
-                  className="btn btn-outline-danger my-2 my-sm-0"
+                  className="btn btn-danger my-2 my-sm-0"
                   type="submit"
+                  onClick={this.export}
                 >
-                  Search
+                  <Tooltip
+                    id="tooltip-top-start"
+                    title="Export to PDF"
+                    placement="top"
+                    classes={{
+                      tooltip: classesBody.tooltip,
+                    }}
+                  >
+                    {this.state.isLoadingExportAllInvoice ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-white"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ):(
+                      <Print className="iconWhiteColor" />
+                    )}
+                  </Tooltip>
                 </button>
-              </form>
+              </div>
             </nav>
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
@@ -1304,6 +1350,7 @@ const mapDispatchToProps = {
   invoiceRejected,
   invoiceProcessed,
   invoiceClosed,
+  exportAllInvoice,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Invoice)
