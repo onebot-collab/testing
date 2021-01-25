@@ -202,7 +202,7 @@ class ActualDashboard extends Component {
           <div>
             <GridContainer>
               <GridItem xs={12} sm={6} md={3}>
-                <Card>
+                <Card onClick={() => this.props.history.push('leave-application')}>
                   <CardHeader color="danger" stats icon>
                     <CardIcon color="danger">
                       <Assignment />
@@ -227,7 +227,7 @@ class ActualDashboard extends Component {
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={6} md={3}>
-                <Card>
+                <Card onClick={() => this.props.history.push('leave-application')}>
                   <CardHeader color="danger" stats icon>
                     <CardIcon color="danger">
                       <AssignmentInd />
@@ -251,7 +251,7 @@ class ActualDashboard extends Component {
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={6} md={3}>
-                <Card>
+                <Card onClick={() => this.props.history.push('leave-application')}>
                   <CardHeader color="danger" stats icon>
                     <CardIcon color="danger">
                       <AssignmentReturnIcon />
@@ -275,7 +275,7 @@ class ActualDashboard extends Component {
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={6} md={3}>
-                <Card>
+                <Card onClick={() => this.props.history.push('leave-application')}>
                   <CardHeader color="danger" stats icon>
                     <CardIcon color="danger">
                       <AssignmentLate />
@@ -299,7 +299,7 @@ class ActualDashboard extends Component {
               </GridItem>
             </GridContainer>
             <GridContainer>
-              <GridItem xs={12} sm={12} md={4} onClick={() => this.props.history.push('Ticketing')}>
+              <GridItem xs={12} sm={12} md={4} onClick={() => this.props.history.push('ticketing')}>
                 <Card chart>
                   <CardHeader color="danger">
                     <h4 className={classes.cardTitle}>Completed Tickets</h4>
@@ -353,7 +353,7 @@ class ActualDashboard extends Component {
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
-                <Card chart onClick={() => this.props.history.push('Attendance')}>
+                <Card chart onClick={() => this.props.history.push('attendance')}>
                   <CardHeader color="danger">
                     <h4 className={classes.cardTitle}>Attendance Statistics</h4>
                   </CardHeader>
@@ -425,7 +425,7 @@ class ActualDashboard extends Component {
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
-                <Card chart onClick={() => this.props.history.push('Report')}>
+                <Card chart onClick={() => this.props.history.push('report')}>
                   <CardHeader color="danger">
                     <h4 className={classes.cardTitle}>Incoming Reports</h4>
                   </CardHeader>
@@ -445,13 +445,13 @@ class ActualDashboard extends Component {
                             labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
                             series: [
                               [
-                                this.props.report.statsReport[1].countId,
-                                this.props.report.statsReport[2].countId,
-                                this.props.report.statsReport[3].countId,
-                                this.props.report.statsReport[4].countId,
-                                this.props.report.statsReport[5].countId,
-                                this.props.report.statsReport[6].countId,
-                                this.props.report.statsReport[0].countId,
+                                this.props.report.statsReport.data[1].countId,
+                                this.props.report.statsReport.data[2].countId,
+                                this.props.report.statsReport.data[3].countId,
+                                this.props.report.statsReport.data[4].countId,
+                                this.props.report.statsReport.data[5].countId,
+                                this.props.report.statsReport.data[6].countId,
+                                this.props.report.statsReport.data[0].countId,
                               ]
                             ],
                           }
