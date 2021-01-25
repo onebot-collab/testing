@@ -217,7 +217,7 @@ class ActualDashboard extends Component {
                           <span className="sr-only">Loading...</span>
                         </div>
                       ):(
-                        <h1 className={classes.cardTitle}>{this.props.izin.statsPermit[0].sickness}</h1>
+                        <h1 className={classes.cardTitle}>{this.props.izin.statsPermit.dataStats[0].sickness}</h1>
                       )}
                   </CardHeader>
                   <CardFooter stats>
@@ -241,7 +241,7 @@ class ActualDashboard extends Component {
                           <span className="sr-only">Loading...</span>
                         </div>
                       ):(
-                        <h1 className={classes.cardTitle}>{this.props.izin.statsPermit[0].permit}</h1>
+                        <h1 className={classes.cardTitle}>{this.props.izin.statsPermit.dataStats[0].permit}</h1>
                       )}
                   </CardHeader>
                   <CardFooter stats>
@@ -265,7 +265,7 @@ class ActualDashboard extends Component {
                         <span className="sr-only">Loading...</span>
                       </div>
                     ):(
-                      <h1 className={classes.cardTitle}>{this.props.izin.statsPermit[0].total_leave}</h1>
+                      <h1 className={classes.cardTitle}>{this.props.izin.statsPermit.dataStats[0].total_leave}</h1>
                     )}
                   </CardHeader>
                   <CardFooter stats>
@@ -289,17 +289,17 @@ class ActualDashboard extends Component {
                         <span className="sr-only">Loading...</span>
                       </div>
                     ):(
-                      <h1 className={classes.cardTitle}>{this.props.izin.statsPermit[0].latecoming}</h1>
+                      <h1 className={classes.cardTitle}>{this.props.izin.statsPermit.dataStats[0].latecoming}</h1>
                     )}
                   </CardHeader>
                   <CardFooter stats>
-                    <Update /> Happy Day, No requested incoming
+                    <Update /> There is no incoming request right now
                   </CardFooter>
                 </Card>
               </GridItem>
             </GridContainer>
             <GridContainer>
-              <GridItem xs={12} sm={12} md={4}>
+              <GridItem xs={12} sm={12} md={4} onClick={() => this.props.history.push('Ticketing')}>
                 <Card chart>
                   <CardHeader color="danger">
                     <h4 className={classes.cardTitle}>Completed Tickets</h4>
@@ -320,13 +320,13 @@ class ActualDashboard extends Component {
                             labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
                             series: [
                               [
-                                this.props.ticket.statsTicketClosed[1].countId,
-                                this.props.ticket.statsTicketClosed[2].countId,
-                                this.props.ticket.statsTicketClosed[3].countId,
-                                this.props.ticket.statsTicketClosed[4].countId,
-                                this.props.ticket.statsTicketClosed[5].countId,
-                                this.props.ticket.statsTicketClosed[6].countId,
-                                this.props.ticket.statsTicketClosed[0].countId,
+                                this.props.ticket.statsTicketClosed.data[1].countId,
+                                this.props.ticket.statsTicketClosed.data[2].countId,
+                                this.props.ticket.statsTicketClosed.data[3].countId,
+                                this.props.ticket.statsTicketClosed.data[4].countId,
+                                this.props.ticket.statsTicketClosed.data[5].countId,
+                                this.props.ticket.statsTicketClosed.data[6].countId,
+                                this.props.ticket.statsTicketClosed.data[0].countId,
                               ]
                             ],
                           }
@@ -353,7 +353,7 @@ class ActualDashboard extends Component {
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
-                <Card chart>
+                <Card chart onClick={() => this.props.history.push('Attendance')}>
                   <CardHeader color="danger">
                     <h4 className={classes.cardTitle}>Attendance Statistics</h4>
                   </CardHeader>
@@ -425,7 +425,7 @@ class ActualDashboard extends Component {
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
-                <Card chart>
+                <Card chart onClick={() => this.props.history.push('Report')}>
                   <CardHeader color="danger">
                     <h4 className={classes.cardTitle}>Incoming Reports</h4>
                   </CardHeader>
