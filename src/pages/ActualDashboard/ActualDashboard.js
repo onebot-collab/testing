@@ -492,9 +492,15 @@ class ActualDashboard extends Component {
                           options={incomingReportChart.options}
                           listener={incomingReportChart.animation}
                         />
-                        <p className={classes.cardCategory}>
-                          Samantha created a report
-                        </p>
+                        {this.props.report.statsReport.dataLatest[0].name !== (null || undefined) ? (
+                          <p className={classes.cardCategory}>
+                            {this.props.report.statsReport.dataLatest[0].name} created a report
+                          </p>
+                        ):(
+                          <p className={classes.cardCategory}>
+                            -
+                          </p>
+                        )}
                       </CardBody>
                       <CardFooter chart>
                         <div className={classes.stats}>
