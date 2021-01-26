@@ -492,7 +492,7 @@ class ActualDashboard extends Component {
                           options={incomingReportChart.options}
                           listener={incomingReportChart.animation}
                         />
-                        {this.props.report.statsReport.dataLatest[0].name !== (null || undefined) ? (
+                        {this.props.report.statsReport.dataLatest.length > 0 ? (
                           <p className={classes.cardCategory}>
                             {this.props.report.statsReport.dataLatest[0].name} created a report
                           </p>

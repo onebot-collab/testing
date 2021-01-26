@@ -647,7 +647,7 @@ class User extends Component {
                                   >
                                     <Tooltip
                                       id="tooltip-top-start"
-                                      title="Click to Detail Profile"
+                                      title="Click to Detail"
                                       placement="top"
                                     >
                                       <Visibility

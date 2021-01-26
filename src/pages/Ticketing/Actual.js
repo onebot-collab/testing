@@ -518,7 +518,7 @@ class Ticketing extends Component {
                                     >
                                       <Tooltip
                                         id="tooltip-top-start"
-                                        title="Click to Detail Ticket"
+                                        title="Click to Detail"
                                         placement="top"
                                         classes={{
                                           tooltip: classesBody.tooltip,

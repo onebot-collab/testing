@@ -287,7 +287,7 @@ class Report extends Component {
                                     >
                                       <Tooltip
                                         id="tooltip-top-start"
-                                        title="Click to Detail Report"
+                                        title="Click to Report"
                                         placement="top"
                                         classes={{
                                           tooltip: classesBody.tooltip,

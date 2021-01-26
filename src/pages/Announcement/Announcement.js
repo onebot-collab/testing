@@ -378,7 +378,7 @@ class Announcement extends Component {
                                     >
                                       <Tooltip
                                         id="tooltip-top"
-                                        title="Edit Task"
+                                        title="Click to Detail"
                                         placement="top"
                                         classes={{
                                           tooltip: classesBody.tooltip,
