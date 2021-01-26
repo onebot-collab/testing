@@ -329,52 +329,56 @@ class ActualDashboard extends Component {
                   <CardHeader color="danger">
                     <h4 className={classes.cardTitle}>Completed Tickets</h4>
                   </CardHeader>
-                  <CardBody>
                     {this.state.isLoadingTicketClosed ? (
-                      <div
-                        className="spinner-border spinner-border-sm text-danger"
-                        role="status"
-                      >
-                        <span className="sr-only">Loading...</span>
-                      </div>
+                      <CardBody>
+                        <div
+                          className="spinner-border spinner-border-sm text-danger"
+                          role="status"
+                        >
+                          <span className="sr-only">Loading...</span>
+                        </div>
+                      </CardBody>
                     ):(
-                      <ChartistGraph
-                        className="ct-chart"
-                        data={
-                          {
-                            labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-                            series: [
-                              [
-                                this.props.ticket.statsTicketClosed.data[1].countId,
-                                this.props.ticket.statsTicketClosed.data[2].countId,
-                                this.props.ticket.statsTicketClosed.data[3].countId,
-                                this.props.ticket.statsTicketClosed.data[4].countId,
-                                this.props.ticket.statsTicketClosed.data[5].countId,
-                                this.props.ticket.statsTicketClosed.data[6].countId,
-                                this.props.ticket.statsTicketClosed.data[0].countId,
-                              ]
-                            ],
-                          }
-                        }
-                        type="Line"
-                        options={ticketCompletedChart.options}
-                        listener={ticketCompletedChart.animation}
-                      />
+                      <>
+                        <CardBody>
+                          <ChartistGraph
+                            className="ct-chart"
+                            data={
+                              {
+                                labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                                series: [
+                                  [
+                                    this.props.ticket.statsTicketClosed.data[1].countId,
+                                    this.props.ticket.statsTicketClosed.data[2].countId,
+                                    this.props.ticket.statsTicketClosed.data[3].countId,
+                                    this.props.ticket.statsTicketClosed.data[4].countId,
+                                    this.props.ticket.statsTicketClosed.data[5].countId,
+                                    this.props.ticket.statsTicketClosed.data[6].countId,
+                                    this.props.ticket.statsTicketClosed.data[0].countId,
+                                  ]
+                                ],
+                              }
+                            }
+                            type="Line"
+                            options={ticketCompletedChart.options}
+                            listener={ticketCompletedChart.animation}
+                          />
+                          {this.props.ticket.statsTicketClosed.dataLatest[0].no_ticket !== null ? (
+                            <p className={classes.cardCategory}>
+                              {this.props.ticket.statsTicketClosed.dataLatest[0].no_ticket} solved by 
+                              &nbsp;{this.props.ticket.statsTicketClosed.dataLatest[0].departmentName !== null ? this.props.ticket.statsTicketClosed.dataLatest[0].departmentName : this.props.ticket.statsTicketClosed.dataLatest[0].userName}
+                            </p>
+                          ) : (
+                            <p className={classes.cardCategory}>-</p>
+                          )}
+                        </CardBody>
+                        <CardFooter chart>
+                          <div className={classes.stats}>
+                            <AccessTime /> updated 1 minutes ago
+                          </div>
+                        </CardFooter>
+                      </>
                     )}
-                    <p className={classes.cardCategory}>
-                      {/* <span className={classes.successText}>
-                        <ArrowUpward className={classes.upArrowCardCategory} />{' '}
-                        55%
-                      </span>{' '}
-                      increase in today sales. */}
-                      01/TKT/01012021 solved by Samantha
-                    </p>
-                  </CardBody>
-                  <CardFooter chart>
-                    <div className={classes.stats}>
-                      <AccessTime /> updated 1 minutes ago
-                    </div>
-                  </CardFooter>
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
@@ -454,52 +458,51 @@ class ActualDashboard extends Component {
                   <CardHeader color="danger">
                     <h4 className={classes.cardTitle}>Incoming Reports</h4>
                   </CardHeader>
-                  <CardBody>
-                    {this.state.isLoadingStatsReport ? (
+                  {this.state.isLoadingStatsReport ? (
+                      <CardBody>
                       <div
                         className="spinner-border spinner-border-sm text-danger"
                         role="status"
                       >
                         <span className="sr-only">Loading...</span>
                       </div>
-                    ):(
-                      <ChartistGraph
-                        className="ct-chart"
-                        data={
-                          {
-                            labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-                            series: [
-                              [
-                                this.props.report.statsReport.data[1].countId,
-                                this.props.report.statsReport.data[2].countId,
-                                this.props.report.statsReport.data[3].countId,
-                                this.props.report.statsReport.data[4].countId,
-                                this.props.report.statsReport.data[5].countId,
-                                this.props.report.statsReport.data[6].countId,
-                                this.props.report.statsReport.data[0].countId,
-                              ]
-                            ],
+                    </CardBody>
+                  ):(
+                    <>
+                      <CardBody>
+                        <ChartistGraph
+                          className="ct-chart"
+                          data={
+                            {
+                              labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                              series: [
+                                [
+                                  this.props.report.statsReport.data[1].countId,
+                                  this.props.report.statsReport.data[2].countId,
+                                  this.props.report.statsReport.data[3].countId,
+                                  this.props.report.statsReport.data[4].countId,
+                                  this.props.report.statsReport.data[5].countId,
+                                  this.props.report.statsReport.data[6].countId,
+                                  this.props.report.statsReport.data[0].countId,
+                                ]
+                              ],
+                            }
                           }
-                        }
-                        type="Line"
-                        options={incomingReportChart.options}
-                        listener={incomingReportChart.animation}
-                      />
-                    )}
-                    <p className={classes.cardCategory}>
-                      {/* <span className={classes.successText}>
-                        <ArrowUpward className={classes.upArrowCardCategory} />{' '}
-                        55%
-                      </span>{' '}
-                      increase in today sales. */}
-                      Samantha created a report
-                    </p>
-                  </CardBody>
-                  <CardFooter chart>
-                    <div className={classes.stats}>
-                      <AccessTime /> updated 1 minutes ago
-                    </div>
-                  </CardFooter>
+                          type="Line"
+                          options={incomingReportChart.options}
+                          listener={incomingReportChart.animation}
+                        />
+                        <p className={classes.cardCategory}>
+                          Samantha created a report
+                        </p>
+                      </CardBody>
+                      <CardFooter chart>
+                        <div className={classes.stats}>
+                          <AccessTime /> updated 1 minutes ago
+                        </div>
+                      </CardFooter>
+                    </>
+                  )}
                 </Card>
               </GridItem>
             </GridContainer>
