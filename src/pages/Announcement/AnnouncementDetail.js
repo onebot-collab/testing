@@ -102,13 +102,14 @@ class AnnouncementDetail extends Component {
     this.props
       .patchCampaign(id, dataSubmit, this.props.login.token)
       .then((res) => {
-        this.props.newToken(res.action.payload.data.newToken)
-        this.setState({ isLoadingUpdate: false })
-        this.props.history.push('/admin/announcement')
-        swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: 'Announcement successfully edited',
+        this.props.newToken(res.action.payload.data.newToken).then(() => {
+          this.setState({ isLoadingUpdate: false })
+          this.props.history.push('/admin/announcement')
+          swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Announcement successfully edited',
+          })
         })
       })
       .catch(() => {

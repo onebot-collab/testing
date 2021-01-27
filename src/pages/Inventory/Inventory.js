@@ -51,6 +51,7 @@ import {
   exportInventory,
 } from '../../redux/actions/inventory'
 import { sendNotif } from '../../redux/actions/fcm'
+import { newToken } from '../../redux/actions/login'
 
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -125,7 +126,8 @@ class Inventory extends Component {
   }
 
   fetch() {
-    this.props.getInventoryHome(this.props.login.token, this.state.search, this.state.page).then(() => {
+    this.props.getInventoryHome(this.props.login.token, this.state.search, this.state.page).then((res) => {
+      this.props.newToken(res.action.payload.data.newToken)
       this.setState({ isLoading: false })
     })
   }
@@ -200,7 +202,8 @@ class Inventory extends Component {
 
     this.props
       .postInventory(dataSubmit, this.props.login.token)
-      .then(() => {
+      .then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
         this.fetch()
         this.setState({
           isLoadingAddInventory: false,
@@ -230,7 +233,8 @@ class Inventory extends Component {
   delete() {
     this.props
       .deleteInventory(this.state.deleteId, this.props.login.token)
-      .then(() => {
+      .then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
         this.fetch()
         this.setState({ showDeleteModal: false })
         swal.fire({
@@ -597,7 +601,8 @@ const mapDispatchToProps = {
   postInventory,
   deleteInventory,
   sendNotif,
-  exportInventory
+  exportInventory,
+  newToken,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Inventory)

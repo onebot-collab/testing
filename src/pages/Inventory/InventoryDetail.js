@@ -38,6 +38,8 @@ import swal from 'sweetalert2'
 // import Check from '@material-ui/icons/Check'
 // core components
 import { patchInventory } from '../../redux/actions/inventory'
+import { newToken } from '../../redux/actions/login'
+
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -111,7 +113,8 @@ class InventoryDetail extends Component {
     }
     this.props
       .patchInventory(dataSubmit, id, this.props.login.token)
-      .then(() => {
+      .then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
         this.setState({ isLoadingUpdate: false })
         this.props.history.push('/admin/inventory')
         swal.fire({
@@ -360,6 +363,6 @@ const mapStateToProps = (state) => ({
   inventory: state.inventory,
   login: state.login,
 })
-const mapDispatchToProps = { patchInventory }
+const mapDispatchToProps = { patchInventory, newToken }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InventoryDetail)
