@@ -237,7 +237,7 @@ class UserDetail extends Component {
     ))
     return (
       <>
-        {!this.props.login.token ? (
+        {!this.props.login.isLogin ? (
           <>{this.redirect()}</>
         ) : (
           <div>

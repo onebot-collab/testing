@@ -5,7 +5,7 @@ import { Form, Row, Col, Image } from 'react-bootstrap'
 import Button from '@material-ui/core/Button'
 import { connect } from 'react-redux'
 import swal from 'sweetalert2'
-import { loginAuth, logoutAuth } from '../../redux/actions/login'
+import { loginAuth, noLogin } from '../../redux/actions/login'
 
 import img from './assets/bg.png'
 import logo from './assets/logo.png'
@@ -56,9 +56,7 @@ class LoginPage extends Component {
   }
 
   componentDidMount() {
-    if (this.props.location.state !== undefined) {
-      this.props.logoutAuth(this.props.location.state.token)
-    }
+    this.props.noLogin()
   }
 
   render() {
@@ -131,6 +129,6 @@ class LoginPage extends Component {
 const mapStateToProps = (state) => ({
   login: state.login,
 })
-const mapDispatchToProps = { loginAuth, logoutAuth }
+const mapDispatchToProps = { loginAuth, noLogin }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)

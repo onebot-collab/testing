@@ -15,4 +15,9 @@ const logoutAuth = (token) => ({
   payload: axios(token).get(`${REACT_APP_URL}api/v1/auth/logout`),
 })
 
-export { loginAuth, logoutAuth }
+const noLogin = () => ({
+  type: 'NOLOGIN',
+  payload: '',
+})
+
+export { loginAuth, logoutAuth, noLogin }

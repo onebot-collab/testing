@@ -170,7 +170,7 @@ class Ticketing extends Component {
     const { selectedOption } = this.state
     return (
       <div>
-        {!this.props.login.token ? (
+        {!this.props.login.isLogin ? (
           <>{this.redirect()}</>
         ) : (
           <>

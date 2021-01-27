@@ -213,7 +213,7 @@ class User extends Component {
 
     return (
       <div>
-        {!this.props.login.token ? (
+        {!this.props.login.isLogin ? (
           <>{this.redirect()}</>
         ) : (
           <>

@@ -6,7 +6,7 @@ import { fade, makeStyles } from '@material-ui/core/styles'
 // import SearchIcon from '@material-ui/icons/Search'
 import classNames from 'classnames'
 import { useHistory } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 // @material-ui/core components
 import MenuItem from '@material-ui/core/MenuItem'
 import MenuList from '@material-ui/core/MenuList'
@@ -20,6 +20,8 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
+
+import { logoutAuth } from '../../redux/actions/login'
 
 // import image1 from '../../assets/img/faces/marc.jpg'
 
@@ -101,10 +103,11 @@ export default function SearchAppBar() {
   }
   // const dispatch = useDispatch()
   const history = useHistory()
+  const dispatch = useDispatch()
+
   const LogoutAct = () => {
-    history.push({
-      pathname: '/login',
-      state: { token },
+    dispatch(logoutAuth(token)).then(() => {
+      history.push('/login')
     })
   }
 

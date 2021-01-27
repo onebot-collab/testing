@@ -258,7 +258,7 @@ class Inventory extends Component {
     const classesBody = makeStyles(stylesBody)
     return (
       <>
-        {!this.props.login.token ? (
+        {!this.props.login.isLogin ? (
           <>{this.redirect()}</>
         ) : (
           <div>

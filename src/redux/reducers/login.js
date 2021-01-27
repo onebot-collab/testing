@@ -4,6 +4,7 @@ const initialState = {
   errorMsg: '',
   token: null,
   dataLogin: [],
+  isLogin: false,
 }
 
 const login = (state = initialState, action) => {
@@ -30,6 +31,7 @@ const login = (state = initialState, action) => {
         isError: false,
         token: action.payload.data.token,
         dataLogin: action.payload.data.data,
+        isLogin: true,
       }
     }
     case 'LOGOUT_PENDING': {
@@ -53,6 +55,12 @@ const login = (state = initialState, action) => {
         isError: false,
         token: null,
         data: [],
+      }
+    }
+    case 'NOLOGIN': {
+      return {
+        ...state,
+        isLogin: false
       }
     }
     default: {

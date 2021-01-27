@@ -188,7 +188,7 @@ class Invoice extends Component {
     const classesBody = makeStyles(stylesBody)
     return (
       <div>
-        {!this.props.login.token ? (
+        {!this.props.login.isLogin ? (
           <>{this.redirect()}</>
         ) : (
           <>
