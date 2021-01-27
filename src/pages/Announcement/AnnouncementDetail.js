@@ -46,6 +46,7 @@ import Edit from '@material-ui/icons/Edit'
 // } from '../../redux/actions/campaign'
 import { getDepartment } from '../../redux/actions/department'
 import { patchCampaign } from '../../redux/actions/campaign'
+import { newToken } from '../../redux/actions/login'
 
 // import Check from '@material-ui/icons/Check'
 // core components
@@ -100,7 +101,8 @@ class AnnouncementDetail extends Component {
 
     this.props
       .patchCampaign(id, dataSubmit, this.props.login.token)
-      .then(() => {
+      .then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
         this.setState({ isLoadingUpdate: false })
         this.props.history.push('/admin/announcement')
         swal.fire({
@@ -119,7 +121,9 @@ class AnnouncementDetail extends Component {
   }
 
   componentDidMount() {
-    this.props.getDepartment(this.props.login.token)
+    this.props.getDepartment(this.props.login.token).then((res) => {
+      this.props.newToken(res.action.payload.data.newToken)
+    })
   }
 
   render() {
@@ -135,7 +139,7 @@ class AnnouncementDetail extends Component {
           // className="buttonAdd"
           startIcon={<Edit />}
         >
-          {this.props.location.state.departmentId}
+          Edit
         </Button>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
@@ -291,6 +295,7 @@ class AnnouncementDetail extends Component {
 const mapDispatchToProps = {
   getDepartment,
   patchCampaign,
+  newToken,
 }
 const mapStateToProps = (state) => ({
   department: state.department,
