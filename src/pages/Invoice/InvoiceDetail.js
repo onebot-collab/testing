@@ -44,6 +44,8 @@ import moment from 'moment'
 // import Check from '@material-ui/icons/Check'
 // core components
 import { listInvoiceItem, exportInvoiceDetail } from '../../redux/actions/invoice'
+import { newToken } from '../../redux/actions/login'
+
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -69,7 +71,8 @@ class InvoiceDetail extends Component {
     this.setState({ isLoadingFetch: true })
     this.props
       .listInvoiceItem(this.props.location.state.id, this.props.login.token)
-      .then(() => {
+      .then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
         this.setState({ isLoadingFetch: false })
       })
   }
@@ -302,6 +305,6 @@ const mapStateToProps = (state) => ({
   invoice: state.invoice,
   login: state.login,
 })
-const mapDispatchToProps = { listInvoiceItem, exportInvoiceDetail }
+const mapDispatchToProps = { listInvoiceItem, exportInvoiceDetail, newToken }
 
 export default connect(mapStateToProps, mapDispatchToProps)(InvoiceDetail)

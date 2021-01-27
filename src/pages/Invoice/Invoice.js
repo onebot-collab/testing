@@ -41,6 +41,8 @@ import {
   invoiceClosed,
   exportAllInvoice,
 } from '../../redux/actions/invoice'
+import {newToken} from '../../redux/actions/login'
+
 // core components
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
@@ -161,16 +163,17 @@ class Invoice extends Component {
   fetch() {
     const { token } = this.props.login
 
-    this.props.invoiceWaiting(token, this.state.search, this.state.pageWaiting).then(() => {
+    this.props.invoiceWaiting(token, this.state.search, this.state.pageWaiting).then((res) => {
       this.setState({ isLoadingWaiting: false })
-      this.props.invoiceApproved(token, this.state.search, this.state.pageApproved).then(() => {
+      this.props.invoiceApproved(res.action.payload.data.newToken, this.state.search, this.state.pageApproved).then(() => {
         this.setState({ isLoadingApproved: false })
-        this.props.invoiceRejected(token, this.state.search, this.state.pageRejected).then(() => {
+        this.props.invoiceRejected(res.action.payload.data.newToken, this.state.search, this.state.pageRejected).then(() => {
           this.setState({ isLoadingRejected: false })
-          this.props.invoiceProcessed(token, this.state.search, this.state.pageProcessed).then(() => {
+          this.props.invoiceProcessed(res.action.payload.data.newToken, this.state.search, this.state.pageProcessed).then(() => {
             this.setState({ isLoadingProcessed: false })
-            this.props.invoiceClosed(token, this.state.search, this.state.pageClosed).then(() => {
+            this.props.invoiceClosed(res.action.payload.data.newToken, this.state.search, this.state.pageClosed).then(() => {
               this.setState({ isLoadingClosed: false })
+              this.props.newToken(res.action.payload.data.newToken)
             })
           })
         })
@@ -1351,6 +1354,7 @@ const mapDispatchToProps = {
   invoiceProcessed,
   invoiceClosed,
   exportAllInvoice,
+  newToken,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Invoice)
