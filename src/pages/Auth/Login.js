@@ -33,7 +33,7 @@ class LoginPage extends Component {
       email,
       password,
       passcode,
-      platform: '1',
+      platform: '2',
     }
 
     this.props
@@ -56,7 +56,11 @@ class LoginPage extends Component {
   }
 
   componentDidMount() {
-    this.props.noLogin()
+    setTimeout(() => {
+      if (this.props.login.isLogin) {
+        this.props.history.push('/admin/dashboard')
+      }
+    }, 100); 
   }
 
   render() {

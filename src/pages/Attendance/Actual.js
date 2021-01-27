@@ -29,6 +29,7 @@ import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
 import { Cancel, CheckCircle, Print } from '@material-ui/icons'
 import { allLog, exportAllLog } from '../../redux/actions/presence'
+import { newToken } from '../../redux/actions/login'
 
 // import Check from '@material-ui/icons/Check'
 // core components
@@ -85,8 +86,9 @@ class Attendance extends Component {
   }
 
   fetch() {
-    this.props.allLog(this.props.login.token, this.state.search, this.state.page).then(() => {
+    this.props.allLog(this.props.login.token, this.state.search, this.state.page).then((res) => {
       this.setState({ isLoading: false })
+      this.props.newToken(res.action.payload.data.newToken)
     })
   }
 
@@ -100,6 +102,7 @@ class Attendance extends Component {
       document.body.appendChild(link);
       link.click();
       this.setState({isLoadingExportAllLog: false})
+      this.props.newToken(res.action.payload.data.newToken)
     })
   }
 
@@ -367,6 +370,6 @@ const mapStateToProps = (state) => ({
   presence: state.presence,
   login: state.login,
 })
-const mapDispatchToProps = { allLog, exportAllLog }
+const mapDispatchToProps = { allLog, exportAllLog, newToken }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Attendance)

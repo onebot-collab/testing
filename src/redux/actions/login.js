@@ -20,4 +20,9 @@ const noLogin = () => ({
   payload: '',
 })
 
-export { loginAuth, logoutAuth, noLogin }
+const newToken = (data) => ({
+  type: 'NEWTOKEN',
+  meta: data,
+})
+
+export { loginAuth, logoutAuth, noLogin, newToken }

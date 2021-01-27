@@ -48,6 +48,7 @@ import {
 } from '../../redux/actions/campaign'
 import { getDepartment } from '../../redux/actions/department'
 import { sendNotif } from '../../redux/actions/fcm'
+import { newToken } from '../../redux/actions/login'
 // import Check from '@material-ui/icons/Check'
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -116,15 +117,19 @@ class Announcement extends Component {
   }
 
   fetch() {
-    this.props.getAllCampaign(this.props.login.token, this.state.search, this.state.page).then(() => {
+    this.props.getAllCampaign(this.props.login.token, this.state.search, this.state.page).then((res) => {
       this.setState({ isLoadingCampaign: false })
+      this.props.getDepartment(res.action.payload.data.newToken).then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
+      })
     })
   }
 
   deleteAct() {
     this.props
       .deleteCampaign(this.state.deleteId, this.props.login.token)
-      .then(() => {
+      .then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
         swal.fire({
           icon: 'success',
           title: 'Success',
@@ -214,7 +219,8 @@ class Announcement extends Component {
 
     this.props
       .postCampaign(dataSubmit, this.props.login.token)
-      .then(() => {
+      .then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
         this.setState({ isLoadingAddCampaign: false, showAddModal: false })
         swal.fire({
           icon: 'success',
@@ -236,7 +242,6 @@ class Announcement extends Component {
 
   componentDidMount() {
     this.fetch()
-    this.props.getDepartment(this.props.login.token)
   }
 
   render() {
@@ -552,6 +557,7 @@ const mapDispatchToProps = {
   postCampaign,
   getDepartment,
   sendNotif,
+  newToken,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Announcement)

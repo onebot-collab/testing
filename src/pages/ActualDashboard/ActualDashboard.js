@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+/* eslint-disable no-shadow */
 import React, { Component } from 'react'
 // react plugin for creating charts
 import ChartistGraph from 'react-chartist'
@@ -29,6 +30,7 @@ import {permitStats} from '../../redux/actions/izin'
 import {statsAttendance} from '../../redux/actions/presence'
 import {statsTicketClosed} from '../../redux/actions/ticket'
 import {statsReport} from '../../redux/actions/report'
+import {newToken} from '../../redux/actions/login'
 
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
 const Chartist = require('chartist')
@@ -45,45 +47,38 @@ class ActualDashboard extends Component {
       isLoadingTicketClosed: true,
       isLoadingStatsReport: true,
     }
+    this.fetch = this.fetch.bind(this)
   }
 
   redirect() {
     this.props.history.push('/login')
   }
 
-  fetchStatsPermit() {
-    this.setState({isLoadingStatsPermit: true})
-    this.props.permitStats(this.props.login.token).then(() => {
+  fetch() {
+    this.setState({
+      isLoadingStatsPermit: true,
+      isLoadingStatsAttendance: true,
+      isLoadingTicketClosed: true,
+      isLoadingStatsReport: true,
+    })
+
+    this.props.permitStats(this.props.login.token).then((res) => {
       this.setState({isLoadingStatsPermit: false})
-    })
-  }
-
-  fetchStatsAttendance() {
-    this.setState({isLoadingStatsAttendance: true})
-    this.props.statsAttendance(this.props.login.token).then(() => {
-      this.setState({isLoadingStatsAttendance: false})
-    })
-  }
-
-  fetchStatsTicketClosed() {
-    this.setState({isLoadingTicketClosed: true})
-    this.props.statsTicketClosed(this.props.login.token).then(() => {
-      this.setState({isLoadingTicketClosed: false})
-    })
-  }
-
-  fetchStatsReport() {
-    this.setState({isLoadingStatsReport: true})
-    this.props.statsReport(this.props.login.token).then(() => {
-      this.setState({isLoadingStatsReport: false})
+      this.props.statsAttendance(res.action.payload.data.newToken).then((res) => {
+        this.setState({isLoadingStatsAttendance: false})
+        this.props.statsTicketClosed(res.action.payload.data.newToken).then((res) => {
+          this.setState({isLoadingTicketClosed: false})    
+          this.props.statsReport(res.action.payload.data.newToken).then((res) => {
+            this.setState({isLoadingStatsReport: false})
+            this.props.newToken(res.action.payload.data.newToken)
+          })
+        })
+      })
     })
   }
 
   componentDidMount() {
-    this.fetchStatsPermit()
-    this.fetchStatsAttendance()
-    this.fetchStatsTicketClosed()
-    this.fetchStatsReport()
+    this.fetch()
   }
 
   // useStyles(){
@@ -526,6 +521,6 @@ const mapStateToProps = (state) => ({
   ticket: state.ticket,
   report: state.report,
 })
-const mapDispatchToProps = {permitStats, statsAttendance, statsTicketClosed, statsReport}
+const mapDispatchToProps = {permitStats, statsAttendance, statsTicketClosed, statsReport, newToken}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActualDashboard)

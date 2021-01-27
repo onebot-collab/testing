@@ -21,7 +21,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import ListItemText from '@material-ui/core/ListItemText'
 import Avatar from '@material-ui/core/Avatar'
 
-import { logoutAuth } from '../../redux/actions/login'
+import { logoutAuth, noLogin } from '../../redux/actions/login'
 
 // import image1 from '../../assets/img/faces/marc.jpg'
 
@@ -106,6 +106,7 @@ export default function SearchAppBar() {
   const dispatch = useDispatch()
 
   const LogoutAct = () => {
+    dispatch(noLogin())
     dispatch(logoutAuth(token)).then(() => {
       history.push('/login')
     })

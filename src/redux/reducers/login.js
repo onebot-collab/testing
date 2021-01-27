@@ -46,6 +46,7 @@ const login = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: false,
+        isLogin: false,
       }
     }
     case 'LOGOUT_FULLFILED': {
@@ -55,12 +56,19 @@ const login = (state = initialState, action) => {
         isError: false,
         token: null,
         data: [],
+        isLogin: false,
       }
     }
     case 'NOLOGIN': {
       return {
         ...state,
         isLogin: false
+      }
+    }
+    case 'NEWTOKEN': {
+      return {
+        ...state,
+        token: action.meta,
       }
     }
     default: {
