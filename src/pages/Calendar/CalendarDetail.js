@@ -35,6 +35,8 @@ import Edit from '@material-ui/icons/Edit'
 // import Check from '@material-ui/icons/Check'
 // core components
 import { updateReminder } from '../../redux/actions/reminder'
+import { newToken } from '../../redux/actions/login'
+
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -80,7 +82,8 @@ class CalendarDetail extends Component {
     }
     this.props
       .updateReminder(id, dataSubmit, this.props.login.token)
-      .then(() => {
+      .then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
         this.setState({ isLoadingUpdate: false, showEditModal: false })
         swal.fire({
           icon: 'success',
@@ -297,6 +300,6 @@ const mapStateToProps = (state) => ({
   reminder: state.reminder,
   login: state.login,
 })
-const mapDispatchToProps = { updateReminder }
+const mapDispatchToProps = { updateReminder, newToken }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalendarDetail)
