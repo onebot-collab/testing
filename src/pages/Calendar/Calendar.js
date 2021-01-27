@@ -44,6 +44,8 @@ import {
   getReminder,
 } from '../../redux/actions/reminder'
 import { sendNotif } from '../../redux/actions/fcm'
+import { newToken } from '../../redux/actions/login'
+
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -153,7 +155,8 @@ class CalendarScreen extends Component {
 
     this.props
       .createReminder(dataSubmit, this.props.login.token)
-      .then(() => {
+      .then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
         this.setState({
           showAddModal: false,
           isLoadingAddReminder: false,
@@ -184,7 +187,8 @@ class CalendarScreen extends Component {
     this.setState({ isLoadingDelete: true })
     this.props
       .deleteReminder(this.state.deleteId, this.props.login.token)
-      .then(() => {
+      .then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
         this.setState({ isLoadingDelete: false, showDeleteModal: false })
         const date = moment().format().slice(0, 10)
         this.fetchReminder(date)
@@ -226,16 +230,19 @@ class CalendarScreen extends Component {
       date: day,
     }
 
-    this.props.getReminderByDay(dataSubmit, this.props.login.token, this.state.search, this.state.page).then(() => {
+    this.props.getReminderByDay(dataSubmit, this.props.login.token, this.state.search, this.state.page).then((res) => {
       this.setState({ isLoadingFetchReminder: false })
+      this.props.newToken(res.action.payload.data.newToken)
     })
   }
 
   componentDidMount() {
     const date = moment().format().slice(0, 10)
     // const final = date.toString().slice(0, 10)
-    this.fetchReminder(date)
-    this.props.getReminder(this.props.login.token)
+    this.props.getReminder(this.props.login.token).then((res) => {
+      this.props.newToken(res.action.payload.data.newToken)
+      this.fetchReminder(date)
+    })
   }
 
   render() {
@@ -578,6 +585,7 @@ const mapDispatchToProps = {
   deleteReminder,
   getReminder,
   sendNotif,
+  newToken,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalendarScreen)

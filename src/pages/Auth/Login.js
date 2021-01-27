@@ -56,11 +56,9 @@ class LoginPage extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      if (this.props.login.isLogin) {
-        this.props.history.push('/admin/dashboard')
-      }
-    }, 100); 
+    if (this.props.login.isLogin) {
+      this.props.history.push('/admin/dashboard')
+    }
   }
 
   render() {

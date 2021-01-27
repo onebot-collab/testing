@@ -2,6 +2,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-useless-constructor */
 /* eslint-disable no-undef */
+/* eslint-disable no-shadow */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-access-state-in-setstate */
 import React, { Component } from 'react'
@@ -32,6 +33,8 @@ import { Cancel, CheckCircle, ArrowLeft, ArrowRight, Print } from '@material-ui/
 
 // core components
 import { userLogHistory, statsUserAttendance, exportUserLogHistory } from '../../redux/actions/presence'
+import { newToken } from '../../redux/actions/login'
+
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -57,6 +60,7 @@ class AttendanceDetail extends Component {
     this.nextPage = this.nextPage.bind(this)
     this.prevPage = this.prevPage.bind(this)
     this.export = this.export.bind(this)
+    this.fetch = this.fetch.bind(this)
   }
 
   nextPage() {
@@ -79,7 +83,8 @@ class AttendanceDetail extends Component {
 
   fetchUserStats() {
     this.setState({isLoadingStats: true})
-    this.props.statsUserAttendance(this.props.login.token, this.props.location.state.user_id).then(() => {
+    this.props.statsUserAttendance(this.props.login.token, this.props.location.state.user_id).then((res) => {
+      this.props.newToken(res.action.payload.data.newToken)
       this.setState({isLoadingStats: false})
     })
   }
@@ -88,7 +93,8 @@ class AttendanceDetail extends Component {
     this.setState({ isLoadingFetch: true })
     this.props
       .userLogHistory(this.props.location.state.user_id, this.props.login.token, this.state.page)
-      .then(() => {
+      .then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
         this.setState({ isLoadingFetch: false })
     })
   }
@@ -106,9 +112,21 @@ class AttendanceDetail extends Component {
     })
   }
 
+  fetch() {
+    this.setState({ isLoadingFetch: true, isLoadingStats: true })
+    this.props
+      .userLogHistory(this.props.location.state.user_id, this.props.login.token, this.state.page)
+      .then((res) => {
+        this.setState({ isLoadingFetch: false })
+        this.props.statsUserAttendance(res.action.payload.data.newToken, this.props.location.state.user_id).then((res) => {
+          this.setState({isLoadingStats: false})
+          this.props.newToken(res.action.payload.data.newToken)
+        })
+    })
+  }
+
   componentDidMount() {
-    this.fetchUserLog()
-    this.fetchUserStats()
+    this.fetch()
   }
 
   renderEvents() {}
@@ -473,6 +491,6 @@ const mapStateToProps = (state) => ({
   presence: state.presence,
   login: state.login,
 })
-const mapDispatchToProps = { userLogHistory, statsUserAttendance, exportUserLogHistory }
+const mapDispatchToProps = { userLogHistory, statsUserAttendance, exportUserLogHistory, newToken }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AttendanceDetail)
