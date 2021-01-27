@@ -102,7 +102,6 @@ class Attendance extends Component {
       document.body.appendChild(link);
       link.click();
       this.setState({isLoadingExportAllLog: false})
-      this.props.newToken(res.action.payload.data.newToken)
     })
   }
 

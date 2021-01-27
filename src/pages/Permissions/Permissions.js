@@ -28,7 +28,9 @@ import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
 import Visibility from '@material-ui/icons/Visibility'
 import Print from '@material-ui/icons/Print'
+
 import { allIzin, exportAllIzin } from '../../redux/actions/izin'
+import { newToken } from '../../redux/actions/login'
 
 // import Check from '@material-ui/icons/Check'
 // core components
@@ -83,7 +85,8 @@ class Permissions extends Component {
   }
 
   fetch() {
-    this.props.allIzin(this.props.login.token, this.state.search, this.state.page).then(() => {
+    this.props.allIzin(this.props.login.token, this.state.search, this.state.page).then((res) => {
+      this.props.newToken(res.action.payload.data.newToken)
       this.setState({ isLoading: false })
     })
   }
@@ -354,6 +357,6 @@ const mapStateToProps = (state) => ({
   izin: state.izin,
 })
 
-const mapDispatchToProps = { allIzin, exportAllIzin }
+const mapDispatchToProps = { allIzin, exportAllIzin, newToken }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Permissions)
