@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+/* eslint-disable no-shadow */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-access-state-in-setstate */
@@ -36,6 +37,7 @@ import swal from 'sweetalert2'
 import moment from 'moment'
 import { getProfile, deleteUser, updateUser } from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
+import { newToken } from '../../redux/actions/login'
 import { sendNotif } from '../../redux/actions/fcm'
 // import avatar from '../../assets/img/faces/marc.jpg'
 import GridItem from '../../components/Grid/GridItem'
@@ -116,8 +118,11 @@ class UserDetail extends Component {
 
   fetchProfile() {
     this.setState({ isLoadingFetch: true })
-    this.props.getProfile(this.props.location.state.id, this.props.login.token).then(() => {
+    this.props.getProfile(this.props.location.state.id, this.props.login.token).then((res) => {
       this.setState({ isLoadingFetch: false })
+      this.props.getDepartment(res.action.payload.data.newToken).then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
+      })
     })
   }
 
@@ -181,7 +186,7 @@ class UserDetail extends Component {
 
     this.props
       .updateUser(this.props.location.state.id, dataSubmit, this.props.login.token)
-      .then(() => {
+      .then((res) => {
         this.setState({ isLoadingUpdate: false })
         this.props.history.push('/admin/user')
         swal.fire({
@@ -189,6 +194,7 @@ class UserDetail extends Component {
           title: 'Success',
           text: 'User successsfully updated',
         })
+        this.props.newToken(res.action.payload.data.newToken)
       })
       .catch((res) => {
         this.setState({isLoadingUpdate: false})
@@ -205,7 +211,7 @@ class UserDetail extends Component {
     const id = `${this.props.location.state.id}`
     this.props
       .deleteUser(id, this.props.login.token)
-      .then(() => {
+      .then((res) => {
         this.setState({ isLoadingDelete: false })
         this.props.history.push('/admin/user')
         swal.fire({
@@ -213,6 +219,7 @@ class UserDetail extends Component {
           title: 'Success',
           text: 'User successsfully deleted',
         })
+        this.props.newToken(res.action.payload.data.newToken)
       })
       .catch(() => {
         swal.fire({
@@ -225,7 +232,6 @@ class UserDetail extends Component {
 
   componentDidMount() {
     this.fetchProfile()
-    this.props.getDepartment(this.props.login.token)
   }
 
   render() {
@@ -637,6 +643,6 @@ const mapStateToProps = (state) => ({
   department: state.department,
   login: state.login,
 })
-const mapDispatchToProps = { getProfile, getDepartment, deleteUser, sendNotif, updateUser }
+const mapDispatchToProps = { getProfile, getDepartment, deleteUser, sendNotif, updateUser, newToken }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail)
