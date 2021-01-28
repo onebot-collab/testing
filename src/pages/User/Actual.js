@@ -45,6 +45,7 @@ import CardFooter from '../../components/Card/CardFooter'
 
 import { getUser, registerUser } from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
+import { newToken } from '../../redux/actions/login'
 import { sendNotif } from '../../redux/actions/fcm'
 
 class User extends Component {
@@ -106,8 +107,11 @@ class User extends Component {
 
   fetch() {
     this.setState({ isLoadingUser: true })
-    this.props.getUser(this.props.login.token, this.state.search, this.state.page).then(() => {
+    this.props.getUser(this.props.login.token, this.state.search, this.state.page).then((res) => {
       this.setState({ isLoadingUser: false })
+      this.props.getDepartment(res.action.payload.data.newToken).then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
+      })
     })
   }
 
@@ -164,7 +168,7 @@ class User extends Component {
 
     this.props
       .registerUser(dataSubmit, this.props.login.token)
-      .then(() => {
+      .then((res) => {
         this.setState({
           isLoadingRegister: false,
           name: '',
@@ -186,6 +190,7 @@ class User extends Component {
           title: 'Success',
           text: 'User successsfully registered',
         })
+        this.props.newToken(res.action.payload.data.newToken)
         // this.pressed()
       })
       .catch(() => {
@@ -200,7 +205,6 @@ class User extends Component {
 
   componentDidMount() {
     this.fetch()
-    this.props.getDepartment(this.props.login.token)
   }
 
   render() {
@@ -714,6 +718,6 @@ const mapStateToProps = (state) => ({
   user: state.user,
   department: state.department,
 })
-const mapDispatchToProps = { getUser, registerUser, getDepartment, sendNotif }
+const mapDispatchToProps = { getUser, registerUser, getDepartment, sendNotif, newToken }
 
 export default connect(mapStateToProps, mapDispatchToProps)(User)

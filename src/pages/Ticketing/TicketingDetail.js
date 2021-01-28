@@ -43,6 +43,7 @@ import { Link } from 'react-router-dom'
 // core components
 import { connect } from 'react-redux'
 import { getTicketScore, exportDetailTicket } from '../../redux/actions/ticket'
+import { newToken } from '../../redux/actions/login'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -78,7 +79,8 @@ class TicketingDetail extends Component {
 
   fetchScore() {
     this.setState({ isLoading: true })
-    this.props.getTicketScore(this.state.id, this.state.assignId, this.props.login.token).then(() => {
+    this.props.getTicketScore(this.state.id, this.state.assignId, this.props.login.token).then((res) => {
+      this.props.newToken(res.action.payload.data.newToken)
       this.setState({ isLoading: false })
     })
   }
@@ -357,6 +359,6 @@ const mapStateToProps = (state) => ({
   ticket: state.ticket,
   login: state.login,
 })
-const mapDispatchToProps = { getTicketScore, exportDetailTicket }
+const mapDispatchToProps = { getTicketScore, exportDetailTicket, newToken }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TicketingDetail)

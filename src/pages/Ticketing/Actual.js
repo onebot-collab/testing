@@ -1,5 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-nested-ternary */
+/* eslint-disable no-shadow */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-access-state-in-setstate */
 import React, { Component } from 'react'
@@ -46,6 +47,7 @@ import {
 import Select from 'react-select'
 
 import { getAllTicket, getTicketStats, exportAllTicket } from '../../redux/actions/ticket'
+import { newToken } from '../../redux/actions/login'
 // core components
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
@@ -135,13 +137,6 @@ class Ticketing extends Component {
     })
   }
 
-  fetchStats() {
-    this.setState({ isLoadingStats: true })
-    this.props.getTicketStats(this.props.login.token).then(() => {
-      this.setState({ isLoadingStats: false })
-    })
-  }
-
   export() {
     this.setState({isLoadingExportAllTicket: true})
     this.props.exportAllTicket(this.props.login.token).then((res) => {
@@ -156,8 +151,14 @@ class Ticketing extends Component {
   }
 
   componentDidMount() {
-    this.fetch()
-    this.fetchStats()
+    this.setState({ isLoadingStats: true })
+    this.props.getAllTicket(this.props.login.token, this.state.search, this.state.page).then((res) => {
+      this.setState({ isLoading: false })
+      this.props.getTicketStats(res.action.payload.data.newToken).then((res) => {
+        this.setState({ isLoadingStats: false })
+        this.props.newToken(res.action.payload.data.newToken)
+      })
+    })
   }
 
   // useStyles(){
@@ -626,6 +627,6 @@ const mapStateToProps = (state) => ({
   login: state.login,
   ticket: state.ticket,
 })
-const mapDispatchToProps = { getAllTicket, getTicketStats, exportAllTicket }
+const mapDispatchToProps = { getAllTicket, getTicketStats, exportAllTicket, newToken }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ticketing)
