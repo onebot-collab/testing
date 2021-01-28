@@ -38,6 +38,7 @@ import {
 import Select from 'react-select'
 
 import { getAllReport } from '../../redux/actions/report'
+import { newToken } from '../../redux/actions/login'
 // import Check from '@material-ui/icons/Check'
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -108,8 +109,9 @@ class Report extends Component {
   }
 
   fetch() {
-    this.props.getAllReport(this.props.login.token, this.state.search, this.state.page).then(() => {
+    this.props.getAllReport(this.props.login.token, this.state.search, this.state.page).then((res) => {
       this.setState({ isLoading: false })
+      this.props.newToken(res.action.payload.data.newToken)
     })
   }
 
@@ -394,6 +396,6 @@ const mapStateToProps = (state) => ({
   report: state.report,
 })
 
-const mapDispatchToProps = { getAllReport }
+const mapDispatchToProps = { getAllReport, newToken }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Report)
