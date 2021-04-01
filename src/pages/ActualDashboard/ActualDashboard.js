@@ -222,7 +222,7 @@ class ActualDashboard extends Component {
                       <Update />
                       {this.props.izin.statsPermit.dataStats[0].sickness > 0 ? 
                       `Recently requested by ${this.props.izin.statsPermit.dataLatestUser[0].sickness}`
-                      : 'There is no incoming request right now'}
+                      : 'There is no incoming request'}
                     </CardFooter>
                   )}
                 </Card>
@@ -252,7 +252,7 @@ class ActualDashboard extends Component {
                       <Update />
                       {this.props.izin.statsPermit.dataStats[0].permit > 0 ? 
                       `Recently requested by ${this.props.izin.statsPermit.dataLatestUser[0].permit}`
-                      : 'There is no incoming request right now'}
+                      : 'There is no incoming request'}
                     </CardFooter>
                   )}
                 </Card>
@@ -282,7 +282,7 @@ class ActualDashboard extends Component {
                       <Update />
                       {this.props.izin.statsPermit.dataStats[0].total_leave > 0 ? 
                       `Recently requested by ${this.props.izin.statsPermit.dataLatestUser[0].total_leave}`
-                      : 'There is no incoming request right now'}
+                      : 'There is no incoming request'}
                     </CardFooter>
                   )}
                 </Card>
@@ -312,7 +312,7 @@ class ActualDashboard extends Component {
                       <Update />
                       {this.props.izin.statsPermit.dataStats[0].latecoming > 0 ? 
                       `Recently requested by ${this.props.izin.statsPermit.dataLatestUser[0].latecoming}`
-                      : 'There is no incoming request right now'}
+                      : 'There is no incoming request'}
                     </CardFooter>
                   )}
                 </Card>

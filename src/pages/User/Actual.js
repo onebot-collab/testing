@@ -624,7 +624,7 @@ class User extends Component {
                               <ListItem button key={i}>
                                 <ListItemAvatar>
                                   <Avatar
-                                    src={`http://localhost:21212/${res.photo_url}`}
+                                    src={`http://10.7.9.6:8443/node/${res.photo_url}`}
                                   />
                                 </ListItemAvatar>
                                 <ListItemText>{res.name}</ListItemText>

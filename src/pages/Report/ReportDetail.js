@@ -162,7 +162,7 @@ class ReportDetail extends Component {
                             <>
                               <a
                                 target="_blank"
-                                href={`http://localhost:21212/${this.state.fileName}`}
+                                href={`http://10.7.9.6:8443/node/${this.state.fileName}`}
                               >
                                 {this.state.fileName.replace(
                                   'public/report/', '')}

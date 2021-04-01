@@ -383,7 +383,7 @@ class Inventory extends Component {
                                       className={classesBody.tablePicture}
                                     >
                                       <Avatar
-                                        src={`http://localhost:21212/${res.image_url}`}
+                                        src={`http://10.7.9.6:8443/node/${res.image_url}`}
                                       />
                                     </TableCell>
                                     <TableCell

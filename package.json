@@ -42,10 +42,11 @@
     "redux-promise-middleware": "^6.1.2",
     "revo-calendar": "^1.0.8",
     "sweetalert2": "^10.8.1",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^0.2.4",
+    "yarn": "^1.22.10"
   },
   "scripts": {
-    "start": "set PORT=5002 && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
