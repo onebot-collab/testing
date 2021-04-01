@@ -17,6 +17,7 @@ import Update from '@material-ui/icons/Update'
 import AccessTime from '@material-ui/icons/AccessTime'
 import { connect } from 'react-redux'
 // core components
+import moment from 'moment'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 // import Danger from '../../components/Typography/Danger'
@@ -33,6 +34,7 @@ import { statsReport } from '../../redux/actions/report'
 import { newToken } from '../../redux/actions/login'
 
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
+
 const Chartist = require('chartist')
 // const useStyles(){
 //   return makeStyles(styles);
@@ -411,7 +413,7 @@ class ActualDashboard extends Component {
                       </CardBody>
                       <CardFooter chart>
                         <div className={classes.stats}>
-                          <AccessTime /> updated 1 minutes ago
+                          <AccessTime /> {moment().format('llll')}
                         </div>
                       </CardFooter>
                     </>
@@ -541,7 +543,7 @@ class ActualDashboard extends Component {
                       </CardBody>
                       <CardFooter chart>
                         <div className={classes.stats}>
-                          <AccessTime /> updated 1 minutes ago
+                          <AccessTime /> {moment().format('llll')}
                         </div>
                       </CardFooter>
                     </>
