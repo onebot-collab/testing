@@ -64,7 +64,7 @@ class Attendance extends Component {
     this.setState({ [event.target.name]: event.target.value })
     setTimeout(() => {
       this.fetch()
-    }, 100);
+    }, 100)
   }
 
   nextPage() {
@@ -72,7 +72,7 @@ class Attendance extends Component {
       this.setState({ page: this.state.page + 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
+      }, 100)
     }
   }
 
@@ -81,27 +81,34 @@ class Attendance extends Component {
       this.setState({ page: this.state.page - 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
+      }, 100)
     }
   }
 
   fetch() {
-    this.props.allLog(this.props.login.token, this.state.search, this.state.page).then((res) => {
-      this.setState({ isLoading: false })
-      this.props.newToken(res.action.payload.data.newToken)
-    })
+    this.props
+      .allLog(this.props.login.token, this.state.search, this.state.page)
+      .then((res) => {
+        this.setState({ isLoading: false })
+        this.props.newToken(res.action.payload.data.newToken)
+      })
   }
 
   export() {
-    this.setState({isLoadingExportAllLog: true})
+    this.setState({ isLoadingExportAllLog: true })
     this.props.exportAllLog(this.props.login.token).then((res) => {
-      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', `Report-All-User-Attendance_${moment().format('DD-MM-YY')}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      this.setState({isLoadingExportAllLog: false})
+      const url = window.URL.createObjectURL(
+        new Blob([res.action.payload.data]),
+      )
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute(
+        'download',
+        `Report-All-User-Attendance_${moment().format('DD-MM-YY')}.pdf`,
+      )
+      document.body.appendChild(link)
+      link.click()
+      this.setState({ isLoadingExportAllLog: false })
     })
   }
 
@@ -171,7 +178,7 @@ class Attendance extends Component {
                       >
                         <span className="sr-only">Loading...</span>
                       </div>
-                    ):(
+                    ) : (
                       <Print className="iconWhiteColor" />
                     )}
                   </Tooltip>
@@ -332,7 +339,7 @@ class Attendance extends Component {
                               </h6>
                             </div>
                             <div className="p-2">
-                              <IconButton onClick={this.prevPage} >
+                              <IconButton onClick={this.prevPage}>
                                 <ArrowLeft
                                   className="iconWhiteColor"
                                   fontSize="large"

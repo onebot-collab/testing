@@ -65,16 +65,25 @@ class ReportDetail extends Component {
   }
 
   export() {
-    this.setState({isLoadingExportReportDetail: true})
-    this.props.exportReportDetail(this.props.login.token, this.props.location.state.id).then((res) => {
-      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', `Report-Report-Detail-${this.props.location.state.id}-${this.props.location.state.id}_${moment().format('DD-MM-YY')}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      this.setState({isLoadingExportReportDetail: false})
-    })
+    this.setState({ isLoadingExportReportDetail: true })
+    this.props
+      .exportReportDetail(this.props.login.token, this.props.location.state.id)
+      .then((res) => {
+        const url = window.URL.createObjectURL(
+          new Blob([res.action.payload.data]),
+        )
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute(
+          'download',
+          `Report-Report-Detail-${this.props.location.state.id}-${
+            this.props.location.state.id
+          }_${moment().format('DD-MM-YY')}.pdf`,
+        )
+        document.body.appendChild(link)
+        link.click()
+        this.setState({ isLoadingExportReportDetail: false })
+      })
   }
 
   componentDidMount() {}
@@ -109,7 +118,7 @@ class ReportDetail extends Component {
                   >
                     <span className="sr-only">Loading...</span>
                   </div>
-                ):(
+                ) : (
                   <Print className="iconWhiteColor" />
                 )}
               </Tooltip>
@@ -165,7 +174,9 @@ class ReportDetail extends Component {
                                 href={`http://10.7.9.6:8443/node/${this.state.fileName}`}
                               >
                                 {this.state.fileName.replace(
-                                  'public/report/', '')}
+                                  'public/report/',
+                                  '',
+                                )}
                               </a>
                             </>
                           )}

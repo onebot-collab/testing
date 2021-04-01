@@ -87,7 +87,7 @@ class Report extends Component {
     this.setState({ [event.target.name]: event.target.value })
     setTimeout(() => {
       this.fetch()
-    }, 100);
+    }, 100)
   }
 
   nextPage() {
@@ -95,7 +95,7 @@ class Report extends Component {
       this.setState({ page: this.state.page + 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
+      }, 100)
     }
   }
 
@@ -104,15 +104,17 @@ class Report extends Component {
       this.setState({ page: this.state.page - 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
+      }, 100)
     }
   }
 
   fetch() {
-    this.props.getAllReport(this.props.login.token, this.state.search, this.state.page).then((res) => {
-      this.setState({ isLoading: false })
-      this.props.newToken(res.action.payload.data.newToken)
-    })
+    this.props
+      .getAllReport(this.props.login.token, this.state.search, this.state.page)
+      .then((res) => {
+        this.setState({ isLoading: false })
+        this.props.newToken(res.action.payload.data.newToken)
+      })
   }
 
   toggleAddModal() {
@@ -252,13 +254,17 @@ class Report extends Component {
                                   </TableCell>
                                   <TableCell component="th">
                                     <p className="textPrimaryColor">
-                                      {res.fileName === 'public/report/img.jpg' ? (
+                                      {res.fileName ===
+                                      'public/report/img.jpg' ? (
                                         <span className="badge badge-secondary">
                                           No Attachment
                                         </span>
                                       ) : (
                                         <span className="badge badge-success">
-                                          {res.fileName.replace('public/report/', '')}
+                                          {res.fileName.replace(
+                                            'public/report/',
+                                            '',
+                                          )}
                                         </span>
                                       )}
                                     </p>

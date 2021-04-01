@@ -95,7 +95,7 @@ class Announcement extends Component {
     this.setState({ [event.target.name]: event.target.value })
     setTimeout(() => {
       this.fetch()
-    }, 100);
+    }, 100)
   }
 
   nextPage() {
@@ -103,7 +103,7 @@ class Announcement extends Component {
       this.setState({ page: this.state.page + 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
+      }, 100)
     }
   }
 
@@ -112,17 +112,25 @@ class Announcement extends Component {
       this.setState({ page: this.state.page - 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
+      }, 100)
     }
   }
 
   fetch() {
-    this.props.getAllCampaign(this.props.login.token, this.state.search, this.state.page).then((res) => {
-      this.setState({ isLoadingCampaign: false })
-      this.props.getDepartment(res.action.payload.data.newToken).then((res) => {
-        this.props.newToken(res.action.payload.data.newToken)
+    this.props
+      .getAllCampaign(
+        this.props.login.token,
+        this.state.search,
+        this.state.page,
+      )
+      .then((res) => {
+        this.setState({ isLoadingCampaign: false })
+        this.props
+          .getDepartment(res.action.payload.data.newToken)
+          .then((res) => {
+            this.props.newToken(res.action.payload.data.newToken)
+          })
       })
-    })
   }
 
   deleteAct() {

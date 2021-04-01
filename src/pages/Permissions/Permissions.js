@@ -64,15 +64,15 @@ class Permissions extends Component {
     this.setState({ [event.target.name]: event.target.value })
     setTimeout(() => {
       this.fetch()
-    }, 100);
+    }, 100)
   }
 
   nextPage() {
     if (this.state.page < this.props.izin.infoIzinAll.totalPage)
-    this.setState({ page: this.state.page + 1 })
+      this.setState({ page: this.state.page + 1 })
     setTimeout(() => {
       this.fetch()
-    }, 100);
+    }, 100)
   }
 
   prevPage() {
@@ -80,27 +80,34 @@ class Permissions extends Component {
       this.setState({ page: this.state.page - 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
+      }, 100)
     }
   }
 
   fetch() {
-    this.props.allIzin(this.props.login.token, this.state.search, this.state.page).then((res) => {
-      this.props.newToken(res.action.payload.data.newToken)
-      this.setState({ isLoading: false })
-    })
+    this.props
+      .allIzin(this.props.login.token, this.state.search, this.state.page)
+      .then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
+        this.setState({ isLoading: false })
+      })
   }
 
   export() {
-    this.setState({isLoadingExportAllIzin: true})
+    this.setState({ isLoadingExportAllIzin: true })
     this.props.exportAllIzin(this.props.login.token).then((res) => {
-      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', `Report-All-Leave-Application_${moment().format('DD-MM-YY')}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      this.setState({isLoadingExportAllIzin: false})
+      const url = window.URL.createObjectURL(
+        new Blob([res.action.payload.data]),
+      )
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute(
+        'download',
+        `Report-All-Leave-Application_${moment().format('DD-MM-YY')}.pdf`,
+      )
+      document.body.appendChild(link)
+      link.click()
+      this.setState({ isLoadingExportAllIzin: false })
     })
   }
 
@@ -160,7 +167,7 @@ class Permissions extends Component {
                       >
                         <span className="sr-only">Loading...</span>
                       </div>
-                    ):(
+                    ) : (
                       <Print className="iconWhiteColor" />
                     )}
                   </Tooltip>

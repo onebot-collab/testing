@@ -41,7 +41,7 @@ import {
   invoiceClosed,
   exportAllInvoice,
 } from '../../redux/actions/invoice'
-import {newToken} from '../../redux/actions/login'
+import { newToken } from '../../redux/actions/login'
 
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -82,35 +82,51 @@ class Invoice extends Component {
     this.setState({ [event.target.name]: event.target.value })
     setTimeout(() => {
       this.fetch()
-    }, 100);
+    }, 100)
   }
 
   nextPage(id) {
-    if (id === 1 && this.state.pageWaiting < this.props.invoice.infoInvoiceWaiting.totalPage) {
+    if (
+      id === 1 &&
+      this.state.pageWaiting < this.props.invoice.infoInvoiceWaiting.totalPage
+    ) {
       this.setState({ pageWaiting: this.state.pageWaiting + 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
-    } else if (id === 2 && this.state.pageApproved < this.props.invoice.infoInvoiceApproved.totalPage) {
+      }, 100)
+    } else if (
+      id === 2 &&
+      this.state.pageApproved < this.props.invoice.infoInvoiceApproved.totalPage
+    ) {
       this.setState({ pageApproved: this.state.pageApproved + 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
-    } else if (id === 3 && this.state.pageRejected < this.props.invoice.infoInvoiceRejected.totalPage) {
+      }, 100)
+    } else if (
+      id === 3 &&
+      this.state.pageRejected < this.props.invoice.infoInvoiceRejected.totalPage
+    ) {
       this.setState({ pageRejected: this.state.pageRejected + 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
-    } else if (id === 4 && this.state.pageProcessed < this.props.invoice.infoInvoiceProcessedpageProcessed.totalPage) {
+      }, 100)
+    } else if (
+      id === 4 &&
+      this.state.pageProcessed <
+        this.props.invoice.infoInvoiceProcessedpageProcessed.totalPage
+    ) {
       this.setState({ pageProcessed: this.state.pageProcessed + 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
-    } else if (id === 5 && this.state.pageClosed < this.props.invoice.infoInvoiceClosed.totalPage) {
+      }, 100)
+    } else if (
+      id === 5 &&
+      this.state.pageClosed < this.props.invoice.infoInvoiceClosed.totalPage
+    ) {
       this.setState({ pageClosed: this.state.pageClosed + 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
+      }, 100)
     }
   }
 
@@ -119,40 +135,45 @@ class Invoice extends Component {
       this.setState({ pageWaiting: this.state.pageWaiting - 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
+      }, 100)
     } else if (this.state.pageApproved > 1 && id === 2) {
       this.setState({ pageApproved: this.state.pageApproved - 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
-    } else if (this.state.pageRejected > 1 && id === 3)  {
+      }, 100)
+    } else if (this.state.pageRejected > 1 && id === 3) {
       this.setState({ pageRejected: this.state.pageRejected - 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
+      }, 100)
     } else if (this.state.pageProcessed > 1 && id === 4) {
       this.setState({ pageProcessed: this.state.pageProcessed - 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
+      }, 100)
     } else if (this.state.pageClosed > 1 && id === 5) {
       this.setState({ pageClosed: this.state.pageClosed - 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
+      }, 100)
     }
   }
 
   export() {
-    this.setState({isLoadingExportAllInvoice: true})
+    this.setState({ isLoadingExportAllInvoice: true })
     this.props.exportAllInvoice(this.props.login.token).then((res) => {
-      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', `Report-All-Invoice_${moment().format('DD-MM-YY')}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      this.setState({isLoadingExportAllInvoice: false})
+      const url = window.URL.createObjectURL(
+        new Blob([res.action.payload.data]),
+      )
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute(
+        'download',
+        `Report-All-Invoice_${moment().format('DD-MM-YY')}.pdf`,
+      )
+      document.body.appendChild(link)
+      link.click()
+      this.setState({ isLoadingExportAllInvoice: false })
     })
   }
 
@@ -163,22 +184,48 @@ class Invoice extends Component {
   fetch() {
     const { token } = this.props.login
 
-    this.props.invoiceWaiting(token, this.state.search, this.state.pageWaiting).then((res) => {
-      this.setState({ isLoadingWaiting: false })
-      this.props.invoiceApproved(res.action.payload.data.newToken, this.state.search, this.state.pageApproved).then(() => {
-        this.setState({ isLoadingApproved: false })
-        this.props.invoiceRejected(res.action.payload.data.newToken, this.state.search, this.state.pageRejected).then(() => {
-          this.setState({ isLoadingRejected: false })
-          this.props.invoiceProcessed(res.action.payload.data.newToken, this.state.search, this.state.pageProcessed).then(() => {
-            this.setState({ isLoadingProcessed: false })
-            this.props.invoiceClosed(res.action.payload.data.newToken, this.state.search, this.state.pageClosed).then(() => {
-              this.setState({ isLoadingClosed: false })
-              this.props.newToken(res.action.payload.data.newToken)
-            })
+    this.props
+      .invoiceWaiting(token, this.state.search, this.state.pageWaiting)
+      .then((res) => {
+        this.setState({ isLoadingWaiting: false })
+        this.props
+          .invoiceApproved(
+            res.action.payload.data.newToken,
+            this.state.search,
+            this.state.pageApproved,
+          )
+          .then(() => {
+            this.setState({ isLoadingApproved: false })
+            this.props
+              .invoiceRejected(
+                res.action.payload.data.newToken,
+                this.state.search,
+                this.state.pageRejected,
+              )
+              .then(() => {
+                this.setState({ isLoadingRejected: false })
+                this.props
+                  .invoiceProcessed(
+                    res.action.payload.data.newToken,
+                    this.state.search,
+                    this.state.pageProcessed,
+                  )
+                  .then(() => {
+                    this.setState({ isLoadingProcessed: false })
+                    this.props
+                      .invoiceClosed(
+                        res.action.payload.data.newToken,
+                        this.state.search,
+                        this.state.pageClosed,
+                      )
+                      .then(() => {
+                        this.setState({ isLoadingClosed: false })
+                        this.props.newToken(res.action.payload.data.newToken)
+                      })
+                  })
+              })
           })
-        })
       })
-    })
   }
 
   componentDidMount() {
@@ -233,7 +280,7 @@ class Invoice extends Component {
                       >
                         <span className="sr-only">Loading...</span>
                       </div>
-                    ):(
+                    ) : (
                       <Print className="iconWhiteColor" />
                     )}
                   </Tooltip>
@@ -427,7 +474,10 @@ class Invoice extends Component {
                             <div className="p-2 d-flex align-items-center align-self-center">
                               <h6>
                                 15 of{' '}
-                                {this.props.invoice.infoInvoiceWaiting.totalData}
+                                {
+                                  this.props.invoice.infoInvoiceWaiting
+                                    .totalData
+                                }
                               </h6>
                             </div>
                             <div className="p-2">
@@ -439,8 +489,8 @@ class Invoice extends Component {
                               </IconButton>
                             </div>
                             <div>
-                            <p>{this.state.pageWaiting}</p>
-                          </div>
+                              <p>{this.state.pageWaiting}</p>
+                            </div>
                             <div className="p-2">
                               <IconButton onClick={() => this.nextPage(1)}>
                                 <ArrowRight
@@ -654,7 +704,10 @@ class Invoice extends Component {
                             <div className="p-2 d-flex align-items-center align-self-center">
                               <h6>
                                 15 of{' '}
-                                {this.props.invoice.infoInvoiceApproved.totalData}
+                                {
+                                  this.props.invoice.infoInvoiceApproved
+                                    .totalData
+                                }
                               </h6>
                             </div>
                             <div className="p-2">
@@ -666,8 +719,8 @@ class Invoice extends Component {
                               </IconButton>
                             </div>
                             <div>
-                            <p>{this.state.pageApproved}</p>
-                          </div>
+                              <p>{this.state.pageApproved}</p>
+                            </div>
                             <div className="p-2">
                               <IconButton onClick={() => this.nextPage(2)}>
                                 <ArrowRight
@@ -871,7 +924,10 @@ class Invoice extends Component {
                             <div className="p-2 d-flex align-items-center align-self-center">
                               <h6>
                                 15 of{' '}
-                                {this.props.invoice.infoInvoiceRejected.totalData}
+                                {
+                                  this.props.invoice.infoInvoiceRejected
+                                    .totalData
+                                }
                               </h6>
                             </div>
                             <div className="p-2">
@@ -883,8 +939,8 @@ class Invoice extends Component {
                               </IconButton>
                             </div>
                             <div>
-                            <p>{this.state.pageRejected}</p>
-                          </div>
+                              <p>{this.state.pageRejected}</p>
+                            </div>
                             <div className="p-2">
                               <IconButton onClick={() => this.nextPage(3)}>
                                 <ArrowRight
@@ -1088,7 +1144,10 @@ class Invoice extends Component {
                             <div className="p-2 d-flex align-items-center align-self-center">
                               <h6>
                                 15 of{' '}
-                                {this.props.invoice.infoInvoiceProcessed.totalData}
+                                {
+                                  this.props.invoice.infoInvoiceProcessed
+                                    .totalData
+                                }
                               </h6>
                             </div>
                             <div className="p-2">
@@ -1100,8 +1159,8 @@ class Invoice extends Component {
                               </IconButton>
                             </div>
                             <div>
-                            <p>{this.state.pageProcessed}</p>
-                          </div>
+                              <p>{this.state.pageProcessed}</p>
+                            </div>
                             <div className="p-2">
                               <IconButton onClick={() => this.nextPage(4)}>
                                 <ArrowRight
@@ -1317,8 +1376,8 @@ class Invoice extends Component {
                               </IconButton>
                             </div>
                             <div>
-                            <p>{this.state.pageClosed}</p>
-                          </div>
+                              <p>{this.state.pageClosed}</p>
+                            </div>
                             <div className="p-2">
                               <IconButton onClick={() => this.nextPage(5)}>
                                 <ArrowRight

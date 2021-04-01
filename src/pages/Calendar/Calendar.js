@@ -95,7 +95,7 @@ class CalendarScreen extends Component {
     setTimeout(() => {
       const date = moment().format().slice(0, 10)
       this.fetchReminder(date)
-    }, 100);
+    }, 100)
   }
 
   nextPage() {
@@ -104,7 +104,7 @@ class CalendarScreen extends Component {
       setTimeout(() => {
         const date = moment().format().slice(0, 10)
         this.fetchReminder(date)
-      }, 100);
+      }, 100)
     }
   }
 
@@ -114,7 +114,7 @@ class CalendarScreen extends Component {
       setTimeout(() => {
         const date = moment().format().slice(0, 10)
         this.fetchReminder(date)
-      }, 100);
+      }, 100)
     }
   }
 
@@ -230,10 +230,17 @@ class CalendarScreen extends Component {
       date: day,
     }
 
-    this.props.getReminderByDay(dataSubmit, this.props.login.token, this.state.search, this.state.page).then((res) => {
-      this.setState({ isLoadingFetchReminder: false })
-      this.props.newToken(res.action.payload.data.newToken)
-    })
+    this.props
+      .getReminderByDay(
+        dataSubmit,
+        this.props.login.token,
+        this.state.search,
+        this.state.page,
+      )
+      .then((res) => {
+        this.setState({ isLoadingFetchReminder: false })
+        this.props.newToken(res.action.payload.data.newToken)
+      })
   }
 
   componentDidMount() {

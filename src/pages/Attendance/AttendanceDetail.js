@@ -29,10 +29,20 @@ import { Link } from 'react-router-dom'
 import moment from 'moment'
 
 // @material-ui/icons
-import { Cancel, CheckCircle, ArrowLeft, ArrowRight, Print } from '@material-ui/icons'
+import {
+  Cancel,
+  CheckCircle,
+  ArrowLeft,
+  ArrowRight,
+  Print,
+} from '@material-ui/icons'
 
 // core components
-import { userLogHistory, statsUserAttendance, exportUserLogHistory } from '../../redux/actions/presence'
+import {
+  userLogHistory,
+  statsUserAttendance,
+  exportUserLogHistory,
+} from '../../redux/actions/presence'
 import { newToken } from '../../redux/actions/login'
 
 import GridItem from '../../components/Grid/GridItem'
@@ -68,7 +78,7 @@ class AttendanceDetail extends Component {
       this.setState({ page: this.state.page + 1 })
       setTimeout(() => {
         this.fetchUserLog()
-      }, 100);
+      }, 100)
     }
   }
 
@@ -77,52 +87,82 @@ class AttendanceDetail extends Component {
       this.setState({ page: this.state.page - 1 })
       setTimeout(() => {
         this.fetchUserLog()
-      }, 100);
+      }, 100)
     }
   }
 
   fetchUserStats() {
-    this.setState({isLoadingStats: true})
-    this.props.statsUserAttendance(this.props.login.token, this.props.location.state.user_id).then((res) => {
-      this.props.newToken(res.action.payload.data.newToken)
-      this.setState({isLoadingStats: false})
-    })
+    this.setState({ isLoadingStats: true })
+    this.props
+      .statsUserAttendance(
+        this.props.login.token,
+        this.props.location.state.user_id,
+      )
+      .then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
+        this.setState({ isLoadingStats: false })
+      })
   }
 
   fetchUserLog() {
     this.setState({ isLoadingFetch: true })
     this.props
-      .userLogHistory(this.props.location.state.user_id, this.props.login.token, this.state.page)
+      .userLogHistory(
+        this.props.location.state.user_id,
+        this.props.login.token,
+        this.state.page,
+      )
       .then((res) => {
         this.props.newToken(res.action.payload.data.newToken)
         this.setState({ isLoadingFetch: false })
-    })
+      })
   }
 
   export() {
-    this.setState({isLoadingExportUserLog: true})
-    this.props.exportUserLogHistory(this.props.location.state.user_id, this.props.login.token).then((res) => {
-      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', `Report-${this.props.location.state.nameUser}'s-Attendance_${moment().format('DD-MM-YY')}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      this.setState({isLoadingExportUserLog: false})
-    })
+    this.setState({ isLoadingExportUserLog: true })
+    this.props
+      .exportUserLogHistory(
+        this.props.location.state.user_id,
+        this.props.login.token,
+      )
+      .then((res) => {
+        const url = window.URL.createObjectURL(
+          new Blob([res.action.payload.data]),
+        )
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute(
+          'download',
+          `Report-${
+            this.props.location.state.nameUser
+          }'s-Attendance_${moment().format('DD-MM-YY')}.pdf`,
+        )
+        document.body.appendChild(link)
+        link.click()
+        this.setState({ isLoadingExportUserLog: false })
+      })
   }
 
   fetch() {
     this.setState({ isLoadingFetch: true, isLoadingStats: true })
     this.props
-      .userLogHistory(this.props.location.state.user_id, this.props.login.token, this.state.page)
+      .userLogHistory(
+        this.props.location.state.user_id,
+        this.props.login.token,
+        this.state.page,
+      )
       .then((res) => {
         this.setState({ isLoadingFetch: false })
-        this.props.statsUserAttendance(res.action.payload.data.newToken, this.props.location.state.user_id).then((res) => {
-          this.setState({isLoadingStats: false})
-          this.props.newToken(res.action.payload.data.newToken)
-        })
-    })
+        this.props
+          .statsUserAttendance(
+            res.action.payload.data.newToken,
+            this.props.location.state.user_id,
+          )
+          .then((res) => {
+            this.setState({ isLoadingStats: false })
+            this.props.newToken(res.action.payload.data.newToken)
+          })
+      })
   }
 
   componentDidMount() {
@@ -151,35 +191,35 @@ class AttendanceDetail extends Component {
     }
     return (
       <div>
-         <nav className="navbar navbar-light bg-light d-flex justify-content-end">
-            <div className="d-flex flex-row">
-              <button
-                className="btn btn-danger my-2 my-sm-0"
-                type="submit"
-                onClick={this.export}
+        <nav className="navbar navbar-light bg-light d-flex justify-content-end">
+          <div className="d-flex flex-row">
+            <button
+              className="btn btn-danger my-2 my-sm-0"
+              type="submit"
+              onClick={this.export}
+            >
+              <Tooltip
+                id="tooltip-top-start"
+                title="Export to PDF"
+                placement="top"
+                classes={{
+                  tooltip: classesBody.tooltip,
+                }}
               >
-                <Tooltip
-                  id="tooltip-top-start"
-                  title="Export to PDF"
-                  placement="top"
-                  classes={{
-                    tooltip: classesBody.tooltip,
-                  }}
-                >
-                  {this.state.isLoadingExportUserLog ? (
-                    <div
-                      className="spinner-border spinner-border-sm text-white"
-                      role="status"
-                    >
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  ):(
-                    <Print className="iconWhiteColor" />
-                  )}
-                </Tooltip>
-              </button>
-            </div>
-          </nav>
+                {this.state.isLoadingExportUserLog ? (
+                  <div
+                    className="spinner-border spinner-border-sm text-white"
+                    role="status"
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                ) : (
+                  <Print className="iconWhiteColor" />
+                )}
+              </Tooltip>
+            </button>
+          </div>
+        </nav>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <Card>
@@ -221,7 +261,7 @@ class AttendanceDetail extends Component {
                     <Grid item xs={12} sm={12} md={4}>
                       {this.state.isLoadingStats ? (
                         <></>
-                      ):(
+                      ) : (
                         <>
                           <div className="d-flex justify-content-center">
                             <Paper elevation={3}>
@@ -234,9 +274,12 @@ class AttendanceDetail extends Component {
                                     `${this.props.presence.statsUserAttendance.permit}%`,
                                   ],
                                   series: [
-                                    this.props.presence.statsUserAttendance.isLate,
-                                    this.props.presence.statsUserAttendance.notLate,
-                                    this.props.presence.statsUserAttendance.permit,
+                                    this.props.presence.statsUserAttendance
+                                      .isLate,
+                                    this.props.presence.statsUserAttendance
+                                      .notLate,
+                                    this.props.presence.statsUserAttendance
+                                      .permit,
                                   ],
                                 }}
                                 type="Pie"
@@ -293,7 +336,11 @@ class AttendanceDetail extends Component {
                                 Achieved Weekly Hours
                               </p>
                               <h3 className="textPrimaryColor align-self-center">
-                                {this.props.presence.statsUserAttendance.totalWorkingInHours} Hours
+                                {
+                                  this.props.presence.statsUserAttendance
+                                    .totalWorkingInHours
+                                }{' '}
+                                Hours
                               </h3>
                               {/* <Box display="flex" alignItems="center">
                                 <Box width="80%" mr={1}>
@@ -307,7 +354,12 @@ class AttendanceDetail extends Component {
                               </Box> */}
                               <LinearProgress
                                 variant="determinate"
-                                value={(this.props.presence.statsUserAttendance.totalWorkingInHours/46) * 100}
+                                value={
+                                  (this.props.presence.statsUserAttendance
+                                    .totalWorkingInHours /
+                                    46) *
+                                  100
+                                }
                               />
                             </Paper>
                           </div>
@@ -434,8 +486,8 @@ class AttendanceDetail extends Component {
                           </IconButton>
                         </div>
                         <div>
-                            <p>{this.state.page}</p>
-                          </div>
+                          <p>{this.state.page}</p>
+                        </div>
                         <div className="p-2">
                           <IconButton onClick={this.nextPage}>
                             <ArrowRight
@@ -491,6 +543,11 @@ const mapStateToProps = (state) => ({
   presence: state.presence,
   login: state.login,
 })
-const mapDispatchToProps = { userLogHistory, statsUserAttendance, exportUserLogHistory, newToken }
+const mapDispatchToProps = {
+  userLogHistory,
+  statsUserAttendance,
+  exportUserLogHistory,
+  newToken,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(AttendanceDetail)

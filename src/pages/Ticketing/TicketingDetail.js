@@ -79,23 +79,38 @@ class TicketingDetail extends Component {
 
   fetchScore() {
     this.setState({ isLoading: true })
-    this.props.getTicketScore(this.state.id, this.state.assignId, this.props.login.token).then((res) => {
-      this.props.newToken(res.action.payload.data.newToken)
-      this.setState({ isLoading: false })
-    })
+    this.props
+      .getTicketScore(
+        this.state.id,
+        this.state.assignId,
+        this.props.login.token,
+      )
+      .then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
+        this.setState({ isLoading: false })
+      })
   }
 
   export() {
-    this.setState({isLoadingExportDetailTicket: true})
-    this.props.exportDetailTicket(this.props.login.token, this.props.location.state.id).then((res) => {
-      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', `Report-Ticket-${this.props.location.state.no_ticket}_${moment().format('DD-MM-YY')}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      this.setState({isLoadingExportDetailTicket: false})
-    })
+    this.setState({ isLoadingExportDetailTicket: true })
+    this.props
+      .exportDetailTicket(this.props.login.token, this.props.location.state.id)
+      .then((res) => {
+        const url = window.URL.createObjectURL(
+          new Blob([res.action.payload.data]),
+        )
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute(
+          'download',
+          `Report-Ticket-${
+            this.props.location.state.no_ticket
+          }_${moment().format('DD-MM-YY')}.pdf`,
+        )
+        document.body.appendChild(link)
+        link.click()
+        this.setState({ isLoadingExportDetailTicket: false })
+      })
   }
 
   componentDidMount() {
@@ -132,7 +147,7 @@ class TicketingDetail extends Component {
                   >
                     <span className="sr-only">Loading...</span>
                   </div>
-                ):(
+                ) : (
                   <Print className="iconWhiteColor" />
                 )}
               </Tooltip>
@@ -223,7 +238,8 @@ class TicketingDetail extends Component {
                         </dt>
                         <dd className="col-sm-10">
                           <h6>
-                            : {`${this.state.start_date}`} / {this.state.end_date}
+                            : {`${this.state.start_date}`} /{' '}
+                            {this.state.end_date}
                           </h6>
                         </dd>
                       </dl>

@@ -118,12 +118,16 @@ class UserDetail extends Component {
 
   fetchProfile() {
     this.setState({ isLoadingFetch: true })
-    this.props.getProfile(this.props.location.state.id, this.props.login.token).then((res) => {
-      this.setState({ isLoadingFetch: false })
-      this.props.getDepartment(res.action.payload.data.newToken).then((res) => {
-        this.props.newToken(res.action.payload.data.newToken)
+    this.props
+      .getProfile(this.props.location.state.id, this.props.login.token)
+      .then((res) => {
+        this.setState({ isLoadingFetch: false })
+        this.props
+          .getDepartment(res.action.payload.data.newToken)
+          .then((res) => {
+            this.props.newToken(res.action.payload.data.newToken)
+          })
       })
-    })
   }
 
   pressedDelete() {
@@ -145,7 +149,7 @@ class UserDetail extends Component {
   }
 
   update() {
-    this.setState({isLoadingUpdate: true})
+    this.setState({ isLoadingUpdate: true })
     const dataSubmit = new FormData()
     if (this.state.nameInput !== this.state.name) {
       dataSubmit.append('name', this.state.nameInput)
@@ -185,7 +189,11 @@ class UserDetail extends Component {
     }
 
     this.props
-      .updateUser(this.props.location.state.id, dataSubmit, this.props.login.token)
+      .updateUser(
+        this.props.location.state.id,
+        dataSubmit,
+        this.props.login.token,
+      )
       .then((res) => {
         this.setState({ isLoadingUpdate: false })
         this.props.history.push('/admin/user')
@@ -197,7 +205,7 @@ class UserDetail extends Component {
         this.props.newToken(res.action.payload.data.newToken)
       })
       .catch((res) => {
-        this.setState({isLoadingUpdate: false})
+        this.setState({ isLoadingUpdate: false })
         swal.fire({
           icon: 'error',
           title: 'Failed',
@@ -445,11 +453,11 @@ class UserDetail extends Component {
                                   type="file"
                                   id="exampleCustomFileBrowser"
                                   name="avatar"
-                                    onChange={(e) =>
-                                      this.setState({
-                                        avatar: e.target.files[0],
-                                      })
-                                    }
+                                  onChange={(e) =>
+                                    this.setState({
+                                      avatar: e.target.files[0],
+                                    })
+                                  }
                                 />
                               </FormGroup>
                             </Col>
@@ -580,7 +588,7 @@ class UserDetail extends Component {
                           <span className="sr-only">Loading...</span>
                         </div>
                       </Button>
-                    ):(
+                    ) : (
                       <Button
                         color="secondary"
                         onClick={() => {
@@ -643,6 +651,13 @@ const mapStateToProps = (state) => ({
   department: state.department,
   login: state.login,
 })
-const mapDispatchToProps = { getProfile, getDepartment, deleteUser, sendNotif, updateUser, newToken }
+const mapDispatchToProps = {
+  getProfile,
+  getDepartment,
+  deleteUser,
+  sendNotif,
+  updateUser,
+  newToken,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail)

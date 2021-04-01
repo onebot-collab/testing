@@ -85,7 +85,7 @@ class User extends Component {
     this.setState({ [event.target.name]: event.target.value })
     setTimeout(() => {
       this.fetch()
-    }, 100);
+    }, 100)
   }
 
   nextPage() {
@@ -93,7 +93,7 @@ class User extends Component {
       this.setState({ page: this.state.page + 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
+      }, 100)
     }
   }
 
@@ -102,18 +102,22 @@ class User extends Component {
       this.setState({ page: this.state.page - 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
+      }, 100)
     }
   }
 
   fetch() {
     this.setState({ isLoadingUser: true })
-    this.props.getUser(this.props.login.token, this.state.search, this.state.page).then((res) => {
-      this.setState({ isLoadingUser: false })
-      this.props.getDepartment(res.action.payload.data.newToken).then((res) => {
-        this.props.newToken(res.action.payload.data.newToken)
+    this.props
+      .getUser(this.props.login.token, this.state.search, this.state.page)
+      .then((res) => {
+        this.setState({ isLoadingUser: false })
+        this.props
+          .getDepartment(res.action.payload.data.newToken)
+          .then((res) => {
+            this.props.newToken(res.action.payload.data.newToken)
+          })
       })
-    })
   }
 
   redirect() {
@@ -673,7 +677,7 @@ class User extends Component {
                               >
                                 <span className="sr-only">Loading...</span>
                               </div>
-                            ):(
+                            ) : (
                               <div className="p-2 d-flex align-items-center align-self-center">
                                 <h6>
                                   15 of {this.props.user.infoUser.totalData}
@@ -719,6 +723,12 @@ const mapStateToProps = (state) => ({
   user: state.user,
   department: state.department,
 })
-const mapDispatchToProps = { getUser, registerUser, getDepartment, sendNotif, newToken }
+const mapDispatchToProps = {
+  getUser,
+  registerUser,
+  getDepartment,
+  sendNotif,
+  newToken,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(User)

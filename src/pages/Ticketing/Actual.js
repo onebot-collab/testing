@@ -46,7 +46,11 @@ import {
 } from 'reactstrap'
 import Select from 'react-select'
 
-import { getAllTicket, getTicketStats, exportAllTicket } from '../../redux/actions/ticket'
+import {
+  getAllTicket,
+  getTicketStats,
+  exportAllTicket,
+} from '../../redux/actions/ticket'
 import { newToken } from '../../redux/actions/login'
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -100,7 +104,7 @@ class Ticketing extends Component {
     this.setState({ [event.target.name]: event.target.value })
     setTimeout(() => {
       this.fetch()
-    }, 100);
+    }, 100)
   }
 
   nextPage() {
@@ -108,7 +112,7 @@ class Ticketing extends Component {
       this.setState({ page: this.state.page + 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
+      }, 100)
     }
   }
 
@@ -117,7 +121,7 @@ class Ticketing extends Component {
       this.setState({ page: this.state.page - 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
+      }, 100)
     }
   }
 
@@ -132,33 +136,44 @@ class Ticketing extends Component {
   }
 
   fetch() {
-    this.props.getAllTicket(this.props.login.token, this.state.search, this.state.page).then(() => {
-      this.setState({ isLoading: false })
-    })
+    this.props
+      .getAllTicket(this.props.login.token, this.state.search, this.state.page)
+      .then(() => {
+        this.setState({ isLoading: false })
+      })
   }
 
   export() {
-    this.setState({isLoadingExportAllTicket: true})
+    this.setState({ isLoadingExportAllTicket: true })
     this.props.exportAllTicket(this.props.login.token).then((res) => {
-      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', `Report-All-Ticket${moment().format('DD-MM-YY')}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      this.setState({isLoadingExportAllTicket: false})
+      const url = window.URL.createObjectURL(
+        new Blob([res.action.payload.data]),
+      )
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute(
+        'download',
+        `Report-All-Ticket${moment().format('DD-MM-YY')}.pdf`,
+      )
+      document.body.appendChild(link)
+      link.click()
+      this.setState({ isLoadingExportAllTicket: false })
     })
   }
 
   componentDidMount() {
     this.setState({ isLoadingStats: true })
-    this.props.getAllTicket(this.props.login.token, this.state.search, this.state.page).then((res) => {
-      this.setState({ isLoading: false })
-      this.props.getTicketStats(res.action.payload.data.newToken).then((res) => {
-        this.setState({ isLoadingStats: false })
-        this.props.newToken(res.action.payload.data.newToken)
+    this.props
+      .getAllTicket(this.props.login.token, this.state.search, this.state.page)
+      .then((res) => {
+        this.setState({ isLoading: false })
+        this.props
+          .getTicketStats(res.action.payload.data.newToken)
+          .then((res) => {
+            this.setState({ isLoadingStats: false })
+            this.props.newToken(res.action.payload.data.newToken)
+          })
       })
-    })
   }
 
   // useStyles(){
@@ -213,7 +228,7 @@ class Ticketing extends Component {
                       >
                         <span className="sr-only">Loading...</span>
                       </div>
-                    ):(
+                    ) : (
                       <Print className="iconWhiteColor" />
                     )}
                   </Tooltip>
@@ -627,6 +642,11 @@ const mapStateToProps = (state) => ({
   login: state.login,
   ticket: state.ticket,
 })
-const mapDispatchToProps = { getAllTicket, getTicketStats, exportAllTicket, newToken }
+const mapDispatchToProps = {
+  getAllTicket,
+  getTicketStats,
+  exportAllTicket,
+  newToken,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ticketing)

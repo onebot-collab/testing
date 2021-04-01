@@ -38,7 +38,14 @@ import swal from 'sweetalert2'
 import moment from 'moment'
 
 // @material-ui/icons
-import { Visibility, Delete, Add, ArrowLeft, ArrowRight, Print } from '@material-ui/icons'
+import {
+  Visibility,
+  Delete,
+  Add,
+  ArrowLeft,
+  ArrowRight,
+  Print,
+} from '@material-ui/icons'
 // import Delete from '@material-ui/icons/Delete'
 // import Check from '@material-ui/icons/Check'
 // import Edit from '@material-ui/icons/Edit'
@@ -105,15 +112,15 @@ class Inventory extends Component {
     this.setState({ [event.target.name]: event.target.value })
     setTimeout(() => {
       this.fetch()
-    }, 100);
+    }, 100)
   }
 
   nextPage() {
     if (this.state.page < this.props.inventory.infoInventory.totalPage)
-    this.setState({ page: this.state.page + 1 })
+      this.setState({ page: this.state.page + 1 })
     setTimeout(() => {
       this.fetch()
-    }, 100);
+    }, 100)
   }
 
   prevPage() {
@@ -121,27 +128,38 @@ class Inventory extends Component {
       this.setState({ page: this.state.page - 1 })
       setTimeout(() => {
         this.fetch()
-      }, 100);
+      }, 100)
     }
   }
 
   fetch() {
-    this.props.getInventoryHome(this.props.login.token, this.state.search, this.state.page).then((res) => {
-      this.props.newToken(res.action.payload.data.newToken)
-      this.setState({ isLoading: false })
-    })
+    this.props
+      .getInventoryHome(
+        this.props.login.token,
+        this.state.search,
+        this.state.page,
+      )
+      .then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
+        this.setState({ isLoading: false })
+      })
   }
 
   export() {
-    this.setState({isLoadingExportInventory: true})
+    this.setState({ isLoadingExportInventory: true })
     this.props.exportInventory(this.props.login.token).then((res) => {
-      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', `Inventory-Report_${moment().format('DD-MM-YY')}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      this.setState({isLoadingExportInventory: false})
+      const url = window.URL.createObjectURL(
+        new Blob([res.action.payload.data]),
+      )
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute(
+        'download',
+        `Inventory-Report_${moment().format('DD-MM-YY')}.pdf`,
+      )
+      document.body.appendChild(link)
+      link.click()
+      this.setState({ isLoadingExportInventory: false })
     })
   }
 
@@ -180,7 +198,7 @@ class Inventory extends Component {
         initialRoute: 'Inventory',
       },
     }
-  
+
     this.props.sendNotif(dataSubmit)
   }
 
@@ -324,7 +342,7 @@ class Inventory extends Component {
                           >
                             <span className="sr-only">Loading...</span>
                           </div>
-                        ):(
+                        ) : (
                           <Print className="iconWhiteColor" />
                         )}
                       </Tooltip>

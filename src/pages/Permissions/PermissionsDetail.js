@@ -33,7 +33,6 @@ import CheckCircle from '@material-ui/icons/CheckCircle'
 import Cancel from '@material-ui/icons/Cancel'
 import Print from '@material-ui/icons/Print'
 
-
 import { exportIzinDetail } from '../../redux/actions/izin'
 
 // import Check from '@material-ui/icons/Check'
@@ -61,22 +60,31 @@ class PermissionsDetail extends Component {
       name_tosend: props.location.state.name_tosend,
       file: props.location.state.file,
       reason: props.location.state.reason,
-      isLoadingExportIzinDetail: false, 
+      isLoadingExportIzinDetail: false,
     }
     this.export = this.export.bind(this)
   }
 
   export() {
-    this.setState({isLoadingExportIzinDetail: true})
-    this.props.exportIzinDetail(this.props.login.token, this.props.location.state.id).then((res) => {
-      const url = window.URL.createObjectURL(new Blob([res.action.payload.data]));
-      const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute('download', `Report-Leave-Application-Detail-${this.props.location.state.id}_${moment().format('DD-MM-YY')}.pdf`);
-      document.body.appendChild(link);
-      link.click();
-      this.setState({isLoadingExportIzinDetail: false})
-    })
+    this.setState({ isLoadingExportIzinDetail: true })
+    this.props
+      .exportIzinDetail(this.props.login.token, this.props.location.state.id)
+      .then((res) => {
+        const url = window.URL.createObjectURL(
+          new Blob([res.action.payload.data]),
+        )
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute(
+          'download',
+          `Report-Leave-Application-Detail-${
+            this.props.location.state.id
+          }_${moment().format('DD-MM-YY')}.pdf`,
+        )
+        document.body.appendChild(link)
+        link.click()
+        this.setState({ isLoadingExportIzinDetail: false })
+      })
   }
 
   componentDidMount() {}
@@ -110,7 +118,7 @@ class PermissionsDetail extends Component {
                   >
                     <span className="sr-only">Loading...</span>
                   </div>
-                ):(
+                ) : (
                   <Print className="iconWhiteColor" />
                 )}
               </Tooltip>

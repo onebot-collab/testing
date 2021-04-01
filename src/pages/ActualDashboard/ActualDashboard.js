@@ -26,11 +26,11 @@ import CardIcon from '../../components/Card/CardIcon'
 import CardBody from '../../components/Card/CardBody'
 import CardFooter from '../../components/Card/CardFooter'
 
-import {permitStats} from '../../redux/actions/izin'
-import {statsAttendance} from '../../redux/actions/presence'
-import {statsTicketClosed} from '../../redux/actions/ticket'
-import {statsReport} from '../../redux/actions/report'
-import {newToken} from '../../redux/actions/login'
+import { permitStats } from '../../redux/actions/izin'
+import { statsAttendance } from '../../redux/actions/presence'
+import { statsTicketClosed } from '../../redux/actions/ticket'
+import { statsReport } from '../../redux/actions/report'
+import { newToken } from '../../redux/actions/login'
 
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
 const Chartist = require('chartist')
@@ -63,17 +63,23 @@ class ActualDashboard extends Component {
     })
 
     this.props.permitStats(this.props.login.token).then((res) => {
-      this.setState({isLoadingStatsPermit: false})
-      this.props.statsAttendance(res.action.payload.data.newToken).then((res) => {
-        this.setState({isLoadingStatsAttendance: false})
-        this.props.statsTicketClosed(res.action.payload.data.newToken).then((res) => {
-          this.setState({isLoadingTicketClosed: false})    
-          this.props.statsReport(res.action.payload.data.newToken).then((res) => {
-            this.setState({isLoadingStatsReport: false})
-            this.props.newToken(res.action.payload.data.newToken)
-          })
+      this.setState({ isLoadingStatsPermit: false })
+      this.props
+        .statsAttendance(res.action.payload.data.newToken)
+        .then((res) => {
+          this.setState({ isLoadingStatsAttendance: false })
+          this.props
+            .statsTicketClosed(res.action.payload.data.newToken)
+            .then((res) => {
+              this.setState({ isLoadingTicketClosed: false })
+              this.props
+                .statsReport(res.action.payload.data.newToken)
+                .then((res) => {
+                  this.setState({ isLoadingStatsReport: false })
+                  this.props.newToken(res.action.payload.data.newToken)
+                })
+            })
         })
-      })
     })
   }
 
@@ -197,68 +203,78 @@ class ActualDashboard extends Component {
           <div>
             <GridContainer>
               <GridItem xs={12} sm={6} md={3}>
-                <Card onClick={() => this.props.history.push('leave-application')}>
+                <Card
+                  onClick={() => this.props.history.push('leave-application')}
+                >
                   <CardHeader color="danger" stats icon>
                     <CardIcon color="danger">
                       <Assignment />
                     </CardIcon>
                     <p className={classes.cardCategory}>Medical Leave</p>
-                      {/* 49/50 <small>GB</small> */}
-                      {this.state.isLoadingStatsPermit ? (
-                        <div
-                          className="spinner-border spinner-border-sm text-danger"
-                          role="status"
-                        >
-                          <span className="sr-only">Loading...</span>
-                        </div>
-                      ):(
-                        <h1 className={classes.cardTitle}>{this.props.izin.statsPermit.dataStats[0].sickness}</h1>
-                      )}
+                    {/* 49/50 <small>GB</small> */}
+                    {this.state.isLoadingStatsPermit ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-danger"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ) : (
+                      <h1 className={classes.cardTitle}>
+                        {this.props.izin.statsPermit.dataStats[0].sickness}
+                      </h1>
+                    )}
                   </CardHeader>
                   {this.state.isLoadingStatsPermit ? (
                     <></>
-                  ):(
+                  ) : (
                     <CardFooter stats>
                       <Update />
-                      {this.props.izin.statsPermit.dataStats[0].sickness > 0 ? 
-                      `Recently requested by ${this.props.izin.statsPermit.dataLatestUser[0].sickness}`
-                      : 'There is no incoming request'}
+                      {this.props.izin.statsPermit.dataStats[0].sickness > 0
+                        ? `Recently requested by ${this.props.izin.statsPermit.dataLatestUser[0].sickness}`
+                        : 'There is no incoming request'}
                     </CardFooter>
                   )}
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={6} md={3}>
-                <Card onClick={() => this.props.history.push('leave-application')}>
+                <Card
+                  onClick={() => this.props.history.push('leave-application')}
+                >
                   <CardHeader color="danger" stats icon>
                     <CardIcon color="danger">
                       <AssignmentInd />
                     </CardIcon>
                     <p className={classes.cardCategory}>Permit</p>
                     {this.state.isLoadingStatsPermit ? (
-                        <div
-                          className="spinner-border spinner-border-sm text-danger"
-                          role="status"
-                        >
-                          <span className="sr-only">Loading...</span>
-                        </div>
-                      ):(
-                        <h1 className={classes.cardTitle}>{this.props.izin.statsPermit.dataStats[0].permit}</h1>
-                      )}
+                      <div
+                        className="spinner-border spinner-border-sm text-danger"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ) : (
+                      <h1 className={classes.cardTitle}>
+                        {this.props.izin.statsPermit.dataStats[0].permit}
+                      </h1>
+                    )}
                   </CardHeader>
                   {this.state.isLoadingStatsPermit ? (
                     <></>
-                  ):(
+                  ) : (
                     <CardFooter stats>
                       <Update />
-                      {this.props.izin.statsPermit.dataStats[0].permit > 0 ? 
-                      `Recently requested by ${this.props.izin.statsPermit.dataLatestUser[0].permit}`
-                      : 'There is no incoming request'}
+                      {this.props.izin.statsPermit.dataStats[0].permit > 0
+                        ? `Recently requested by ${this.props.izin.statsPermit.dataLatestUser[0].permit}`
+                        : 'There is no incoming request'}
                     </CardFooter>
                   )}
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={6} md={3}>
-                <Card onClick={() => this.props.history.push('leave-application')}>
+                <Card
+                  onClick={() => this.props.history.push('leave-application')}
+                >
                   <CardHeader color="danger" stats icon>
                     <CardIcon color="danger">
                       <AssignmentReturnIcon />
@@ -271,24 +287,28 @@ class ActualDashboard extends Component {
                       >
                         <span className="sr-only">Loading...</span>
                       </div>
-                    ):(
-                      <h1 className={classes.cardTitle}>{this.props.izin.statsPermit.dataStats[0].total_leave}</h1>
+                    ) : (
+                      <h1 className={classes.cardTitle}>
+                        {this.props.izin.statsPermit.dataStats[0].total_leave}
+                      </h1>
                     )}
                   </CardHeader>
                   {this.state.isLoadingStatsPermit ? (
                     <></>
-                  ):(
+                  ) : (
                     <CardFooter stats>
                       <Update />
-                      {this.props.izin.statsPermit.dataStats[0].total_leave > 0 ? 
-                      `Recently requested by ${this.props.izin.statsPermit.dataLatestUser[0].total_leave}`
-                      : 'There is no incoming request'}
+                      {this.props.izin.statsPermit.dataStats[0].total_leave > 0
+                        ? `Recently requested by ${this.props.izin.statsPermit.dataLatestUser[0].total_leave}`
+                        : 'There is no incoming request'}
                     </CardFooter>
                   )}
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={6} md={3}>
-                <Card onClick={() => this.props.history.push('leave-application')}>
+                <Card
+                  onClick={() => this.props.history.push('leave-application')}
+                >
                   <CardHeader color="danger" stats icon>
                     <CardIcon color="danger">
                       <AssignmentLate />
@@ -301,83 +321,108 @@ class ActualDashboard extends Component {
                       >
                         <span className="sr-only">Loading...</span>
                       </div>
-                    ):(
-                      <h1 className={classes.cardTitle}>{this.props.izin.statsPermit.dataStats[0].latecoming}</h1>
+                    ) : (
+                      <h1 className={classes.cardTitle}>
+                        {this.props.izin.statsPermit.dataStats[0].latecoming}
+                      </h1>
                     )}
                   </CardHeader>
                   {this.state.isLoadingStatsPermit ? (
                     <></>
-                  ):(
+                  ) : (
                     <CardFooter stats>
                       <Update />
-                      {this.props.izin.statsPermit.dataStats[0].latecoming > 0 ? 
-                      `Recently requested by ${this.props.izin.statsPermit.dataLatestUser[0].latecoming}`
-                      : 'There is no incoming request'}
+                      {this.props.izin.statsPermit.dataStats[0].latecoming > 0
+                        ? `Recently requested by ${this.props.izin.statsPermit.dataLatestUser[0].latecoming}`
+                        : 'There is no incoming request'}
                     </CardFooter>
                   )}
                 </Card>
               </GridItem>
             </GridContainer>
             <GridContainer>
-              <GridItem xs={12} sm={12} md={4} onClick={() => this.props.history.push('ticketing')}>
+              <GridItem
+                xs={12}
+                sm={12}
+                md={4}
+                onClick={() => this.props.history.push('ticketing')}
+              >
                 <Card chart>
                   <CardHeader color="danger">
                     <h4 className={classes.cardTitle}>Completed Tickets</h4>
                   </CardHeader>
-                    {this.state.isLoadingTicketClosed ? (
+                  {this.state.isLoadingTicketClosed ? (
+                    <CardBody>
+                      <div
+                        className="spinner-border spinner-border-sm text-danger"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    </CardBody>
+                  ) : (
+                    <>
                       <CardBody>
-                        <div
-                          className="spinner-border spinner-border-sm text-danger"
-                          role="status"
-                        >
-                          <span className="sr-only">Loading...</span>
-                        </div>
+                        <ChartistGraph
+                          className="ct-chart"
+                          data={{
+                            labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                            series: [
+                              [
+                                this.props.ticket.statsTicketClosed.data[1]
+                                  .countId,
+                                this.props.ticket.statsTicketClosed.data[2]
+                                  .countId,
+                                this.props.ticket.statsTicketClosed.data[3]
+                                  .countId,
+                                this.props.ticket.statsTicketClosed.data[4]
+                                  .countId,
+                                this.props.ticket.statsTicketClosed.data[5]
+                                  .countId,
+                                this.props.ticket.statsTicketClosed.data[6]
+                                  .countId,
+                                this.props.ticket.statsTicketClosed.data[0]
+                                  .countId,
+                              ],
+                            ],
+                          }}
+                          type="Line"
+                          options={ticketCompletedChart.options}
+                          listener={ticketCompletedChart.animation}
+                        />
+                        {this.props.ticket.statsTicketClosed.dataLatest[0]
+                          .no_ticket !== null ? (
+                          <p className={classes.cardCategory}>
+                            {
+                              this.props.ticket.statsTicketClosed.dataLatest[0]
+                                .no_ticket
+                            }{' '}
+                            solved by &nbsp;
+                            {this.props.ticket.statsTicketClosed.dataLatest[0]
+                              .departmentName !== null
+                              ? this.props.ticket.statsTicketClosed
+                                  .dataLatest[0].departmentName
+                              : this.props.ticket.statsTicketClosed
+                                  .dataLatest[0].userName}
+                          </p>
+                        ) : (
+                          <p className={classes.cardCategory}>-</p>
+                        )}
                       </CardBody>
-                    ):(
-                      <>
-                        <CardBody>
-                          <ChartistGraph
-                            className="ct-chart"
-                            data={
-                              {
-                                labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-                                series: [
-                                  [
-                                    this.props.ticket.statsTicketClosed.data[1].countId,
-                                    this.props.ticket.statsTicketClosed.data[2].countId,
-                                    this.props.ticket.statsTicketClosed.data[3].countId,
-                                    this.props.ticket.statsTicketClosed.data[4].countId,
-                                    this.props.ticket.statsTicketClosed.data[5].countId,
-                                    this.props.ticket.statsTicketClosed.data[6].countId,
-                                    this.props.ticket.statsTicketClosed.data[0].countId,
-                                  ]
-                                ],
-                              }
-                            }
-                            type="Line"
-                            options={ticketCompletedChart.options}
-                            listener={ticketCompletedChart.animation}
-                          />
-                          {this.props.ticket.statsTicketClosed.dataLatest[0].no_ticket !== null ? (
-                            <p className={classes.cardCategory}>
-                              {this.props.ticket.statsTicketClosed.dataLatest[0].no_ticket} solved by 
-                              &nbsp;{this.props.ticket.statsTicketClosed.dataLatest[0].departmentName !== null ? this.props.ticket.statsTicketClosed.dataLatest[0].departmentName : this.props.ticket.statsTicketClosed.dataLatest[0].userName}
-                            </p>
-                          ) : (
-                            <p className={classes.cardCategory}>-</p>
-                          )}
-                        </CardBody>
-                        <CardFooter chart>
-                          <div className={classes.stats}>
-                            <AccessTime /> updated 1 minutes ago
-                          </div>
-                        </CardFooter>
-                      </>
-                    )}
+                      <CardFooter chart>
+                        <div className={classes.stats}>
+                          <AccessTime /> updated 1 minutes ago
+                        </div>
+                      </CardFooter>
+                    </>
+                  )}
                 </Card>
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
-                <Card chart onClick={() => this.props.history.push('attendance')}>
+                <Card
+                  chart
+                  onClick={() => this.props.history.push('attendance')}
+                >
                   <CardHeader color="danger">
                     <h4 className={classes.cardTitle}>Attendance Statistics</h4>
                   </CardHeader>
@@ -389,7 +434,7 @@ class ActualDashboard extends Component {
                       >
                         <span className="sr-only">Loading...</span>
                       </div>
-                    ):(
+                    ) : (
                       <ChartistGraph
                         data={{
                           labels: [
@@ -400,7 +445,7 @@ class ActualDashboard extends Component {
                           series: [
                             this.props.presence.statsAttendance.isLate,
                             this.props.presence.statsAttendance.notLate,
-                            this.props.presence.statsAttendance.permit
+                            this.props.presence.statsAttendance.permit,
                           ],
                         }}
                         type="Pie"
@@ -454,7 +499,7 @@ class ActualDashboard extends Component {
                     <h4 className={classes.cardTitle}>Incoming Reports</h4>
                   </CardHeader>
                   {this.state.isLoadingStatsReport ? (
-                      <CardBody>
+                    <CardBody>
                       <div
                         className="spinner-border spinner-border-sm text-danger"
                         role="status"
@@ -462,39 +507,36 @@ class ActualDashboard extends Component {
                         <span className="sr-only">Loading...</span>
                       </div>
                     </CardBody>
-                  ):(
+                  ) : (
                     <>
                       <CardBody>
                         <ChartistGraph
                           className="ct-chart"
-                          data={
-                            {
-                              labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-                              series: [
-                                [
-                                  this.props.report.statsReport.data[1].countId,
-                                  this.props.report.statsReport.data[2].countId,
-                                  this.props.report.statsReport.data[3].countId,
-                                  this.props.report.statsReport.data[4].countId,
-                                  this.props.report.statsReport.data[5].countId,
-                                  this.props.report.statsReport.data[6].countId,
-                                  this.props.report.statsReport.data[0].countId,
-                                ]
+                          data={{
+                            labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                            series: [
+                              [
+                                this.props.report.statsReport.data[1].countId,
+                                this.props.report.statsReport.data[2].countId,
+                                this.props.report.statsReport.data[3].countId,
+                                this.props.report.statsReport.data[4].countId,
+                                this.props.report.statsReport.data[5].countId,
+                                this.props.report.statsReport.data[6].countId,
+                                this.props.report.statsReport.data[0].countId,
                               ],
-                            }
-                          }
+                            ],
+                          }}
                           type="Line"
                           options={incomingReportChart.options}
                           listener={incomingReportChart.animation}
                         />
                         {this.props.report.statsReport.dataLatest.length > 0 ? (
                           <p className={classes.cardCategory}>
-                            {this.props.report.statsReport.dataLatest[0].name} created a report
+                            {this.props.report.statsReport.dataLatest[0].name}{' '}
+                            created a report
                           </p>
-                        ):(
-                          <p className={classes.cardCategory}>
-                            -
-                          </p>
+                        ) : (
+                          <p className={classes.cardCategory}>-</p>
                         )}
                       </CardBody>
                       <CardFooter chart>
@@ -521,6 +563,12 @@ const mapStateToProps = (state) => ({
   ticket: state.ticket,
   report: state.report,
 })
-const mapDispatchToProps = {permitStats, statsAttendance, statsTicketClosed, statsReport, newToken}
+const mapDispatchToProps = {
+  permitStats,
+  statsAttendance,
+  statsTicketClosed,
+  statsReport,
+  newToken,
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(ActualDashboard)
