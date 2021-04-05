@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import IconButton from '@material-ui/core/IconButton'
+import Button from '@material-ui/core/Button'
 import Tooltip from '@material-ui/core/Tooltip'
 import Table from '@material-ui/core/Table'
 import { TableContainer } from '@material-ui/core'
@@ -20,6 +21,15 @@ import TableRow from '@material-ui/core/TableRow'
 // import Fab from '@material-ui/core/Fab'
 
 import moment from 'moment'
+import {
+  Form,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
+  Input,
+  FormGroup,
+} from 'reactstrap'
 
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
@@ -27,7 +37,7 @@ import Visibility from '@material-ui/icons/Visibility'
 // import File from '@material-ui/icons/InsertDriveFile'
 import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
-import { Cancel, CheckCircle, Print } from '@material-ui/icons'
+import { Cancel, CheckCircle, Print, Sort } from '@material-ui/icons'
 import { allLog, exportAllLog } from '../../redux/actions/presence'
 import { newToken } from '../../redux/actions/login'
 
@@ -52,12 +62,24 @@ class Attendance extends Component {
       isLoadingExportAllLog: false,
       search: '',
       page: 1,
+      showFilterModal: false,
+      name: '',
+      department: '',
+      date: '',
+      onTime: '',
     }
     this.fetch = this.fetch.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.nextPage = this.nextPage.bind(this)
     this.prevPage = this.prevPage.bind(this)
     this.export = this.export.bind(this)
+    this.toggleFilterModal = this.toggleFilterModal.bind(this)
+  }
+
+  toggleFilterModal() {
+    this.setState({
+      showFilterModal: !this.state.showFilterModal,
+    })
   }
 
   handleSearch(event) {
@@ -159,7 +181,32 @@ class Attendance extends Component {
                   </button>
                 </form>
                 <button
-                  className="btn btn-danger my-2 my-sm-0"
+                  className="btn btn-danger m-2 my-sm-0"
+                  type="submit"
+                  onClick={this.toggleFilterModal}
+                >
+                  <Tooltip
+                    id="tooltip-top-start"
+                    title="Filter"
+                    placement="top"
+                    classes={{
+                      tooltip: classesBody.tooltip,
+                    }}
+                  >
+                    {this.state.isLoadingExportAllLog ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-white"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ) : (
+                      <Sort className="iconWhiteColor" />
+                    )}
+                  </Tooltip>
+                </button>
+                <button
+                  className="btn btn-danger m-2 my-sm-0"
                   type="submit"
                   onClick={this.export}
                 >
@@ -367,6 +414,74 @@ class Attendance extends Component {
             </GridContainer>
           </>
         )}
+        {/* Add Modal */}
+        <Modal isOpen={this.state.showFilterModal}>
+          <ModalHeader className="h1">Add Filter</ModalHeader>
+          <Form>
+            <ModalBody>
+              <h6>Name</h6>
+              <Input
+                value={this.state.name}
+                type="text"
+                name="name"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Department</h6>
+              <Input
+                value={this.state.department}
+                type="text"
+                name="department"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Date</h6>
+              <Input
+                value={this.state.date}
+                type="date"
+                name="Date"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <FormGroup>
+                <h6>On Time</h6>
+                <Input
+                  value={this.state.onTime}
+                  type="select"
+                  name="onTime"
+                  id="exampleSelect"
+                  onChange={this.handleChange}
+                >
+                  <option key={0} value={0}>
+                    NO
+                  </option>
+                  <option key={1} value={1}>
+                    YES
+                  </option>
+                </Input>
+              </FormGroup>
+            </ModalBody>
+            <ModalFooter>
+              {/* {this.state.isLoadingAddCampaign ? (
+                <Button color="primary">
+                  <div
+                    className="spinner-border spinner-border-sm text-danger"
+                    role="status"
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </Button>
+              ) : ( */}
+              <Button color="secondary" onClick={this.toggleFilterModal}>
+                Submit
+              </Button>
+              {/* )} */}
+              <Button color="primary" onClick={this.toggleFilterModal}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Form>
+        </Modal>
       </div>
     )
   }
