@@ -462,7 +462,7 @@ class Inventory extends Component {
                                       className="textPrimaryColor"
                                       component="th"
                                     >
-                                      {res.date}
+                                      {res.created_at}
                                     </TableCell>
                                     <TableCell
                                       className={classesBody.tableActions}
