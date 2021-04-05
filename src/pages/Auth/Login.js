@@ -98,15 +98,6 @@ class LoginPage extends Component {
                   onChange={this.handlerChange}
                 />
               </Form.Group>
-              <Form.Group>
-                <Form.Label>Passcode</Form.Label>
-                <Form.Control
-                  name="passcode"
-                  type="password"
-                  placeholder="******"
-                  onChange={this.handlerChange}
-                />
-              </Form.Group>
               <Button
                 type="submit"
                 style={{

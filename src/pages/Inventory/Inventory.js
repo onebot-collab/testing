@@ -6,7 +6,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import './Inventory.css'
-// import { connect } from 'react-redux'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
@@ -20,10 +19,6 @@ import TableHead from '@material-ui/core/TableHead'
 import TableCell from '@material-ui/core/TableCell'
 import TableBody from '@material-ui/core/TableBody'
 import TableRow from '@material-ui/core/TableRow'
-// import Fab from '@material-ui/core/Fab'
-
-// import Select from 'react-select'
-
 import {
   Form,
   FormGroup,
@@ -37,7 +32,6 @@ import {
 import swal from 'sweetalert2'
 import moment from 'moment'
 
-// @material-ui/icons
 import {
   Visibility,
   Delete,
@@ -46,9 +40,6 @@ import {
   ArrowRight,
   Print,
 } from '@material-ui/icons'
-// import Delete from '@material-ui/icons/Delete'
-// import Check from '@material-ui/icons/Check'
-// import Edit from '@material-ui/icons/Edit'
 
 // redux
 import {
@@ -56,9 +47,11 @@ import {
   postInventory,
   deleteInventory,
   exportInventory,
+  inventoryCategory,
 } from '../../redux/actions/inventory'
 import { sendNotif } from '../../redux/actions/fcm'
 import { newToken } from '../../redux/actions/login'
+import { allInvoiceId } from '../../redux/actions/invoice'
 
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -71,12 +64,6 @@ import CardBody from '../../components/Card/CardBody'
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
 import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
 import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
-
-// const options = [
-//   { value: 1, label: 'General' },
-//   { value: 2, label: 'Development' },
-//   { value: 3, label: 'Networking' },
-// ]
 
 class Inventory extends Component {
   constructor(props) {
@@ -93,6 +80,14 @@ class Inventory extends Component {
       note: '',
       expDate: '',
       fileInventory: '',
+      fileInventory2: '',
+      fileInventory3: '',
+      warranty: 0,
+      warrantyDate: '',
+      accessories: '',
+      invoiceId: 0,
+      category: 1,
+      purchaseDate: '',
       deleteId: 0,
       search: '',
       page: 1,
@@ -140,8 +135,16 @@ class Inventory extends Component {
         this.state.page,
       )
       .then((res) => {
-        this.props.newToken(res.action.payload.data.newToken)
-        this.setState({ isLoading: false })
+        this.props
+          .inventoryCategory(res.action.payload.data.newToken)
+          .then(() => {
+            this.props
+              .allInvoiceId(res.action.payload.data.newToken)
+              .then(() => {
+                this.props.newToken(res.action.payload.data.newToken)
+                this.setState({ isLoading: false })
+              })
+          })
       })
   }
 
@@ -204,19 +207,37 @@ class Inventory extends Component {
 
   addInventory() {
     this.setState({ isLoadingAddInventory: true })
-    const expDate = `${this.state.expDate.slice(
+    const warrantyDate = `${this.state.warrantyDate.slice(
       0,
       4,
-    )}-${this.state.expDate.slice(5, 7)}-${this.state.expDate.slice(8, 10)}`
+    )}-${this.state.warrantyDate.slice(5, 7)}-${this.state.warrantyDate.slice(8, 10)}`
+    const purchaseDate = `${this.state.purchaseDate.slice(
+      0,
+      4,
+    )}-${this.state.purchaseDate.slice(5, 7)}-${this.state.purchaseDate.slice(8, 10)}`
 
     const dataSubmit = new FormData()
     dataSubmit.append('name', this.state.name)
     dataSubmit.append('brand', this.state.brand)
     dataSubmit.append('note', this.state.note)
     dataSubmit.append('serialno', this.state.serialNo)
-    dataSubmit.append('status', 2)
-    dataSubmit.append('expdate', expDate)
-    dataSubmit.append('fileinventory', this.state.fileInventory)
+    dataSubmit.append('fileInventory1', this.state.fileInventory)
+    if (this.state.fileInventory2 !== '') {
+      dataSubmit.append('fileInventory2', this.state.fileInventory2)
+    }
+    if (this.state.fileInventory3 !== '') {
+      dataSubmit.append('fileInventory3', this.state.fileInventory3)
+    }
+    if (this.state.invoiceId !== 0) {
+      dataSubmit.append('invoice_id', this.state.invoiceId)
+    }
+    dataSubmit.append('category', this.state.category)
+    dataSubmit.append('accessories', this.state.accessories)
+    dataSubmit.append('warranty', this.state.warranty)
+    if (this.state.warranty !== 0) {
+      dataSubmit.append('warranty_date', warrantyDate)
+    }
+    dataSubmit.append('purchase_date', purchaseDate)
 
     this.props
       .postInventory(dataSubmit, this.props.login.token)
@@ -231,6 +252,13 @@ class Inventory extends Component {
           note: '',
           serialNo: '',
           fileInventory: '',
+          fileInventory2: '',
+          fileInventory3: '',
+          warranty: 0,
+          warrantyDate: '',
+          accessories: '',
+          invoiceId: 0,
+          category: 0,
         })
         swal.fire({
           icon: 'success',
@@ -278,6 +306,20 @@ class Inventory extends Component {
     const classes = makeStyles(styles)
     const classesHead = makeStyles(stylesHead)
     const classesBody = makeStyles(stylesBody)
+
+    const invoiceData = this.props.invoice.dataAllInvoiceId
+    const invoiceList = invoiceData.map((val) => (
+      <option key={val.id} value={val.id}>
+        {val.invoice_no}
+      </option>
+    ))
+
+    const inventoryCategoryData = this.props.inventory.dataInventoryCategory
+    const categoryList = inventoryCategoryData.map((val) => (
+      <option key={val.category} value={val.category}>
+        {val.category_name}
+      </option>
+    ))
     return (
       <>
         {!this.props.login.isLogin ? (
@@ -297,7 +339,7 @@ class Inventory extends Component {
               <>
                 <nav className="navbar navbar-light bg-light">
                   <Button
-                    onClick={this.addInventory}
+                    onClick={this.toggleAddModal}
                     variant="contained"
                     color="primary"
                     // className="buttonAdd"
@@ -542,14 +584,79 @@ class Inventory extends Component {
                         className="mb-2 shadow-none"
                         onChange={this.handleChange}
                       />
-                      <h6>Expired Date</h6>
+                      <h6>Accessories</h6>
                       <Input
-                        value={this.state.birthDate}
-                        type="date"
-                        name="expDate"
+                        type="textarea"
+                        name="accessories"
                         className="mb-2 shadow-none"
                         onChange={this.handleChange}
                       />
+                      <FormGroup>
+                        <h6>Category</h6>
+                        <Input
+                          value={this.state.invoiceId}
+                          type="select"
+                          name="category"
+                          id="exampleSelect"
+                          onChange={this.handleChange}
+                        >
+                          {categoryList}
+                        </Input>
+                      </FormGroup>
+                      <FormGroup>
+                        <h6>Invoice</h6>
+                        <Input
+                          value={this.state.invoiceId}
+                          type="select"
+                          name="invoiceId"
+                          id="exampleSelect"
+                          onChange={this.handleChange}
+                        >
+                          <option key={0} value={0}>
+                            -
+                          </option>
+                          {invoiceList}
+                        </Input>
+                      </FormGroup>
+                      <h6>Purchase Date</h6>
+                      <Input
+                        value={this.state.purchaseDate}
+                        type="date"
+                        name="purchaseDate"
+                        className="mb-2 shadow-none"
+                        onChange={this.handleChange}
+                      />
+                      <FormGroup>
+                        <h6>Warranty</h6>
+                        <Input
+                          value={this.state.warranty}
+                          type="select"
+                          name="warranty"
+                          id="exampleSelect"
+                          onChange={this.handleChange}
+                        >
+                          <option key={0} value={0}>
+                            NO
+                          </option>
+                          <option key={1} value={1}>
+                            YES
+                          </option>
+                        </Input>
+                      </FormGroup>
+                      {this.state.warranty !== 0 ? (
+                        <>
+                          <h6>Warranty Date</h6>
+                          <Input
+                            value={this.state.warrantyDate}
+                            type="date"
+                            name="warrantyDate"
+                            className="mb-2 shadow-none"
+                            onChange={this.handleChange}
+                          />
+                        </>
+                      ) : (
+                        <></>
+                      )}
                       <FormGroup className="mb-2 shadow-none">
                         <h6>Picture</h6>
                         <CustomInput
@@ -563,10 +670,44 @@ class Inventory extends Component {
                           }
                         />
                       </FormGroup>
+                      {this.state.fileInventory !== '' ? (
+                        <FormGroup className="mb-2 shadow-none">
+                          <h6>Picture 2</h6>
+                          <CustomInput
+                            type="file"
+                            id="exampleCustomFileBrowser"
+                            name="fileInventory2"
+                            onChange={(e) =>
+                              this.setState({
+                                fileInventory2: e.target.files[0],
+                              })
+                            }
+                          />
+                        </FormGroup>
+                      ) : (
+                        <></>
+                      )}
+                      {this.state.fileInventory2 !== '' ? (
+                        <FormGroup className="mb-2 shadow-none">
+                          <h6>Picture 3</h6>
+                          <CustomInput
+                            type="file"
+                            id="exampleCustomFileBrowser"
+                            name="fileInventory3"
+                            onChange={(e) =>
+                              this.setState({
+                                fileInventory3: e.target.files[0],
+                              })
+                            }
+                          />
+                        </FormGroup>
+                      ) : (
+                        <></>
+                      )}
                     </ModalBody>
                     <ModalFooter>
                       {this.state.isLoadingAddInventory ? (
-                        <Button color="primary">
+                        <Button color="primary" onClick={this.addInventory}>
                           <div
                             className="spinner-border spinner-border-sm text-danger"
                             role="status"
@@ -611,6 +752,7 @@ class Inventory extends Component {
 
 const mapStateToProps = (state) => ({
   inventory: state.inventory,
+  invoice: state.invoice,
   login: state.login,
 })
 
@@ -621,6 +763,8 @@ const mapDispatchToProps = {
   sendNotif,
   exportInventory,
   newToken,
+  allInvoiceId,
+  inventoryCategory,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Inventory)

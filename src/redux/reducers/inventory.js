@@ -4,6 +4,7 @@ const initialState = {
   isError: false,
   errorMsg: '',
   dataInventory: [],
+  dataInventoryCategory: [],
   infoInventory: [],
 }
 
@@ -52,6 +53,25 @@ const inventory = (state = initialState, action) => {
         ...state,
         isLoadingInventoryStatus: false,
         isError: false,
+      }
+    }
+    case 'INVENTORYCATEGORY_PENDING': {
+      return {
+        ...state,
+        isError: false,
+      }
+    }
+    case 'INVENTORYCATEGORY_REJECTED': {
+      return {
+        ...state,
+        isError: action.payload,
+      }
+    }
+    case 'INVENTORYCATEGORY_FULFILLED': {
+      return {
+        ...state,
+        isError: false,
+        dataInventoryCategory: action.payload.data.data,
       }
     }
     case 'LOGOUT': {

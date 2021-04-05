@@ -42,37 +42,56 @@ const uploadInvoiceImage = (dataSubmit, id) => ({
 
 const invoiceWaiting = (token, search, page) => ({
   type: 'INVOICEWAITING',
-  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/0?limit=15&search=${search}&page=${page}`),
+  payload: axios(token).get(
+    `${URL}api/v1/invoice/bystatus/0?limit=15&search=${search}&page=${page}`,
+  ),
 })
 
 const invoiceApproved = (token, search, page) => ({
   type: 'INVOICEAPPROVED',
-  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/1?limit=15&search=${search}&page=${page}`),
+  payload: axios(token).get(
+    `${URL}api/v1/invoice/bystatus/1?limit=15&search=${search}&page=${page}`,
+  ),
 })
 
 const invoiceRejected = (token, search, page) => ({
   type: 'INVOICEREJECTED',
-  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/2?limit=15&search=${search}&page=${page}`),
+  payload: axios(token).get(
+    `${URL}api/v1/invoice/bystatus/2?limit=15&search=${search}&page=${page}`,
+  ),
 })
 
 const invoiceProcessed = (token, search, page) => ({
   type: 'INVOICEPROCESSED',
-  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/3?limit=15&search=${search}&page=${page}`),
+  payload: axios(token).get(
+    `${URL}api/v1/invoice/bystatus/3?limit=15&search=${search}&page=${page}`,
+  ),
 })
 
 const invoiceClosed = (token, search, page) => ({
   type: 'INVOICECLOSED',
-  payload: axios(token).get(`${URL}api/v1/invoice/bystatus/4?limit=15&search=${search}&page=${page}`),
+  payload: axios(token).get(
+    `${URL}api/v1/invoice/bystatus/4?limit=15&search=${search}&page=${page}`,
+  ),
 })
 
 const exportAllInvoice = (token) => ({
   type: 'INVOICESTATUS',
-  payload: axios(token).get(`${URL}api/v1/invoice?downloadPdf=1`, {responseType: 'blob'}),
+  payload: axios(token).get(`${URL}api/v1/invoice?downloadPdf=1`, {
+    responseType: 'blob',
+  }),
 })
 
 const exportInvoiceDetail = (token, id) => ({
   type: 'INVOICESTATUS',
-  payload: axios(token).get(`${URL}api/v1/invoiceitem/${id}?downloadPdf=1`, {responseType: 'blob'}),
+  payload: axios(token).get(`${URL}api/v1/invoiceitem/${id}?downloadPdf=1`, {
+    responseType: 'blob',
+  }),
+})
+
+const allInvoiceId = (token) => ({
+  type: 'ALLINVOICEID',
+  payload: axios(token).get(`${URL}api/v1/getAll/allInvoiceNo`),
 })
 
 export {
@@ -90,4 +109,5 @@ export {
   invoiceClosed,
   exportAllInvoice,
   exportInvoiceDetail,
+  allInvoiceId,
 }

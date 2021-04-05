@@ -8,7 +8,9 @@ const getInventory = (sort) => ({
 
 const getInventoryHome = (token, search, page) => ({
   type: 'GETINVENTORY',
-  payload: axios(token).get(`${URL}api/v1/inventory?sort=0&limit=15&search=${search}&page=${page}`),
+  payload: axios(token).get(
+    `${URL}api/v1/inventory?sort=0&limit=15&search=${search}&page=${page}`,
+  ),
 })
 
 const postInventory = (dataSubmit, token) => ({
@@ -28,7 +30,14 @@ const deleteInventory = (id, token) => ({
 
 const exportInventory = (token) => ({
   type: 'INVENTORYSTATUS',
-  payload: axios(token).get(`${URL}api/v1/inventory?downloadPdf=1`, {responseType: 'blob'}),
+  payload: axios(token).get(`${URL}api/v1/inventory?downloadPdf=1`, {
+    responseType: 'blob',
+  }),
+})
+
+const inventoryCategory = (token) => ({
+  type: 'INVENTORYCATEGORY',
+  payload: axios(token).get(`${URL}api/v1/getAll/allInventoryCategory`),
 })
 
 export {
@@ -38,4 +47,5 @@ export {
   patchInventory,
   deleteInventory,
   exportInventory,
+  inventoryCategory,
 }

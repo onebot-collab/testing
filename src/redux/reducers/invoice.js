@@ -20,6 +20,7 @@ const initialState = {
   infoInvoiceProcessed: [],
   infoInvoiceClosed: [],
   dataInvoiceItem: [],
+  dataAllInvoiceId: [],
 }
 
 const invoice = (state = initialState, action) => {
@@ -210,6 +211,26 @@ const invoice = (state = initialState, action) => {
         ...state,
         isLoadingStatus: false,
         isError: false,
+      }
+    }
+    case 'ALLINVOICEID_PENDING': {
+      return {
+        ...state,
+        isError: false,
+      }
+    }
+    case 'ALLINVOICEID_REJECTED': {
+      return {
+        ...state,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'ALLINVOICEID_FULFILLED': {
+      return {
+        ...state,
+        isError: false,
+        dataAllInvoiceId: action.payload.data.data,
       }
     }
     default: {
