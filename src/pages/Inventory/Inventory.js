@@ -32,6 +32,7 @@ import {
 } from 'reactstrap'
 import swal from 'sweetalert2'
 import moment from 'moment'
+import Select from 'react-select'
 
 import {
   Visibility,
@@ -610,23 +611,23 @@ class Inventory extends Component {
                   <ModalHeader className="h1">Add Filter</ModalHeader>
                   <Form>
                     <ModalBody>
-                      <h6>Name</h6>
+                      <h6>Category</h6>
+                      <Select
+                        onChange={this.handleDepartmentChange}
+                        options={inventoryCategoryData.map((res) => ({
+                          value: res.category,
+                          label: res.category_name,
+                        }))}
+                      />
+                      <h6>Start Date</h6>
                       <Input
-                        value={this.state.name}
-                        type="text"
-                        name="name"
+                        value={this.state.date}
+                        type="date"
+                        name="Date"
                         className="mb-2 shadow-none"
                         onChange={this.handleChange}
                       />
-                      <h6>Department</h6>
-                      <Input
-                        value={this.state.department}
-                        type="text"
-                        name="department"
-                        className="mb-2 shadow-none"
-                        onChange={this.handleChange}
-                      />
-                      <h6>Date</h6>
+                      <h6>End Date</h6>
                       <Input
                         value={this.state.date}
                         type="date"
