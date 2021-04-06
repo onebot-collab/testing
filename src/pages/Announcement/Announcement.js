@@ -42,7 +42,6 @@ import {
   ModalHeader,
   ModalFooter,
   Input,
-  FormGroup,
 } from 'reactstrap'
 import {
   getAllCampaign,
@@ -269,11 +268,6 @@ class Announcement extends Component {
     const classesBody = makeStyles(stylesBody)
 
     const departmentData = this.props.department.dataDepartment
-    // const departmentList = departmentData.map((val) => (
-    //   <option key={val.id} value={val.id}>
-    //     {val.name}
-    //   </option>
-    // ))
 
     return (
       <div>
@@ -560,54 +554,38 @@ class Announcement extends Component {
               </GridItem>
             </GridContainer>
             {/* Filter Modal */}
-        <Modal isOpen={this.state.showFilterModal}>
-          <ModalHeader className="h1">Add Filter</ModalHeader>
-          <Form>
-            <ModalBody>
-              <h6>Name</h6>
-              <Input
-                value={this.state.name}
-                type="text"
-                name="name"
-                className="mb-2 shadow-none"
-                onChange={this.handleChange}
-              />
-              <h6>Department</h6>
-              <Input
-                value={this.state.department}
-                type="text"
-                name="department"
-                className="mb-2 shadow-none"
-                onChange={this.handleChange}
-              />
-              <h6>Date</h6>
-              <Input
-                value={this.state.date}
-                type="date"
-                name="Date"
-                className="mb-2 shadow-none"
-                onChange={this.handleChange}
-              />
-              <FormGroup>
-                <h6>On Time</h6>
-                <Input
-                  value={this.state.onTime}
-                  type="select"
-                  name="onTime"
-                  id="exampleSelect"
-                  onChange={this.handleChange}
-                >
-                  <option key={0} value={0}>
-                    NO
-                  </option>
-                  <option key={1} value={1}>
-                    YES
-                  </option>
-                </Input>
-              </FormGroup>
-            </ModalBody>
-            <ModalFooter>
-              {/* {this.state.isLoadingAddCampaign ? (
+            <Modal isOpen={this.state.showFilterModal}>
+              <ModalHeader className="h1">Add Filter</ModalHeader>
+              <Form>
+                <ModalBody>
+                  <h6>Department</h6>
+                  <Select
+                    onChange={this.handleDepartmentChange}
+                    options={departmentData.map((res) => ({
+                      value: res.id,
+                      label: res.name,
+                    }))}
+                  />
+                  <br />
+                  <h6>Start Date</h6>
+                  <Input
+                    value={this.state.date}
+                    type="date"
+                    name="start_date"
+                    className="mb-2 shadow-none"
+                    onChange={this.handleChange}
+                  />
+                  <h6>End Date</h6>
+                  <Input
+                    value={this.state.date}
+                    type="date"
+                    name="end_date"
+                    className="mb-2 shadow-none"
+                    onChange={this.handleChange}
+                  />
+                </ModalBody>
+                <ModalFooter>
+                  {/* {this.state.isLoadingAddCampaign ? (
                 <Button color="primary">
                   <div
                     className="spinner-border spinner-border-sm text-danger"
@@ -617,16 +595,16 @@ class Announcement extends Component {
                   </div>
                 </Button>
               ) : ( */}
-              <Button color="secondary" onClick={this.toggleFilterModal}>
-                Submit
-              </Button>
-              {/* )} */}
-              <Button color="primary" onClick={this.toggleFilterModal}>
-                Cancel
-              </Button>
-            </ModalFooter>
-          </Form>
-        </Modal>
+                  <Button color="secondary" onClick={this.toggleFilterModal}>
+                    Submit
+                  </Button>
+                  {/* )} */}
+                  <Button color="primary" onClick={this.toggleFilterModal}>
+                    Cancel
+                  </Button>
+                </ModalFooter>
+              </Form>
+            </Modal>
 
             {/* Add Modal */}
             <Modal isOpen={this.state.showAddModal}>
