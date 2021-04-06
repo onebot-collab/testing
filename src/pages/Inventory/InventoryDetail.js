@@ -380,6 +380,7 @@ class InventoryDetail extends Component {
                   </div>
                   <div className="d-flex flex-fill p-2">
                     <a
+                      target="_blank"
                       href={`http://10.7.9.6:8443/node/${this.props.location.state.codeQr}?boAgRwlfX5=${this.props.login.token}`}
                       className="btn btn-block btn-outline-danger"
                     >
