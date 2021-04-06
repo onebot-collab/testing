@@ -16,6 +16,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import LinearProgress from '@material-ui/core/LinearProgress'
 // import Typography from '@material-ui/core/Typography'
 import IconButton from '@material-ui/core/IconButton'
+import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Table from '@material-ui/core/Table'
@@ -35,7 +36,17 @@ import {
   ArrowLeft,
   ArrowRight,
   Print,
+  Sort
 } from '@material-ui/icons'
+import {
+  Form,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
+  Input,
+  FormGroup,
+} from 'reactstrap'
 
 // core components
 import {
@@ -66,11 +77,23 @@ class AttendanceDetail extends Component {
       isLoadingStats: true,
       isLoadingExportUserLog: false,
       page: 1,
+      showFilterModal: false,
+      name: '',
+      department: '',
+      date: '',
+      onTime: '',
     }
     this.nextPage = this.nextPage.bind(this)
     this.prevPage = this.prevPage.bind(this)
     this.export = this.export.bind(this)
     this.fetch = this.fetch.bind(this)
+    this.toggleFilterModal = this.toggleFilterModal.bind(this)
+  }
+
+  toggleFilterModal() {
+    this.setState({
+      showFilterModal: !this.state.showFilterModal,
+    })
   }
 
   nextPage() {
@@ -193,6 +216,31 @@ class AttendanceDetail extends Component {
       <div>
         <nav className="navbar navbar-light bg-light d-flex justify-content-end">
           <div className="d-flex flex-row">
+          <button
+                  className="btn btn-danger m-2 my-sm-0"
+                  type="submit"
+                  onClick={this.toggleFilterModal}
+                >
+                  <Tooltip
+                    id="tooltip-top-start"
+                    title="Filter"
+                    placement="top"
+                    classes={{
+                      tooltip: classesBody.tooltip,
+                    }}
+                  >
+                    {this.state.isLoadingExportAllLog ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-white"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ) : (
+                      <Sort className="iconWhiteColor" />
+                    )}
+                  </Tooltip>
+                </button>
             <button
               className="btn btn-danger my-2 my-sm-0"
               type="submit"
@@ -534,6 +582,74 @@ class AttendanceDetail extends Component {
             </Card>
           </GridItem>
         </GridContainer>
+        {/* Filter Modal */}
+        <Modal isOpen={this.state.showFilterModal}>
+          <ModalHeader className="h1">Add Filter</ModalHeader>
+          <Form>
+            <ModalBody>
+              <h6>Name</h6>
+              <Input
+                value={this.state.name}
+                type="text"
+                name="name"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Department</h6>
+              <Input
+                value={this.state.department}
+                type="text"
+                name="department"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Date</h6>
+              <Input
+                value={this.state.date}
+                type="date"
+                name="Date"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <FormGroup>
+                <h6>On Time</h6>
+                <Input
+                  value={this.state.onTime}
+                  type="select"
+                  name="onTime"
+                  id="exampleSelect"
+                  onChange={this.handleChange}
+                >
+                  <option key={0} value={0}>
+                    NO
+                  </option>
+                  <option key={1} value={1}>
+                    YES
+                  </option>
+                </Input>
+              </FormGroup>
+            </ModalBody>
+            <ModalFooter>
+              {/* {this.state.isLoadingAddCampaign ? (
+                <Button color="primary">
+                  <div
+                    className="spinner-border spinner-border-sm text-danger"
+                    role="status"
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </Button>
+              ) : ( */}
+              <Button color="secondary" onClick={this.toggleFilterModal}>
+                Submit
+              </Button>
+              {/* )} */}
+              <Button color="primary" onClick={this.toggleFilterModal}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Form>
+        </Modal>
       </div>
     )
   }

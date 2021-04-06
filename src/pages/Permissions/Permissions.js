@@ -21,6 +21,16 @@ import TableRow from '@material-ui/core/TableRow'
 
 import { Link } from 'react-router-dom'
 import moment from 'moment'
+import {
+  Form,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
+  Input,
+  FormGroup,
+} from 'reactstrap'
+import Button from '@material-ui/core/Button'
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
 // import CheckCircle from '@material-ui/icons/CheckCircle'
@@ -28,6 +38,7 @@ import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
 import Visibility from '@material-ui/icons/Visibility'
 import Print from '@material-ui/icons/Print'
+import Sort from '@material-ui/icons/Sort'
 
 import { allIzin, exportAllIzin } from '../../redux/actions/izin'
 import { newToken } from '../../redux/actions/login'
@@ -53,11 +64,19 @@ class Permissions extends Component {
       isLoadingExportAllIzin: false,
       search: '',
       page: 1,
+      showFilterModal: false,
     }
     this.handleSearch = this.handleSearch.bind(this)
     this.nextPage = this.nextPage.bind(this)
     this.prevPage = this.prevPage.bind(this)
     this.export = this.export.bind(this)
+    this.toggleFilterModal = this.toggleFilterModal.bind(this)
+  }
+
+  toggleFilterModal() {
+    this.setState({
+      showFilterModal: !this.state.showFilterModal,
+    })
   }
 
   handleSearch(event) {
@@ -147,6 +166,31 @@ class Permissions extends Component {
                     Search
                   </button>
                 </form>
+                <button
+                  className="btn btn-danger m-2 my-sm-0"
+                  type="submit"
+                  onClick={this.toggleFilterModal}
+                >
+                  <Tooltip
+                    id="tooltip-top-start"
+                    title="Filter"
+                    placement="top"
+                    classes={{
+                      tooltip: classesBody.tooltip,
+                    }}
+                  >
+                    {this.state.isLoadingExportAllLog ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-white"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ) : (
+                      <Sort className="iconWhiteColor" />
+                    )}
+                  </Tooltip>
+                </button>
                 <button
                   className="btn btn-danger my-2 my-sm-0"
                   type="submit"
@@ -352,6 +396,74 @@ class Permissions extends Component {
                 </Card>
               </GridItem>
             </GridContainer>
+            {/* Filter Modal */}
+            <Modal isOpen={this.state.showFilterModal}>
+              <ModalHeader className="h1">Add Filter</ModalHeader>
+              <Form>
+                <ModalBody>
+                  <h6>Name</h6>
+                  <Input
+                    value={this.state.name}
+                    type="text"
+                    name="name"
+                    className="mb-2 shadow-none"
+                    onChange={this.handleChange}
+                  />
+                  <h6>Department</h6>
+                  <Input
+                    value={this.state.department}
+                    type="text"
+                    name="department"
+                    className="mb-2 shadow-none"
+                    onChange={this.handleChange}
+                  />
+                  <h6>Date</h6>
+                  <Input
+                    value={this.state.date}
+                    type="date"
+                    name="Date"
+                    className="mb-2 shadow-none"
+                    onChange={this.handleChange}
+                  />
+                  <FormGroup>
+                    <h6>On Time</h6>
+                    <Input
+                      value={this.state.onTime}
+                      type="select"
+                      name="onTime"
+                      id="exampleSelect"
+                      onChange={this.handleChange}
+                    >
+                      <option key={0} value={0}>
+                        NO
+                      </option>
+                      <option key={1} value={1}>
+                        YES
+                      </option>
+                    </Input>
+                  </FormGroup>
+                </ModalBody>
+                <ModalFooter>
+                  {/* {this.state.isLoadingAddCampaign ? (
+                <Button color="primary">
+                  <div
+                    className="spinner-border spinner-border-sm text-danger"
+                    role="status"
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </Button>
+              ) : ( */}
+                  <Button color="secondary" onClick={this.toggleFilterModal}>
+                    Submit
+                  </Button>
+                  {/* )} */}
+                  <Button color="primary" onClick={this.toggleFilterModal}>
+                    Cancel
+                  </Button>
+                </ModalFooter>
+              </Form>
+            </Modal>
           </>
         )}
       </div>

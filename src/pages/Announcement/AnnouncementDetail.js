@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles'
 // import Box from '@material-ui/core/Box'
 // import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
+import Tooltip from '@material-ui/core/Tooltip'
 // import Typography from '@material-ui/core/Typography'
 // import Paper from '@material-ui/core/Paper'
 // import ListItem from '@material-ui/core/ListItem'
@@ -29,11 +30,10 @@ import {
   Input,
 } from 'reactstrap'
 import swal from 'sweetalert2'
+import { Link } from 'react-router-dom'
 
 // @material-ui/icons
-import Edit from '@material-ui/icons/Edit'
-// import { Visibility } from '@material-ui/icons'
-// import CalendarToday from '@material-ui/icons/CalendarToday'
+import { Edit } from '@material-ui/icons'
 // import Apartment from '@material-ui/icons/Apartment'
 // import AssignmentInd from '@material-ui/icons/AssignmentInd'
 // import Attachment from '@material-ui/icons/Attachment'
@@ -59,7 +59,7 @@ import CardBody from '../../components/Card/CardBody'
 // core components
 import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
 // import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
-// import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
+import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
 class AnnouncementDetail extends Component {
   constructor(props) {
@@ -130,10 +130,10 @@ class AnnouncementDetail extends Component {
   render() {
     const classes = makeStyles(styles)
     // const classesHead = makeStyles(stylesHead)
-    // const classesBody = makeStyles(stylesBody)
+    const classesBody = makeStyles(stylesBody)
     return (
       <div>
-        <Button
+        {/* <Button
           onClick={this.toggleEditModal}
           variant="contained"
           color="primary"
@@ -141,7 +141,36 @@ class AnnouncementDetail extends Component {
           startIcon={<Edit />}
         >
           Edit
-        </Button>
+        </Button> */}
+        <nav className="navbar navbar-light bg-light d-flex justify-content-end">
+          <div className="d-flex flex-row">
+            <button
+              className="btn btn-danger m-2 my-sm-0"
+              type="submit"
+              onClick={this.toggleEditModal}
+            >
+              <Tooltip
+                id="tooltip-top-start"
+                title="Edit"
+                placement="top"
+                classes={{
+                  tooltip: classesBody.tooltip,
+                }}
+              >
+                {/* {this.state.isLoadingExportAllLog ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-white"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ) : ( */}
+                <Edit className="iconWhiteColor" />
+                {/* )} */}
+              </Tooltip>
+            </button>
+          </div>
+        </nav>
         <GridContainer>
           <GridItem xs={12} sm={12} md={12}>
             <Card>
@@ -189,6 +218,14 @@ class AnnouncementDetail extends Component {
                       by {this.props.location.state.createdby_name}{' '}
                     </footer>
                   </blockquote>
+                  <div className="pl-4 pr-4">
+                    <Link
+                      to="/admin/announcement"
+                      className="btn btn-block btn-outline-danger"
+                    >
+                      Close
+                    </Link>
+                  </div>
                 </div>
 
                 {/* <Grid item xs container direction="column" spacing={2}>
@@ -279,10 +316,10 @@ class AnnouncementDetail extends Component {
                     this.update()
                   }}
                 >
-                  Edit
+                  Submit
                 </Button>
               )}
-              <Button color="secondary" onClick={this.toggleEditModal}>
+              <Button color="primary" onClick={this.toggleEditModal}>
                 Cancel
               </Button>
             </ModalFooter>
