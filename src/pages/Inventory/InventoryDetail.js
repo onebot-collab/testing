@@ -206,39 +206,41 @@ class InventoryDetail extends Component {
                         <div className="each-slide">
                           <img
                             className="rounded mx-auto d-block img-responsive wrapperImage"
-                            src={`http://10.7.9.6:8443/node/${this.props.location.state.image_url3}?boAgRwlfX5=${this.props.login.token}`}
+                            src={`http://10.7.9.6:8443/node/${this.props.location.state.image_url}?boAgRwlfX5=${this.props.login.token}`}
                             alt="inventory img"
                           />
                         </div>
                         <div className="each-slide">
-                          {this.props.location.state.image_url2 !== 'null' ? (
-                            <div>
-                              <Paper className="wrapperNoImage" elevation={3}>
-                                <img
-                                  className="rounded mx-auto d-block img-responsive wrapperImage"
-                                  src={`http://10.7.9.6:8443/node/${this.props.location.state.image_url2}?boAgRwlfX5=${this.props.login.token}`}
-                                  alt="inventory img"
-                                />
-                              </Paper>
-                            </div>
-                          ) : (
-                            <></>
-                          )}
+                          <div>
+                            <Paper className="wrapperNoImage" elevation={3}>
+                              <img
+                                className="rounded mx-auto d-block img-responsive wrapperImage"
+                                src={
+                                  this.props.location.state.image_url2 !==
+                                  'null'
+                                    ? `http://10.7.9.6:8443/node/${this.props.location.state.image_url2}?boAgRwlfX5=${this.props.login.token}`
+                                    : 'https://digitalfinger.id/wp-content/uploads/2019/12/no-image-available-icon-6.png'
+                                }
+                                alt="inventory img"
+                              />
+                            </Paper>
+                          </div>
                         </div>
                         <div className="each-slide">
-                          {this.props.location.state.image_url3 !== 'null' ? (
-                            <div>
-                              <Paper className="wrapperNoImage" elevation={3}>
-                                <img
-                                  className="rounded mx-auto d-block img-responsive wrapperImage"
-                                  src={`http://10.7.9.6:8443/node/${this.props.location.state.image_url3}?boAgRwlfX5=${this.props.login.token}`}
-                                  alt="inventory img"
-                                />
-                              </Paper>
-                            </div>
-                          ) : (
-                            <></>
-                          )}
+                          <div>
+                            <Paper className="wrapperNoImage" elevation={3}>
+                              <img
+                                className="rounded mx-auto d-block img-responsive wrapperImage"
+                                src={
+                                  this.props.location.state.image_url3 !==
+                                  'null'
+                                    ? `http://10.7.9.6:8443/node/${this.props.location.state.image_url3}?boAgRwlfX5=${this.props.login.token}`
+                                    : 'https://digitalfinger.id/wp-content/uploads/2019/12/no-image-available-icon-6.png'
+                                }
+                                alt="inventory img"
+                              />
+                            </Paper>
+                          </div>
                         </div>
                       </Slide>
                     </div>
@@ -402,13 +404,13 @@ class InventoryDetail extends Component {
                   </div>
                 </div>
                 <div className="pl-2 pr-2">
-                    <Link
-                      to="/admin/inventory"
-                      className="btn btn-block btn-outline-danger"
-                    >
-                      Close
-                    </Link>
-                  </div>
+                  <Link
+                    to="/admin/inventory"
+                    className="btn btn-block btn-outline-danger"
+                  >
+                    Close
+                  </Link>
+                </div>
               </CardBody>
             </Card>
           </GridItem>
