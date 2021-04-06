@@ -34,6 +34,8 @@ import {
 } from 'reactstrap'
 import moment from 'moment'
 import swal from 'sweetalert2'
+import { Slide } from 'react-slideshow-image'
+import 'react-slideshow-image/dist/styles.css'
 // @material-ui/icons
 // import Edit from '@material-ui/icons/Edit'
 // import { Visibility } from '@material-ui/icons'
@@ -176,6 +178,11 @@ class InventoryDetail extends Component {
         {val.category_name}
       </option>
     ))
+    const slideImages = [
+      `http://10.7.9.6:8443/node/${this.props.location.state.image_url}?boAgRwlfX5=${this.props.login.token}`,
+      `http://10.7.9.6:8443/node/${this.props.location.state.image_url2}?boAgRwlfX5=${this.props.login.token}`,
+      `http://10.7.9.6:8443/node/${this.props.location.state.image_url3}?boAgRwlfX5=${this.props.login.token}`,
+    ]
     return (
       <div>
         <GridContainer>
@@ -194,41 +201,47 @@ class InventoryDetail extends Component {
               <CardBody>
                 <Grid item xs container direction="row" spacing={2}>
                   <Grid item xs={12} sm={12} md={4}>
-                    <div>
-                      <Paper className="wrapperNoImage" elevation={3}>
-                        <img
-                          className="rounded mx-auto d-block img-responsive wrapperImage"
-                          src={`http://10.7.9.6:8443/node/${this.props.location.state.image_url}?boAgRwlfX5=${this.props.login.token}`}
-                          alt="inventory img"
-                        />
-                      </Paper>
-                    </div>
-                    {this.props.location.state.image_url2 !== 'null' ? (
-                      <div>
-                        <Paper className="wrapperNoImage" elevation={3}>
-                          <img
-                            className="rounded mx-auto d-block img-responsive wrapperImage"
-                            src={`http://10.7.9.6:8443/node/${this.props.location.state.image_url2}?boAgRwlfX5=${this.props.login.token}`}
-                            alt="inventory img"
-                          />
-                        </Paper>
-                      </div>
-                    ) : (
-                      <></>
-                    )}
-                    {this.props.location.state.image_url3 !== 'null' ? (
-                      <div>
-                        <Paper className="wrapperNoImage" elevation={3}>
+                    <div className="slide-container">
+                      <Slide>
+                        <div className="each-slide">
                           <img
                             className="rounded mx-auto d-block img-responsive wrapperImage"
                             src={`http://10.7.9.6:8443/node/${this.props.location.state.image_url3}?boAgRwlfX5=${this.props.login.token}`}
                             alt="inventory img"
                           />
-                        </Paper>
-                      </div>
-                    ) : (
-                      <></>
-                    )}
+                        </div>
+                        <div className="each-slide">
+                          {this.props.location.state.image_url2 !== 'null' ? (
+                            <div>
+                              <Paper className="wrapperNoImage" elevation={3}>
+                                <img
+                                  className="rounded mx-auto d-block img-responsive wrapperImage"
+                                  src={`http://10.7.9.6:8443/node/${this.props.location.state.image_url2}?boAgRwlfX5=${this.props.login.token}`}
+                                  alt="inventory img"
+                                />
+                              </Paper>
+                            </div>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                        <div className="each-slide">
+                          {this.props.location.state.image_url3 !== 'null' ? (
+                            <div>
+                              <Paper className="wrapperNoImage" elevation={3}>
+                                <img
+                                  className="rounded mx-auto d-block img-responsive wrapperImage"
+                                  src={`http://10.7.9.6:8443/node/${this.props.location.state.image_url3}?boAgRwlfX5=${this.props.login.token}`}
+                                  alt="inventory img"
+                                />
+                              </Paper>
+                            </div>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                      </Slide>
+                    </div>
                   </Grid>
                   <Grid
                     item
@@ -388,6 +401,14 @@ class InventoryDetail extends Component {
                     </a>
                   </div>
                 </div>
+                <div className="pl-2 pr-2">
+                    <Link
+                      to="/admin/inventory"
+                      className="btn btn-block btn-outline-danger"
+                    >
+                      Close
+                    </Link>
+                  </div>
               </CardBody>
             </Card>
           </GridItem>
