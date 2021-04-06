@@ -151,7 +151,7 @@ class AnnouncementDetail extends Component {
             >
               <Tooltip
                 id="tooltip-top-start"
-                title="Add"
+                title="Edit"
                 placement="top"
                 classes={{
                   tooltip: classesBody.tooltip,

@@ -281,7 +281,7 @@ class Announcement extends Component {
           <>{this.redirect()}</>
         ) : (
           <>
-          <nav className="navbar navbar-light bg-light d-flex justify-content-end">
+            <nav className="navbar navbar-light bg-light d-flex justify-content-end">
               <div className="d-flex flex-row">
                 <form className="form-inline mr-5">
                   <input
