@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable no-unused-vars */
 /* eslint-disable eqeqeq */
 /* eslint-disable block-scoped-var */
@@ -118,7 +119,7 @@ class InventoryDetail extends Component {
     if (this.state.invoice_id != 0) {
       dataSubmit.append('invoice_id', this.state.invoice_id)
     }
-    if (this.state.warranty == 1) {
+    if (parseInt(this.state.warranty) !== 0) {
       dataSubmit.append(
         'warranty_date',
         moment(this.state.warranty_exp).format('YYYY-MM-DD'),
@@ -161,6 +162,20 @@ class InventoryDetail extends Component {
 
   render() {
     const classes = makeStyles(styles)
+
+    const invoiceData = this.props.invoice.dataAllInvoiceId
+    const invoiceList = invoiceData.map((val) => (
+      <option key={val.id} value={val.id}>
+        {val.invoice_no}
+      </option>
+    ))
+
+    const inventoryCategoryData = this.props.inventory.dataInventoryCategory
+    const categoryList = inventoryCategoryData.map((val) => (
+      <option key={val.category} value={val.category}>
+        {val.category_name}
+      </option>
+    ))
     return (
       <div>
         <GridContainer>
@@ -283,7 +298,9 @@ class InventoryDetail extends Component {
                           <dt className="col-sm-2 h5"> Invoice No</dt>
                           <dd className="col-sm-10 h3">
                             {' '}
-                            {this.props.location.state.invoice_no}
+                            {this.props.location.state.invoice_no == 'null'
+                              ? '-'
+                              : this.props.location.state.invoice_no}
                           </dd>
                         </dl>
                       </div>
@@ -411,16 +428,82 @@ class InventoryDetail extends Component {
                 className="mb-2 shadow-none"
                 onChange={this.handleChange}
               />
-              <h6>Expired Date</h6>
+              <h6>Accessories</h6>
               <Input
-                type="date"
-                name="exp_date"
+                type="textarea"
+                name="accessories"
+                value={this.state.accessories}
                 className="mb-2 shadow-none"
                 onChange={this.handleChange}
-                value={this.state.exp_date}
               />
+              <FormGroup>
+                <h6>Category</h6>
+                <Input
+                  value={this.state.category}
+                  type="select"
+                  name="category"
+                  id="exampleSelect"
+                  onChange={this.handleChange}
+                >
+                  {categoryList}
+                </Input>
+              </FormGroup>
+              <FormGroup>
+                <h6>Invoice</h6>
+                <Input
+                  value={this.state.invoiceId}
+                  type="select"
+                  name="invoiceId"
+                  id="exampleSelect"
+                  onChange={this.handleChange}
+                >
+                  <option key={0} value={0}>
+                    -
+                  </option>
+                  {invoiceList}
+                </Input>
+              </FormGroup>
+              <h6>Purchase Date</h6>
+              <Input
+                value={this.state.purchase_date}
+                type="date"
+                name="purchase_date"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <FormGroup>
+                <h6>Warranty</h6>
+                <Input
+                  value={this.state.warranty}
+                  type="select"
+                  name="warranty"
+                  id="exampleSelect"
+                  onChange={this.handleChange}
+                >
+                  <option key={0} value={0}>
+                    NO
+                  </option>
+                  <option key={1} value={1}>
+                    YES
+                  </option>
+                </Input>
+              </FormGroup>
+              {parseInt(this.state.warranty) !== 0 ? (
+                <>
+                  <h6>Warranty Date</h6>
+                  <Input
+                    value={this.state.warrantyDate}
+                    type="date"
+                    name="warrantyDate"
+                    className="mb-2 shadow-none"
+                    onChange={this.handleChange}
+                  />
+                </>
+              ) : (
+                <></>
+              )}
               <FormGroup className="mb-2 shadow-none">
-                <h6>Picture</h6>
+                <h6>Picture 1</h6>
                 <CustomInput
                   type="file"
                   id="exampleCustomFileBrowser"
@@ -428,6 +511,32 @@ class InventoryDetail extends Component {
                   onChange={(e) =>
                     this.setState({
                       fileInventory: e.target.files[0],
+                    })
+                  }
+                />
+              </FormGroup>
+              <FormGroup className="mb-2 shadow-none">
+                <h6>Picture 2</h6>
+                <CustomInput
+                  type="file"
+                  id="exampleCustomFileBrowser"
+                  name="fileInventory2"
+                  onChange={(e) =>
+                    this.setState({
+                      fileInventory2: e.target.files[0],
+                    })
+                  }
+                />
+              </FormGroup>
+              <FormGroup className="mb-2 shadow-none">
+                <h6>Picture 3</h6>
+                <CustomInput
+                  type="file"
+                  id="exampleCustomFileBrowser"
+                  name="fileInventory3"
+                  onChange={(e) =>
+                    this.setState({
+                      fileInventory3: e.target.files[0],
                     })
                   }
                 />
@@ -466,6 +575,7 @@ class InventoryDetail extends Component {
 
 const mapStateToProps = (state) => ({
   inventory: state.inventory,
+  invoice: state.invoice,
   login: state.login,
 })
 const mapDispatchToProps = { patchInventory, newToken }

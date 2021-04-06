@@ -20,7 +20,7 @@ const postInventory = (dataSubmit, token) => ({
 
 const patchInventory = (dataSubmit, id, token) => ({
   type: 'INVENTORYSTATUS',
-  payload: axios(token).patch(`${URL}api/v1/inventory/${id}`, dataSubmit),
+  payload: axios(token).post(`${URL}api/v1/inventory/edit/${id}`, dataSubmit),
 })
 
 const deleteInventory = (id, token) => ({

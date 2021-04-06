@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/no-array-index-key */
@@ -234,7 +235,7 @@ class Inventory extends Component {
     dataSubmit.append('category', this.state.category)
     dataSubmit.append('accessories', this.state.accessories)
     dataSubmit.append('warranty', this.state.warranty)
-    if (this.state.warranty !== 0) {
+    if (parseInt(this.state.warranty) !== 0) {
       dataSubmit.append('warranty_date', warrantyDate)
     }
     dataSubmit.append('purchase_date', purchaseDate)
@@ -607,7 +608,7 @@ class Inventory extends Component {
                       <FormGroup>
                         <h6>Category</h6>
                         <Input
-                          value={this.state.invoiceId}
+                          value={this.state.category}
                           type="select"
                           name="category"
                           id="exampleSelect"
@@ -656,7 +657,7 @@ class Inventory extends Component {
                           </option>
                         </Input>
                       </FormGroup>
-                      {this.state.warranty !== 0 ? (
+                      {parseInt(this.state.warranty) !== 0 ? (
                         <>
                           <h6>Warranty Date</h6>
                           <Input
