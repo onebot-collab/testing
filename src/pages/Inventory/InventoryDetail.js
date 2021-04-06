@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable eqeqeq */
 /* eslint-disable block-scoped-var */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -61,14 +63,26 @@ class InventoryDetail extends Component {
       brand: `${this.props.location.state.brand}`,
       serial_no: `${this.props.location.state.serial_no}`,
       note: `${this.props.location.state.note}`,
-      exp_date: `${this.props.location.state.exp_date.slice(
-        6,
-        10,
-      )}-${this.props.location.state.exp_date.slice(
-        3,
-        5,
-      )}-${this.props.location.state.exp_date.slice(0, 2)}`,
-      fileinventory: '',
+      purchase_date: `${this.props.location.state.purchase_date}`,
+      warranty: `${this.props.location.state.warranty}`,
+      warranty_exp: `${this.props.location.state.warranty_exp}`,
+      invoice_id: `${
+        this.props.location.state.invoice_id == null
+          ? 0
+          : this.props.location.state.invoice_id
+      }`,
+      category: this.props.location.state.category,
+      accessories: this.props.location.state.accessories,
+      // exp_date: `${this.props.location.state.exp_date.slice(
+      //   6,
+      //   10,
+      // )}-${this.props.location.state.exp_date.slice(
+      //   3,
+      //   5,
+      // )}-${this.props.location.state.exp_date.slice(0, 2)}`,
+      fileInventory: '',
+      fileInventory2: '',
+      fileInventory3: '',
       isLoadingUpdate: false,
     }
     this.toggleEditModal = this.toggleEditModal.bind(this)
@@ -89,28 +103,37 @@ class InventoryDetail extends Component {
     this.setState({ isLoadingUpdate: true })
     const id = `${this.props.location.state.id}`
     const dataSubmit = new FormData()
-    if (this.state.fileinventory !== '') {
-      dataSubmit.append('name', this.state.name)
-      dataSubmit.append('brand', this.state.brand)
-      dataSubmit.append('serialno', this.state.serial_no)
-      dataSubmit.append('note', this.state.note)
-      dataSubmit.append('status', 2)
+
+    dataSubmit.append('name', this.state.name)
+    dataSubmit.append('brand', this.state.brand)
+    dataSubmit.append('serialno', this.state.serial_no)
+    dataSubmit.append('note', this.state.note)
+    dataSubmit.append('category', this.state.category)
+    dataSubmit.append('accessories', this.state.accessories)
+    dataSubmit.append(
+      'purchase_date',
+      moment(this.state.purchase_date).format('YYYY-MM-DD'),
+    )
+    dataSubmit.append('warranty', this.state.warranty)
+    if (this.state.invoice_id != 0) {
+      dataSubmit.append('invoice_id', this.state.invoice_id)
+    }
+    if (this.state.warranty == 1) {
       dataSubmit.append(
-        'expdate',
-        moment(this.state.exp_date).format('YYYY-MM-DD'),
-      )
-      dataSubmit.append('fileinventory', this.state.fileinventory)
-    } else {
-      dataSubmit.append('name', this.state.name)
-      dataSubmit.append('brand', this.state.brand)
-      dataSubmit.append('serialno', this.state.serial_no)
-      dataSubmit.append('note', this.state.note)
-      dataSubmit.append('status', 2)
-      dataSubmit.append(
-        'expdate',
-        moment(this.state.exp_date).format('YYYY-MM-DD'),
+        'warranty_date',
+        moment(this.state.warranty_exp).format('YYYY-MM-DD'),
       )
     }
+    if (this.state.fileInventory !== '') {
+      dataSubmit.append('fileInventory1', this.state.fileInventory)
+    }
+    if (this.state.fileInventory2 !== '') {
+      dataSubmit.append('fileInventory2', this.state.fileInventory2)
+    }
+    if (this.state.fileInventory3 !== '') {
+      dataSubmit.append('fileInventory3', this.state.fileInventory3)
+    }
+
     this.props
       .patchInventory(dataSubmit, id, this.props.login.token)
       .then((res) => {
@@ -165,6 +188,32 @@ class InventoryDetail extends Component {
                         />
                       </Paper>
                     </div>
+                    {this.props.location.state.image_url2 !== 'null' ? (
+                      <div>
+                        <Paper className="wrapperNoImage" elevation={3}>
+                          <img
+                            className="rounded mx-auto d-block img-responsive wrapperImage"
+                            src={`http://10.7.9.6:8443/node/${this.props.location.state.image_url2}?boAgRwlfX5=${this.props.login.token}`}
+                            alt="inventory img"
+                          />
+                        </Paper>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                    {this.props.location.state.image_url3 !== 'null' ? (
+                      <div>
+                        <Paper className="wrapperNoImage" elevation={3}>
+                          <img
+                            className="rounded mx-auto d-block img-responsive wrapperImage"
+                            src={`http://10.7.9.6:8443/node/${this.props.location.state.image_url3}?boAgRwlfX5=${this.props.login.token}`}
+                            alt="inventory img"
+                          />
+                        </Paper>
+                      </div>
+                    ) : (
+                      <></>
+                    )}
                   </Grid>
                   <Grid
                     item
@@ -175,6 +224,15 @@ class InventoryDetail extends Component {
                   >
                     {/* <div className="d-flex flex-column align-items-end btnEdit"> */}
                     <div className="col-12 col-md-12 col-xl-12 d-flex flex-column align-self-start align-items-start">
+                      <div className="col-12 col-md-12 col-xl-12">
+                        <dl className="row">
+                          <dt className="col-sm-2 h5"> Product ID</dt>
+                          <dd className="col-sm-10 h3">
+                            {' '}
+                            {this.props.location.state.inventory_no}
+                          </dd>
+                        </dl>
+                      </div>
                       <div className="col-12 col-md-12 col-xl-12">
                         <dl className="row">
                           <dt className="col-sm-2 h5"> Brand</dt>
@@ -195,10 +253,57 @@ class InventoryDetail extends Component {
                       </div>
                       <div className="col-12 col-md-12 col-xl-12">
                         <dl className="row">
-                          <dt className="col-sm-2 h5"> Expired Date</dt>
+                          <dt className="col-sm-2 h5"> Category</dt>
                           <dd className="col-sm-10 h3">
                             {' '}
-                            {this.props.location.state.exp_date}
+                            {this.props.location.state.category_name}
+                          </dd>
+                        </dl>
+                      </div>
+                      <div className="col-12 col-md-12 col-xl-12">
+                        <dl className="row">
+                          <dt className="col-sm-2 h5"> Status</dt>
+                          <dd className="col-sm-10 h3">
+                            {' '}
+                            {this.props.location.state.status_name}
+                          </dd>
+                        </dl>
+                      </div>
+                      <div className="col-12 col-md-12 col-xl-12">
+                        <dl className="row">
+                          <dt className="col-sm-2 h5"> Purchase Date</dt>
+                          <dd className="col-sm-10 h3">
+                            {' '}
+                            {this.props.location.state.purchase_date}
+                          </dd>
+                        </dl>
+                      </div>
+                      <div className="col-12 col-md-12 col-xl-12">
+                        <dl className="row">
+                          <dt className="col-sm-2 h5"> Invoice No</dt>
+                          <dd className="col-sm-10 h3">
+                            {' '}
+                            {this.props.location.state.invoice_no}
+                          </dd>
+                        </dl>
+                      </div>
+                      <div className="col-12 col-md-12 col-xl-12">
+                        <dl className="row">
+                          <dt className="col-sm-2 h5"> Warranty Date</dt>
+                          <dd className="col-sm-10 h3">
+                            {' '}
+                            {this.props.location.state.warranty == 1
+                              ? this.props.location.state.warranty_exp
+                              : '-'}
+                          </dd>
+                        </dl>
+                      </div>
+                      <div className="col-12 col-md-12 col-xl-12">
+                        <dl className="row">
+                          <dt className="col-sm-2 h5"> Accessories</dt>
+                          <dd className="col-sm-10 h3">
+                            {' '}
+                            {this.props.location.state.accessories}
                           </dd>
                         </dl>
                       </div>
@@ -257,12 +362,12 @@ class InventoryDetail extends Component {
                     </button>
                   </div>
                   <div className="d-flex flex-fill p-2">
-                    <Link
-                      to="/admin/inventory"
+                    <a
+                      href={`http://10.7.9.6:8443/node/${this.props.location.state.codeQr}?boAgRwlfX5=${this.props.login.token}`}
                       className="btn btn-block btn-outline-danger"
                     >
-                      Close
-                    </Link>
+                      QR Code
+                    </a>
                   </div>
                 </div>
               </CardBody>
@@ -322,7 +427,7 @@ class InventoryDetail extends Component {
                   name="fileInventory"
                   onChange={(e) =>
                     this.setState({
-                      fileinventory: e.target.files[0],
+                      fileInventory: e.target.files[0],
                     })
                   }
                 />
