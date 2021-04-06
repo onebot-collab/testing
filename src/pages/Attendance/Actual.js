@@ -63,7 +63,6 @@ class Attendance extends Component {
       search: '',
       page: 1,
       showFilterModal: false,
-      name: '',
       department: '',
       date: '',
       onTime: '',
@@ -152,16 +151,6 @@ class Attendance extends Component {
           <>{this.redirect()}</>
         ) : (
           <>
-            {/* <Link to="/admin/attendance/detail">
-              <Button
-                variant="contained"
-                color="primary"
-                // className="buttonAdd"
-                startIcon={<File />}
-              >
-                Detail Attendance
-              </Button>
-            </Link> */}
             <nav className="navbar navbar-light bg-light d-flex justify-content-end">
               <div className="d-flex flex-row">
                 <form className="form-inline mr-5">
@@ -414,19 +403,11 @@ class Attendance extends Component {
             </GridContainer>
           </>
         )}
-        {/* Add Modal */}
+        {/* Filter Modal */}
         <Modal isOpen={this.state.showFilterModal}>
           <ModalHeader className="h1">Add Filter</ModalHeader>
           <Form>
             <ModalBody>
-              <h6>Name</h6>
-              <Input
-                value={this.state.name}
-                type="text"
-                name="name"
-                className="mb-2 shadow-none"
-                onChange={this.handleChange}
-              />
               <h6>Department</h6>
               <Input
                 value={this.state.department}
@@ -435,11 +416,19 @@ class Attendance extends Component {
                 className="mb-2 shadow-none"
                 onChange={this.handleChange}
               />
-              <h6>Date</h6>
+              <h6>Start Date</h6>
               <Input
                 value={this.state.date}
                 type="date"
-                name="Date"
+                name="start_date"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>End Date</h6>
+              <Input
+                value={this.state.date}
+                type="date"
+                name="end_date"
                 className="mb-2 shadow-none"
                 onChange={this.handleChange}
               />
