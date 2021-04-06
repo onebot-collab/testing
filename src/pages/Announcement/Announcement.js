@@ -30,6 +30,8 @@ import ArrowRight from '@material-ui/icons/ArrowRight'
 import Delete from '@material-ui/icons/Delete'
 import { connect } from 'react-redux'
 import Add from '@material-ui/icons/Add'
+import Print from '@material-ui/icons/Print'
+import Sort from '@material-ui/icons/Sort'
 import Button from '@material-ui/core/Button'
 import Select from 'react-select'
 import swal from 'sweetalert2'
@@ -40,6 +42,7 @@ import {
   ModalHeader,
   ModalFooter,
   Input,
+  FormGroup,
 } from 'reactstrap'
 import {
   getAllCampaign,
@@ -72,6 +75,7 @@ class Announcement extends Component {
       isLoadingAddCampaign: false,
       showAddModal: false,
       showDeleteModal: false,
+      showFilterModal: false,
       selectedDepartment: false,
       title: '',
       description: '',
@@ -87,8 +91,15 @@ class Announcement extends Component {
     this.handleSearch = this.handleSearch.bind(this)
     this.addAnnouncement = this.addAnnouncement.bind(this)
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this)
+    this.toggleFilterModal = this.toggleFilterModal.bind(this)
     this.nextPage = this.nextPage.bind(this)
     this.prevPage = this.prevPage.bind(this)
+  }
+
+  toggleFilterModal() {
+    this.setState({
+      showFilterModal: !this.state.showFilterModal,
+    })
   }
 
   handleSearch(event) {
@@ -270,32 +281,100 @@ class Announcement extends Component {
           <>{this.redirect()}</>
         ) : (
           <>
-            <nav className="navbar navbar-light bg-light">
-              <Button
-                onClick={this.toggleAddModal}
-                variant="contained"
-                color="primary"
-                // className="buttonAdd"
-                startIcon={<Add />}
-              >
-                Add
-              </Button>
-              <form className="form-inline">
-                <input
-                  className="form-control mr-sm-2"
-                  name="search"
-                  onChange={this.handleSearch}
-                  type="search"
-                  placeholder="Type Something ..."
-                  aria-label="Search"
-                ></input>
+          <nav className="navbar navbar-light bg-light d-flex justify-content-end">
+              <div className="d-flex flex-row">
+                <form className="form-inline mr-5">
+                  <input
+                    className="form-control mr-sm-2"
+                    type="search"
+                    name="search"
+                    onChange={this.handleSearch}
+                    placeholder="Type Something ..."
+                    aria-label="Search"
+                  ></input>
+                  <button
+                    className="btn btn-outline-danger my-2 my-sm-0"
+                    type="submit"
+                  >
+                    Search
+                  </button>
+                </form>
                 <button
-                  className="btn btn-outline-danger my-2 my-sm-0"
+                  className="btn btn-danger m-2 my-sm-0"
                   type="submit"
+                  onClick={this.toggleFilterModal}
                 >
-                  Search
+                  <Tooltip
+                    id="tooltip-top-start"
+                    title="Filter"
+                    placement="top"
+                    classes={{
+                      tooltip: classesBody.tooltip,
+                    }}
+                  >
+                    {this.state.isLoadingExportAllLog ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-white"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ) : (
+                      <Sort className="iconWhiteColor" />
+                    )}
+                  </Tooltip>
                 </button>
-              </form>
+                <button
+                  className="btn btn-danger m-2 my-sm-0"
+                  type="submit"
+                  onClick={this.export}
+                >
+                  <Tooltip
+                    id="tooltip-top-start"
+                    title="Export to PDF"
+                    placement="top"
+                    classes={{
+                      tooltip: classesBody.tooltip,
+                    }}
+                  >
+                    {this.state.isLoadingExportAllLog ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-white"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ) : (
+                      <Print className="iconWhiteColor" />
+                    )}
+                  </Tooltip>
+                </button>
+                <button
+                  className="btn btn-danger m-2 my-sm-0"
+                  type="submit"
+                  onClick={this.toggleAddModal}
+                >
+                  <Tooltip
+                    id="tooltip-top-start"
+                    title="Add"
+                    placement="top"
+                    classes={{
+                      tooltip: classesBody.tooltip,
+                    }}
+                  >
+                    {this.state.isLoadingExportAllLog ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-white"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ) : (
+                      <Add className="iconWhiteColor" />
+                    )}
+                  </Tooltip>
+                </button>
+              </div>
             </nav>
 
             <GridContainer>
@@ -480,6 +559,74 @@ class Announcement extends Component {
                 </Card>
               </GridItem>
             </GridContainer>
+            {/* Filter Modal */}
+        <Modal isOpen={this.state.showFilterModal}>
+          <ModalHeader className="h1">Add Filter</ModalHeader>
+          <Form>
+            <ModalBody>
+              <h6>Name</h6>
+              <Input
+                value={this.state.name}
+                type="text"
+                name="name"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Department</h6>
+              <Input
+                value={this.state.department}
+                type="text"
+                name="department"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>Date</h6>
+              <Input
+                value={this.state.date}
+                type="date"
+                name="Date"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <FormGroup>
+                <h6>On Time</h6>
+                <Input
+                  value={this.state.onTime}
+                  type="select"
+                  name="onTime"
+                  id="exampleSelect"
+                  onChange={this.handleChange}
+                >
+                  <option key={0} value={0}>
+                    NO
+                  </option>
+                  <option key={1} value={1}>
+                    YES
+                  </option>
+                </Input>
+              </FormGroup>
+            </ModalBody>
+            <ModalFooter>
+              {/* {this.state.isLoadingAddCampaign ? (
+                <Button color="primary">
+                  <div
+                    className="spinner-border spinner-border-sm text-danger"
+                    role="status"
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </Button>
+              ) : ( */}
+              <Button color="secondary" onClick={this.toggleFilterModal}>
+                Submit
+              </Button>
+              {/* )} */}
+              <Button color="primary" onClick={this.toggleFilterModal}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Form>
+        </Modal>
 
             {/* Add Modal */}
             <Modal isOpen={this.state.showAddModal}>
