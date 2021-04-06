@@ -306,9 +306,7 @@ class Report extends Component {
                                   </TableCell>
                                   <TableCell component="th">
                                     <p className="textPrimaryColor">
-                                      {res.created_at.slice(8, 10)}
-                                      {res.created_at.slice(5, 8)}
-                                      {res.created_at.slice(0, 5)}
+                                      {res.created_at}
                                     </p>
                                   </TableCell>
                                   <TableCell
