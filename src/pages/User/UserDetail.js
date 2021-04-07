@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react/jsx-boolean-value */
 /* eslint-disable radix */
 /* eslint-disable camelcase */
@@ -590,1041 +591,1067 @@ class UserDetail extends Component {
                     </CardFooter> */}
                   </GridItem>
                 </GridContainer>
-                <GridContainer>
-                  <GridItem xs={12} sm={12} md={12}>
-                    <Card>
-                      <CardHeader color="danger">
-                        <h4 className="cardTitleWhite">
-                          Roster {this.props.user.dataProfile[0].name}
-                        </h4>
-                        <p className="cardCategoryWhite">
-                          Customize user profile
-                        </p>
-                      </CardHeader>
-                      <CardBody>
-                        <Form>
-                          <Row form>
-                            <Col xs={12} sm={12} md={12}>
-                              {' '}
-                              <FormGroup>
-                                <Label for="exampleEmail">Type</Label>
-                                <Input
-                                  value={this.state.typeRoster}
-                                  type="select"
-                                  name="typeRoster"
-                                  id="exampleSelect"
-                                  onChange={this.handleChange}
+
+                {this.props.user.dataProfile[0].typeTime === 'Free Hours' ||
+                this.state.timeTypeInput == '3' ? (
+                  <GridContainer>
+                    <GridItem xs={12} sm={12} md={12}>
+                      <Card>
+                        <CardHeader color="danger">
+                          <h4 className="cardTitleWhite">
+                            Roster {this.props.user.dataProfile[0].name}
+                          </h4>
+                          <p className="cardCategoryWhite">
+                            Customize user profile
+                          </p>
+                        </CardHeader>
+                        <CardBody>
+                          <Form>
+                            <Row form>
+                              <Col xs={12} sm={12} md={12}>
+                                {' '}
+                                <FormGroup>
+                                  <Label for="exampleEmail">Type</Label>
+                                  <Input
+                                    value={this.state.typeRoster}
+                                    type="select"
+                                    name="typeRoster"
+                                    id="exampleSelect"
+                                    onChange={this.handleChange}
+                                  >
+                                    <option key={1} value={1}>
+                                      Persist
+                                    </option>
+                                    <option key={2} value={2}>
+                                      Shift
+                                    </option>
+                                  </Input>
+                                </FormGroup>
+                              </Col>
+                            </Row>
+                            <Row
+                              form
+                              className="d-flex justify-content-around my-2"
+                            >
+                              {/* SENIN */}
+                              <Col
+                                xs={12}
+                                sm={12}
+                                md={5}
+                                className="p-4 border border-danger"
+                              >
+                                <Row
+                                  xs={12}
+                                  sm={12}
+                                  md={12}
+                                  className="d-flex align-items-center my-1"
                                 >
-                                  <option key={1} value={1}>
-                                    Persist
-                                  </option>
-                                  <option key={2} value={2}>
-                                    Shift
-                                  </option>
-                                </Input>
-                              </FormGroup>
-                            </Col>
-                          </Row>
-                          <Row
-                            form
-                            className="d-flex justify-content-around my-2"
+                                  <FormGroup check inline>
+                                    <Label check>
+                                      <Input
+                                        checked={this.state.mondayCheck}
+                                        type="checkbox"
+                                        onChange={() => {
+                                          this.setState({
+                                            mondayCheck: !this.state
+                                              .mondayCheck,
+                                          })
+                                        }}
+                                      />{' '}
+                                      Monday
+                                    </Label>
+                                  </FormGroup>
+                                  <FormGroup check inline>
+                                    <Label check>
+                                      <Input
+                                        checked={this.state.overtimeMonday}
+                                        type="checkbox"
+                                        onChange={() => {
+                                          this.setState({
+                                            overtimeMonday: !this.state
+                                              .overtimeMonday,
+                                          })
+                                        }}
+                                      />{' '}
+                                      Overtime
+                                    </Label>
+                                  </FormGroup>
+                                </Row>
+
+                                <Row
+                                  xs={12}
+                                  sm={12}
+                                  md={12}
+                                  className="d-flex justify-content-around my-1"
+                                >
+                                  <Row>
+                                    <Label for="exampleEmail">Check In</Label>
+                                    <Input
+                                      value={this.state.passcodeInput}
+                                      type="time"
+                                      name="timeCheck"
+                                      onChange={(e) => this.handleChange(e)}
+                                    />
+                                  </Row>
+
+                                  <Row>
+                                    <Label for="exampleEmail">Check Out</Label>
+                                    <Input
+                                      value={this.state.passcodeInput}
+                                      type="time"
+                                      name="timeCheck"
+                                      onChange={(e) => this.handleChange(e)}
+                                    />
+                                  </Row>
+                                </Row>
+
+                                {parseInt(this.state.typeRoster) === 2 ? (
+                                  <Row
+                                    xs={12}
+                                    sm={12}
+                                    md={12}
+                                    className="d-flex justify-content-around my-1"
+                                  >
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check In#2
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check Out#2
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+                                  </Row>
+                                ) : (
+                                  <></>
+                                )}
+                                {this.state.overtimeMonday ? (
+                                  <Row
+                                    xs={12}
+                                    sm={12}
+                                    md={12}
+                                    className="d-flex justify-content-around my-1"
+                                  >
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check In(Overtime)
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check Out(Overtime)
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+                                  </Row>
+                                ) : (
+                                  <></>
+                                )}
+                              </Col>
+                              {/* SELASA */}
+                              <Col
+                                xs={12}
+                                sm={12}
+                                md={5}
+                                className="p-4 border border-danger"
+                              >
+                                <Row
+                                  xs={12}
+                                  sm={12}
+                                  md={12}
+                                  className="d-flex align-items-center my-1"
+                                >
+                                  <FormGroup check inline>
+                                    <Label check>
+                                      <Input
+                                        checked={this.state.tuesdayCheck}
+                                        type="checkbox"
+                                        onChange={() => {
+                                          this.setState({
+                                            tuesdayCheck: !this.state
+                                              .tuesdayCheck,
+                                          })
+                                        }}
+                                      />{' '}
+                                      Tuesday
+                                    </Label>
+                                  </FormGroup>
+                                  <FormGroup check inline>
+                                    <Label check>
+                                      <Input
+                                        checked={this.state.overtimeTuesday}
+                                        type="checkbox"
+                                        onChange={() => {
+                                          this.setState({
+                                            overtimeTuesday: !this.state
+                                              .overtimeTuesday,
+                                          })
+                                        }}
+                                      />{' '}
+                                      Overtime
+                                    </Label>
+                                  </FormGroup>
+                                </Row>
+
+                                <Row
+                                  xs={12}
+                                  sm={12}
+                                  md={12}
+                                  className="d-flex justify-content-around my-1"
+                                >
+                                  <Row>
+                                    <Label for="exampleEmail">Check In</Label>
+                                    <Input
+                                      value={this.state.passcodeInput}
+                                      type="time"
+                                      name="timeCheck"
+                                      onChange={(e) => this.handleChange(e)}
+                                    />
+                                  </Row>
+
+                                  <Row>
+                                    <Label for="exampleEmail">Check Out</Label>
+                                    <Input
+                                      value={this.state.passcodeInput}
+                                      type="time"
+                                      name="timeCheck"
+                                      onChange={(e) => this.handleChange(e)}
+                                    />
+                                  </Row>
+                                </Row>
+
+                                {parseInt(this.state.typeRoster) === 2 ? (
+                                  <Row
+                                    xs={12}
+                                    sm={12}
+                                    md={12}
+                                    className="d-flex justify-content-around my-1"
+                                  >
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check In#2
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check Out#2
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+                                  </Row>
+                                ) : (
+                                  <></>
+                                )}
+                                {this.state.overtimeTuesday ? (
+                                  <Row
+                                    xs={12}
+                                    sm={12}
+                                    md={12}
+                                    className="d-flex justify-content-around my-1"
+                                  >
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check In(Overtime)
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check Out(Overtime)
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+                                  </Row>
+                                ) : (
+                                  <></>
+                                )}
+                              </Col>
+                            </Row>
+                            {/* RABU */}
+                            <Row
+                              form
+                              className="d-flex justify-content-around my-2"
+                            >
+                              <Col
+                                xs={12}
+                                sm={12}
+                                md={5}
+                                className="p-4 border border-danger"
+                              >
+                                <Row
+                                  xs={12}
+                                  sm={12}
+                                  md={12}
+                                  className="d-flex align-items-center my-1"
+                                >
+                                  <FormGroup check inline>
+                                    <Label check>
+                                      <Input
+                                        checked={this.state.wednesdayCheck}
+                                        type="checkbox"
+                                        onChange={() => {
+                                          this.setState({
+                                            wednesdayCheck: !this.state
+                                              .wednesdayCheck,
+                                          })
+                                        }}
+                                      />{' '}
+                                      Wednesday
+                                    </Label>
+                                  </FormGroup>
+                                  <FormGroup check inline>
+                                    <Label check>
+                                      <Input
+                                        checked={this.state.overtimeWednesday}
+                                        type="checkbox"
+                                        onChange={() => {
+                                          this.setState({
+                                            overtimeWednesday: !this.state
+                                              .overtimeWednesday,
+                                          })
+                                        }}
+                                      />{' '}
+                                      Overtime
+                                    </Label>
+                                  </FormGroup>
+                                </Row>
+
+                                <Row
+                                  xs={12}
+                                  sm={12}
+                                  md={12}
+                                  className="d-flex justify-content-around my-1"
+                                >
+                                  <Row>
+                                    <Label for="exampleEmail">Check In</Label>
+                                    <Input
+                                      value={this.state.passcodeInput}
+                                      type="time"
+                                      name="timeCheck"
+                                      onChange={(e) => this.handleChange(e)}
+                                    />
+                                  </Row>
+
+                                  <Row>
+                                    <Label for="exampleEmail">Check Out</Label>
+                                    <Input
+                                      value={this.state.passcodeInput}
+                                      type="time"
+                                      name="timeCheck"
+                                      onChange={(e) => this.handleChange(e)}
+                                    />
+                                  </Row>
+                                </Row>
+
+                                {parseInt(this.state.typeRoster) === 2 ? (
+                                  <Row
+                                    xs={12}
+                                    sm={12}
+                                    md={12}
+                                    className="d-flex justify-content-around my-1"
+                                  >
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check In#2
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check Out#2
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+                                  </Row>
+                                ) : (
+                                  <></>
+                                )}
+                                {this.state.overtimeWednesday ? (
+                                  <Row
+                                    xs={12}
+                                    sm={12}
+                                    md={12}
+                                    className="d-flex justify-content-around my-1"
+                                  >
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check In(Overtime)
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check Out(Overtime)
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+                                  </Row>
+                                ) : (
+                                  <></>
+                                )}
+                              </Col>
+                              {/* KAMIS */}
+                              <Col
+                                xs={12}
+                                sm={12}
+                                md={5}
+                                className="p-4 border border-danger"
+                              >
+                                <Row
+                                  xs={12}
+                                  sm={12}
+                                  md={12}
+                                  className="d-flex align-items-center my-1"
+                                >
+                                  <FormGroup check inline>
+                                    <Label check>
+                                      <Input
+                                        checked={this.state.thursdayCheck}
+                                        type="checkbox"
+                                        onChange={() => {
+                                          this.setState({
+                                            thursdayCheck: !this.state
+                                              .thursdayCheck,
+                                          })
+                                        }}
+                                      />{' '}
+                                      Thursday
+                                    </Label>
+                                  </FormGroup>
+                                  <FormGroup check inline>
+                                    <Label check>
+                                      <Input
+                                        checked={this.state.overtimeThursday}
+                                        type="checkbox"
+                                        onChange={() => {
+                                          this.setState({
+                                            overtimeThursday: !this.state
+                                              .overtimeThursday,
+                                          })
+                                        }}
+                                      />{' '}
+                                      Overtime
+                                    </Label>
+                                  </FormGroup>
+                                </Row>
+
+                                <Row
+                                  xs={12}
+                                  sm={12}
+                                  md={12}
+                                  className="d-flex justify-content-around my-1"
+                                >
+                                  <Row>
+                                    <Label for="exampleEmail">Check In</Label>
+                                    <Input
+                                      value={this.state.passcodeInput}
+                                      type="time"
+                                      name="timeCheck"
+                                      onChange={(e) => this.handleChange(e)}
+                                    />
+                                  </Row>
+
+                                  <Row>
+                                    <Label for="exampleEmail">Check Out</Label>
+                                    <Input
+                                      value={this.state.passcodeInput}
+                                      type="time"
+                                      name="timeCheck"
+                                      onChange={(e) => this.handleChange(e)}
+                                    />
+                                  </Row>
+                                </Row>
+
+                                {parseInt(this.state.typeRoster) === 2 ? (
+                                  <Row
+                                    xs={12}
+                                    sm={12}
+                                    md={12}
+                                    className="d-flex justify-content-around my-1"
+                                  >
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check In#2
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check Out#2
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+                                  </Row>
+                                ) : (
+                                  <></>
+                                )}
+                                {this.state.overtimeThursday ? (
+                                  <Row
+                                    xs={12}
+                                    sm={12}
+                                    md={12}
+                                    className="d-flex justify-content-around my-1"
+                                  >
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check In(Overtime)
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check Out(Overtime)
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+                                  </Row>
+                                ) : (
+                                  <></>
+                                )}
+                              </Col>
+                            </Row>
+                            {/* JUMAT */}
+                            <Row
+                              form
+                              className="d-flex justify-content-around my-2"
+                            >
+                              <Col
+                                xs={12}
+                                sm={12}
+                                md={5}
+                                className="p-4 border border-danger"
+                              >
+                                <Row
+                                  xs={12}
+                                  sm={12}
+                                  md={12}
+                                  className="d-flex align-items-center my-1"
+                                >
+                                  <FormGroup check inline>
+                                    <Label check>
+                                      <Input
+                                        checked={this.state.fridayCheck}
+                                        type="checkbox"
+                                        onChange={() => {
+                                          this.setState({
+                                            fridayCheck: !this.state
+                                              .fridayCheck,
+                                          })
+                                        }}
+                                      />{' '}
+                                      Friday
+                                    </Label>
+                                  </FormGroup>
+                                  <FormGroup check inline>
+                                    <Label check>
+                                      <Input
+                                        checked={this.state.overtimeFriday}
+                                        type="checkbox"
+                                        onChange={() => {
+                                          this.setState({
+                                            overtimeFriday: !this.state
+                                              .overtimeFriday,
+                                          })
+                                        }}
+                                      />{' '}
+                                      Overtime
+                                    </Label>
+                                  </FormGroup>
+                                </Row>
+
+                                <Row
+                                  xs={12}
+                                  sm={12}
+                                  md={12}
+                                  className="d-flex justify-content-around my-1"
+                                >
+                                  <Row>
+                                    <Label for="exampleEmail">Check In</Label>
+                                    <Input
+                                      value={this.state.passcodeInput}
+                                      type="time"
+                                      name="timeCheck"
+                                      onChange={(e) => this.handleChange(e)}
+                                    />
+                                  </Row>
+
+                                  <Row>
+                                    <Label for="exampleEmail">Check Out</Label>
+                                    <Input
+                                      value={this.state.passcodeInput}
+                                      type="time"
+                                      name="timeCheck"
+                                      onChange={(e) => this.handleChange(e)}
+                                    />
+                                  </Row>
+                                </Row>
+
+                                {parseInt(this.state.typeRoster) === 2 ? (
+                                  <Row
+                                    xs={12}
+                                    sm={12}
+                                    md={12}
+                                    className="d-flex justify-content-around my-1"
+                                  >
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check In#2
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check Out#2
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+                                  </Row>
+                                ) : (
+                                  <></>
+                                )}
+                                {this.state.overtimeFriday ? (
+                                  <Row
+                                    xs={12}
+                                    sm={12}
+                                    md={12}
+                                    className="d-flex justify-content-around my-1"
+                                  >
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check In(Overtime)
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check Out(Overtime)
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+                                  </Row>
+                                ) : (
+                                  <></>
+                                )}
+                              </Col>
+                              {/* SABTU */}
+                              <Col
+                                xs={12}
+                                sm={12}
+                                md={5}
+                                className="p-4 border border-danger"
+                              >
+                                <Row
+                                  xs={12}
+                                  sm={12}
+                                  md={12}
+                                  className="d-flex align-items-center my-1"
+                                >
+                                  <FormGroup check inline>
+                                    <Label check>
+                                      <Input
+                                        checked={this.state.saturdayCheck}
+                                        type="checkbox"
+                                        onChange={() => {
+                                          this.setState({
+                                            saturdayCheck: !this.state
+                                              .saturdayCheck,
+                                          })
+                                        }}
+                                      />{' '}
+                                      Saturday
+                                    </Label>
+                                  </FormGroup>
+                                  <FormGroup check inline>
+                                    <Label check>
+                                      <Input
+                                        checked={this.state.overtimeSaturday}
+                                        type="checkbox"
+                                        onChange={() => {
+                                          this.setState({
+                                            overtimeSaturday: !this.state
+                                              .overtimeSaturday,
+                                          })
+                                        }}
+                                      />{' '}
+                                      Overtime
+                                    </Label>
+                                  </FormGroup>
+                                </Row>
+
+                                <Row
+                                  xs={12}
+                                  sm={12}
+                                  md={12}
+                                  className="d-flex justify-content-around my-1"
+                                >
+                                  <Row>
+                                    <Label for="exampleEmail">Check In</Label>
+                                    <Input
+                                      value={this.state.passcodeInput}
+                                      type="time"
+                                      name="timeCheck"
+                                      onChange={(e) => this.handleChange(e)}
+                                    />
+                                  </Row>
+
+                                  <Row>
+                                    <Label for="exampleEmail">Check Out</Label>
+                                    <Input
+                                      value={this.state.passcodeInput}
+                                      type="time"
+                                      name="timeCheck"
+                                      onChange={(e) => this.handleChange(e)}
+                                    />
+                                  </Row>
+                                </Row>
+
+                                {parseInt(this.state.typeRoster) === 2 ? (
+                                  <Row
+                                    xs={12}
+                                    sm={12}
+                                    md={12}
+                                    className="d-flex justify-content-around my-1"
+                                  >
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check In#2
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check Out#2
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+                                  </Row>
+                                ) : (
+                                  <></>
+                                )}
+                                {this.state.overtimeSaturday ? (
+                                  <Row
+                                    xs={12}
+                                    sm={12}
+                                    md={12}
+                                    className="d-flex justify-content-around my-1"
+                                  >
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check In(Overtime)
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check Out(Overtime)
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+                                  </Row>
+                                ) : (
+                                  <></>
+                                )}
+                              </Col>
+                            </Row>
+                            {/* MINGGU */}
+                            <Row
+                              form
+                              className="d-flex justify-content-around my-2"
+                            >
+                              <Col
+                                xs={12}
+                                sm={12}
+                                md={5}
+                                className="p-4 border border-danger"
+                              >
+                                <Row
+                                  xs={12}
+                                  sm={12}
+                                  md={12}
+                                  className="d-flex align-items-center my-1"
+                                >
+                                  <FormGroup check inline>
+                                    <Label check>
+                                      <Input
+                                        checked={this.state.sundayCheck}
+                                        type="checkbox"
+                                        onChange={() => {
+                                          this.setState({
+                                            sundayCheck: !this.state
+                                              .sundayCheck,
+                                          })
+                                        }}
+                                      />{' '}
+                                      Sunday
+                                    </Label>
+                                  </FormGroup>
+                                  <FormGroup check inline>
+                                    <Label check>
+                                      <Input
+                                        checked={this.state.overtimeSunday}
+                                        type="checkbox"
+                                        onChange={() => {
+                                          this.setState({
+                                            overtimeSunday: !this.state
+                                              .overtimeSunday,
+                                          })
+                                        }}
+                                      />{' '}
+                                      Overtime
+                                    </Label>
+                                  </FormGroup>
+                                </Row>
+
+                                <Row
+                                  xs={12}
+                                  sm={12}
+                                  md={12}
+                                  className="d-flex justify-content-around my-1"
+                                >
+                                  <Row>
+                                    <Label for="exampleEmail">Check In</Label>
+                                    <Input
+                                      value={this.state.passcodeInput}
+                                      type="time"
+                                      name="timeCheck"
+                                      onChange={(e) => this.handleChange(e)}
+                                    />
+                                  </Row>
+
+                                  <Row>
+                                    <Label for="exampleEmail">Check Out</Label>
+                                    <Input
+                                      value={this.state.passcodeInput}
+                                      type="time"
+                                      name="timeCheck"
+                                      onChange={(e) => this.handleChange(e)}
+                                    />
+                                  </Row>
+                                </Row>
+
+                                {parseInt(this.state.typeRoster) === 2 ? (
+                                  <Row
+                                    xs={12}
+                                    sm={12}
+                                    md={12}
+                                    className="d-flex justify-content-around my-1"
+                                  >
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check In#2
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check Out#2
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+                                  </Row>
+                                ) : (
+                                  <></>
+                                )}
+                                {this.state.overtimeSunday ? (
+                                  <Row
+                                    xs={12}
+                                    sm={12}
+                                    md={12}
+                                    className="d-flex justify-content-around my-1"
+                                  >
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check In(Overtime)
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+
+                                    <Row>
+                                      <Label for="exampleEmail">
+                                        Check Out(Overtime)
+                                      </Label>
+                                      <Input
+                                        value={this.state.passcodeInput}
+                                        type="time"
+                                        name="timeCheck"
+                                        onChange={(e) => this.handleChange(e)}
+                                      />
+                                    </Row>
+                                  </Row>
+                                ) : (
+                                  <></>
+                                )}
+                              </Col>
+                            </Row>
+                          </Form>
+                        </CardBody>
+                        <CardFooter>
+                          <Button
+                            onClick={this.toggleUpdateModal}
+                            color="danger"
                           >
-                            {/* SENIN */}
-                            <Col
-                              xs={12}
-                              sm={12}
-                              md={5}
-                              className="p-4 border border-danger"
-                            >
-                              <Row
-                                xs={12}
-                                sm={12}
-                                md={12}
-                                className="d-flex align-items-center my-1"
-                              >
-                                <FormGroup check inline>
-                                  <Label check>
-                                    <Input
-                                      checked={this.state.mondayCheck}
-                                      type="checkbox"
-                                      onChange={() => {
-                                        this.setState({
-                                          mondayCheck: !this.state.mondayCheck,
-                                        })
-                                      }}
-                                    />{' '}
-                                    Monday
-                                  </Label>
-                                </FormGroup>
-                                <FormGroup check inline>
-                                  <Label check>
-                                    <Input
-                                      checked={this.state.overtimeMonday}
-                                      type="checkbox"
-                                      onChange={() => {
-                                        this.setState({
-                                          overtimeMonday: !this.state
-                                            .overtimeMonday,
-                                        })
-                                      }}
-                                    />{' '}
-                                    Overtime
-                                  </Label>
-                                </FormGroup>
-                              </Row>
-
-                              <Row
-                                xs={12}
-                                sm={12}
-                                md={12}
-                                className="d-flex justify-content-around my-1"
-                              >
-                                <Row>
-                                  <Label for="exampleEmail">Check In</Label>
-                                  <Input
-                                    value={this.state.passcodeInput}
-                                    type="time"
-                                    name="timeCheck"
-                                    onChange={(e) => this.handleChange(e)}
-                                  />
-                                </Row>
-
-                                <Row>
-                                  <Label for="exampleEmail">Check Out</Label>
-                                  <Input
-                                    value={this.state.passcodeInput}
-                                    type="time"
-                                    name="timeCheck"
-                                    onChange={(e) => this.handleChange(e)}
-                                  />
-                                </Row>
-                              </Row>
-
-                              {parseInt(this.state.typeRoster) === 2 ? (
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">Check In#2</Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check Out#2
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-                              ) : (
-                                <></>
-                              )}
-                              {this.state.overtimeMonday ? (
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check In(Overtime)
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check Out(Overtime)
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-                              ) : (
-                                <></>
-                              )}
-                            </Col>
-                            {/* SELASA */}
-                            <Col
-                              xs={12}
-                              sm={12}
-                              md={5}
-                              className="p-4 border border-danger"
-                            >
-                              <Row
-                                xs={12}
-                                sm={12}
-                                md={12}
-                                className="d-flex align-items-center my-1"
-                              >
-                                <FormGroup check inline>
-                                  <Label check>
-                                    <Input
-                                      checked={this.state.tuesdayCheck}
-                                      type="checkbox"
-                                      onChange={() => {
-                                        this.setState({
-                                          tuesdayCheck: !this.state
-                                            .tuesdayCheck,
-                                        })
-                                      }}
-                                    />{' '}
-                                    Tuesday
-                                  </Label>
-                                </FormGroup>
-                                <FormGroup check inline>
-                                  <Label check>
-                                    <Input
-                                      checked={this.state.overtimeTuesday}
-                                      type="checkbox"
-                                      onChange={() => {
-                                        this.setState({
-                                          overtimeTuesday: !this.state
-                                            .overtimeTuesday,
-                                        })
-                                      }}
-                                    />{' '}
-                                    Overtime
-                                  </Label>
-                                </FormGroup>
-                              </Row>
-
-                              <Row
-                                xs={12}
-                                sm={12}
-                                md={12}
-                                className="d-flex justify-content-around my-1"
-                              >
-                                <Row>
-                                  <Label for="exampleEmail">Check In</Label>
-                                  <Input
-                                    value={this.state.passcodeInput}
-                                    type="time"
-                                    name="timeCheck"
-                                    onChange={(e) => this.handleChange(e)}
-                                  />
-                                </Row>
-
-                                <Row>
-                                  <Label for="exampleEmail">Check Out</Label>
-                                  <Input
-                                    value={this.state.passcodeInput}
-                                    type="time"
-                                    name="timeCheck"
-                                    onChange={(e) => this.handleChange(e)}
-                                  />
-                                </Row>
-                              </Row>
-
-                              {parseInt(this.state.typeRoster) === 2 ? (
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">Check In#2</Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check Out#2
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-                              ) : (
-                                <></>
-                              )}
-                              {this.state.overtimeTuesday ? (
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check In(Overtime)
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check Out(Overtime)
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-                              ) : (
-                                <></>
-                              )}
-                            </Col>
-                          </Row>
-                          {/* RABU */}
-                          <Row
-                            form
-                            className="d-flex justify-content-around my-2"
-                          >
-                            <Col
-                              xs={12}
-                              sm={12}
-                              md={5}
-                              className="p-4 border border-danger"
-                            >
-                              <Row
-                                xs={12}
-                                sm={12}
-                                md={12}
-                                className="d-flex align-items-center my-1"
-                              >
-                                <FormGroup check inline>
-                                  <Label check>
-                                    <Input
-                                      checked={this.state.wednesdayCheck}
-                                      type="checkbox"
-                                      onChange={() => {
-                                        this.setState({
-                                          wednesdayCheck: !this.state
-                                            .wednesdayCheck,
-                                        })
-                                      }}
-                                    />{' '}
-                                    Wednesday
-                                  </Label>
-                                </FormGroup>
-                                <FormGroup check inline>
-                                  <Label check>
-                                    <Input
-                                      checked={this.state.overtimeWednesday}
-                                      type="checkbox"
-                                      onChange={() => {
-                                        this.setState({
-                                          overtimeWednesday: !this.state
-                                            .overtimeWednesday,
-                                        })
-                                      }}
-                                    />{' '}
-                                    Overtime
-                                  </Label>
-                                </FormGroup>
-                              </Row>
-
-                              <Row
-                                xs={12}
-                                sm={12}
-                                md={12}
-                                className="d-flex justify-content-around my-1"
-                              >
-                                <Row>
-                                  <Label for="exampleEmail">Check In</Label>
-                                  <Input
-                                    value={this.state.passcodeInput}
-                                    type="time"
-                                    name="timeCheck"
-                                    onChange={(e) => this.handleChange(e)}
-                                  />
-                                </Row>
-
-                                <Row>
-                                  <Label for="exampleEmail">Check Out</Label>
-                                  <Input
-                                    value={this.state.passcodeInput}
-                                    type="time"
-                                    name="timeCheck"
-                                    onChange={(e) => this.handleChange(e)}
-                                  />
-                                </Row>
-                              </Row>
-
-                              {parseInt(this.state.typeRoster) === 2 ? (
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">Check In#2</Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check Out#2
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-                              ) : (
-                                <></>
-                              )}
-                              {this.state.overtimeWednesday ? (
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check In(Overtime)
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check Out(Overtime)
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-                              ) : (
-                                <></>
-                              )}
-                            </Col>
-                            {/* KAMIS */}
-                            <Col
-                              xs={12}
-                              sm={12}
-                              md={5}
-                              className="p-4 border border-danger"
-                            >
-                              <Row
-                                xs={12}
-                                sm={12}
-                                md={12}
-                                className="d-flex align-items-center my-1"
-                              >
-                                <FormGroup check inline>
-                                  <Label check>
-                                    <Input
-                                      checked={this.state.thursdayCheck}
-                                      type="checkbox"
-                                      onChange={() => {
-                                        this.setState({
-                                          thursdayCheck: !this.state
-                                            .thursdayCheck,
-                                        })
-                                      }}
-                                    />{' '}
-                                    Thursday
-                                  </Label>
-                                </FormGroup>
-                                <FormGroup check inline>
-                                  <Label check>
-                                    <Input
-                                      checked={this.state.overtimeThursday}
-                                      type="checkbox"
-                                      onChange={() => {
-                                        this.setState({
-                                          overtimeThursday: !this.state
-                                            .overtimeThursday,
-                                        })
-                                      }}
-                                    />{' '}
-                                    Overtime
-                                  </Label>
-                                </FormGroup>
-                              </Row>
-
-                              <Row
-                                xs={12}
-                                sm={12}
-                                md={12}
-                                className="d-flex justify-content-around my-1"
-                              >
-                                <Row>
-                                  <Label for="exampleEmail">Check In</Label>
-                                  <Input
-                                    value={this.state.passcodeInput}
-                                    type="time"
-                                    name="timeCheck"
-                                    onChange={(e) => this.handleChange(e)}
-                                  />
-                                </Row>
-
-                                <Row>
-                                  <Label for="exampleEmail">Check Out</Label>
-                                  <Input
-                                    value={this.state.passcodeInput}
-                                    type="time"
-                                    name="timeCheck"
-                                    onChange={(e) => this.handleChange(e)}
-                                  />
-                                </Row>
-                              </Row>
-
-                              {parseInt(this.state.typeRoster) === 2 ? (
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">Check In#2</Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check Out#2
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-                              ) : (
-                                <></>
-                              )}
-                              {this.state.overtimeThursday ? (
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check In(Overtime)
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check Out(Overtime)
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-                              ) : (
-                                <></>
-                              )}
-                            </Col>
-                          </Row>
-                          {/* JUMAT */}
-                          <Row
-                            form
-                            className="d-flex justify-content-around my-2"
-                          >
-                            <Col
-                              xs={12}
-                              sm={12}
-                              md={5}
-                              className="p-4 border border-danger"
-                            >
-                              <Row
-                                xs={12}
-                                sm={12}
-                                md={12}
-                                className="d-flex align-items-center my-1"
-                              >
-                                <FormGroup check inline>
-                                  <Label check>
-                                    <Input
-                                      checked={this.state.fridayCheck}
-                                      type="checkbox"
-                                      onChange={() => {
-                                        this.setState({
-                                          fridayCheck: !this.state.fridayCheck,
-                                        })
-                                      }}
-                                    />{' '}
-                                    Friday
-                                  </Label>
-                                </FormGroup>
-                                <FormGroup check inline>
-                                  <Label check>
-                                    <Input
-                                      checked={this.state.overtimeFriday}
-                                      type="checkbox"
-                                      onChange={() => {
-                                        this.setState({
-                                          overtimeFriday: !this.state
-                                            .overtimeFriday,
-                                        })
-                                      }}
-                                    />{' '}
-                                    Overtime
-                                  </Label>
-                                </FormGroup>
-                              </Row>
-
-                              <Row
-                                xs={12}
-                                sm={12}
-                                md={12}
-                                className="d-flex justify-content-around my-1"
-                              >
-                                <Row>
-                                  <Label for="exampleEmail">Check In</Label>
-                                  <Input
-                                    value={this.state.passcodeInput}
-                                    type="time"
-                                    name="timeCheck"
-                                    onChange={(e) => this.handleChange(e)}
-                                  />
-                                </Row>
-
-                                <Row>
-                                  <Label for="exampleEmail">Check Out</Label>
-                                  <Input
-                                    value={this.state.passcodeInput}
-                                    type="time"
-                                    name="timeCheck"
-                                    onChange={(e) => this.handleChange(e)}
-                                  />
-                                </Row>
-                              </Row>
-
-                              {parseInt(this.state.typeRoster) === 2 ? (
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">Check In#2</Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check Out#2
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-                              ) : (
-                                <></>
-                              )}
-                              {this.state.overtimeFriday ? (
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check In(Overtime)
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check Out(Overtime)
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-                              ) : (
-                                <></>
-                              )}
-                            </Col>
-                            {/* SABTU */}
-                            <Col
-                              xs={12}
-                              sm={12}
-                              md={5}
-                              className="p-4 border border-danger"
-                            >
-                              <Row
-                                xs={12}
-                                sm={12}
-                                md={12}
-                                className="d-flex align-items-center my-1"
-                              >
-                                <FormGroup check inline>
-                                  <Label check>
-                                    <Input
-                                      checked={this.state.saturdayCheck}
-                                      type="checkbox"
-                                      onChange={() => {
-                                        this.setState({
-                                          saturdayCheck: !this.state
-                                            .saturdayCheck,
-                                        })
-                                      }}
-                                    />{' '}
-                                    Saturday
-                                  </Label>
-                                </FormGroup>
-                                <FormGroup check inline>
-                                  <Label check>
-                                    <Input
-                                      checked={this.state.overtimeSaturday}
-                                      type="checkbox"
-                                      onChange={() => {
-                                        this.setState({
-                                          overtimeSaturday: !this.state
-                                            .overtimeSaturday,
-                                        })
-                                      }}
-                                    />{' '}
-                                    Overtime
-                                  </Label>
-                                </FormGroup>
-                              </Row>
-
-                              <Row
-                                xs={12}
-                                sm={12}
-                                md={12}
-                                className="d-flex justify-content-around my-1"
-                              >
-                                <Row>
-                                  <Label for="exampleEmail">Check In</Label>
-                                  <Input
-                                    value={this.state.passcodeInput}
-                                    type="time"
-                                    name="timeCheck"
-                                    onChange={(e) => this.handleChange(e)}
-                                  />
-                                </Row>
-
-                                <Row>
-                                  <Label for="exampleEmail">Check Out</Label>
-                                  <Input
-                                    value={this.state.passcodeInput}
-                                    type="time"
-                                    name="timeCheck"
-                                    onChange={(e) => this.handleChange(e)}
-                                  />
-                                </Row>
-                              </Row>
-
-                              {parseInt(this.state.typeRoster) === 2 ? (
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">Check In#2</Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check Out#2
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-                              ) : (
-                                <></>
-                              )}
-                              {this.state.overtimeSaturday ? (
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check In(Overtime)
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check Out(Overtime)
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-                              ) : (
-                                <></>
-                              )}
-                            </Col>
-                          </Row>
-                          {/* MINGGU */}
-                          <Row
-                            form
-                            className="d-flex justify-content-around my-2"
-                          >
-                            <Col
-                              xs={12}
-                              sm={12}
-                              md={5}
-                              className="p-4 border border-danger"
-                            >
-                              <Row
-                                xs={12}
-                                sm={12}
-                                md={12}
-                                className="d-flex align-items-center my-1"
-                              >
-                                <FormGroup check inline>
-                                  <Label check>
-                                    <Input
-                                      checked={this.state.sundayCheck}
-                                      type="checkbox"
-                                      onChange={() => {
-                                        this.setState({
-                                          sundayCheck: !this.state.sundayCheck,
-                                        })
-                                      }}
-                                    />{' '}
-                                    Sunday
-                                  </Label>
-                                </FormGroup>
-                                <FormGroup check inline>
-                                  <Label check>
-                                    <Input
-                                      checked={this.state.overtimeSunday}
-                                      type="checkbox"
-                                      onChange={() => {
-                                        this.setState({
-                                          overtimeSunday: !this.state
-                                            .overtimeSunday,
-                                        })
-                                      }}
-                                    />{' '}
-                                    Overtime
-                                  </Label>
-                                </FormGroup>
-                              </Row>
-
-                              <Row
-                                xs={12}
-                                sm={12}
-                                md={12}
-                                className="d-flex justify-content-around my-1"
-                              >
-                                <Row>
-                                  <Label for="exampleEmail">Check In</Label>
-                                  <Input
-                                    value={this.state.passcodeInput}
-                                    type="time"
-                                    name="timeCheck"
-                                    onChange={(e) => this.handleChange(e)}
-                                  />
-                                </Row>
-
-                                <Row>
-                                  <Label for="exampleEmail">Check Out</Label>
-                                  <Input
-                                    value={this.state.passcodeInput}
-                                    type="time"
-                                    name="timeCheck"
-                                    onChange={(e) => this.handleChange(e)}
-                                  />
-                                </Row>
-                              </Row>
-
-                              {parseInt(this.state.typeRoster) === 2 ? (
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">Check In#2</Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check Out#2
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-                              ) : (
-                                <></>
-                              )}
-                              {this.state.overtimeSunday ? (
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check In(Overtime)
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">
-                                      Check Out(Overtime)
-                                    </Label>
-                                    <Input
-                                      value={this.state.passcodeInput}
-                                      type="time"
-                                      name="timeCheck"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-                              ) : (
-                                <></>
-                              )}
-                            </Col>
-                          </Row>
-                        </Form>
-                      </CardBody>
-                      <CardFooter>
-                        <Button onClick={this.toggleUpdateModal} color="danger">
-                          Update Roster
-                        </Button>
-                      </CardFooter>
-                    </Card>
-                  </GridItem>
-                </GridContainer>
+                            Update Roster
+                          </Button>
+                        </CardFooter>
+                      </Card>
+                    </GridItem>
+                  </GridContainer>
+                ) : (
+                  <></>
+                )}
 
                 {/* Update Modal */}
                 <Modal isOpen={this.state.showUpdateModal}>
