@@ -252,9 +252,40 @@ class User extends Component {
                   </CardHeader>
                   <CardBody>
                     <Form>
+                      {/* <Row form>
+                        <Col xs={12} sm={12} md={4}>
+                          <FormGroup>
+                            <Label for="exampleEmail">First Name</Label>
+                            <Input
+                              value={this.state.name}
+                              name="name"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={4}>
+                          <FormGroup>
+                            <Label for="exampleEmail">Middle Name</Label>
+                            <Input
+                              value={this.state.email}
+                              name="email"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={4}>
+                          <FormGroup>
+                            <Label for="exampleEmail">Last Name</Label>
+                            <Input
+                              value={this.state.phone}
+                              name="phone"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row> */}
                       <Row form>
                         <Col xs={12} sm={12} md={4}>
-                          {' '}
                           <FormGroup>
                             <Label for="exampleEmail">Name</Label>
                             <Input

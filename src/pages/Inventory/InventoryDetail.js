@@ -401,13 +401,13 @@ class InventoryDetail extends Component {
                   </div>
                 </div>
                 <div className="pl-2 pr-2">
-                    <Link
-                      to="/admin/inventory"
-                      className="btn btn-block btn-outline-danger"
-                    >
-                      Close
-                    </Link>
-                  </div>
+                  <Link
+                    to="/admin/inventory"
+                    className="btn btn-block btn-outline-danger"
+                  >
+                    Close
+                  </Link>
+                </div>
               </CardBody>
             </Card>
           </GridItem>
