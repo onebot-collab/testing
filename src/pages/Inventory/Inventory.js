@@ -635,23 +635,6 @@ class Inventory extends Component {
                         className="mb-2 shadow-none"
                         onChange={this.handleChange}
                       />
-                      <FormGroup>
-                        <h6>On Time</h6>
-                        <Input
-                          value={this.state.onTime}
-                          type="select"
-                          name="onTime"
-                          id="exampleSelect"
-                          onChange={this.handleChange}
-                        >
-                          <option key={0} value={0}>
-                            NO
-                          </option>
-                          <option key={1} value={1}>
-                            YES
-                          </option>
-                        </Input>
-                      </FormGroup>
                     </ModalBody>
                     <ModalFooter>
                       {/* {this.state.isLoadingAddCampaign ? (
