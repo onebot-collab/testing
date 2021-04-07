@@ -573,6 +573,245 @@ class UserDetail extends Component {
                     </CardFooter> */}
                   </GridItem>
                 </GridContainer>
+                <GridContainer>
+                  <GridItem xs={12} sm={12} md={12}>
+                    <Card>
+                      <CardHeader color="danger">
+                        <h4 className="cardTitleWhite">
+                          Roster {this.props.user.dataProfile[0].name}
+                        </h4>
+                        <p className="cardCategoryWhite">
+                          Customize user profile
+                        </p>
+                      </CardHeader>
+                      <CardBody>
+                        <Form>
+                          <Row form>
+                            <Col xs={12} sm={12} md={4}>
+                              {' '}
+                              <FormGroup>
+                                <Label for="exampleEmail">Type</Label>
+                                <Input
+                                  value={this.state.roleInput}
+                                  type="select"
+                                  name="roleInput"
+                                  id="exampleSelect"
+                                  onChange={this.handleChange}
+                                >
+                                  <option key={1} value={1}>
+                                    Persist
+                                  </option>
+                                  <option key={2} value={2}>
+                                    Shift
+                                  </option>
+                                </Input>
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={1}></Col>
+                            <Col xs={12} sm={12} md={7}>
+                              <Label for="exampleEmail">Work day</Label>
+                              <div className="d-flex">
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Senin
+                                  </Label>
+                                </FormGroup>
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Selasa
+                                  </Label>
+                                </FormGroup>
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Rabu
+                                  </Label>
+                                </FormGroup>
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Kamis
+                                  </Label>
+                                </FormGroup>
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Jumat
+                                  </Label>
+                                </FormGroup>
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Sabtu
+                                  </Label>
+                                </FormGroup>
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Minggu
+                                  </Label>
+                                </FormGroup>
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row form>
+                            <Col xs={12} sm={12} md={6}>
+                              <FormGroup>
+                                <Label for="examplePassword">Password</Label>
+                                <Input
+                                  value={this.state.passwordInput}
+                                  type="password"
+                                  name="passwordInput"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={6}>
+                              <FormGroup>
+                                <Label for="examplePassword">Passcode</Label>
+                                <Input
+                                  value={this.state.passcodeInput}
+                                  type="password"
+                                  name="passcodeInput"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                          <Row form>
+                            <Col xs={12} sm={12} md={4}>
+                              <FormGroup>
+                                <Label for="exampleSelect">Role</Label>
+                                <Input
+                                  value={this.state.roleInput}
+                                  type="select"
+                                  name="roleInput"
+                                  id="exampleSelect"
+                                  onChange={this.handleChange}
+                                >
+                                  <option key={1} value={1}>
+                                    Admin
+                                  </option>
+                                  <option key={2} value={2}>
+                                    User
+                                  </option>
+                                </Input>
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={4}>
+                              <FormGroup>
+                                <Label for="exampleSelect">Department</Label>
+                                <Input
+                                  value={this.state.departmentInput}
+                                  type="select"
+                                  name="departmentInput"
+                                  onChange={this.handleChange}
+                                  id="exampleSelect"
+                                >
+                                  {departmentList}
+                                </Input>
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={4}>
+                              <FormGroup>
+                                <Label for="exampleCheckbox">Time Type</Label>
+                                <div className="d-flex flex-column">
+                                  <CustomInput
+                                    type="radio"
+                                    id="exampleCustomRadio2"
+                                    name="timeTypeInput"
+                                    label="Free Hours"
+                                    value={1}
+                                    onChange={(e) => this.handleChange(e)}
+                                    inline
+                                  />
+                                  <CustomInput
+                                    type="radio"
+                                    id="exampleCustomRadio"
+                                    name="timeTypeInput"
+                                    label="Office Hours"
+                                    value={3}
+                                    onChange={(e) => this.handleChange(e)}
+                                    inline
+                                  />
+                                  <CustomInput
+                                    type="radio"
+                                    id="exampleCustomRadio3"
+                                    name="timeTypeInput"
+                                    label="Security"
+                                    value={2}
+                                    onChange={(e) => this.handleChange(e)}
+                                    inline
+                                  />
+                                </div>
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                          <Row form>
+                            <Col xs={12} sm={12} md={4}>
+                              <FormGroup>
+                                <Label for="exampleDate">Joined Date</Label>
+                                <Input
+                                  value={this.state.joinedDateInput}
+                                  type="date"
+                                  name="joinedDateInput"
+                                  id="exampleDate"
+                                  placeholder="date placeholder"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={4}>
+                              <FormGroup>
+                                <Label for="exampleDate">Birth Date</Label>
+                                <Input
+                                  value={this.state.birthDateInput}
+                                  type="date"
+                                  name="birthDateInput"
+                                  onChange={(e) => this.handleChange(e)}
+                                  id="exampleDate"
+                                  placeholder="date placeholder"
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={4}>
+                              {' '}
+                              <FormGroup>
+                                <Label for="exampleEmail">Address</Label>
+                                <Input
+                                  value={this.state.addressInput}
+                                  name="addressInput"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                          <Row form>
+                            <Col xs={12} sm={12} md={12}>
+                              {' '}
+                              <FormGroup>
+                                <Label for="exampleCustomFileBrowser">
+                                  Profile Picture
+                                </Label>
+                                <CustomInput
+                                  type="file"
+                                  id="exampleCustomFileBrowser"
+                                  name="avatar"
+                                  onChange={(e) =>
+                                    this.setState({
+                                      avatar: e.target.files[0],
+                                    })
+                                  }
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                        </Form>
+                      </CardBody>
+                      <CardFooter>
+                        <Button onClick={this.toggleUpdateModal} color="danger">
+                          Update Profile
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  </GridItem>
+                </GridContainer>
+
                 {/* Update Modal */}
                 <Modal isOpen={this.state.showUpdateModal}>
                   <ModalBody className="h4">
