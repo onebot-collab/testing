@@ -587,7 +587,7 @@ class UserDetail extends Component {
                       <CardBody>
                         <Form>
                           <Row form>
-                            <Col xs={12} sm={12} md={4}>
+                            <Col xs={12} sm={12} md={12}>
                               {' '}
                               <FormGroup>
                                 <Label for="exampleEmail">Type</Label>
@@ -607,7 +607,7 @@ class UserDetail extends Component {
                                 </Input>
                               </FormGroup>
                             </Col>
-                            <Col xs={12} sm={12} md={1}></Col>
+                            {/* <Col xs={12} sm={12} md={1}></Col>
                             <Col xs={12} sm={12} md={7}>
                               <Label for="exampleEmail">Work day</Label>
                               <div className="d-flex">
@@ -647,33 +647,717 @@ class UserDetail extends Component {
                                   </Label>
                                 </FormGroup>
                               </div>
+                            </Col> */}
+                          </Row>
+                          <Row form className="d-flex justify-content-around my-2">
+                            {/* SENIN */}
+                            <Col xs={12} sm={12} md={5} className="p-4 border border-danger">
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex align-items-center my-1"
+                              >
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Senin
+                                  </Label>
+                                </FormGroup>
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Lembur
+                                  </Label>
+                                </FormGroup>
+                              </Row>
+
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
+
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
+                            </Col>
+                            {/* SELASA */}
+                            <Col xs={12} sm={12} md={5} className="p-4 border border-danger">
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex align-items-center my-1"
+                              >
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Selasa
+                                  </Label>
+                                </FormGroup>
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Lembur
+                                  </Label>
+                                </FormGroup>
+                              </Row>
+
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
+
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
                             </Col>
                           </Row>
-                          <Row form>
-                            <Col xs={12} sm={12} md={6}>
-                              <FormGroup>
-                                <Label for="examplePassword">Password</Label>
-                                <Input
-                                  value={this.state.passwordInput}
-                                  type="password"
-                                  name="passwordInput"
-                                  onChange={(e) => this.handleChange(e)}
-                                />
-                              </FormGroup>
+                          {/* RABU */}
+                          <Row form className="d-flex justify-content-around my-2">
+                            <Col xs={12} sm={12} md={5} className="p-4 border border-danger">
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex align-items-center my-1"
+                              >
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Rebu
+                                  </Label>
+                                </FormGroup>
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Lembur
+                                  </Label>
+                                </FormGroup>
+                              </Row>
+
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
+
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
                             </Col>
-                            <Col xs={12} sm={12} md={6}>
-                              <FormGroup>
-                                <Label for="examplePassword">Passcode</Label>
-                                <Input
-                                  value={this.state.passcodeInput}
-                                  type="password"
-                                  name="passcodeInput"
-                                  onChange={(e) => this.handleChange(e)}
-                                />
-                              </FormGroup>
+                            {/* KAMIS */}
+                            <Col xs={12} sm={12} md={5} className="p-4 border border-danger">
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex align-items-center my-1"
+                              >
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Kamis
+                                  </Label>
+                                </FormGroup>
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Lembur
+                                  </Label>
+                                </FormGroup>
+                              </Row>
+
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
+
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
                             </Col>
                           </Row>
-                          <Row form>
+                          {/* JUMAT */}
+                          <Row form className="d-flex justify-content-around my-2">
+                            <Col xs={12} sm={12} md={5} className="p-4 border border-danger">
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex align-items-center my-1"
+                              >
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Jumat
+                                  </Label>
+                                </FormGroup>
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Lembur
+                                  </Label>
+                                </FormGroup>
+                              </Row>
+
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
+
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
+                            </Col>
+                            {/* SABTU */}
+                            <Col xs={12} sm={12} md={5} className="p-4 border border-danger">
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex align-items-center my-1"
+                              >
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Sabtu
+                                  </Label>
+                                </FormGroup>
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Lembur
+                                  </Label>
+                                </FormGroup>
+                              </Row>
+
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
+
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
+                            </Col>
+                          </Row>
+                          {/* MINGGU */}
+                          <Row form className="d-flex justify-content-around my-2">
+                            <Col xs={12} sm={12} md={5} className="p-4 border border-danger">
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex align-items-center my-1"
+                              >
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Minggu
+                                  </Label>
+                                </FormGroup>
+                                <FormGroup check inline>
+                                  <Label check>
+                                    <Input type="checkbox" /> Lembur
+                                  </Label>
+                                </FormGroup>
+                              </Row>
+
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
+
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
+                              <Row
+                                xs={12}
+                                sm={12}
+                                md={12}
+                                className="d-flex justify-content-around my-1"
+                              >
+                                <Row>
+                                  <Label for="exampleEmail">Check In</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+
+                                <Row>
+                                  <Label for="exampleEmail">Check Out</Label>
+                                  <Input
+                                    value={this.state.passcodeInput}
+                                    type="time"
+                                    name="timeCheck"
+                                    onChange={(e) => this.handleChange(e)}
+                                  />
+                                </Row>
+                              </Row>
+                            </Col>
+                          </Row>
+                          {/* <Row form>
                             <Col xs={12} sm={12} md={4}>
                               <FormGroup>
                                 <Label for="exampleSelect">Role</Label>
@@ -800,12 +1484,12 @@ class UserDetail extends Component {
                                 />
                               </FormGroup>
                             </Col>
-                          </Row>
+                          </Row> */}
                         </Form>
                       </CardBody>
                       <CardFooter>
                         <Button onClick={this.toggleUpdateModal} color="danger">
-                          Update Profile
+                          Update Roster
                         </Button>
                       </CardFooter>
                     </Card>
