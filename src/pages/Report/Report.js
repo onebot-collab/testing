@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-access-state-in-setstate */
@@ -30,7 +31,6 @@ import Sort from '@material-ui/icons/Sort'
 // Add Reactstrap
 import {
   Form,
-  FormGroup,
   Modal,
   ModalBody,
   ModalHeader,
@@ -41,6 +41,7 @@ import Select from 'react-select'
 
 import { getAllReport } from '../../redux/actions/report'
 import { newToken } from '../../redux/actions/login'
+import { getDepartment } from '../../redux/actions/department'
 // import Check from '@material-ui/icons/Check'
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -122,8 +123,12 @@ class Report extends Component {
     this.props
       .getAllReport(this.props.login.token, this.state.search, this.state.page)
       .then((res) => {
-        this.setState({ isLoading: false })
-        this.props.newToken(res.action.payload.data.newToken)
+        this.props
+          .getDepartment(res.action.payload.data.newToken)
+          .then((res) => {
+            this.setState({ isLoading: false })
+            this.props.newToken(res.action.payload.data.newToken)
+          })
       })
   }
 
@@ -142,6 +147,7 @@ class Report extends Component {
     const classesHead = makeStyles(stylesHead)
     const classesBody = makeStyles(stylesBody)
     const { selectedOption } = this.state
+    const departmentData = this.props.department.dataDepartment
     return (
       <div>
         {!this.props.login.isLogin ? (
@@ -380,23 +386,19 @@ class Report extends Component {
               <ModalHeader className="h1">Add Filter</ModalHeader>
               <Form>
                 <ModalBody>
-                  <h6>Name</h6>
-                  <Input
-                    value={this.state.name}
-                    type="text"
-                    name="name"
-                    className="mb-2 shadow-none"
-                    onChange={this.handleChange}
-                  />
                   <h6>Department</h6>
-                  <Input
-                    value={this.state.department}
-                    type="text"
-                    name="department"
-                    className="mb-2 shadow-none"
-                    onChange={this.handleChange}
-                  />
-                  <h6>Date</h6>
+                  {this.state.isLoading ? (
+                    <></>
+                  ) : (
+                    <Select
+                      onChange={this.handleDepartmentChange}
+                      options={departmentData.map((res) => ({
+                        value: res.id,
+                        label: res.name,
+                      }))}
+                    />
+                  )}
+                  <h6>Start Date</h6>
                   <Input
                     value={this.state.date}
                     type="date"
@@ -404,23 +406,14 @@ class Report extends Component {
                     className="mb-2 shadow-none"
                     onChange={this.handleChange}
                   />
-                  <FormGroup>
-                    <h6>On Time</h6>
-                    <Input
-                      value={this.state.onTime}
-                      type="select"
-                      name="onTime"
-                      id="exampleSelect"
-                      onChange={this.handleChange}
-                    >
-                      <option key={0} value={0}>
-                        NO
-                      </option>
-                      <option key={1} value={1}>
-                        YES
-                      </option>
-                    </Input>
-                  </FormGroup>
+                  <h6>End Date</h6>
+                  <Input
+                    value={this.state.date}
+                    type="date"
+                    name="Date"
+                    className="mb-2 shadow-none"
+                    onChange={this.handleChange}
+                  />
                 </ModalBody>
                 <ModalFooter>
                   {/* {this.state.isLoadingAddCampaign ? (
@@ -501,8 +494,9 @@ class Report extends Component {
 const mapStateToProps = (state) => ({
   login: state.login,
   report: state.report,
+  department: state.department,
 })
 
-const mapDispatchToProps = { getAllReport, newToken }
+const mapDispatchToProps = { getAllReport, newToken, getDepartment }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Report)

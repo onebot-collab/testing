@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
@@ -39,9 +40,11 @@ import ArrowRight from '@material-ui/icons/ArrowRight'
 import Visibility from '@material-ui/icons/Visibility'
 import Print from '@material-ui/icons/Print'
 import Sort from '@material-ui/icons/Sort'
+import Select from 'react-select'
 
 import { allIzin, exportAllIzin } from '../../redux/actions/izin'
 import { newToken } from '../../redux/actions/login'
+import { getDepartment } from '../../redux/actions/department'
 
 // import Check from '@material-ui/icons/Check'
 // core components
@@ -107,8 +110,12 @@ class Permissions extends Component {
     this.props
       .allIzin(this.props.login.token, this.state.search, this.state.page)
       .then((res) => {
-        this.props.newToken(res.action.payload.data.newToken)
-        this.setState({ isLoading: false })
+        this.props
+          .getDepartment(res.action.payload.data.newToken)
+          .then((res) => {
+            this.props.newToken(res.action.payload.data.newToken)
+            this.setState({ isLoading: false })
+          })
       })
   }
 
@@ -142,6 +149,8 @@ class Permissions extends Component {
     const classes = makeStyles(styles)
     const classesHead = makeStyles(stylesHead)
     const classesBody = makeStyles(stylesBody)
+
+    const departmentData = this.props.department.dataDepartment
     return (
       <div>
         {!this.props.login.isLogin ? (
@@ -401,23 +410,27 @@ class Permissions extends Component {
               <ModalHeader className="h1">Add Filter</ModalHeader>
               <Form>
                 <ModalBody>
-                  <h6>Name</h6>
-                  <Input
-                    value={this.state.name}
-                    type="text"
-                    name="name"
-                    className="mb-2 shadow-none"
-                    onChange={this.handleChange}
-                  />
                   <h6>Department</h6>
+                  {this.state.isLoading ? (
+                    <></>
+                  ) : (
+                    <Select
+                      onChange={this.handleDepartmentChange}
+                      options={departmentData.map((res) => ({
+                        value: res.id,
+                        label: res.name,
+                      }))}
+                    />
+                  )}
+                  <h6>Start Date</h6>
                   <Input
-                    value={this.state.department}
-                    type="text"
-                    name="department"
+                    value={this.state.date}
+                    type="date"
+                    name="Date"
                     className="mb-2 shadow-none"
                     onChange={this.handleChange}
                   />
-                  <h6>Date</h6>
+                  <h6>End Date</h6>
                   <Input
                     value={this.state.date}
                     type="date"
@@ -426,7 +439,7 @@ class Permissions extends Component {
                     onChange={this.handleChange}
                   />
                   <FormGroup>
-                    <h6>On Time</h6>
+                    <h6>Status</h6>
                     <Input
                       value={this.state.onTime}
                       type="select"
@@ -435,10 +448,13 @@ class Permissions extends Component {
                       onChange={this.handleChange}
                     >
                       <option key={0} value={0}>
-                        NO
+                        Waiting
                       </option>
                       <option key={1} value={1}>
-                        YES
+                        Approved
+                      </option>
+                      <option key={2} value={2}>
+                        Rejected
                       </option>
                     </Input>
                   </FormGroup>
@@ -474,8 +490,9 @@ class Permissions extends Component {
 const mapStateToProps = (state) => ({
   login: state.login,
   izin: state.izin,
+  department: state.department,
 })
 
-const mapDispatchToProps = { allIzin, exportAllIzin, newToken }
+const mapDispatchToProps = { allIzin, exportAllIzin, newToken, getDepartment }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Permissions)
