@@ -422,7 +422,15 @@ class Permissions extends Component {
                       }))}
                     />
                   )}
-                  <h6>Date</h6>
+                  <h6>Start Date</h6>
+                  <Input
+                    value={this.state.date}
+                    type="date"
+                    name="Date"
+                    className="mb-2 shadow-none"
+                    onChange={this.handleChange}
+                  />
+                  <h6>End Date</h6>
                   <Input
                     value={this.state.date}
                     type="date"
