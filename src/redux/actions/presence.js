@@ -35,22 +35,31 @@ const lastCheck = (id) => ({
 
 const userLogHistory = (id, token, page) => ({
   type: 'USERLOG',
-  payload: axios(token).get(`${URL}api/v1/absent/allinout/${id}?limit=15&page=${page}`),
+  payload: axios(token).get(
+    `${URL}api/v1/absent/allinout/${id}?limit=15&page=${page}`,
+  ),
 })
 
 const exportUserLogHistory = (id, token) => ({
   type: 'CHECKLOG',
-  payload: axios(token).get(`${URL}api/v1/absent/allinout/${id}?downloadPdf=1`, {responseType: 'blob'}),
+  payload: axios(token).get(
+    `${URL}api/v1/absent/allinout/${id}?downloadPdf=1`,
+    { responseType: 'blob' },
+  ),
 })
 
 const allLog = (token, search, page) => ({
   type: 'ALLLOG',
-  payload: axios(token).get(`${URL}api/v1/absent/allinout?limit=15&search=${search}&page=${page}`),
+  payload: axios(token).get(
+    `${URL}api/v1/absent/allinout?limit=15&search=${search}&page=${page}`,
+  ),
 })
 
 const exportAllLog = (token) => ({
   type: 'CHECKLOG',
-  payload: axios(token).get(`${URL}api/v1/absent/allinout?downloadPdf=1`, {responseType: 'blob'}),
+  payload: axios(token).get(`${URL}api/v1/absent/allinout?downloadPdf=1`, {
+    responseType: 'blob',
+  }),
 })
 
 const statsAttendance = (token) => ({
@@ -60,7 +69,22 @@ const statsAttendance = (token) => ({
 
 const statsUserAttendance = (token, id) => ({
   type: 'STATSUSERATTENDANCE',
-  payload: axios(token).get(`${URL}api/v1/stats/attendances/byuser?type=2&userId=${id}`),
+  payload: axios(token).get(
+    `${URL}api/v1/stats/attendances/byuser?type=2&userId=${id}`,
+  ),
+})
+
+const getRosterByUser = (token, id) => ({
+  type: 'ROSTERUSER',
+  payload: axios(token).get(`${URL}api/v1/absent/attendanceRoaster/${id}`),
+})
+
+const updateRosterUser = (token, dataSubmit, id) => ({
+  type: 'CHECKLOG',
+  payload: axios(token).post(
+    `${URL}api/v1/absent/updateAttendanceRoaster/${id}`,
+    dataSubmit,
+  ),
 })
 
 export {
@@ -75,4 +99,6 @@ export {
   statsUserAttendance,
   exportUserLogHistory,
   exportAllLog,
+  getRosterByUser,
+  updateRosterUser,
 }

@@ -13,6 +13,7 @@ const initialState = {
   infoAllLog: [],
   statsAttendance: [],
   statsUserAttendance: [],
+  dataUserRoster: [],
 }
 
 const presence = (state = initialState, action) => {
@@ -177,6 +178,26 @@ const presence = (state = initialState, action) => {
         isLoadingAllLog: false,
         isError: false,
         statsUserAttendance: action.payload.data.data,
+      }
+    }
+    case 'ROSTERUSER_PENDING': {
+      return {
+        ...state,
+        isError: false,
+      }
+    }
+    case 'ROSTERUSER_REJECTED': {
+      return {
+        ...state,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'ROSTERUSER_FULFILLED': {
+      return {
+        ...state,
+        isError: false,
+        dataUserRoster: action.payload.data.data,
       }
     }
     default: {
