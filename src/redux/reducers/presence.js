@@ -13,7 +13,78 @@ const initialState = {
   infoAllLog: [],
   statsAttendance: [],
   statsUserAttendance: [],
-  dataUserRoster: [],
+  dataUserRoster: [
+    {
+      sunday: {
+        checkIn: '',
+        checkOut: '',
+        checkIn2: '',
+        checkOut2: '',
+        earlyCheckIn: '',
+        lateCheckOut: '',
+      },
+    },
+    {
+      monday: {
+        checkIn: '',
+        checkOut: '',
+        checkIn2: '',
+        checkOut2: '',
+        earlyCheckIn: '',
+        lateCheckOut: '',
+      },
+    },
+    {
+      tuesday: {
+        checkIn: '',
+        checkOut: '',
+        checkIn2: '',
+        checkOut2: '',
+        earlyCheckIn: '',
+        lateCheckOut: '',
+      },
+    },
+    {
+      wednesday: {
+        checkIn: '',
+        checkOut: '',
+        checkIn2: '',
+        checkOut2: '',
+        earlyCheckIn: '',
+        lateCheckOut: '',
+      },
+    },
+    {
+      thursday: {
+        checkIn: '',
+        checkOut: '',
+        checkIn2: '',
+        checkOut2: '',
+        earlyCheckIn: '',
+        lateCheckOut: '',
+      },
+    },
+    {
+      friday: {
+        checkIn: '',
+        checkOut: '',
+        checkIn2: '',
+        checkOut2: '',
+        earlyCheckIn: '',
+        lateCheckOut: '',
+      },
+    },
+    {
+      saturday: {
+        checkIn: '',
+        checkOut: '',
+        checkIn2: '',
+        checkOut2: '',
+        earlyCheckIn: '',
+        lateCheckOut: '',
+      },
+    },
+  ],
 }
 
 const presence = (state = initialState, action) => {

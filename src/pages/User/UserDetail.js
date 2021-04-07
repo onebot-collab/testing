@@ -42,6 +42,7 @@ import { getProfile, deleteUser, updateUser } from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
 import { newToken } from '../../redux/actions/login'
 import { sendNotif } from '../../redux/actions/fcm'
+import { getRosterByUser } from '../../redux/actions/presence'
 // import avatar from '../../assets/img/faces/marc.jpg'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
@@ -107,6 +108,70 @@ class UserDetail extends Component {
       fridayCheck: false,
       saturdayCheck: false,
       sundayCheck: false,
+      mondayCheckIn1: this.props.presence.dataUserRoster[1].monday.checkIn,
+      mondayCheckOut1: this.props.presence.dataUserRoster[1].monday.checkOut,
+      mondayCheckIn2: this.props.presence.dataUserRoster[1].monday.checkIn2,
+      mondayCheckOut2: this.props.presence.dataUserRoster[1].monday.checkOut2,
+      mondayCheckInEarly: this.props.presence.dataUserRoster[1].monday
+        .earlyCheckIn,
+      mondayCheckOutLate: this.props.presence.dataUserRoster[1].monday
+        .lateCheckOut,
+      tuesdayCheckIn1: this.props.presence.dataUserRoster[2].tuesday.checkIn,
+      tuesdayCheckOut1: this.props.presence.dataUserRoster[2].tuesday.checkOut,
+      tuesdayCheckIn2: this.props.presence.dataUserRoster[2].tuesday.checkIn2,
+      tuesdayCheckOut2: this.props.presence.dataUserRoster[2].tuesday.checkOut2,
+      tuesdayCheckInEarly: this.props.presence.dataUserRoster[2].tuesday
+        .earlyCheckIn,
+      tuesdayCheckOutLate: this.props.presence.dataUserRoster[2].tuesday
+        .lateCheckOut,
+      wednesdayCheckIn1: this.props.presence.dataUserRoster[3].wednesday
+        .checkIn,
+      wednesdayCheckOut1: this.props.presence.dataUserRoster[3].wednesday
+        .checkOut,
+      wednesdayCheckIn2: this.props.presence.dataUserRoster[3].wednesday
+        .checkIn2,
+      wednesdayCheckOut2: this.props.presence.dataUserRoster[3].wednesday
+        .checkOut2,
+      wednesdayCheckInEarly: this.props.presence.dataUserRoster[3].wednesday
+        .earlyCheckIn,
+      wednesdayCheckOutLate: this.props.presence.dataUserRoster[3].wednesday
+        .lateCheckOut,
+      thursdayCheckIn1: this.props.presence.dataUserRoster[4].thursday.checkIn,
+      thursdayCheckOut1: this.props.presence.dataUserRoster[4].thursday
+        .checkOut,
+      thursdayCheckIn2: this.props.presence.dataUserRoster[4].thursday.checkIn2,
+      thursdayCheckOut2: this.props.presence.dataUserRoster[4].thursday
+        .checkOut2,
+      thursdayCheckInEarly: this.props.presence.dataUserRoster[4].thursday
+        .earlyCheckIn,
+      thursdayCheckOutLate: this.props.presence.dataUserRoster[4].thursday
+        .lateCheckOut,
+      fridayCheckIn1: this.props.presence.dataUserRoster[5].friday.checkIn,
+      fridayCheckOut1: this.props.presence.dataUserRoster[5].friday.checkOut,
+      fridayCheckIn2: this.props.presence.dataUserRoster[5].friday.checkIn2,
+      fridayCheckOut2: this.props.presence.dataUserRoster[5].friday.checkOut2,
+      fridayCheckInEarly: this.props.presence.dataUserRoster[5].friday
+        .earlyCheckIn,
+      fridayCheckOutLate: this.props.presence.dataUserRoster[5].friday
+        .lateCheckOut,
+      saturdayCheckIn1: this.props.presence.dataUserRoster[6].saturday.checkIn,
+      saturdayCheckOut1: this.props.presence.dataUserRoster[6].saturday
+        .checkOut,
+      saturdayCheckIn2: this.props.presence.dataUserRoster[6].saturday.checkIn2,
+      saturdayCheckOut2: this.props.presence.dataUserRoster[6].saturday
+        .checkOut2,
+      saturdayCheckInEarly: this.props.presence.dataUserRoster[6].saturday
+        .earlyCheckIn,
+      saturdayCheckOutLate: this.props.presence.dataUserRoster[6].saturday
+        .lateCheckOut,
+      sundayCheckIn1: this.props.presence.dataUserRoster[0].sunday.checkIn,
+      sundayCheckOut1: this.props.presence.dataUserRoster[0].sunday.checkOut,
+      sundayCheckIn2: this.props.presence.dataUserRoster[0].sunday.checkIn2,
+      sundayCheckOut2: this.props.presence.dataUserRoster[0].sunday.checkOut2,
+      sundayCheckInEarly: this.props.presence.dataUserRoster[0].sunday
+        .earlyCheckIn,
+      sundayCheckOutLate: this.props.presence.dataUserRoster[0].sunday
+        .lateCheckOut,
     }
     this.toggleUpdateModal = this.toggleUpdateModal.bind(this)
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this)
@@ -139,11 +204,18 @@ class UserDetail extends Component {
     this.props
       .getProfile(this.props.location.state.id, this.props.login.token)
       .then((res) => {
-        this.setState({ isLoadingFetch: false })
         this.props
           .getDepartment(res.action.payload.data.newToken)
           .then((res) => {
-            this.props.newToken(res.action.payload.data.newToken)
+            this.props
+              .getRosterByUser(
+                res.action.payload.data.newToken,
+                parseInt(this.props.location.state.id),
+              )
+              .then((res) => {
+                this.setState({ isLoadingFetch: false })
+                this.props.newToken(res.action.payload.data.newToken)
+              })
           })
       })
   }
@@ -687,9 +759,9 @@ class UserDetail extends Component {
                                   <Row>
                                     <Label for="exampleEmail">Check In</Label>
                                     <Input
-                                      value={this.state.passcodeInput}
+                                      value={this.state.mondayCheckIn1}
                                       type="time"
-                                      name="timeCheck"
+                                      name="mondayCheckIn1"
                                       onChange={(e) => this.handleChange(e)}
                                     />
                                   </Row>
@@ -697,9 +769,9 @@ class UserDetail extends Component {
                                   <Row>
                                     <Label for="exampleEmail">Check Out</Label>
                                     <Input
-                                      value={this.state.passcodeInput}
+                                      value={this.state.mondayCheckOut1}
                                       type="time"
-                                      name="timeCheck"
+                                      name="mondayCheckOut1"
                                       onChange={(e) => this.handleChange(e)}
                                     />
                                   </Row>
@@ -717,9 +789,9 @@ class UserDetail extends Component {
                                         Check In#2
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.mondayCheckIn2}
                                         type="time"
-                                        name="timeCheck"
+                                        name="mondayCheckIn2"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -729,9 +801,9 @@ class UserDetail extends Component {
                                         Check Out#2
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.mondayCheckOut2}
                                         type="time"
-                                        name="timeCheck"
+                                        name="mondayCheckOut2"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -751,9 +823,9 @@ class UserDetail extends Component {
                                         Check In(Overtime)
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.mondayCheckInEarly}
                                         type="time"
-                                        name="timeCheck"
+                                        name="mondayCheckinEarly"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -763,9 +835,9 @@ class UserDetail extends Component {
                                         Check Out(Overtime)
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.mondayCheckOutLate}
                                         type="time"
-                                        name="timeCheck"
+                                        name="mondayCheckOutLate"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -828,9 +900,9 @@ class UserDetail extends Component {
                                   <Row>
                                     <Label for="exampleEmail">Check In</Label>
                                     <Input
-                                      value={this.state.passcodeInput}
+                                      value={this.state.tuesdayCheckIn1}
                                       type="time"
-                                      name="timeCheck"
+                                      name="tuesdayCheckIn1"
                                       onChange={(e) => this.handleChange(e)}
                                     />
                                   </Row>
@@ -838,9 +910,9 @@ class UserDetail extends Component {
                                   <Row>
                                     <Label for="exampleEmail">Check Out</Label>
                                     <Input
-                                      value={this.state.passcodeInput}
+                                      value={this.state.tuesdayCheckOut1}
                                       type="time"
-                                      name="timeCheck"
+                                      name="tuesdayCheckOut1"
                                       onChange={(e) => this.handleChange(e)}
                                     />
                                   </Row>
@@ -858,9 +930,9 @@ class UserDetail extends Component {
                                         Check In#2
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.tuesdayCheckIn2}
                                         type="time"
-                                        name="timeCheck"
+                                        name="tuesdayCheckIn2"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -870,9 +942,9 @@ class UserDetail extends Component {
                                         Check Out#2
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.tuesdayCheckOut2}
                                         type="time"
-                                        name="timeCheck"
+                                        name="tuesdayCheckOut2"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -892,9 +964,9 @@ class UserDetail extends Component {
                                         Check In(Overtime)
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.tuesdayCheckInEarly}
                                         type="time"
-                                        name="timeCheck"
+                                        name="tuesdayCheckInEarly"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -904,9 +976,9 @@ class UserDetail extends Component {
                                         Check Out(Overtime)
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.tuesdayCheckOutLate}
                                         type="time"
-                                        name="timeCheck"
+                                        name="tuesdayCheckOutLate"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -974,9 +1046,9 @@ class UserDetail extends Component {
                                   <Row>
                                     <Label for="exampleEmail">Check In</Label>
                                     <Input
-                                      value={this.state.passcodeInput}
+                                      value={this.state.wednesdayCheckIn1}
                                       type="time"
-                                      name="timeCheck"
+                                      name="wednesdayCheckIn1"
                                       onChange={(e) => this.handleChange(e)}
                                     />
                                   </Row>
@@ -984,9 +1056,9 @@ class UserDetail extends Component {
                                   <Row>
                                     <Label for="exampleEmail">Check Out</Label>
                                     <Input
-                                      value={this.state.passcodeInput}
+                                      value={this.state.wednesdayCheckOut2}
                                       type="time"
-                                      name="timeCheck"
+                                      name="wednesdayCheckOut2"
                                       onChange={(e) => this.handleChange(e)}
                                     />
                                   </Row>
@@ -1004,9 +1076,9 @@ class UserDetail extends Component {
                                         Check In#2
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.wednesdayCheckIn2}
                                         type="time"
-                                        name="timeCheck"
+                                        name="wednesdayCheckIn2"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1016,9 +1088,9 @@ class UserDetail extends Component {
                                         Check Out#2
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.wednesdayCheckOut2}
                                         type="time"
-                                        name="timeCheck"
+                                        name="wednesdayCheckOut2"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1038,9 +1110,9 @@ class UserDetail extends Component {
                                         Check In(Overtime)
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.wednesdayCheckInEarly}
                                         type="time"
-                                        name="timeCheck"
+                                        name="wednesdayCheckInEarly"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1050,9 +1122,9 @@ class UserDetail extends Component {
                                         Check Out(Overtime)
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.wednesdayCheckOutLate}
                                         type="time"
-                                        name="timeCheck"
+                                        name="wednesdayCheckOutLate"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1115,9 +1187,9 @@ class UserDetail extends Component {
                                   <Row>
                                     <Label for="exampleEmail">Check In</Label>
                                     <Input
-                                      value={this.state.passcodeInput}
+                                      value={this.state.thursdayCheckIn1}
                                       type="time"
-                                      name="timeCheck"
+                                      name="thursdayCheckIn1"
                                       onChange={(e) => this.handleChange(e)}
                                     />
                                   </Row>
@@ -1125,9 +1197,9 @@ class UserDetail extends Component {
                                   <Row>
                                     <Label for="exampleEmail">Check Out</Label>
                                     <Input
-                                      value={this.state.passcodeInput}
+                                      value={this.state.thursdayCheckOut1}
                                       type="time"
-                                      name="timeCheck"
+                                      name="thursdayCheckOut1"
                                       onChange={(e) => this.handleChange(e)}
                                     />
                                   </Row>
@@ -1145,9 +1217,9 @@ class UserDetail extends Component {
                                         Check In#2
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.thursdayCheckIn2}
                                         type="time"
-                                        name="timeCheck"
+                                        name="thursdayCheckIn2"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1157,9 +1229,9 @@ class UserDetail extends Component {
                                         Check Out#2
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.thursdayCheckOut2}
                                         type="time"
-                                        name="timeCheck"
+                                        name="thursdayCheckOut2"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1179,9 +1251,9 @@ class UserDetail extends Component {
                                         Check In(Overtime)
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.thursdayCheckInEarly}
                                         type="time"
-                                        name="timeCheck"
+                                        name="thursdayCheckInEarly"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1191,9 +1263,9 @@ class UserDetail extends Component {
                                         Check Out(Overtime)
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.thursdayCheckOutLate}
                                         type="time"
-                                        name="timeCheck"
+                                        name="thursdayCheckOutLate"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1261,9 +1333,9 @@ class UserDetail extends Component {
                                   <Row>
                                     <Label for="exampleEmail">Check In</Label>
                                     <Input
-                                      value={this.state.passcodeInput}
+                                      value={this.state.fridayCheckIn1}
                                       type="time"
-                                      name="timeCheck"
+                                      name="fridayCheckIn1"
                                       onChange={(e) => this.handleChange(e)}
                                     />
                                   </Row>
@@ -1271,9 +1343,9 @@ class UserDetail extends Component {
                                   <Row>
                                     <Label for="exampleEmail">Check Out</Label>
                                     <Input
-                                      value={this.state.passcodeInput}
+                                      value={this.state.fridayCheckOut1}
                                       type="time"
-                                      name="timeCheck"
+                                      name="fridayCheckOut1"
                                       onChange={(e) => this.handleChange(e)}
                                     />
                                   </Row>
@@ -1291,9 +1363,9 @@ class UserDetail extends Component {
                                         Check In#2
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.fridayCheckIn2}
                                         type="time"
-                                        name="timeCheck"
+                                        name="fridayCheckIn2"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1303,9 +1375,9 @@ class UserDetail extends Component {
                                         Check Out#2
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.fridayCheckOut2}
                                         type="time"
-                                        name="timeCheck"
+                                        name="fridayCheckOut2"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1325,9 +1397,9 @@ class UserDetail extends Component {
                                         Check In(Overtime)
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.fridayCheckInEarly}
                                         type="time"
-                                        name="timeCheck"
+                                        name="fridayCheckInEarly"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1337,9 +1409,9 @@ class UserDetail extends Component {
                                         Check Out(Overtime)
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.fridayCheckOutLate}
                                         type="time"
-                                        name="timeCheck"
+                                        name="fridayCheckOutLate"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1402,9 +1474,9 @@ class UserDetail extends Component {
                                   <Row>
                                     <Label for="exampleEmail">Check In</Label>
                                     <Input
-                                      value={this.state.passcodeInput}
+                                      value={this.state.saturdayCheckIn1}
                                       type="time"
-                                      name="timeCheck"
+                                      name="saturdayCheckIn1"
                                       onChange={(e) => this.handleChange(e)}
                                     />
                                   </Row>
@@ -1412,9 +1484,9 @@ class UserDetail extends Component {
                                   <Row>
                                     <Label for="exampleEmail">Check Out</Label>
                                     <Input
-                                      value={this.state.passcodeInput}
+                                      value={this.state.saturdayCheckOut1}
                                       type="time"
-                                      name="timeCheck"
+                                      name="saturdayCheckOut1"
                                       onChange={(e) => this.handleChange(e)}
                                     />
                                   </Row>
@@ -1432,9 +1504,9 @@ class UserDetail extends Component {
                                         Check In#2
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.saturdayCheckIn2}
                                         type="time"
-                                        name="timeCheck"
+                                        name="SaturdayCheckIn2"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1444,9 +1516,9 @@ class UserDetail extends Component {
                                         Check Out#2
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.saturdayCheckOut2}
                                         type="time"
-                                        name="timeCheck"
+                                        name="saturdayCheckOut2"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1466,9 +1538,9 @@ class UserDetail extends Component {
                                         Check In(Overtime)
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.saturdayCheckInEarly}
                                         type="time"
-                                        name="timeCheck"
+                                        name="saturdayCheckInEarly"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1478,9 +1550,9 @@ class UserDetail extends Component {
                                         Check Out(Overtime)
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.saturdayCheckOutLate}
                                         type="time"
-                                        name="timeCheck"
+                                        name="saturdayCheckOutLate"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1548,9 +1620,9 @@ class UserDetail extends Component {
                                   <Row>
                                     <Label for="exampleEmail">Check In</Label>
                                     <Input
-                                      value={this.state.passcodeInput}
+                                      value={this.state.sundayCheckIn1}
                                       type="time"
-                                      name="timeCheck"
+                                      name="sundayCheckIn1"
                                       onChange={(e) => this.handleChange(e)}
                                     />
                                   </Row>
@@ -1558,9 +1630,9 @@ class UserDetail extends Component {
                                   <Row>
                                     <Label for="exampleEmail">Check Out</Label>
                                     <Input
-                                      value={this.state.passcodeInput}
+                                      value={this.state.sundayCheckOut1}
                                       type="time"
-                                      name="timeCheck"
+                                      name="sundayCheckOut1"
                                       onChange={(e) => this.handleChange(e)}
                                     />
                                   </Row>
@@ -1578,9 +1650,9 @@ class UserDetail extends Component {
                                         Check In#2
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.sundayCheckIn2}
                                         type="time"
-                                        name="timeCheck"
+                                        name="sundayCheckIn2"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1590,9 +1662,9 @@ class UserDetail extends Component {
                                         Check Out#2
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.sundayCheckOut2}
                                         type="time"
-                                        name="timeCheck"
+                                        name="sundayCheckOut2"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1612,9 +1684,9 @@ class UserDetail extends Component {
                                         Check In(Overtime)
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.sundayCheckInEarly}
                                         type="time"
-                                        name="timeCheck"
+                                        name="sundayCheckInEarly"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1624,9 +1696,9 @@ class UserDetail extends Component {
                                         Check Out(Overtime)
                                       </Label>
                                       <Input
-                                        value={this.state.passcodeInput}
+                                        value={this.state.sundayCheckOutLate}
                                         type="time"
-                                        name="timeCheck"
+                                        name="sundayCheckOutLate"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1730,6 +1802,7 @@ const mapStateToProps = (state) => ({
   user: state.user,
   department: state.department,
   login: state.login,
+  presence: state.presence,
 })
 const mapDispatchToProps = {
   getProfile,
@@ -1738,6 +1811,7 @@ const mapDispatchToProps = {
   sendNotif,
   updateUser,
   newToken,
+  getRosterByUser,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail)
