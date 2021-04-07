@@ -366,7 +366,9 @@ class Invoice extends Component {
                                   <h5 className="textPrimaryColor">No</h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Name</h5>
+                                  <h5 className="textPrimaryColor">
+                                    Requested By
+                                  </h5>
                                 </TableCell>
                                 <TableCell component="th">
                                   <h5 className="textPrimaryColor">
@@ -596,7 +598,9 @@ class Invoice extends Component {
                                   <h5 className="textPrimaryColor">No</h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Name</h5>
+                                  <h5 className="textPrimaryColor">
+                                    Requested By
+                                  </h5>
                                 </TableCell>
                                 <TableCell component="th">
                                   <h5 className="textPrimaryColor">
@@ -816,7 +820,9 @@ class Invoice extends Component {
                                   <h5 className="textPrimaryColor">No</h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Name</h5>
+                                  <h5 className="textPrimaryColor">
+                                    Requested By
+                                  </h5>
                                 </TableCell>
                                 <TableCell component="th">
                                   <h5 className="textPrimaryColor">
@@ -1036,7 +1042,9 @@ class Invoice extends Component {
                                   <h5 className="textPrimaryColor">No</h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Name</h5>
+                                  <h5 className="textPrimaryColor">
+                                    Requested By
+                                  </h5>
                                 </TableCell>
                                 <TableCell component="th">
                                   <h5 className="textPrimaryColor">
@@ -1256,7 +1264,9 @@ class Invoice extends Component {
                                   <h5 className="textPrimaryColor">No</h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Name</h5>
+                                  <h5 className="textPrimaryColor">
+                                    Requested By
+                                  </h5>
                                 </TableCell>
                                 <TableCell component="th">
                                   <h5 className="textPrimaryColor">
@@ -1444,23 +1454,15 @@ class Invoice extends Component {
               <ModalHeader className="h1">Add Filter</ModalHeader>
               <Form>
                 <ModalBody>
-                  <h6>Name</h6>
+                  <h6>Start Date</h6>
                   <Input
-                    value={this.state.name}
-                    type="text"
-                    name="name"
+                    value={this.state.date}
+                    type="date"
+                    name="Date"
                     className="mb-2 shadow-none"
                     onChange={this.handleChange}
                   />
-                  <h6>Department</h6>
-                  <Input
-                    value={this.state.department}
-                    type="text"
-                    name="department"
-                    className="mb-2 shadow-none"
-                    onChange={this.handleChange}
-                  />
-                  <h6>Date</h6>
+                  <h6>End Date</h6>
                   <Input
                     value={this.state.date}
                     type="date"
@@ -1469,7 +1471,7 @@ class Invoice extends Component {
                     onChange={this.handleChange}
                   />
                   <FormGroup>
-                    <h6>On Time</h6>
+                    <h6>Sort</h6>
                     <Input
                       value={this.state.onTime}
                       type="select"
@@ -1478,10 +1480,10 @@ class Invoice extends Component {
                       onChange={this.handleChange}
                     >
                       <option key={0} value={0}>
-                        NO
+                        Newest
                       </option>
                       <option key={1} value={1}>
-                        YES
+                        Oldest
                       </option>
                     </Input>
                   </FormGroup>

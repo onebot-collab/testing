@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-access-state-in-setstate */
@@ -8,6 +9,7 @@ import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import Select from 'react-select'
 import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -39,6 +41,7 @@ import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
 import { Cancel, CheckCircle, Print, Sort } from '@material-ui/icons'
 import { allLog, exportAllLog } from '../../redux/actions/presence'
+import { getDepartment } from '../../redux/actions/department'
 import { newToken } from '../../redux/actions/login'
 
 // import Check from '@material-ui/icons/Check'
@@ -63,8 +66,6 @@ class Attendance extends Component {
       search: '',
       page: 1,
       showFilterModal: false,
-      name: '',
-      department: '',
       date: '',
       onTime: '',
     }
@@ -111,8 +112,12 @@ class Attendance extends Component {
     this.props
       .allLog(this.props.login.token, this.state.search, this.state.page)
       .then((res) => {
-        this.setState({ isLoading: false })
-        this.props.newToken(res.action.payload.data.newToken)
+        this.props
+          .getDepartment(res.action.payload.data.newToken)
+          .then((res) => {
+            this.setState({ isLoading: false })
+            this.props.newToken(res.action.payload.data.newToken)
+          })
       })
   }
 
@@ -146,22 +151,14 @@ class Attendance extends Component {
     // const classes = makeStyles(styles)
     const classesHead = makeStyles(stylesHead)
     const classesBody = makeStyles(stylesBody)
+
+    const departmentData = this.props.department.dataDepartment
     return (
       <div>
         {!this.props.login.isLogin ? (
           <>{this.redirect()}</>
         ) : (
           <>
-            {/* <Link to="/admin/attendance/detail">
-              <Button
-                variant="contained"
-                color="primary"
-                // className="buttonAdd"
-                startIcon={<File />}
-              >
-                Detail Attendance
-              </Button>
-            </Link> */}
             <nav className="navbar navbar-light bg-light d-flex justify-content-end">
               <div className="d-flex flex-row">
                 <form className="form-inline mr-5">
@@ -414,32 +411,36 @@ class Attendance extends Component {
             </GridContainer>
           </>
         )}
-        {/* Add Modal */}
+        {/* Filter Modal */}
         <Modal isOpen={this.state.showFilterModal}>
           <ModalHeader className="h1">Add Filter</ModalHeader>
           <Form>
             <ModalBody>
-              <h6>Name</h6>
-              <Input
-                value={this.state.name}
-                type="text"
-                name="name"
-                className="mb-2 shadow-none"
-                onChange={this.handleChange}
-              />
               <h6>Department</h6>
-              <Input
-                value={this.state.department}
-                type="text"
-                name="department"
-                className="mb-2 shadow-none"
-                onChange={this.handleChange}
-              />
-              <h6>Date</h6>
+              {this.state.isLoading ? (
+                <></>
+              ) : (
+                <Select
+                  onChange={this.handleDepartmentChange}
+                  options={departmentData.map((res) => ({
+                    value: res.id,
+                    label: res.name,
+                  }))}
+                />
+              )}
+              <h6>Start Date</h6>
               <Input
                 value={this.state.date}
                 type="date"
-                name="Date"
+                name="start_date"
+                className="mb-2 shadow-none"
+                onChange={this.handleChange}
+              />
+              <h6>End Date</h6>
+              <Input
+                value={this.state.date}
+                type="date"
+                name="end_date"
                 className="mb-2 shadow-none"
                 onChange={this.handleChange}
               />
@@ -490,7 +491,8 @@ class Attendance extends Component {
 const mapStateToProps = (state) => ({
   presence: state.presence,
   login: state.login,
+  department: state.department,
 })
-const mapDispatchToProps = { allLog, exportAllLog, newToken }
+const mapDispatchToProps = { allLog, exportAllLog, newToken, getDepartment }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Attendance)
