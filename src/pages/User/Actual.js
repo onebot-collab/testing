@@ -17,6 +17,7 @@ import Avatar from '@material-ui/core/Avatar'
 import Grid from '@material-ui/core/Grid'
 import Tooltip from '@material-ui/core/Tooltip'
 import IconButton from '@material-ui/core/IconButton'
+import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
 // import TextField from '@material-ui/core/TextField'
 // import MenuItem from '@material-ui/core/MenuItem'
@@ -35,6 +36,7 @@ import {
 import Visibility from '@material-ui/icons/Visibility'
 import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
+import Add from '@material-ui/icons/Add'
 // core components
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
@@ -48,6 +50,7 @@ import { getUser, registerUser } from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
 import { newToken } from '../../redux/actions/login'
 import { sendNotif } from '../../redux/actions/fcm'
+import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
 class User extends Component {
   constructor(props) {
@@ -213,6 +216,7 @@ class User extends Component {
   }
 
   render() {
+    const classesBody = makeStyles(stylesBody)
     const departmentData = this.props.department.dataDepartment
     const departmentList = departmentData.map((val) => (
       <option key={val.id} value={val.id}>
@@ -243,6 +247,36 @@ class User extends Component {
                   Search
                 </button>
               </form>
+              {/* <button
+                className="btn btn-danger my-2 my-sm-0"
+                type="submit"
+                onClick={this.export}
+              > */}
+              <Link
+                to="/admin/user/add"
+                className="btn btn-danger my-2 mx-2 my-sm-0"
+              >
+                <Tooltip
+                  id="tooltip-top-start"
+                  title="Add User"
+                  placement="top"
+                  classes={{
+                    tooltip: classesBody.tooltip,
+                  }}
+                >
+                  {/* {this.state.isLoadingExportAllTicket ? (
+                    <div
+                      className="spinner-border spinner-border-sm text-white"
+                      role="status"
+                    >
+                      <span className="sr-only">Loading...</span>
+                    </div>
+                  ) : ( */}
+                  <Add className="iconWhiteColor" />
+                  {/* )} */}
+                </Tooltip>
+              </Link>
+              {/* </button> */}
             </nav>
             <GridContainer>
               <GridItem xs={12} sm={12} md={8}>

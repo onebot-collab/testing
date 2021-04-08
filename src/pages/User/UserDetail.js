@@ -1357,7 +1357,7 @@ class UserDetail extends Component {
                               </Row>
                             </Col>
                           </Row>
-                          {/* <Row form>
+                          <Row form>
                             <Col xs={12} sm={12} md={4}>
                               <FormGroup>
                                 <Label for="exampleSelect">Role</Label>
@@ -1484,7 +1484,7 @@ class UserDetail extends Component {
                                 />
                               </FormGroup>
                             </Col>
-                          </Row> */}
+                          </Row>
                         </Form>
                       </CardBody>
                       <CardFooter>

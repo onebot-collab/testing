@@ -37,6 +37,10 @@ import ReportDetail from '../pages/Report/ReportDetail'
 import Ticketing from '../pages/Ticketing/Actual'
 import TicketingDetail from '../pages/Ticketing/TicketingDetail'
 import User from '../pages/User/Actual'
+import UserAdd from '../pages/User/UserAdd'
+import UserAddStepOne from '../pages/User/UserAddStepOne'
+import UserAddStepTwo from '../pages/User/UserAddStepTwo'
+import UserAddStepThree from '../pages/User/UserAddStepThree'
 import UserDetail from '../pages/User/UserDetail'
 
 import styles from '../assets/jss/material-dashboard-react/layouts/adminStyle'
@@ -84,6 +88,10 @@ const switchRoutes = (
     <Route exact path="/admin/ticketing" component={Ticketing} />
     <Route exact path="/admin/ticketing/:id" component={TicketingDetail} />
     <Route exact path="/admin/user" component={User} />
+    <Route exact path="/admin/user/add" component={UserAdd} />
+    <Route exact path="/admin/user/stepOne" component={UserAddStepOne} />
+    <Route exact path="/admin/user/stepTwo" component={UserAddStepTwo} />
+    <Route exact path="/admin/user/stepThree" component={UserAddStepThree} />
     <Route exact path="/admin/user/:id" component={UserDetail} />
   </Switch>
 )
