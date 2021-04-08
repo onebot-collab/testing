@@ -98,7 +98,7 @@ class UserDetail extends Component {
       )}`,
       addressInput: `${this.props.location.state.address}`,
       avatar: null,
-      typeRoster: 1,
+      typeRoster: this.props.presence.dataUserRoster[7].type_roaster,
       overtimeMonday: false,
       overtimeTuesday: false,
       overtimeWednesday: false,
