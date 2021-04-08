@@ -78,6 +78,7 @@ class UserDetail extends Component {
       role: `${this.props.location.state.role}`,
       department_id: `${this.props.location.state.department_id}`,
       showUpdateModal: false,
+      showRosterModal: false,
       showDeleteModal: false,
       isLoadingFetch: true,
       isLoadingDelete: false,
@@ -190,7 +191,7 @@ class UserDetail extends Component {
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.fetchProfile = this.fetchProfile.bind(this)
-    this.updateRoster = this.updateRoster.bind(this)
+    this.toggleRosterModal = this.toggleRosterModal.bind(this)
   }
 
   handleChange(event) {
@@ -200,6 +201,12 @@ class UserDetail extends Component {
   toggleUpdateModal() {
     this.setState({
       showUpdateModal: !this.state.showUpdateModal,
+    })
+  }
+
+  toggleRosterModal() {
+    this.setState({
+      showRosterModal: !this.state.showRosterModal,
     })
   }
 
@@ -2028,7 +2035,7 @@ class UserDetail extends Component {
                           </Form>
                         </CardBody>
                         <CardFooter>
-                          <Button onClick={this.updateRoster} color="danger">
+                          <Button onClick={this.toggleRosterModal} color="danger">
                             {this.state.isLoadingRoster ? (
                               <div
                                 className="spinner-border spinner-border-sm text-danger"
@@ -2077,6 +2084,41 @@ class UserDetail extends Component {
                     <Button
                       color="danger"
                       onClick={() => this.toggleUpdateModal(0)}
+                    >
+                      Cancel
+                    </Button>
+                  </ModalFooter>
+                </Modal>
+
+                {/* Roster Modal */}
+                <Modal isOpen={this.state.showRosterModal}>
+                  <ModalBody className="h4">
+                    Update Roster {this.props.user.dataProfile[0].name} ?
+                  </ModalBody>
+                  <ModalFooter>
+                    {this.state.isLoadingUpdate ? (
+                      <Button color="secondary">
+                        <div
+                          className="spinner-border spinner-border-sm text-danger"
+                          role="status"
+                        >
+                          <span className="sr-only">Loading...</span>
+                        </div>
+                      </Button>
+                    ) : (
+                      <Button
+                        color="secondary"
+                        onClick={() => {
+                          this.toggleRosterModal()
+                          this.updateRoster()
+                        }}
+                      >
+                        Submit
+                      </Button>
+                    )}
+                    <Button
+                      color="danger"
+                      onClick={() => this.toggleRosterModal()}
                     >
                       Cancel
                     </Button>
