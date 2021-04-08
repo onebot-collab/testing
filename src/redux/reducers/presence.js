@@ -13,6 +13,78 @@ const initialState = {
   infoAllLog: [],
   statsAttendance: [],
   statsUserAttendance: [],
+  dataUserRoster: [
+    {
+      sunday: {
+        checkIn: '',
+        checkOut: '',
+        checkIn2: '',
+        checkOut2: '',
+        earlyCheckIn: '',
+        lateCheckOut: '',
+      },
+    },
+    {
+      monday: {
+        checkIn: '',
+        checkOut: '',
+        checkIn2: '',
+        checkOut2: '',
+        earlyCheckIn: '',
+        lateCheckOut: '',
+      },
+    },
+    {
+      tuesday: {
+        checkIn: '',
+        checkOut: '',
+        checkIn2: '',
+        checkOut2: '',
+        earlyCheckIn: '',
+        lateCheckOut: '',
+      },
+    },
+    {
+      wednesday: {
+        checkIn: '',
+        checkOut: '',
+        checkIn2: '',
+        checkOut2: '',
+        earlyCheckIn: '',
+        lateCheckOut: '',
+      },
+    },
+    {
+      thursday: {
+        checkIn: '',
+        checkOut: '',
+        checkIn2: '',
+        checkOut2: '',
+        earlyCheckIn: '',
+        lateCheckOut: '',
+      },
+    },
+    {
+      friday: {
+        checkIn: '',
+        checkOut: '',
+        checkIn2: '',
+        checkOut2: '',
+        earlyCheckIn: '',
+        lateCheckOut: '',
+      },
+    },
+    {
+      saturday: {
+        checkIn: '',
+        checkOut: '',
+        checkIn2: '',
+        checkOut2: '',
+        earlyCheckIn: '',
+        lateCheckOut: '',
+      },
+    },
+  ],
 }
 
 const presence = (state = initialState, action) => {
@@ -177,6 +249,26 @@ const presence = (state = initialState, action) => {
         isLoadingAllLog: false,
         isError: false,
         statsUserAttendance: action.payload.data.data,
+      }
+    }
+    case 'ROSTERUSER_PENDING': {
+      return {
+        ...state,
+        isError: false,
+      }
+    }
+    case 'ROSTERUSER_REJECTED': {
+      return {
+        ...state,
+        isError: true,
+        errorMsg: action.payload.data,
+      }
+    }
+    case 'ROSTERUSER_FULFILLED': {
+      return {
+        ...state,
+        isError: false,
+        dataUserRoster: action.payload.data.data,
       }
     }
     default: {

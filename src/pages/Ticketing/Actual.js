@@ -54,6 +54,7 @@ import {
   exportAllTicket,
 } from '../../redux/actions/ticket'
 import { newToken } from '../../redux/actions/login'
+import { getDepartment } from '../../redux/actions/department'
 // core components
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
@@ -148,7 +149,8 @@ class Ticketing extends Component {
   fetch() {
     this.props
       .getAllTicket(this.props.login.token, this.state.search, this.state.page)
-      .then(() => {
+      .then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
         this.setState({ isLoading: false })
       })
   }
@@ -180,8 +182,12 @@ class Ticketing extends Component {
         this.props
           .getTicketStats(res.action.payload.data.newToken)
           .then((res) => {
-            this.setState({ isLoadingStats: false })
-            this.props.newToken(res.action.payload.data.newToken)
+            this.props
+              .getDepartment(res.action.payload.data.newToken)
+              .then((res) => {
+                this.setState({ isLoadingStats: false })
+                this.props.newToken(res.action.payload.data.newToken)
+              })
           })
       })
   }
@@ -194,6 +200,7 @@ class Ticketing extends Component {
     const classesHead = makeStyles(stylesHead)
     const classesBody = makeStyles(stylesBody)
     const { selectedOption } = this.state
+    const departmentData = this.props.department.dataDepartment
     return (
       <div>
         {!this.props.login.isLogin ? (
@@ -630,14 +637,26 @@ class Ticketing extends Component {
                     onChange={this.handleChange}
                   />
                   <h6>Department</h6>
+                  {this.state.isLoading ? (
+                    <></>
+                  ) : (
+                    <Select
+                      onChange={this.handleDepartmentChange}
+                      options={departmentData.map((res) => ({
+                        value: res.id,
+                        label: res.name,
+                      }))}
+                    />
+                  )}
+                  <h6>Start Date</h6>
                   <Input
-                    value={this.state.department}
-                    type="text"
-                    name="department"
+                    value={this.state.date}
+                    type="date"
+                    name="Date"
                     className="mb-2 shadow-none"
                     onChange={this.handleChange}
                   />
-                  <h6>Date</h6>
+                  <h6>End Date</h6>
                   <Input
                     value={this.state.date}
                     type="date"
@@ -646,7 +665,7 @@ class Ticketing extends Component {
                     onChange={this.handleChange}
                   />
                   <FormGroup>
-                    <h6>On Time</h6>
+                    <h6>Status</h6>
                     <Input
                       value={this.state.onTime}
                       type="select"
@@ -655,10 +674,16 @@ class Ticketing extends Component {
                       onChange={this.handleChange}
                     >
                       <option key={0} value={0}>
-                        NO
+                        Open
                       </option>
                       <option key={1} value={1}>
-                        YES
+                        Processed
+                      </option>
+                      <option key={2} value={2}>
+                        Solved
+                      </option>
+                      <option key={3} value={3}>
+                        Closed
                       </option>
                     </Input>
                   </FormGroup>
@@ -744,12 +769,14 @@ class Ticketing extends Component {
 const mapStateToProps = (state) => ({
   login: state.login,
   ticket: state.ticket,
+  department: state.department,
 })
 const mapDispatchToProps = {
   getAllTicket,
   getTicketStats,
   exportAllTicket,
   newToken,
+  getDepartment,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ticketing)
