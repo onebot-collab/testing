@@ -358,20 +358,24 @@ class UserDetail extends Component {
         checkOut: this.state.mondayCheckOut1,
         checkIn2: this.state.mondayCheckIn2,
         checkOut2: this.state.mondayCheckOut2,
-        earlyCheckIn: this.state.mondayCheckInEarly,
-        lateCheckOut: this.state.mondayCheckOutLate,
+        earlyCheckIn: this.state.overtimeMonday
+          ? this.state.mondayCheckInEarly
+          : '0',
+        lateCheckOut: this.state.overtimeMonday
+          ? this.state.mondayCheckOutLate
+          : '0',
         type: this.state.typeRoster,
       }
     } else {
       var mondayData = {
         day: '1',
         userId: this.props.location.state.id,
-        checkIn: '',
-        checkOut: '',
-        checkIn2: '',
-        checkOut2: '',
-        earlyCheckIn: '',
-        lateCheckOut: '',
+        checkIn: '0',
+        checkOut: '0',
+        checkIn2: '0',
+        checkOut2: '0',
+        earlyCheckIn: '0',
+        lateCheckOut: '0',
         type: this.state.typeRoster,
       }
     }
@@ -384,20 +388,24 @@ class UserDetail extends Component {
         checkOut: this.state.tuesdayCheckOut1,
         checkIn2: this.state.tuesdayCheckIn2,
         checkOut2: this.state.tuesdayCheckOut2,
-        earlyCheckIn: this.state.tuesdayCheckInEarly,
-        lateCheckOut: this.state.tuesdayCheckOutLate,
+        earlyCheckIn: this.state.overtimeTuesday
+          ? this.state.tuesdayCheckInEarly
+          : '0',
+        lateCheckOut: this.state.overtimeTuesday
+          ? this.state.tuesdayCheckOutLate
+          : '0',
         type: this.state.typeRoster,
       }
     } else {
       var tuesdayData = {
         day: '2',
         userId: this.props.location.state.id,
-        checkIn: '',
-        checkOut: '',
-        checkIn2: '',
-        checkOut2: '',
-        earlyCheckIn: '',
-        lateCheckOut: '',
+        checkIn: '0',
+        checkOut: '0',
+        checkIn2: '0',
+        checkOut2: '0',
+        earlyCheckIn: '0',
+        lateCheckOut: '0',
         type: this.state.typeRoster,
       }
     }
@@ -410,20 +418,24 @@ class UserDetail extends Component {
         checkOut: this.state.wednesdayCheckOut1,
         checkIn2: this.state.wednesdayCheckIn2,
         checkOut2: this.state.wednesdayCheckOut2,
-        earlyCheckIn: this.state.wednesdayCheckInEarly,
-        lateCheckOut: this.state.wednesdayCheckOutLate,
+        earlyCheckIn: this.state.overtimeWednesday
+          ? this.state.wednesdayCheckInEarly
+          : '0',
+        lateCheckOut: this.state.overtimeWednesday
+          ? this.state.wednesdayCheckOutLate
+          : '0',
         type: this.state.typeRoster,
       }
     } else {
       var wednesdayData = {
         day: '3',
         userId: this.props.location.state.id,
-        checkIn: '',
-        checkOut: '',
-        checkIn2: '',
-        checkOut2: '',
-        earlyCheckIn: '',
-        lateCheckOut: '',
+        checkIn: '0',
+        checkOut: '0',
+        checkIn2: '0',
+        checkOut2: '0',
+        earlyCheckIn: '0',
+        lateCheckOut: '0',
         type: this.state.typeRoster,
       }
     }
@@ -436,20 +448,24 @@ class UserDetail extends Component {
         checkOut: this.state.thursdayCheckOut1,
         checkIn2: this.state.thursdayCheckIn2,
         checkOut2: this.state.thursdayCheckOut2,
-        earlyCheckIn: this.state.thursdayCheckInEarly,
-        lateCheckOut: this.state.thursdayCheckOutLate,
+        earlyCheckIn: this.state.overtimeThursday
+          ? this.state.thursdayCheckInEarly
+          : '0',
+        lateCheckOut: this.state.overtimeThursday
+          ? this.state.thursdayCheckOutLate
+          : '0',
         type: this.state.typeRoster,
       }
     } else {
       var thursdayData = {
         day: '4',
         userId: this.props.location.state.id,
-        checkIn: '',
-        checkOut: '',
-        checkIn2: '',
-        checkOut2: '',
-        earlyCheckIn: '',
-        lateCheckOut: '',
+        checkIn: '0',
+        checkOut: '0',
+        checkIn2: '0',
+        checkOut2: '0',
+        earlyCheckIn: '0',
+        lateCheckOut: '0',
         type: this.state.typeRoster,
       }
     }
@@ -462,20 +478,24 @@ class UserDetail extends Component {
         checkOut: this.state.fridayCheckOut1,
         checkIn2: this.state.fridayCheckIn2,
         checkOut2: this.state.fridayCheckOut2,
-        earlyCheckIn: this.state.fridayCheckInEarly,
-        lateCheckOut: this.state.fridayCheckOutLate,
+        earlyCheckIn: this.state.overtimeFriday
+          ? this.state.fridayCheckInEarly
+          : '0',
+        lateCheckOut: this.state.overtimeFriday
+          ? this.state.fridayCheckOutLate
+          : '0',
         type: this.state.typeRoster,
       }
     } else {
       var fridayData = {
         day: '5',
         userId: this.props.location.state.id,
-        checkIn: '',
-        checkOut: '',
-        checkIn2: '',
-        checkOut2: '',
-        earlyCheckIn: '',
-        lateCheckOut: '',
+        checkIn: '0',
+        checkOut: '0',
+        checkIn2: '0',
+        checkOut2: '0',
+        earlyCheckIn: '0',
+        lateCheckOut: '0',
         type: this.state.typeRoster,
       }
     }
@@ -488,20 +508,24 @@ class UserDetail extends Component {
         checkOut: this.state.saturdayCheckOut1,
         checkIn2: this.state.saturdayCheckIn2,
         checkOut2: this.state.saturdayCheckOut2,
-        earlyCheckIn: this.state.saturdayCheckInEarly,
-        lateCheckOut: this.state.saturdayCheckOutLate,
+        earlyCheckIn: this.state.overtimeSaturday
+          ? this.state.saturdayCheckInEarly
+          : '0',
+        lateCheckOut: this.state.overtimeSaturday
+          ? this.state.saturdayCheckOutLate
+          : '0',
         type: this.state.typeRoster,
       }
     } else {
       var saturdayData = {
         day: '6',
         userId: this.props.location.state.id,
-        checkIn: '',
-        checkOut: '',
-        checkIn2: '',
-        checkOut2: '',
-        earlyCheckIn: '',
-        lateCheckOut: '',
+        checkIn: '0',
+        checkOut: '0',
+        checkIn2: '0',
+        checkOut2: '0',
+        earlyCheckIn: '0',
+        lateCheckOut: '0',
         type: this.state.typeRoster,
       }
     }
@@ -514,26 +538,29 @@ class UserDetail extends Component {
         checkOut: this.state.sundayCheckOut1,
         checkIn2: this.state.sundayCheckIn2,
         checkOut2: this.state.sundayCheckOut2,
-        earlyCheckIn: this.state.sundayCheckInEarly,
-        lateCheckOut: this.state.sundayCheckOutLate,
+        earlyCheckIn: this.state.overtimeSunday
+          ? this.state.sundayCheckInEarly
+          : '0',
+        lateCheckOut: this.state.overtimeSunday
+          ? this.state.sundayCheckOutLate
+          : '0',
         type: this.state.typeRoster,
       }
     } else {
       var sundayData = {
         day: '0',
         userId: this.props.location.state.id,
-        checkIn: '',
-        checkOut: '',
-        checkIn2: '',
-        checkOut2: '',
-        earlyCheckIn: '',
-        lateCheckOut: '',
+        checkIn: '0',
+        checkOut: '0',
+        checkIn2: '0',
+        checkOut2: '0',
+        earlyCheckIn: '0',
+        lateCheckOut: '0',
         type: this.state.typeRoster,
       }
     }
 
     this.setState({ isLoadingRoster: true })
-    console.log('XXXXXXX', mondayData)
     this.props
       .updateRosterUser(
         this.props.login.token,
@@ -2035,7 +2062,10 @@ class UserDetail extends Component {
                           </Form>
                         </CardBody>
                         <CardFooter>
-                          <Button onClick={this.toggleRosterModal} color="danger">
+                          <Button
+                            onClick={this.toggleRosterModal}
+                            color="danger"
+                          >
                             {this.state.isLoadingRoster ? (
                               <div
                                 className="spinner-border spinner-border-sm text-danger"

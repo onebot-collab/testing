@@ -6,10 +6,10 @@ const getInventory = (sort) => ({
   payload: axios().get(`${URL}api/v1/inventory?${sort}=1`),
 })
 
-const getInventoryHome = (token, search, page) => ({
+const getInventoryHome = (token, search, page, filter) => ({
   type: 'GETINVENTORY',
   payload: axios(token).get(
-    `${URL}api/v1/inventory?sort=0&limit=15&search=${search}&page=${page}`,
+    `${URL}api/v1/inventory?sort=0&limit=15&search=${search}&page=${page}&${filter}`,
   ),
 })
 
