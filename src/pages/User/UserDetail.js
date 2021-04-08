@@ -99,13 +99,16 @@ class UserDetail extends Component {
       addressInput: `${this.props.location.state.address}`,
       avatar: null,
       typeRoster: this.props.presence.dataUserRoster[7].type_roaster,
-      overtimeMonday: false,
-      overtimeTuesday: false,
-      overtimeWednesday: false,
-      overtimeThursday: false,
-      overtimeFriday: false,
-      overtimeSaturday: false,
-      overtimeSunday: false,
+      overtimeMonday: this.props.presence.dataUserRoster[1].monday.isOverTime,
+      overtimeTuesday: this.props.presence.dataUserRoster[2].tuesday.isOverTime,
+      overtimeWednesday: this.props.presence.dataUserRoster[3].wednesday
+        .isOverTime,
+      overtimeThursday: this.props.presence.dataUserRoster[4].thursday
+        .isOverTime,
+      overtimeFriday: this.props.presence.dataUserRoster[5].friday.isOverTime,
+      overtimeSaturday: this.props.presence.dataUserRoster[6].saturday
+        .isOverTime,
+      overtimeSunday: this.props.presence.dataUserRoster[0].sunday.isOverTime,
       mondayCheck: this.props.presence.dataUserRoster[1].monday.checkIn !== '',
       tuesdayCheck:
         this.props.presence.dataUserRoster[2].tuesday.checkIn !== '',
@@ -580,7 +583,7 @@ class UserDetail extends Component {
                                 swal.fire({
                                   icon: 'success',
                                   title: 'Success',
-                                  text: 'User successsfully deleted',
+                                  text: 'Roster successfully updated',
                                 })
                               })
                               .catch((res) => {
@@ -1139,7 +1142,7 @@ class UserDetail extends Component {
                                       <Input
                                         value={this.state.mondayCheckInEarly}
                                         type="time"
-                                        name="mondayCheckinEarly"
+                                        name="mondayCheckInEarly"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
