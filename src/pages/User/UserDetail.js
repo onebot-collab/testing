@@ -2068,7 +2068,7 @@ class UserDetail extends Component {
                           >
                             {this.state.isLoadingRoster ? (
                               <div
-                                className="spinner-border spinner-border-sm text-danger"
+                                className="spinner-border spinner-border-sm text-white"
                                 role="status"
                               >
                                 <span className="sr-only">Loading...</span>
