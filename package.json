@@ -28,6 +28,7 @@
     "react-chartist": "0.14.3",
     "react-classes": "^1.1.1",
     "react-dom": "^16.14.0",
+    "react-dropzone": "^11.3.2",
     "react-moment": "^1.0.0",
     "react-multistep": "^5.1.0",
     "react-pro-sidebar": "^0.4.4",

@@ -7,6 +7,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import swal from 'sweetalert2'
 import './Actual.css'
+import { makeStyles } from '@material-ui/core/styles'
+import Tooltip from '@material-ui/core/Tooltip'
+import { Link } from 'react-router-dom'
+// import Dropzone from 'react-dropzone'
 // @material-ui/core components
 // import TextField from '@material-ui/core/TextField'
 // import MenuItem from '@material-ui/core/MenuItem'
@@ -21,8 +25,10 @@ import {
   Label,
   Input,
 } from 'reactstrap'
+import { NavigateNext } from '@material-ui/icons'
 // @material-ui/icons components
 // core components
+import Basic from './DragnDrop'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -33,10 +39,14 @@ import { getUser, registerUser } from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
 import { newToken } from '../../redux/actions/login'
 import { sendNotif } from '../../redux/actions/fcm'
+import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
 class UserAddStepOne extends Component {
   constructor(props) {
     super(props)
+    // this.onDrop = (files) => {
+    //   this.setState({ files })
+    // }
     this.state = {
       name: '',
       email: '',
@@ -51,6 +61,7 @@ class UserAddStepOne extends Component {
       timeType: 1,
       profilePicture: null,
       page: 1,
+      // files: [],
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
@@ -173,16 +184,21 @@ class UserAddStepOne extends Component {
       })
   }
 
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   render() {
-    const departmentData = this.props.department.dataDepartment
-    const departmentList = departmentData.map((val) => (
-      <option key={val.id} value={val.id}>
-        {val.name}
-      </option>
-    ))
+    // const departmentData = this.props.department.dataDepartment
+    // const departmentList = departmentData.map((val) => (
+    //   <option key={val.id} value={val.id}>
+    //     {val.name}
+    //   </option>
+    // ))
+    // const files = this.state.files.map((file) => (
+    //   <li key={file.name}>
+    //     {file.name} - {file.size} bytes
+    //   </li>
+    // ))
+    const classesBody = makeStyles(stylesBody)
 
     return (
       <div>
@@ -190,6 +206,64 @@ class UserAddStepOne extends Component {
           <>{this.redirect()}</>
         ) : (
           <>
+            <nav className="navbar navbar-light bg-light row">
+              <div className="d-flex align-items-center col">
+                <h4 className="mr-6 ">Step 1 of 3</h4>
+              </div>
+              <div className="d-flex flex-row col justify-content-end">
+                {/* <button
+                  className="btn btn-danger m-2 my-sm-0"
+                  type="submit"
+                  onClick={this.toggleFilterModal}
+                >
+                  <Tooltip
+                    id="tooltip-top-start"
+                    title="Filter"
+                    placement="top"
+                    classes={{
+                      tooltip: classesBody.tooltip,
+                    }}
+                  >
+                    {this.state.isLoadingExportAllLog ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-white"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ) : (
+                      <Sort className="iconWhiteColor" />
+                    )}
+                  </Tooltip>
+                </button> */}
+
+                <Link
+                  to="/admin/user/stepTwo"
+                  className="btn btn-danger m-2 my-sm-0"
+                >
+                  {' '}
+                  <Tooltip
+                    id="tooltip-top-start"
+                    title="Next Step"
+                    placement="top"
+                    classes={{
+                      tooltip: classesBody.tooltip,
+                    }}
+                  >
+                    {this.state.isLoadingExportAllLog ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-white"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ) : (
+                      <NavigateNext className="iconWhiteColor" />
+                    )}
+                  </Tooltip>
+                </Link>
+              </div>
+            </nav>
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
                 <Card>
@@ -233,7 +307,7 @@ class UserAddStepOne extends Component {
                       <Row form>
                         <Col xs={12} sm={12} md={4}>
                           <FormGroup>
-                            <Label for="exampleEmail">Name</Label>
+                            <Label for="exampleEmail">First Name</Label>
                             <Input
                               value={this.state.name}
                               name="name"
@@ -243,7 +317,7 @@ class UserAddStepOne extends Component {
                         </Col>
                         <Col xs={12} sm={12} md={4}>
                           <FormGroup>
-                            <Label for="exampleEmail">Email</Label>
+                            <Label for="exampleEmail">Middle Name</Label>
                             <Input
                               value={this.state.email}
                               name="email"
@@ -253,7 +327,7 @@ class UserAddStepOne extends Component {
                         </Col>
                         <Col xs={12} sm={12} md={4}>
                           <FormGroup>
-                            <Label for="exampleEmail">Phone</Label>
+                            <Label for="exampleEmail">Last Name</Label>
                             <Input
                               value={this.state.phone}
                               name="phone"
@@ -263,7 +337,7 @@ class UserAddStepOne extends Component {
                         </Col>
                       </Row>
                       <Row form>
-                        <Col xs={12} sm={12} md={6}>
+                        {/* <Col xs={12} sm={12} md={6}>
                           <FormGroup>
                             <Label for="examplePassword">Password</Label>
                             <Input
@@ -284,12 +358,42 @@ class UserAddStepOne extends Component {
                               onChange={(e) => this.handleChange(e)}
                             />
                           </FormGroup>
+                        </Col> */}
+                        <Col xs={12} sm={12} md={4}>
+                          <FormGroup>
+                            <Label for="exampleEmail">Email</Label>
+                            <Input
+                              value={this.state.name}
+                              name="name"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={4}>
+                          <FormGroup>
+                            <Label for="exampleEmail">Phone 1</Label>
+                            <Input
+                              value={this.state.email}
+                              name="email"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={4}>
+                          <FormGroup>
+                            <Label for="exampleEmail">Phone 2</Label>
+                            <Input
+                              value={this.state.phone}
+                              name="phone"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
                         </Col>
                       </Row>
                       <Row form>
                         <Col xs={12} sm={12} md={4}>
                           <FormGroup>
-                            <Label for="exampleSelect">Role</Label>
+                            <Label for="exampleSelect">Religion</Label>
                             <Input
                               value={this.state.role}
                               type="select"
@@ -298,17 +402,29 @@ class UserAddStepOne extends Component {
                               onChange={this.handleChange}
                             >
                               <option key={1} value={1}>
-                                Admin
+                                Muslim
                               </option>
                               <option key={2} value={2}>
-                                User
+                                Protestant
+                              </option>
+                              <option key={3} value={3}>
+                                Catholic
+                              </option>
+                              <option key={4} value={4}>
+                                Hindu
+                              </option>
+                              <option key={5} value={5}>
+                                Buddhist
+                              </option>
+                              <option key={6} value={6}>
+                                Confucian
                               </option>
                             </Input>
                           </FormGroup>
                         </Col>
                         <Col xs={12} sm={12} md={4}>
                           <FormGroup>
-                            <Label for="exampleSelect">Department</Label>
+                            <Label for="exampleSelect">Blood Type</Label>
                             <Input
                               value={this.state.department}
                               type="select"
@@ -316,19 +432,30 @@ class UserAddStepOne extends Component {
                               onChange={this.handleChange}
                               id="exampleSelect"
                             >
-                              {departmentList}
+                              <option key={1} value={1}>
+                                A
+                              </option>
+                              <option key={2} value={2}>
+                                B
+                              </option>
+                              <option key={3} value={3}>
+                                AB
+                              </option>
+                              <option key={4} value={4}>
+                                O
+                              </option>
                             </Input>
                           </FormGroup>
                         </Col>
                         <Col xs={12} sm={12} md={4}>
                           <FormGroup>
-                            <Label for="exampleCheckbox">Time Type</Label>
+                            <Label for="exampleCheckbox">Gender</Label>
                             <div>
                               <CustomInput
                                 type="radio"
                                 id="exampleCustomRadio2"
-                                name="timeType"
-                                label="Free Hours"
+                                name="gender"
+                                label="Male"
                                 value={1}
                                 onChange={(e) => this.handleChange(e)}
                                 inline
@@ -336,18 +463,9 @@ class UserAddStepOne extends Component {
                               <CustomInput
                                 type="radio"
                                 id="exampleCustomRadio"
-                                name="timeType"
-                                label="Office Hours"
+                                name="gender"
+                                label="Female"
                                 value={3}
-                                onChange={(e) => this.handleChange(e)}
-                                inline
-                              />
-                              <CustomInput
-                                type="radio"
-                                id="exampleCustomRadio3"
-                                name="timeType"
-                                label="Security"
-                                value={2}
                                 onChange={(e) => this.handleChange(e)}
                                 inline
                               />
@@ -356,32 +474,7 @@ class UserAddStepOne extends Component {
                         </Col>
                       </Row>
                       <Row form>
-                        <Col xs={12} sm={12} md={4}>
-                          <FormGroup>
-                            <Label for="exampleDate">Joined Date</Label>
-                            <Input
-                              type="date"
-                              name="joinedDate"
-                              id="exampleDate"
-                              placeholder="date placeholder"
-                              onChange={(e) => this.handleChange(e)}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col xs={12} sm={12} md={4}>
-                          <FormGroup>
-                            <Label for="exampleDate">Birth Date</Label>
-                            <Input
-                              value={this.state.birthDate}
-                              type="date"
-                              name="birthDate"
-                              onChange={(e) => this.handleChange(e)}
-                              id="exampleDate"
-                              placeholder="date placeholder"
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col xs={12} sm={12} md={4}>
+                        <Col xs={12} sm={12} md={12}>
                           {' '}
                           <FormGroup>
                             <Label for="exampleEmail">Address</Label>
@@ -394,7 +487,7 @@ class UserAddStepOne extends Component {
                         </Col>
                       </Row>
                       <Row form>
-                        <Col xs={12} sm={12} md={12}>
+                        {/* <Col xs={12} sm={12} md={12}>
                           {' '}
                           <FormGroup>
                             <Label for="exampleCustomFileBrowser">
@@ -410,6 +503,104 @@ class UserAddStepOne extends Component {
                                 })
                               }
                             />
+                          </FormGroup>
+                        </Col> */}
+                        <Col xs={12} sm={12} md={4}>
+                          {' '}
+                          <FormGroup>
+                            <Label for="exampleEmail">Province</Label>
+                            <Input
+                              value={this.state.department}
+                              type="select"
+                              name="department"
+                              onChange={this.handleChange}
+                              id="exampleSelect"
+                            >
+                              <option key={1} value={1}>
+                                A
+                              </option>
+                              <option key={2} value={2}>
+                                B
+                              </option>
+                              <option key={3} value={3}>
+                                AB
+                              </option>
+                              <option key={4} value={4}>
+                                O
+                              </option>
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={3}>
+                          {' '}
+                          <FormGroup>
+                            <Label for="exampleEmail">City</Label>
+                            <Input
+                              value={this.state.department}
+                              type="select"
+                              name="department"
+                              onChange={this.handleChange}
+                              id="exampleSelect"
+                            >
+                              <option key={1} value={1}>
+                                A
+                              </option>
+                              <option key={2} value={2}>
+                                B
+                              </option>
+                              <option key={3} value={3}>
+                                AB
+                              </option>
+                              <option key={4} value={4}>
+                                O
+                              </option>
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={3}>
+                          {' '}
+                          <FormGroup>
+                            <Label for="exampleEmail">District</Label>
+                            <Input
+                              value={this.state.department}
+                              type="select"
+                              name="department"
+                              onChange={this.handleChange}
+                              id="exampleSelect"
+                            >
+                              <option key={1} value={1}>
+                                A
+                              </option>
+                              <option key={2} value={2}>
+                                B
+                              </option>
+                              <option key={3} value={3}>
+                                AB
+                              </option>
+                              <option key={4} value={4}>
+                                O
+                              </option>
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={2}>
+                          {' '}
+                          <FormGroup>
+                            <Label for="exampleEmail">ZIP</Label>
+                            <Input
+                              value={this.state.address}
+                              name="address"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row form>
+                        <Col xs={12} sm={12} md={12}>
+                          {' '}
+                          <FormGroup>
+                          <Label for="exampleEmail">Profile Picture</Label>
+                            <Basic />
                           </FormGroup>
                         </Col>
                       </Row>
@@ -566,7 +757,6 @@ class UserAddStepOne extends Component {
                   </CardBody>
                 </Card>
               </GridItem>
-              
             </GridContainer>
           </>
         )}

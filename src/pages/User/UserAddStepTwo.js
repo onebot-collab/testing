@@ -7,20 +7,16 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import swal from 'sweetalert2'
 import './Actual.css'
+import { makeStyles } from '@material-ui/core/styles'
+import Tooltip from '@material-ui/core/Tooltip'
+import { Link } from 'react-router-dom'
+import { NavigateBefore, NavigateNext, Add } from '@material-ui/icons'
 // @material-ui/core components
 // import TextField from '@material-ui/core/TextField'
 // import MenuItem from '@material-ui/core/MenuItem'
 // import TablePagination from '@material-ui/core/TablePagination'
 // Reactstrap/code
-import {
-  Col,
-  CustomInput,
-  Row,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-} from 'reactstrap'
+import { Col, Row, Form, FormGroup, Label, Input } from 'reactstrap'
 // @material-ui/icons components
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -33,6 +29,7 @@ import { getUser, registerUser } from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
 import { newToken } from '../../redux/actions/login'
 import { sendNotif } from '../../redux/actions/fcm'
+import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
 class UserAddStepTwo extends Component {
   constructor(props) {
@@ -173,23 +170,73 @@ class UserAddStepTwo extends Component {
       })
   }
 
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   render() {
-    const departmentData = this.props.department.dataDepartment
-    const departmentList = departmentData.map((val) => (
-      <option key={val.id} value={val.id}>
-        {val.name}
-      </option>
-    ))
-
+    const classesBody = makeStyles(stylesBody)
     return (
       <div>
         {!this.props.login.isLogin ? (
           <>{this.redirect()}</>
         ) : (
           <>
+            <nav className="navbar navbar-light bg-light row">
+              <div className="d-flex align-items-center col">
+                <h4 className="mr-6 ">Step 2 of 3</h4>
+              </div>
+              <div className="d-flex flex-row col justify-content-end">
+                <Link
+                  to="/admin/user/stepOne"
+                  className="btn btn-danger m-2 my-sm-0"
+                >
+                  {' '}
+                  <Tooltip
+                    id="tooltip-top-start"
+                    title="Previous Step"
+                    placement="top"
+                    classes={{
+                      tooltip: classesBody.tooltip,
+                    }}
+                  >
+                    {this.state.isLoadingExportAllLog ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-white"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ) : (
+                      <NavigateBefore className="iconWhiteColor" />
+                    )}
+                  </Tooltip>
+                </Link>
+                <Link
+                  to="/admin/user/stepThree"
+                  className="btn btn-danger m-2 my-sm-0"
+                >
+                  {' '}
+                  <Tooltip
+                    id="tooltip-top-start"
+                    title="Next Step"
+                    placement="top"
+                    classes={{
+                      tooltip: classesBody.tooltip,
+                    }}
+                  >
+                    {this.state.isLoadingExportAllLog ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-white"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ) : (
+                      <NavigateNext className="iconWhiteColor" />
+                    )}
+                  </Tooltip>
+                </Link>
+              </div>
+            </nav>
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
                 <Card>
@@ -230,189 +277,325 @@ class UserAddStepTwo extends Component {
                           </FormGroup>
                         </Col>
                       </Row> */}
-                      <Row form>
-                        <Col xs={12} sm={12} md={4}>
-                          <FormGroup>
-                            <Label for="exampleEmail">Name</Label>
-                            <Input
-                              value={this.state.name}
-                              name="name"
-                              onChange={(e) => this.handleChange(e)}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col xs={12} sm={12} md={4}>
-                          <FormGroup>
-                            <Label for="exampleEmail">Email</Label>
-                            <Input
-                              value={this.state.email}
-                              name="email"
-                              onChange={(e) => this.handleChange(e)}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col xs={12} sm={12} md={4}>
-                          <FormGroup>
-                            <Label for="exampleEmail">Phone</Label>
-                            <Input
-                              value={this.state.phone}
-                              name="phone"
-                              onChange={(e) => this.handleChange(e)}
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row form>
-                        <Col xs={12} sm={12} md={6}>
-                          <FormGroup>
-                            <Label for="examplePassword">Password</Label>
-                            <Input
-                              value={this.state.password}
-                              type="password"
-                              name="password"
-                              onChange={(e) => this.handleChange(e)}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col xs={12} sm={12} md={6}>
-                          <FormGroup>
-                            <Label for="examplePassword">Passcode</Label>
-                            <Input
-                              value={this.state.passcode}
-                              type="password"
-                              name="passcode"
-                              onChange={(e) => this.handleChange(e)}
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row form>
-                        <Col xs={12} sm={12} md={4}>
-                          <FormGroup>
-                            <Label for="exampleSelect">Role</Label>
-                            <Input
-                              value={this.state.role}
-                              type="select"
-                              name="role"
-                              id="exampleSelect"
-                              onChange={this.handleChange}
-                            >
-                              <option key={1} value={1}>
-                                Admin
-                              </option>
-                              <option key={2} value={2}>
-                                User
-                              </option>
-                            </Input>
-                          </FormGroup>
-                        </Col>
-                        <Col xs={12} sm={12} md={4}>
-                          <FormGroup>
-                            <Label for="exampleSelect">Department</Label>
-                            <Input
-                              value={this.state.department}
-                              type="select"
-                              name="department"
-                              onChange={this.handleChange}
-                              id="exampleSelect"
-                            >
-                              {departmentList}
-                            </Input>
-                          </FormGroup>
-                        </Col>
-                        <Col xs={12} sm={12} md={4}>
-                          <FormGroup>
-                            <Label for="exampleCheckbox">Time Type</Label>
-                            <div>
-                              <CustomInput
-                                type="radio"
-                                id="exampleCustomRadio2"
-                                name="timeType"
-                                label="Free Hours"
-                                value={1}
+                      <Col form>
+                        <div className="d-flex justify-content-between">
+                          <h5>Education Background</h5>
+                          <button
+                            className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
+                            type="submit"
+                            onClick={this.export}
+                          >
+                            <Add />
+                          </button>
+                        </div>
+                        <Row form>
+                          <Col xs={12} sm={12} md={2}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Level</Label>
+                              <Input
+                                value={this.state.department}
+                                type="select"
+                                name="department"
+                                onChange={this.handleChange}
+                                id="exampleSelect"
+                              >
+                                <option key={1} value={1}>
+                                  SMA/SMK Sederajat
+                                </option>
+                                <option key={2} value={2}>
+                                  D3
+                                </option>
+                                <option key={3} value={3}>
+                                  S1
+                                </option>
+                                <option key={4} value={4}>
+                                  S2
+                                </option>
+                              </Input>
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={4}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Institution</Label>
+                              <Input
+                                value={this.state.email}
+                                name="email"
                                 onChange={(e) => this.handleChange(e)}
-                                inline
                               />
-                              <CustomInput
-                                type="radio"
-                                id="exampleCustomRadio"
-                                name="timeType"
-                                label="Office Hours"
-                                value={3}
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={2}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Period</Label>
+                              <Input
+                                value={this.state.phone}
+                                name="phone"
                                 onChange={(e) => this.handleChange(e)}
-                                inline
                               />
-                              <CustomInput
-                                type="radio"
-                                id="exampleCustomRadio3"
-                                name="timeType"
-                                label="Security"
-                                value={2}
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={2}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Major</Label>
+                              <Input
+                                value={this.state.phone}
+                                name="phone"
                                 onChange={(e) => this.handleChange(e)}
-                                inline
                               />
-                            </div>
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row form>
-                        <Col xs={12} sm={12} md={4}>
-                          <FormGroup>
-                            <Label for="exampleDate">Joined Date</Label>
-                            <Input
-                              type="date"
-                              name="joinedDate"
-                              id="exampleDate"
-                              placeholder="date placeholder"
-                              onChange={(e) => this.handleChange(e)}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col xs={12} sm={12} md={4}>
-                          <FormGroup>
-                            <Label for="exampleDate">Birth Date</Label>
-                            <Input
-                              value={this.state.birthDate}
-                              type="date"
-                              name="birthDate"
-                              onChange={(e) => this.handleChange(e)}
-                              id="exampleDate"
-                              placeholder="date placeholder"
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col xs={12} sm={12} md={4}>
-                          {' '}
-                          <FormGroup>
-                            <Label for="exampleEmail">Address</Label>
-                            <Input
-                              value={this.state.address}
-                              name="address"
-                              onChange={(e) => this.handleChange(e)}
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row form>
-                        <Col xs={12} sm={12} md={12}>
-                          {' '}
-                          <FormGroup>
-                            <Label for="exampleCustomFileBrowser">
-                              Profile Picture
-                            </Label>
-                            <CustomInput
-                              type="file"
-                              id="exampleCustomFileBrowser"
-                              name="profilePicture"
-                              onChange={(e) =>
-                                this.setState({
-                                  profilePicture: e.target.files[0],
-                                })
-                              }
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={2}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Grade</Label>
+                              <Input
+                                value={this.state.phone}
+                                name="phone"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                      </Col>
+                      <Col form>
+                        <div className="d-flex justify-content-between mt-5">
+                          <h5>Family Background</h5>
+                          <button
+                            className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
+                            type="submit"
+                            onClick={this.export}
+                          >
+                            <Add />
+                          </button>
+                        </div>
+                        <Row form>
+                          <Col xs={12} sm={12} md={4}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Name</Label>
+                              <Input
+                                value={this.state.name}
+                                name="name"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={1}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Gender</Label>
+                              <Input
+                                value={this.state.department}
+                                type="select"
+                                name="department"
+                                onChange={this.handleChange}
+                                id="exampleSelect"
+                              >
+                                <option key={1} value={1}>
+                                  Male
+                                </option>
+                                <option key={2} value={2}>
+                                  Female
+                                </option>
+                              </Input>
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={2}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Telepon</Label>
+                              <Input
+                                value={this.state.phone}
+                                name="phone"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={2}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Relationship</Label>
+                              <Input
+                                value={this.state.phone}
+                                name="phone"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={3}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Occupation</Label>
+                              <Input
+                                value={this.state.phone}
+                                name="phone"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        <Row form>
+                          <Col xs={12} sm={12} md={12}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Address</Label>
+                              <Input
+                                value={this.state.name}
+                                name="name"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        <Row form>
+                          <Col xs={12} sm={12} md={4}>
+                            {' '}
+                            <FormGroup>
+                              <Label for="exampleEmail">Province</Label>
+                              <Input
+                                value={this.state.department}
+                                type="select"
+                                name="department"
+                                onChange={this.handleChange}
+                                id="exampleSelect"
+                              >
+                                <option key={1} value={1}>
+                                  A
+                                </option>
+                                <option key={2} value={2}>
+                                  B
+                                </option>
+                                <option key={3} value={3}>
+                                  AB
+                                </option>
+                                <option key={4} value={4}>
+                                  O
+                                </option>
+                              </Input>
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={3}>
+                            {' '}
+                            <FormGroup>
+                              <Label for="exampleEmail">City</Label>
+                              <Input
+                                value={this.state.department}
+                                type="select"
+                                name="department"
+                                onChange={this.handleChange}
+                                id="exampleSelect"
+                              >
+                                <option key={1} value={1}>
+                                  A
+                                </option>
+                                <option key={2} value={2}>
+                                  B
+                                </option>
+                                <option key={3} value={3}>
+                                  AB
+                                </option>
+                                <option key={4} value={4}>
+                                  O
+                                </option>
+                              </Input>
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={3}>
+                            {' '}
+                            <FormGroup>
+                              <Label for="exampleEmail">District</Label>
+                              <Input
+                                value={this.state.department}
+                                type="select"
+                                name="department"
+                                onChange={this.handleChange}
+                                id="exampleSelect"
+                              >
+                                <option key={1} value={1}>
+                                  A
+                                </option>
+                                <option key={2} value={2}>
+                                  B
+                                </option>
+                                <option key={3} value={3}>
+                                  AB
+                                </option>
+                                <option key={4} value={4}>
+                                  O
+                                </option>
+                              </Input>
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={2}>
+                            {' '}
+                            <FormGroup>
+                              <Label for="exampleEmail">ZIP</Label>
+                              <Input
+                                value={this.state.address}
+                                name="address"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                      </Col>
+                      <Col form>
+                        <div className="d-flex justify-content-between mt-5">
+                          <h5>Working Experience</h5>
+                          <button
+                            className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
+                            type="submit"
+                            onClick={this.export}
+                          >
+                            <Add />
+                          </button>
+                        </div>
+                        <Row form>
+                          <Col xs={12} sm={12} md={4}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Company</Label>
+                              <Input
+                                value={this.state.name}
+                                name="name"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={2}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Period</Label>
+                              <Input
+                                value={this.state.email}
+                                name="email"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={2}>
+                            <FormGroup>
+                              <Label for="exampleEmail">First Role</Label>
+                              <Input
+                                value={this.state.phone}
+                                name="phone"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={2}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Last Role</Label>
+                              <Input
+                                value={this.state.phone}
+                                name="phone"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={2}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Last Salary</Label>
+                              <Input
+                                value={this.state.phone}
+                                name="phone"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                      </Col>
                     </Form>
                     {/* <GridContainer className="fieldGridContainer">
                       <GridItem xs={12} sm={12} md={4}>
@@ -566,7 +749,6 @@ class UserAddStepTwo extends Component {
                   </CardBody>
                 </Card>
               </GridItem>
-              
             </GridContainer>
           </>
         )}
