@@ -317,17 +317,17 @@ class AttendanceDetail extends Component {
                                 className="chartPie"
                                 data={{
                                   labels: [
-                                    `${this.props.presence.statsUserAttendance.isLate}%`,
-                                    `${this.props.presence.statsUserAttendance.notLate}%`,
-                                    `${this.props.presence.statsUserAttendance.permit}%`,
+                                    `${this.props.presence.statsUserAttendance.dataNow.isLate}%`,
+                                    `${this.props.presence.statsUserAttendance.dataNow.notLate}%`,
+                                    `${this.props.presence.statsUserAttendance.dataNow.permit}%`,
                                   ],
                                   series: [
                                     this.props.presence.statsUserAttendance
-                                      .isLate,
+                                      .dataNow.isLate,
                                     this.props.presence.statsUserAttendance
-                                      .notLate,
+                                      .dataNow.notLate,
                                     this.props.presence.statsUserAttendance
-                                      .permit,
+                                      .dataNow.permit,
                                   ],
                                 }}
                                 type="Pie"
@@ -373,7 +373,11 @@ class AttendanceDetail extends Component {
                                 Target Hours
                               </p>
                               <h3 className="textPrimaryColor align-self-center">
-                                46 Hours
+                                {
+                                  this.props.presence.statsUserAttendance
+                                    .dataNow.targetHours
+                                }{' '}
+                                Hours
                               </h3>
                             </Paper>
                             <Paper
@@ -384,12 +388,12 @@ class AttendanceDetail extends Component {
                                 Overtime Hours
                               </p>
                               <h3 className="textPrimaryColor align-self-center">
-                                {this.props.presence.statsUserAttendance.totalOvertimeWorkingInHoursMoment.slice(
+                                {this.props.presence.statsUserAttendance.dataNow.totalOvertimeWorkingInHoursMoment.slice(
                                   0,
                                   2,
                                 )}{' '}
                                 Hours{' '}
-                                {this.props.presence.statsUserAttendance.totalOvertimeWorkingInHoursMoment.slice(
+                                {this.props.presence.statsUserAttendance.dataNow.totalOvertimeWorkingInHoursMoment.slice(
                                   3,
                                   5,
                                 )}{' '}
@@ -404,12 +408,12 @@ class AttendanceDetail extends Component {
                                 Voluntary Hours
                               </p>
                               <h3 className="textPrimaryColor align-self-center">
-                                {this.props.presence.statsUserAttendance.totalVoluntaryOverTimeInHoursMoment.slice(
+                                {this.props.presence.statsUserAttendance.dataNow.totalVoluntaryOverTimeInHoursMoment.slice(
                                   0,
                                   2,
                                 )}{' '}
                                 Hours{' '}
-                                {this.props.presence.statsUserAttendance.totalVoluntaryOverTimeInHoursMoment.slice(
+                                {this.props.presence.statsUserAttendance.dataNow.totalVoluntaryOverTimeInHoursMoment.slice(
                                   3,
                                   5,
                                 )}{' '}
@@ -424,12 +428,12 @@ class AttendanceDetail extends Component {
                                 Achieved Hours
                               </p>
                               <h3 className="textPrimaryColor align-self-center">
-                                {this.props.presence.statsUserAttendance.totalWorkingInHoursMoment.slice(
+                                {this.props.presence.statsUserAttendance.dataNow.totalWorkingInHoursMoment.slice(
                                   0,
                                   2,
                                 )}{' '}
                                 Hours{' '}
-                                {this.props.presence.statsUserAttendance.totalWorkingInHoursMoment.slice(
+                                {this.props.presence.statsUserAttendance.dataNow.totalWorkingInHoursMoment.slice(
                                   3,
                                   5,
                                 )}{' '}
@@ -439,7 +443,7 @@ class AttendanceDetail extends Component {
                                 variant="determinate"
                                 value={
                                   (this.props.presence.statsUserAttendance
-                                    .totalWorkingInHours /
+                                    .dataNow.totalWorkingInHours /
                                     46) *
                                   100
                                 }
@@ -581,28 +585,6 @@ class AttendanceDetail extends Component {
                         </div>
                       </div>
                     </Grid>
-                    {/* <Grid item xs>
-                    <Button
-                      variant="outlined"
-                      color="secondary"
-                      className="ButtonApprove mb-3"
-                      onClick={() => {
-                        alert('Approved')
-                      }}
-                    >
-                      Approve
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      className="ButtonRejected mb-3"
-                      onClick={() => {
-                        alert('Rejected')
-                      }}
-                    >
-                      Reject
-                    </Button>
-                  </Grid> */}
                   </Grid>
                   <div className="pl-4 pr-4">
                     <Link
@@ -665,20 +647,9 @@ class AttendanceDetail extends Component {
               </FormGroup>
             </ModalBody>
             <ModalFooter>
-              {/* {this.state.isLoadingAddCampaign ? (
-                <Button color="primary">
-                  <div
-                    className="spinner-border spinner-border-sm text-danger"
-                    role="status"
-                  >
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                </Button>
-              ) : ( */}
               <Button color="secondary" onClick={this.toggleFilterModal}>
                 Submit
               </Button>
-              {/* )} */}
               <Button color="primary" onClick={this.toggleFilterModal}>
                 Cancel
               </Button>
