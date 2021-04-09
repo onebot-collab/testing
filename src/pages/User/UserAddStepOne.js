@@ -371,7 +371,7 @@ class UserAddStepOne extends Component {
                         </Col>
                         <Col xs={12} sm={12} md={4}>
                           <FormGroup>
-                            <Label for="exampleEmail">Phone 1</Label>
+                            <Label for="exampleEmail">Phone</Label>
                             <Input
                               value={this.state.email}
                               name="email"
@@ -381,12 +381,30 @@ class UserAddStepOne extends Component {
                         </Col>
                         <Col xs={12} sm={12} md={4}>
                           <FormGroup>
-                            <Label for="exampleEmail">Phone 2</Label>
+                            <Label for="exampleEmail">Employment Status</Label>
                             <Input
-                              value={this.state.phone}
-                              name="phone"
-                              onChange={(e) => this.handleChange(e)}
-                            />
+                              value={this.state.role}
+                              type="select"
+                              name="role"
+                              id="exampleSelect"
+                              onChange={this.handleChange}
+                            >
+                              <option key={1} value={1}>
+                                Probation
+                              </option>
+                              <option key={2} value={2}>
+                                Contract
+                              </option>
+                              <option key={3} value={3}>
+                                Permanent
+                              </option>
+                              <option key={4} value={4}>
+                                Freelance
+                              </option>
+                              <option key={5} value={5}>
+                                Part Time
+                              </option>
+                              </Input>
                           </FormGroup>
                         </Col>
                       </Row>
