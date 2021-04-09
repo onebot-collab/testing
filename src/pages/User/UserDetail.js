@@ -1,3 +1,8 @@
+/* eslint-disable no-redeclare */
+/* eslint-disable no-unused-vars */
+/* eslint-disable vars-on-top */
+/* eslint-disable no-var */
+/* eslint-disable block-scoped-var */
 /* eslint-disable eqeqeq */
 /* eslint-disable react/jsx-boolean-value */
 /* eslint-disable radix */
@@ -42,7 +47,7 @@ import { getProfile, deleteUser, updateUser } from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
 import { newToken } from '../../redux/actions/login'
 import { sendNotif } from '../../redux/actions/fcm'
-import { getRosterByUser } from '../../redux/actions/presence'
+import { getRosterByUser, updateRosterUser } from '../../redux/actions/presence'
 // import avatar from '../../assets/img/faces/marc.jpg'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
@@ -73,6 +78,7 @@ class UserDetail extends Component {
       role: `${this.props.location.state.role}`,
       department_id: `${this.props.location.state.department_id}`,
       showUpdateModal: false,
+      showRosterModal: false,
       showDeleteModal: false,
       isLoadingFetch: true,
       isLoadingDelete: false,
@@ -93,21 +99,28 @@ class UserDetail extends Component {
       )}`,
       addressInput: `${this.props.location.state.address}`,
       avatar: null,
-      typeRoster: 1,
-      overtimeMonday: false,
-      overtimeTuesday: false,
-      overtimeWednesday: false,
-      overtimeThursday: false,
-      overtimeFriday: false,
-      overtimeSaturday: false,
-      overtimeSunday: false,
-      mondayCheck: false,
-      tuesdayCheck: false,
-      wednesdayCheck: false,
-      thursdayCheck: false,
-      fridayCheck: false,
-      saturdayCheck: false,
-      sundayCheck: false,
+      typeRoster: this.props.presence.dataUserRoster[7].type_roaster,
+      overtimeMonday: this.props.presence.dataUserRoster[1].monday.isOverTime,
+      overtimeTuesday: this.props.presence.dataUserRoster[2].tuesday.isOverTime,
+      overtimeWednesday: this.props.presence.dataUserRoster[3].wednesday
+        .isOverTime,
+      overtimeThursday: this.props.presence.dataUserRoster[4].thursday
+        .isOverTime,
+      overtimeFriday: this.props.presence.dataUserRoster[5].friday.isOverTime,
+      overtimeSaturday: this.props.presence.dataUserRoster[6].saturday
+        .isOverTime,
+      overtimeSunday: this.props.presence.dataUserRoster[0].sunday.isOverTime,
+      mondayCheck: this.props.presence.dataUserRoster[1].monday.checkIn !== '',
+      tuesdayCheck:
+        this.props.presence.dataUserRoster[2].tuesday.checkIn !== '',
+      wednesdayCheck:
+        this.props.presence.dataUserRoster[3].wednesday.checkIn !== '',
+      thursdayCheck:
+        this.props.presence.dataUserRoster[4].thursday.checkIn !== '',
+      fridayCheck: this.props.presence.dataUserRoster[5].friday.checkIn !== '',
+      saturdayCheck:
+        this.props.presence.dataUserRoster[6].saturday.checkIn !== '',
+      sundayCheck: this.props.presence.dataUserRoster[0].sunday.checkIn !== '',
       mondayCheckIn1: this.props.presence.dataUserRoster[1].monday.checkIn,
       mondayCheckOut1: this.props.presence.dataUserRoster[1].monday.checkOut,
       mondayCheckIn2: this.props.presence.dataUserRoster[1].monday.checkIn2,
@@ -172,11 +185,13 @@ class UserDetail extends Component {
         .earlyCheckIn,
       sundayCheckOutLate: this.props.presence.dataUserRoster[0].sunday
         .lateCheckOut,
+      isLoadingRoster: false,
     }
     this.toggleUpdateModal = this.toggleUpdateModal.bind(this)
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.fetchProfile = this.fetchProfile.bind(this)
+    this.toggleRosterModal = this.toggleRosterModal.bind(this)
   }
 
   handleChange(event) {
@@ -186,6 +201,12 @@ class UserDetail extends Component {
   toggleUpdateModal() {
     this.setState({
       showUpdateModal: !this.state.showUpdateModal,
+    })
+  }
+
+  toggleRosterModal() {
+    this.setState({
+      showRosterModal: !this.state.showRosterModal,
     })
   }
 
@@ -324,6 +345,341 @@ class UserDetail extends Component {
           icon: 'error',
           title: 'Failed',
           text: 'Failed to delete user',
+        })
+      })
+  }
+
+  updateRoster() {
+    if (this.state.mondayCheck) {
+      var mondayData = {
+        day: '1',
+        userId: this.props.location.state.id,
+        checkIn: this.state.mondayCheckIn1,
+        checkOut: this.state.mondayCheckOut1,
+        checkIn2: this.state.mondayCheckIn2,
+        checkOut2: this.state.mondayCheckOut2,
+        earlyCheckIn: this.state.overtimeMonday
+          ? this.state.mondayCheckInEarly
+          : '0',
+        lateCheckOut: this.state.overtimeMonday
+          ? this.state.mondayCheckOutLate
+          : '0',
+        type: this.state.typeRoster,
+      }
+    } else {
+      var mondayData = {
+        day: '1',
+        userId: this.props.location.state.id,
+        checkIn: '0',
+        checkOut: '0',
+        checkIn2: '0',
+        checkOut2: '0',
+        earlyCheckIn: '0',
+        lateCheckOut: '0',
+        type: this.state.typeRoster,
+      }
+    }
+
+    if (this.state.tuesdayCheck) {
+      var tuesdayData = {
+        day: '2',
+        userId: this.props.location.state.id,
+        checkIn: this.state.tuesdayCheckIn1,
+        checkOut: this.state.tuesdayCheckOut1,
+        checkIn2: this.state.tuesdayCheckIn2,
+        checkOut2: this.state.tuesdayCheckOut2,
+        earlyCheckIn: this.state.overtimeTuesday
+          ? this.state.tuesdayCheckInEarly
+          : '0',
+        lateCheckOut: this.state.overtimeTuesday
+          ? this.state.tuesdayCheckOutLate
+          : '0',
+        type: this.state.typeRoster,
+      }
+    } else {
+      var tuesdayData = {
+        day: '2',
+        userId: this.props.location.state.id,
+        checkIn: '0',
+        checkOut: '0',
+        checkIn2: '0',
+        checkOut2: '0',
+        earlyCheckIn: '0',
+        lateCheckOut: '0',
+        type: this.state.typeRoster,
+      }
+    }
+
+    if (this.state.wednesdayCheck) {
+      var wednesdayData = {
+        day: '3',
+        userId: this.props.location.state.id,
+        checkIn: this.state.wednesdayCheckIn1,
+        checkOut: this.state.wednesdayCheckOut1,
+        checkIn2: this.state.wednesdayCheckIn2,
+        checkOut2: this.state.wednesdayCheckOut2,
+        earlyCheckIn: this.state.overtimeWednesday
+          ? this.state.wednesdayCheckInEarly
+          : '0',
+        lateCheckOut: this.state.overtimeWednesday
+          ? this.state.wednesdayCheckOutLate
+          : '0',
+        type: this.state.typeRoster,
+      }
+    } else {
+      var wednesdayData = {
+        day: '3',
+        userId: this.props.location.state.id,
+        checkIn: '0',
+        checkOut: '0',
+        checkIn2: '0',
+        checkOut2: '0',
+        earlyCheckIn: '0',
+        lateCheckOut: '0',
+        type: this.state.typeRoster,
+      }
+    }
+
+    if (this.state.thursdayCheck) {
+      var thursdayData = {
+        day: '4',
+        userId: this.props.location.state.id,
+        checkIn: this.state.thursdayCheckIn1,
+        checkOut: this.state.thursdayCheckOut1,
+        checkIn2: this.state.thursdayCheckIn2,
+        checkOut2: this.state.thursdayCheckOut2,
+        earlyCheckIn: this.state.overtimeThursday
+          ? this.state.thursdayCheckInEarly
+          : '0',
+        lateCheckOut: this.state.overtimeThursday
+          ? this.state.thursdayCheckOutLate
+          : '0',
+        type: this.state.typeRoster,
+      }
+    } else {
+      var thursdayData = {
+        day: '4',
+        userId: this.props.location.state.id,
+        checkIn: '0',
+        checkOut: '0',
+        checkIn2: '0',
+        checkOut2: '0',
+        earlyCheckIn: '0',
+        lateCheckOut: '0',
+        type: this.state.typeRoster,
+      }
+    }
+
+    if (this.state.fridayCheck) {
+      var fridayData = {
+        day: '5',
+        userId: this.props.location.state.id,
+        checkIn: this.state.fridayCheckIn1,
+        checkOut: this.state.fridayCheckOut1,
+        checkIn2: this.state.fridayCheckIn2,
+        checkOut2: this.state.fridayCheckOut2,
+        earlyCheckIn: this.state.overtimeFriday
+          ? this.state.fridayCheckInEarly
+          : '0',
+        lateCheckOut: this.state.overtimeFriday
+          ? this.state.fridayCheckOutLate
+          : '0',
+        type: this.state.typeRoster,
+      }
+    } else {
+      var fridayData = {
+        day: '5',
+        userId: this.props.location.state.id,
+        checkIn: '0',
+        checkOut: '0',
+        checkIn2: '0',
+        checkOut2: '0',
+        earlyCheckIn: '0',
+        lateCheckOut: '0',
+        type: this.state.typeRoster,
+      }
+    }
+
+    if (this.state.saturdayCheck) {
+      var saturdayData = {
+        day: '6',
+        userId: this.props.location.state.id,
+        checkIn: this.state.saturdayCheckIn1,
+        checkOut: this.state.saturdayCheckOut1,
+        checkIn2: this.state.saturdayCheckIn2,
+        checkOut2: this.state.saturdayCheckOut2,
+        earlyCheckIn: this.state.overtimeSaturday
+          ? this.state.saturdayCheckInEarly
+          : '0',
+        lateCheckOut: this.state.overtimeSaturday
+          ? this.state.saturdayCheckOutLate
+          : '0',
+        type: this.state.typeRoster,
+      }
+    } else {
+      var saturdayData = {
+        day: '6',
+        userId: this.props.location.state.id,
+        checkIn: '0',
+        checkOut: '0',
+        checkIn2: '0',
+        checkOut2: '0',
+        earlyCheckIn: '0',
+        lateCheckOut: '0',
+        type: this.state.typeRoster,
+      }
+    }
+
+    if (this.state.sundayCheck) {
+      var sundayData = {
+        day: '0',
+        userId: this.props.location.state.id,
+        checkIn: this.state.sundayCheckIn1,
+        checkOut: this.state.sundayCheckOut1,
+        checkIn2: this.state.sundayCheckIn2,
+        checkOut2: this.state.sundayCheckOut2,
+        earlyCheckIn: this.state.overtimeSunday
+          ? this.state.sundayCheckInEarly
+          : '0',
+        lateCheckOut: this.state.overtimeSunday
+          ? this.state.sundayCheckOutLate
+          : '0',
+        type: this.state.typeRoster,
+      }
+    } else {
+      var sundayData = {
+        day: '0',
+        userId: this.props.location.state.id,
+        checkIn: '0',
+        checkOut: '0',
+        checkIn2: '0',
+        checkOut2: '0',
+        earlyCheckIn: '0',
+        lateCheckOut: '0',
+        type: this.state.typeRoster,
+      }
+    }
+
+    this.setState({ isLoadingRoster: true })
+    this.props
+      .updateRosterUser(
+        this.props.login.token,
+        mondayData,
+        this.props.location.state.id,
+      )
+      .then((res) => {
+        this.props
+          .updateRosterUser(
+            res.action.payload.data.newToken,
+            tuesdayData,
+            this.props.location.state.id,
+          )
+          .then((res) => {
+            this.props
+              .updateRosterUser(
+                res.action.payload.data.newToken,
+                wednesdayData,
+                this.props.location.state.id,
+              )
+              .then((res) => {
+                this.props
+                  .updateRosterUser(
+                    res.action.payload.data.newToken,
+                    thursdayData,
+                    this.props.location.state.id,
+                  )
+                  .then((res) => {
+                    this.props
+                      .updateRosterUser(
+                        res.action.payload.data.newToken,
+                        fridayData,
+                        this.props.location.state.id,
+                      )
+                      .then((res) => {
+                        this.props
+                          .updateRosterUser(
+                            res.action.payload.data.newToken,
+                            saturdayData,
+                            this.props.location.state.id,
+                          )
+                          .then((res) => {
+                            this.props
+                              .updateRosterUser(
+                                res.action.payload.data.newToken,
+                                sundayData,
+                                this.props.location.state.id,
+                              )
+                              .then((res) => {
+                                this.props.newToken(
+                                  res.action.payload.data.newToken,
+                                )
+                                this.props.history.push('/admin/user')
+                                swal.fire({
+                                  icon: 'success',
+                                  title: 'Success',
+                                  text: 'Roster successfully updated',
+                                })
+                              })
+                              .catch((res) => {
+                                this.setState({ isLoadingRoster: false })
+                                swal.fire({
+                                  icon: 'error',
+                                  title: 'Failed',
+                                  text: `${res.response.data.message}`,
+                                })
+                              })
+                          })
+                          .catch((res) => {
+                            this.setState({ isLoadingRoster: false })
+                            swal.fire({
+                              icon: 'error',
+                              title: 'Failed',
+                              text: `${res.response.data.message}`,
+                            })
+                          })
+                      })
+                      .catch((res) => {
+                        this.setState({ isLoadingRoster: false })
+                        swal.fire({
+                          icon: 'error',
+                          title: 'Failed',
+                          text: `${res.response.data.message}`,
+                        })
+                      })
+                  })
+                  .catch((res) => {
+                    this.setState({ isLoadingRoster: false })
+                    swal.fire({
+                      icon: 'error',
+                      title: 'Failed',
+                      text: `${res.response.data.message}`,
+                    })
+                  })
+              })
+              .catch((res) => {
+                this.setState({ isLoadingRoster: false })
+                swal.fire({
+                  icon: 'error',
+                  title: 'Failed',
+                  text: `${res.response.data.message}`,
+                })
+              })
+          })
+          .catch((res) => {
+            this.setState({ isLoadingRoster: false })
+            swal.fire({
+              icon: 'error',
+              title: 'Failed',
+              text: `${res.response.data.message}`,
+            })
+          })
+      })
+      .catch((res) => {
+        this.setState({ isLoadingRoster: false })
+        swal.fire({
+          icon: 'error',
+          title: 'Failed',
+          text: `${res.response.data.message}`,
         })
       })
   }
@@ -656,11 +1012,6 @@ class UserDetail extends Component {
                         </Button>
                       </CardFooter>
                     </Card>
-                    {/* <CardFooter>
-                      <Button onClick={this.toggleDeleteModal} color="danger">
-                        Delete {this.props.user.dataProfile[0].name}
-                      </Button>
-                    </CardFooter> */}
                   </GridItem>
                 </GridContainer>
 
@@ -825,7 +1176,7 @@ class UserDetail extends Component {
                                       <Input
                                         value={this.state.mondayCheckInEarly}
                                         type="time"
-                                        name="mondayCheckinEarly"
+                                        name="mondayCheckInEarly"
                                         onChange={(e) => this.handleChange(e)}
                                       />
                                     </Row>
@@ -1712,10 +2063,19 @@ class UserDetail extends Component {
                         </CardBody>
                         <CardFooter>
                           <Button
-                            onClick={this.toggleUpdateModal}
+                            onClick={this.toggleRosterModal}
                             color="danger"
                           >
-                            Update Roster
+                            {this.state.isLoadingRoster ? (
+                              <div
+                                className="spinner-border spinner-border-sm text-white"
+                                role="status"
+                              >
+                                <span className="sr-only">Loading...</span>
+                              </div>
+                            ) : (
+                              'Update Roster'
+                            )}
                           </Button>
                         </CardFooter>
                       </Card>
@@ -1754,6 +2114,41 @@ class UserDetail extends Component {
                     <Button
                       color="danger"
                       onClick={() => this.toggleUpdateModal(0)}
+                    >
+                      Cancel
+                    </Button>
+                  </ModalFooter>
+                </Modal>
+
+                {/* Roster Modal */}
+                <Modal isOpen={this.state.showRosterModal}>
+                  <ModalBody className="h4">
+                    Update Roster {this.props.user.dataProfile[0].name} ?
+                  </ModalBody>
+                  <ModalFooter>
+                    {this.state.isLoadingUpdate ? (
+                      <Button color="secondary">
+                        <div
+                          className="spinner-border spinner-border-sm text-danger"
+                          role="status"
+                        >
+                          <span className="sr-only">Loading...</span>
+                        </div>
+                      </Button>
+                    ) : (
+                      <Button
+                        color="secondary"
+                        onClick={() => {
+                          this.toggleRosterModal()
+                          this.updateRoster()
+                        }}
+                      >
+                        Submit
+                      </Button>
+                    )}
+                    <Button
+                      color="danger"
+                      onClick={() => this.toggleRosterModal()}
                     >
                       Cancel
                     </Button>
@@ -1812,6 +2207,7 @@ const mapDispatchToProps = {
   updateUser,
   newToken,
   getRosterByUser,
+  updateRosterUser,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail)

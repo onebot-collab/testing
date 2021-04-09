@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable radix */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/no-access-state-in-setstate */
@@ -94,7 +95,13 @@ class Inventory extends Component {
       deleteId: 0,
       search: '',
       page: 1,
-      howFilterModal: false,
+      showFilterModal: false,
+      filterCategory: '',
+      filterStartDate: '',
+      filterEndDate: '',
+      filterWarranty: 2,
+      filterWarrantyStart: '',
+      filterWarrantyEnd: '',
     }
     this.toggleAddModal = this.toggleAddModal.bind(this)
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this)
@@ -106,6 +113,7 @@ class Inventory extends Component {
     this.prevPage = this.prevPage.bind(this)
     this.export = this.export.bind(this)
     this.toggleFilterModal = this.toggleFilterModal.bind(this)
+    this.handleCategoryFilter = this.handleCategoryFilter.bind(this)
   }
 
   toggleFilterModal() {
@@ -119,6 +127,10 @@ class Inventory extends Component {
     setTimeout(() => {
       this.fetch()
     }, 100)
+  }
+
+  handleCategoryFilter(event) {
+    this.setState({ filterCategory: event.value })
   }
 
   nextPage() {
@@ -139,11 +151,38 @@ class Inventory extends Component {
   }
 
   fetch() {
+    const filter = `category=${this.state.filterCategory}&startDateCreate=${
+      this.state.filterStartDate === ''
+        ? ''
+        : moment(this.state.filterStartDate).format('YYYY-MM-DD')
+    }&endDateCreate=${
+      this.state.filterStartDate !== '' && this.state.filterEndDate === ''
+        ? moment().format('YYYY-MM-DD')
+        : this.state.filterEndDate === ''
+        ? ''
+        : moment(this.state.filterEndDate).format('YYYY-MM-DD')
+    }&isWarranty=${
+      parseInt(this.state.filterWarranty) === 2
+        ? ''
+        : parseInt(this.state.filterWarranty)
+    }&warrantyStartDate=${
+      this.state.filterWarrantyStart === ''
+        ? ''
+        : moment(this.state.filterWarrantyStart).format('YYYY-MM-DD')
+    }&warrantyEndDate=${
+      this.state.filterWarrantyStart !== '' &&
+      this.state.filterWarrantyEnd === ''
+        ? moment().format('YYYY-MM-DD')
+        : this.state.filterWarrantyEnd === ''
+        ? ''
+        : moment(this.state.filterWarrantyEnd).format('YYYY-MM-DD')
+    }`
     this.props
       .getInventoryHome(
         this.props.login.token,
         this.state.search,
         this.state.page,
+        filter,
       )
       .then((res) => {
         this.props
@@ -613,7 +652,7 @@ class Inventory extends Component {
                     <ModalBody>
                       <h6>Category</h6>
                       <Select
-                        onChange={this.handleDepartmentChange}
+                        onChange={this.handleCategoryFilter}
                         options={inventoryCategoryData.map((res) => ({
                           value: res.category,
                           label: res.category_name,
@@ -621,45 +660,80 @@ class Inventory extends Component {
                       />
                       <h6>Start Date</h6>
                       <Input
-                        value={this.state.date}
+                        value={this.state.filterStartDate}
                         type="date"
-                        name="Date"
+                        name="filterStartDate"
                         className="mb-2 shadow-none"
                         onChange={this.handleChange}
                       />
                       <h6>End Date</h6>
                       <Input
-                        value={this.state.date}
+                        value={this.state.filterEndDate}
                         type="date"
-                        name="Date"
+                        name="filterEndDate"
                         className="mb-2 shadow-none"
                         onChange={this.handleChange}
                       />
+                      <FormGroup>
+                        <h6>Warranty</h6>
+                        <Input
+                          value={this.state.filterWarranty}
+                          type="select"
+                          name="filterWarranty"
+                          id="exampleSelect"
+                          onChange={this.handleChange}
+                        >
+                          <option key={2} value={2}>
+                            Both
+                          </option>
+                          <option key={1} value={1}>
+                            Yes
+                          </option>
+                          <option key={0} value={0}>
+                            No
+                          </option>
+                        </Input>
+                      </FormGroup>
+                      {parseInt(this.state.filterWarranty) === 0 ? (
+                        <></>
+                      ) : (
+                        <>
+                          <h6>Warranty Start Date</h6>
+                          <Input
+                            value={this.state.filterWarrantyStart}
+                            type="date"
+                            name="filterWarrantyStart"
+                            className="mb-2 shadow-none"
+                            onChange={this.handleChange}
+                          />
+                          <h6>Warranty End Date</h6>
+                          <Input
+                            value={this.state.filterWarrantyEnd}
+                            type="date"
+                            name="filterWarrantyEnd"
+                            className="mb-2 shadow-none"
+                            onChange={this.handleChange}
+                          />
+                        </>
+                      )}
                     </ModalBody>
                     <ModalFooter>
-                      {/* {this.state.isLoadingAddCampaign ? (
-                <Button color="primary">
-                  <div
-                    className="spinner-border spinner-border-sm text-danger"
-                    role="status"
-                  >
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                </Button>
-              ) : ( */}
                       <Button
                         color="secondary"
-                        onClick={this.toggleFilterModal}
+                        onClick={() => {
+                          this.toggleFilterModal()
+                          this.fetch()
+                        }}
                       >
-                        Submit
+                        Filter
                       </Button>
-                      {/* )} */}
                       <Button color="primary" onClick={this.toggleFilterModal}>
                         Cancel
                       </Button>
                     </ModalFooter>
                   </Form>
                 </Modal>
+
                 {/* Add Modal */}
                 <Modal isOpen={this.state.showAddModal}>
                   <ModalHeader className="h1">Add Inventory</ModalHeader>

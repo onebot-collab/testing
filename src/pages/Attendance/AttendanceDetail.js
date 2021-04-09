@@ -36,7 +36,7 @@ import {
   ArrowLeft,
   ArrowRight,
   Print,
-  Sort
+  Sort,
 } from '@material-ui/icons'
 import {
   Form,
@@ -216,31 +216,31 @@ class AttendanceDetail extends Component {
       <div>
         <nav className="navbar navbar-light bg-light d-flex justify-content-end">
           <div className="d-flex flex-row">
-          <button
-                  className="btn btn-danger m-2 my-sm-0"
-                  type="submit"
-                  onClick={this.toggleFilterModal}
-                >
-                  <Tooltip
-                    id="tooltip-top-start"
-                    title="Filter"
-                    placement="top"
-                    classes={{
-                      tooltip: classesBody.tooltip,
-                    }}
+            <button
+              className="btn btn-danger m-2 my-sm-0"
+              type="submit"
+              onClick={this.toggleFilterModal}
+            >
+              <Tooltip
+                id="tooltip-top-start"
+                title="Filter"
+                placement="top"
+                classes={{
+                  tooltip: classesBody.tooltip,
+                }}
+              >
+                {this.state.isLoadingExportAllLog ? (
+                  <div
+                    className="spinner-border spinner-border-sm text-white"
+                    role="status"
                   >
-                    {this.state.isLoadingExportAllLog ? (
-                      <div
-                        className="spinner-border spinner-border-sm text-white"
-                        role="status"
-                      >
-                        <span className="sr-only">Loading...</span>
-                      </div>
-                    ) : (
-                      <Sort className="iconWhiteColor" />
-                    )}
-                  </Tooltip>
-                </button>
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                ) : (
+                  <Sort className="iconWhiteColor" />
+                )}
+              </Tooltip>
+            </button>
             <button
               className="btn btn-danger my-2 my-sm-0"
               type="submit"
@@ -317,17 +317,17 @@ class AttendanceDetail extends Component {
                                 className="chartPie"
                                 data={{
                                   labels: [
-                                    `${this.props.presence.statsUserAttendance.isLate}%`,
-                                    `${this.props.presence.statsUserAttendance.notLate}%`,
-                                    `${this.props.presence.statsUserAttendance.permit}%`,
+                                    `${this.props.presence.statsUserAttendance.dataNow.isLate}%`,
+                                    `${this.props.presence.statsUserAttendance.dataNow.notLate}%`,
+                                    `${this.props.presence.statsUserAttendance.dataNow.permit}%`,
                                   ],
                                   series: [
                                     this.props.presence.statsUserAttendance
-                                      .isLate,
+                                      .dataNow.isLate,
                                     this.props.presence.statsUserAttendance
-                                      .notLate,
+                                      .dataNow.notLate,
                                     this.props.presence.statsUserAttendance
-                                      .permit,
+                                      .dataNow.permit,
                                   ],
                                 }}
                                 type="Pie"
@@ -370,10 +370,14 @@ class AttendanceDetail extends Component {
                               className="d-flex flex-column p-2 m-1 tableFooter"
                             >
                               <p className="textPrimaryColor align-self-center">
-                                Target Weekly Hours
+                                Target Hours
                               </p>
                               <h3 className="textPrimaryColor align-self-center">
-                                46 Hours
+                                {
+                                  this.props.presence.statsUserAttendance
+                                    .dataNow.targetHours
+                                }{' '}
+                                Hours
                               </h3>
                             </Paper>
                             <Paper
@@ -381,30 +385,65 @@ class AttendanceDetail extends Component {
                               className="d-flex flex-column p-2 m-1 tableFooter"
                             >
                               <p className="textPrimaryColor align-self-center">
-                                Achieved Weekly Hours
+                                Overtime Hours
                               </p>
                               <h3 className="textPrimaryColor align-self-center">
-                                {
-                                  this.props.presence.statsUserAttendance
-                                    .totalWorkingInHours
-                                }{' '}
-                                Hours
+                                {this.props.presence.statsUserAttendance.dataNow.totalOvertimeWorkingInHoursMoment.slice(
+                                  0,
+                                  2,
+                                )}{' '}
+                                Hours{' '}
+                                {this.props.presence.statsUserAttendance.dataNow.totalOvertimeWorkingInHoursMoment.slice(
+                                  3,
+                                  5,
+                                )}{' '}
+                                Minutes
                               </h3>
-                              {/* <Box display="flex" alignItems="center">
-                                <Box width="80%" mr={1}>
-                                  <LinearProgress variant="determinate" />
-                                </Box>
-                                <Box minWidth={35}>
-                                  <Typography variant="body2" color="textSecondary">
-                                    100%
-                                  </Typography>
-                                </Box>
-                              </Box> */}
+                            </Paper>
+                            <Paper
+                              elevation={2}
+                              className="d-flex flex-column p-2 m-1 tableFooter"
+                            >
+                              <p className="textPrimaryColor align-self-center">
+                                Voluntary Hours
+                              </p>
+                              <h3 className="textPrimaryColor align-self-center">
+                                {this.props.presence.statsUserAttendance.dataNow.totalVoluntaryOverTimeInHoursMoment.slice(
+                                  0,
+                                  2,
+                                )}{' '}
+                                Hours{' '}
+                                {this.props.presence.statsUserAttendance.dataNow.totalVoluntaryOverTimeInHoursMoment.slice(
+                                  3,
+                                  5,
+                                )}{' '}
+                                Minutes
+                              </h3>
+                            </Paper>
+                            <Paper
+                              elevation={2}
+                              className="d-flex flex-column p-2 m-1 tableFooter"
+                            >
+                              <p className="textPrimaryColor align-self-center">
+                                Achieved Hours
+                              </p>
+                              <h3 className="textPrimaryColor align-self-center">
+                                {this.props.presence.statsUserAttendance.dataNow.totalWorkingInHoursMoment.slice(
+                                  0,
+                                  2,
+                                )}{' '}
+                                Hours{' '}
+                                {this.props.presence.statsUserAttendance.dataNow.totalWorkingInHoursMoment.slice(
+                                  3,
+                                  5,
+                                )}{' '}
+                                Minutes
+                              </h3>
                               <LinearProgress
                                 variant="determinate"
                                 value={
                                   (this.props.presence.statsUserAttendance
-                                    .totalWorkingInHours /
+                                    .dataNow.totalWorkingInHours /
                                     46) *
                                   100
                                 }
@@ -546,28 +585,6 @@ class AttendanceDetail extends Component {
                         </div>
                       </div>
                     </Grid>
-                    {/* <Grid item xs>
-                    <Button
-                      variant="outlined"
-                      color="secondary"
-                      className="ButtonApprove mb-3"
-                      onClick={() => {
-                        alert('Approved')
-                      }}
-                    >
-                      Approve
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      className="ButtonRejected mb-3"
-                      onClick={() => {
-                        alert('Rejected')
-                      }}
-                    >
-                      Reject
-                    </Button>
-                  </Grid> */}
                   </Grid>
                   <div className="pl-4 pr-4">
                     <Link
@@ -630,20 +647,9 @@ class AttendanceDetail extends Component {
               </FormGroup>
             </ModalBody>
             <ModalFooter>
-              {/* {this.state.isLoadingAddCampaign ? (
-                <Button color="primary">
-                  <div
-                    className="spinner-border spinner-border-sm text-danger"
-                    role="status"
-                  >
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                </Button>
-              ) : ( */}
               <Button color="secondary" onClick={this.toggleFilterModal}>
                 Submit
               </Button>
-              {/* )} */}
               <Button color="primary" onClick={this.toggleFilterModal}>
                 Cancel
               </Button>
