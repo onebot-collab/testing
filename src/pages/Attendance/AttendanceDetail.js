@@ -381,6 +381,46 @@ class AttendanceDetail extends Component {
                               className="d-flex flex-column p-2 m-1 tableFooter"
                             >
                               <p className="textPrimaryColor align-self-center">
+                                Overtime Hours
+                              </p>
+                              <h3 className="textPrimaryColor align-self-center">
+                                {this.props.presence.statsUserAttendance.totalOvertimeWorkingInHoursMoment.slice(
+                                  0,
+                                  2,
+                                )}{' '}
+                                Hours{' '}
+                                {this.props.presence.statsUserAttendance.totalOvertimeWorkingInHoursMoment.slice(
+                                  3,
+                                  5,
+                                )}{' '}
+                                Minutes
+                              </h3>
+                            </Paper>
+                            <Paper
+                              elevation={2}
+                              className="d-flex flex-column p-2 m-1 tableFooter"
+                            >
+                              <p className="textPrimaryColor align-self-center">
+                                Voluntary Hours
+                              </p>
+                              <h3 className="textPrimaryColor align-self-center">
+                                {this.props.presence.statsUserAttendance.totalVoluntaryOverTimeInHoursMoment.slice(
+                                  0,
+                                  2,
+                                )}{' '}
+                                Hours{' '}
+                                {this.props.presence.statsUserAttendance.totalVoluntaryOverTimeInHoursMoment.slice(
+                                  3,
+                                  5,
+                                )}{' '}
+                                Minutes
+                              </h3>
+                            </Paper>
+                            <Paper
+                              elevation={2}
+                              className="d-flex flex-column p-2 m-1 tableFooter"
+                            >
+                              <p className="textPrimaryColor align-self-center">
                                 Achieved Hours
                               </p>
                               <h3 className="textPrimaryColor align-self-center">
