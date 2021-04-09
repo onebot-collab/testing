@@ -371,7 +371,7 @@ class UserAddStepOne extends Component {
                         </Col>
                         <Col xs={12} sm={12} md={4}>
                           <FormGroup>
-                            <Label for="exampleEmail">Phone</Label>
+                            <Label for="exampleEmail">Phone 1</Label>
                             <Input
                               value={this.state.email}
                               name="email"
@@ -381,7 +381,85 @@ class UserAddStepOne extends Component {
                         </Col>
                         <Col xs={12} sm={12} md={4}>
                           <FormGroup>
-                            <Label for="exampleEmail">Employment Status</Label>
+                            <Label for="exampleEmail">Phone 2</Label>
+                            <Input
+                              value={this.state.email}
+                              name="email"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row form>
+                        {/* <Col xs={12} sm={12} md={6}>
+                          <FormGroup>
+                            <Label for="examplePassword">Password</Label>
+                            <Input
+                              value={this.state.password}
+                              type="password"
+                              name="password"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={6}>
+                          <FormGroup>
+                            <Label for="examplePassword">Passcode</Label>
+                            <Input
+                              value={this.state.passcode}
+                              type="password"
+                              name="passcode"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col> */}
+                        <Col xs={12} sm={12} md={2}>
+                          <FormGroup>
+                            <Label for="exampleEmail">Place of Birth</Label>
+                            <Input
+                              value={this.state.name}
+                              name="name"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={2}>
+                          <FormGroup>
+                            <Label for="exampleEmail">Date of Birth</Label>
+                            <Input
+                                  type="date"
+                                  name="joinedDate"
+                                  id="exampleDate"
+                                  placeholder="date placeholder"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={4}>
+                          <FormGroup>
+                            <Label for="exampleEmail">Marital Status</Label>
+                            <Input
+                              value={this.state.role}
+                              type="select"
+                              name="role"
+                              id="exampleSelect"
+                              onChange={this.handleChange}
+                            >
+                              <option key={1} value={1}>
+                                Single
+                              </option>
+                              <option key={2} value={2}>
+                                Married
+                              </option>
+                              <option key={3} value={3}>
+                                Widow/Widower
+                              </option>
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={4}>
+                          <FormGroup>
+                            <Label for="exampleSelect">Employment Status</Label>
                             <Input
                               value={this.state.role}
                               type="select"
@@ -404,7 +482,7 @@ class UserAddStepOne extends Component {
                               <option key={5} value={5}>
                                 Part Time
                               </option>
-                              </Input>
+                            </Input>
                           </FormGroup>
                         </Col>
                       </Row>
