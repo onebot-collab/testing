@@ -36,7 +36,7 @@ import {
   ArrowLeft,
   ArrowRight,
   Print,
-  Sort
+  Sort,
 } from '@material-ui/icons'
 import {
   Form,
@@ -216,31 +216,31 @@ class AttendanceDetail extends Component {
       <div>
         <nav className="navbar navbar-light bg-light d-flex justify-content-end">
           <div className="d-flex flex-row">
-          <button
-                  className="btn btn-danger m-2 my-sm-0"
-                  type="submit"
-                  onClick={this.toggleFilterModal}
-                >
-                  <Tooltip
-                    id="tooltip-top-start"
-                    title="Filter"
-                    placement="top"
-                    classes={{
-                      tooltip: classesBody.tooltip,
-                    }}
+            <button
+              className="btn btn-danger m-2 my-sm-0"
+              type="submit"
+              onClick={this.toggleFilterModal}
+            >
+              <Tooltip
+                id="tooltip-top-start"
+                title="Filter"
+                placement="top"
+                classes={{
+                  tooltip: classesBody.tooltip,
+                }}
+              >
+                {this.state.isLoadingExportAllLog ? (
+                  <div
+                    className="spinner-border spinner-border-sm text-white"
+                    role="status"
                   >
-                    {this.state.isLoadingExportAllLog ? (
-                      <div
-                        className="spinner-border spinner-border-sm text-white"
-                        role="status"
-                      >
-                        <span className="sr-only">Loading...</span>
-                      </div>
-                    ) : (
-                      <Sort className="iconWhiteColor" />
-                    )}
-                  </Tooltip>
-                </button>
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                ) : (
+                  <Sort className="iconWhiteColor" />
+                )}
+              </Tooltip>
+            </button>
             <button
               className="btn btn-danger my-2 my-sm-0"
               type="submit"
@@ -370,7 +370,7 @@ class AttendanceDetail extends Component {
                               className="d-flex flex-column p-2 m-1 tableFooter"
                             >
                               <p className="textPrimaryColor align-self-center">
-                                Target Weekly Hours
+                                Target Hours
                               </p>
                               <h3 className="textPrimaryColor align-self-center">
                                 46 Hours
@@ -381,25 +381,20 @@ class AttendanceDetail extends Component {
                               className="d-flex flex-column p-2 m-1 tableFooter"
                             >
                               <p className="textPrimaryColor align-self-center">
-                                Achieved Weekly Hours
+                                Achieved Hours
                               </p>
                               <h3 className="textPrimaryColor align-self-center">
-                                {
-                                  this.props.presence.statsUserAttendance
-                                    .totalWorkingInHours
-                                }{' '}
-                                Hours
+                                {this.props.presence.statsUserAttendance.totalWorkingInHoursMoment.slice(
+                                  0,
+                                  2,
+                                )}{' '}
+                                Hours{' '}
+                                {this.props.presence.statsUserAttendance.totalWorkingInHoursMoment.slice(
+                                  3,
+                                  5,
+                                )}{' '}
+                                Minutes
                               </h3>
-                              {/* <Box display="flex" alignItems="center">
-                                <Box width="80%" mr={1}>
-                                  <LinearProgress variant="determinate" />
-                                </Box>
-                                <Box minWidth={35}>
-                                  <Typography variant="body2" color="textSecondary">
-                                    100%
-                                  </Typography>
-                                </Box>
-                              </Box> */}
                               <LinearProgress
                                 variant="determinate"
                                 value={
