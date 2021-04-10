@@ -474,6 +474,7 @@ class UserAddStepOne extends Component {
                             <Label for="exampleEmail">Address</Label>
                             <Input
                               value={this.state.address}
+                              type="textarea"
                               name="address"
                               onChange={(e) => this.handleChange(e)}
                             />
