@@ -13,6 +13,7 @@
 /* eslint-disable react/no-access-state-in-setstate */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 // @material-ui/core components
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -27,7 +28,6 @@ import Cake from '@material-ui/icons/Cake'
 import Timer from '@material-ui/icons/Timer'
 import Home from '@material-ui/icons/Home'
 import AccountTree from '@material-ui/icons/AccountTree'
-
 // core components
 import {
   Col,
@@ -42,7 +42,10 @@ import {
   CustomInput,
 } from 'reactstrap'
 import swal from 'sweetalert2'
+import { Calendar, momentLocalizer } from 'react-big-calendar'
+import 'react-big-calendar/lib/css/react-big-calendar.css'
 import moment from 'moment'
+import events from './events'
 import { getProfile, deleteUser, updateUser } from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
 import { newToken } from '../../redux/actions/login'
@@ -689,6 +692,7 @@ class UserDetail extends Component {
   }
 
   render() {
+    const localizer = momentLocalizer(moment)
     const departmentData = this.props.department.dataDepartment
     const departmentList = departmentData.map((val) => (
       <option key={val.id} value={val.id}>
@@ -1029,1059 +1033,1092 @@ class UserDetail extends Component {
                           </p>
                         </CardHeader>
                         <CardBody>
-                          <Form>
-                            <Row form>
-                              <Col xs={12} sm={12} md={12}>
-                                {' '}
-                                <FormGroup>
-                                  <Label for="exampleEmail">Type</Label>
-                                  <Input
-                                    value={this.state.typeRoster}
-                                    type="select"
-                                    name="typeRoster"
-                                    id="exampleSelect"
-                                    onChange={this.handleChange}
-                                  >
-                                    <option key={1} value={1}>
-                                      Persist
-                                    </option>
-                                    <option key={2} value={2}>
-                                      Shift
-                                    </option>
-                                  </Input>
-                                </FormGroup>
-                              </Col>
-                            </Row>
-                            <Row
-                              form
-                              className="d-flex justify-content-around my-2"
-                            >
-                              {/* SENIN */}
-                              <Col
-                                xs={12}
-                                sm={12}
-                                md={5}
-                                className="p-4 border border-danger"
-                              >
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex align-items-center my-1"
-                                >
-                                  <FormGroup check inline>
-                                    <Label check>
-                                      <Input
-                                        checked={this.state.mondayCheck}
-                                        type="checkbox"
-                                        onChange={() => {
-                                          this.setState({
-                                            mondayCheck: !this.state
-                                              .mondayCheck,
-                                          })
-                                        }}
-                                      />{' '}
-                                      Monday
-                                    </Label>
-                                  </FormGroup>
-                                  <FormGroup check inline>
-                                    <Label check>
-                                      <Input
-                                        checked={this.state.overtimeMonday}
-                                        type="checkbox"
-                                        onChange={() => {
-                                          this.setState({
-                                            overtimeMonday: !this.state
-                                              .overtimeMonday,
-                                          })
-                                        }}
-                                      />{' '}
-                                      Overtime
-                                    </Label>
-                                  </FormGroup>
-                                </Row>
-
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">Check In</Label>
-                                    <Input
-                                      value={this.state.mondayCheckIn1}
-                                      type="time"
-                                      name="mondayCheckIn1"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">Check Out</Label>
-                                    <Input
-                                      value={this.state.mondayCheckOut1}
-                                      type="time"
-                                      name="mondayCheckOut1"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-
-                                {parseInt(this.state.typeRoster) === 2 ? (
-                                  <Row
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    className="d-flex justify-content-around my-1"
-                                  >
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check In#2
-                                      </Label>
-                                      <Input
-                                        value={this.state.mondayCheckIn2}
-                                        type="time"
-                                        name="mondayCheckIn2"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check Out#2
-                                      </Label>
-                                      <Input
-                                        value={this.state.mondayCheckOut2}
-                                        type="time"
-                                        name="mondayCheckOut2"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-                                  </Row>
-                                ) : (
-                                  <></>
-                                )}
-                                {this.state.overtimeMonday ? (
-                                  <Row
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    className="d-flex justify-content-around my-1"
-                                  >
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check In(Overtime)
-                                      </Label>
-                                      <Input
-                                        value={this.state.mondayCheckInEarly}
-                                        type="time"
-                                        name="mondayCheckInEarly"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check Out(Overtime)
-                                      </Label>
-                                      <Input
-                                        value={this.state.mondayCheckOutLate}
-                                        type="time"
-                                        name="mondayCheckOutLate"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-                                  </Row>
-                                ) : (
-                                  <></>
-                                )}
-                              </Col>
-                              {/* SELASA */}
-                              <Col
-                                xs={12}
-                                sm={12}
-                                md={5}
-                                className="p-4 border border-danger"
-                              >
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex align-items-center my-1"
-                                >
-                                  <FormGroup check inline>
-                                    <Label check>
-                                      <Input
-                                        checked={this.state.tuesdayCheck}
-                                        type="checkbox"
-                                        onChange={() => {
-                                          this.setState({
-                                            tuesdayCheck: !this.state
-                                              .tuesdayCheck,
-                                          })
-                                        }}
-                                      />{' '}
-                                      Tuesday
-                                    </Label>
-                                  </FormGroup>
-                                  <FormGroup check inline>
-                                    <Label check>
-                                      <Input
-                                        checked={this.state.overtimeTuesday}
-                                        type="checkbox"
-                                        onChange={() => {
-                                          this.setState({
-                                            overtimeTuesday: !this.state
-                                              .overtimeTuesday,
-                                          })
-                                        }}
-                                      />{' '}
-                                      Overtime
-                                    </Label>
-                                  </FormGroup>
-                                </Row>
-
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">Check In</Label>
-                                    <Input
-                                      value={this.state.tuesdayCheckIn1}
-                                      type="time"
-                                      name="tuesdayCheckIn1"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">Check Out</Label>
-                                    <Input
-                                      value={this.state.tuesdayCheckOut1}
-                                      type="time"
-                                      name="tuesdayCheckOut1"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-
-                                {parseInt(this.state.typeRoster) === 2 ? (
-                                  <Row
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    className="d-flex justify-content-around my-1"
-                                  >
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check In#2
-                                      </Label>
-                                      <Input
-                                        value={this.state.tuesdayCheckIn2}
-                                        type="time"
-                                        name="tuesdayCheckIn2"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check Out#2
-                                      </Label>
-                                      <Input
-                                        value={this.state.tuesdayCheckOut2}
-                                        type="time"
-                                        name="tuesdayCheckOut2"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-                                  </Row>
-                                ) : (
-                                  <></>
-                                )}
-                                {this.state.overtimeTuesday ? (
-                                  <Row
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    className="d-flex justify-content-around my-1"
-                                  >
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check In(Overtime)
-                                      </Label>
-                                      <Input
-                                        value={this.state.tuesdayCheckInEarly}
-                                        type="time"
-                                        name="tuesdayCheckInEarly"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check Out(Overtime)
-                                      </Label>
-                                      <Input
-                                        value={this.state.tuesdayCheckOutLate}
-                                        type="time"
-                                        name="tuesdayCheckOutLate"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-                                  </Row>
-                                ) : (
-                                  <></>
-                                )}
-                              </Col>
-                            </Row>
-                            {/* RABU */}
-                            <Row
-                              form
-                              className="d-flex justify-content-around my-2"
-                            >
-                              <Col
-                                xs={12}
-                                sm={12}
-                                md={5}
-                                className="p-4 border border-danger"
-                              >
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex align-items-center my-1"
-                                >
-                                  <FormGroup check inline>
-                                    <Label check>
-                                      <Input
-                                        checked={this.state.wednesdayCheck}
-                                        type="checkbox"
-                                        onChange={() => {
-                                          this.setState({
-                                            wednesdayCheck: !this.state
-                                              .wednesdayCheck,
-                                          })
-                                        }}
-                                      />{' '}
-                                      Wednesday
-                                    </Label>
-                                  </FormGroup>
-                                  <FormGroup check inline>
-                                    <Label check>
-                                      <Input
-                                        checked={this.state.overtimeWednesday}
-                                        type="checkbox"
-                                        onChange={() => {
-                                          this.setState({
-                                            overtimeWednesday: !this.state
-                                              .overtimeWednesday,
-                                          })
-                                        }}
-                                      />{' '}
-                                      Overtime
-                                    </Label>
-                                  </FormGroup>
-                                </Row>
-
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">Check In</Label>
-                                    <Input
-                                      value={this.state.wednesdayCheckIn1}
-                                      type="time"
-                                      name="wednesdayCheckIn1"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">Check Out</Label>
-                                    <Input
-                                      value={this.state.wednesdayCheckOut2}
-                                      type="time"
-                                      name="wednesdayCheckOut2"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-
-                                {parseInt(this.state.typeRoster) === 2 ? (
-                                  <Row
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    className="d-flex justify-content-around my-1"
-                                  >
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check In#2
-                                      </Label>
-                                      <Input
-                                        value={this.state.wednesdayCheckIn2}
-                                        type="time"
-                                        name="wednesdayCheckIn2"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check Out#2
-                                      </Label>
-                                      <Input
-                                        value={this.state.wednesdayCheckOut2}
-                                        type="time"
-                                        name="wednesdayCheckOut2"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-                                  </Row>
-                                ) : (
-                                  <></>
-                                )}
-                                {this.state.overtimeWednesday ? (
-                                  <Row
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    className="d-flex justify-content-around my-1"
-                                  >
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check In(Overtime)
-                                      </Label>
-                                      <Input
-                                        value={this.state.wednesdayCheckInEarly}
-                                        type="time"
-                                        name="wednesdayCheckInEarly"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check Out(Overtime)
-                                      </Label>
-                                      <Input
-                                        value={this.state.wednesdayCheckOutLate}
-                                        type="time"
-                                        name="wednesdayCheckOutLate"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-                                  </Row>
-                                ) : (
-                                  <></>
-                                )}
-                              </Col>
-                              {/* KAMIS */}
-                              <Col
-                                xs={12}
-                                sm={12}
-                                md={5}
-                                className="p-4 border border-danger"
-                              >
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex align-items-center my-1"
-                                >
-                                  <FormGroup check inline>
-                                    <Label check>
-                                      <Input
-                                        checked={this.state.thursdayCheck}
-                                        type="checkbox"
-                                        onChange={() => {
-                                          this.setState({
-                                            thursdayCheck: !this.state
-                                              .thursdayCheck,
-                                          })
-                                        }}
-                                      />{' '}
-                                      Thursday
-                                    </Label>
-                                  </FormGroup>
-                                  <FormGroup check inline>
-                                    <Label check>
-                                      <Input
-                                        checked={this.state.overtimeThursday}
-                                        type="checkbox"
-                                        onChange={() => {
-                                          this.setState({
-                                            overtimeThursday: !this.state
-                                              .overtimeThursday,
-                                          })
-                                        }}
-                                      />{' '}
-                                      Overtime
-                                    </Label>
-                                  </FormGroup>
-                                </Row>
-
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">Check In</Label>
-                                    <Input
-                                      value={this.state.thursdayCheckIn1}
-                                      type="time"
-                                      name="thursdayCheckIn1"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">Check Out</Label>
-                                    <Input
-                                      value={this.state.thursdayCheckOut1}
-                                      type="time"
-                                      name="thursdayCheckOut1"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-
-                                {parseInt(this.state.typeRoster) === 2 ? (
-                                  <Row
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    className="d-flex justify-content-around my-1"
-                                  >
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check In#2
-                                      </Label>
-                                      <Input
-                                        value={this.state.thursdayCheckIn2}
-                                        type="time"
-                                        name="thursdayCheckIn2"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check Out#2
-                                      </Label>
-                                      <Input
-                                        value={this.state.thursdayCheckOut2}
-                                        type="time"
-                                        name="thursdayCheckOut2"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-                                  </Row>
-                                ) : (
-                                  <></>
-                                )}
-                                {this.state.overtimeThursday ? (
-                                  <Row
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    className="d-flex justify-content-around my-1"
-                                  >
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check In(Overtime)
-                                      </Label>
-                                      <Input
-                                        value={this.state.thursdayCheckInEarly}
-                                        type="time"
-                                        name="thursdayCheckInEarly"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check Out(Overtime)
-                                      </Label>
-                                      <Input
-                                        value={this.state.thursdayCheckOutLate}
-                                        type="time"
-                                        name="thursdayCheckOutLate"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-                                  </Row>
-                                ) : (
-                                  <></>
-                                )}
-                              </Col>
-                            </Row>
-                            {/* JUMAT */}
-                            <Row
-                              form
-                              className="d-flex justify-content-around my-2"
-                            >
-                              <Col
-                                xs={12}
-                                sm={12}
-                                md={5}
-                                className="p-4 border border-danger"
-                              >
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex align-items-center my-1"
-                                >
-                                  <FormGroup check inline>
-                                    <Label check>
-                                      <Input
-                                        checked={this.state.fridayCheck}
-                                        type="checkbox"
-                                        onChange={() => {
-                                          this.setState({
-                                            fridayCheck: !this.state
-                                              .fridayCheck,
-                                          })
-                                        }}
-                                      />{' '}
-                                      Friday
-                                    </Label>
-                                  </FormGroup>
-                                  <FormGroup check inline>
-                                    <Label check>
-                                      <Input
-                                        checked={this.state.overtimeFriday}
-                                        type="checkbox"
-                                        onChange={() => {
-                                          this.setState({
-                                            overtimeFriday: !this.state
-                                              .overtimeFriday,
-                                          })
-                                        }}
-                                      />{' '}
-                                      Overtime
-                                    </Label>
-                                  </FormGroup>
-                                </Row>
-
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">Check In</Label>
-                                    <Input
-                                      value={this.state.fridayCheckIn1}
-                                      type="time"
-                                      name="fridayCheckIn1"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">Check Out</Label>
-                                    <Input
-                                      value={this.state.fridayCheckOut1}
-                                      type="time"
-                                      name="fridayCheckOut1"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-
-                                {parseInt(this.state.typeRoster) === 2 ? (
-                                  <Row
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    className="d-flex justify-content-around my-1"
-                                  >
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check In#2
-                                      </Label>
-                                      <Input
-                                        value={this.state.fridayCheckIn2}
-                                        type="time"
-                                        name="fridayCheckIn2"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check Out#2
-                                      </Label>
-                                      <Input
-                                        value={this.state.fridayCheckOut2}
-                                        type="time"
-                                        name="fridayCheckOut2"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-                                  </Row>
-                                ) : (
-                                  <></>
-                                )}
-                                {this.state.overtimeFriday ? (
-                                  <Row
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    className="d-flex justify-content-around my-1"
-                                  >
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check In(Overtime)
-                                      </Label>
-                                      <Input
-                                        value={this.state.fridayCheckInEarly}
-                                        type="time"
-                                        name="fridayCheckInEarly"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check Out(Overtime)
-                                      </Label>
-                                      <Input
-                                        value={this.state.fridayCheckOutLate}
-                                        type="time"
-                                        name="fridayCheckOutLate"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-                                  </Row>
-                                ) : (
-                                  <></>
-                                )}
-                              </Col>
-                              {/* SABTU */}
-                              <Col
-                                xs={12}
-                                sm={12}
-                                md={5}
-                                className="p-4 border border-danger"
-                              >
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex align-items-center my-1"
-                                >
-                                  <FormGroup check inline>
-                                    <Label check>
-                                      <Input
-                                        checked={this.state.saturdayCheck}
-                                        type="checkbox"
-                                        onChange={() => {
-                                          this.setState({
-                                            saturdayCheck: !this.state
-                                              .saturdayCheck,
-                                          })
-                                        }}
-                                      />{' '}
-                                      Saturday
-                                    </Label>
-                                  </FormGroup>
-                                  <FormGroup check inline>
-                                    <Label check>
-                                      <Input
-                                        checked={this.state.overtimeSaturday}
-                                        type="checkbox"
-                                        onChange={() => {
-                                          this.setState({
-                                            overtimeSaturday: !this.state
-                                              .overtimeSaturday,
-                                          })
-                                        }}
-                                      />{' '}
-                                      Overtime
-                                    </Label>
-                                  </FormGroup>
-                                </Row>
-
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">Check In</Label>
-                                    <Input
-                                      value={this.state.saturdayCheckIn1}
-                                      type="time"
-                                      name="saturdayCheckIn1"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">Check Out</Label>
-                                    <Input
-                                      value={this.state.saturdayCheckOut1}
-                                      type="time"
-                                      name="saturdayCheckOut1"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-
-                                {parseInt(this.state.typeRoster) === 2 ? (
-                                  <Row
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    className="d-flex justify-content-around my-1"
-                                  >
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check In#2
-                                      </Label>
-                                      <Input
-                                        value={this.state.saturdayCheckIn2}
-                                        type="time"
-                                        name="SaturdayCheckIn2"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check Out#2
-                                      </Label>
-                                      <Input
-                                        value={this.state.saturdayCheckOut2}
-                                        type="time"
-                                        name="saturdayCheckOut2"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-                                  </Row>
-                                ) : (
-                                  <></>
-                                )}
-                                {this.state.overtimeSaturday ? (
-                                  <Row
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    className="d-flex justify-content-around my-1"
-                                  >
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check In(Overtime)
-                                      </Label>
-                                      <Input
-                                        value={this.state.saturdayCheckInEarly}
-                                        type="time"
-                                        name="saturdayCheckInEarly"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check Out(Overtime)
-                                      </Label>
-                                      <Input
-                                        value={this.state.saturdayCheckOutLate}
-                                        type="time"
-                                        name="saturdayCheckOutLate"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-                                  </Row>
-                                ) : (
-                                  <></>
-                                )}
-                              </Col>
-                            </Row>
-                            {/* MINGGU */}
-                            <Row
-                              form
-                              className="d-flex justify-content-around my-2"
-                            >
-                              <Col
-                                xs={12}
-                                sm={12}
-                                md={5}
-                                className="p-4 border border-danger"
-                              >
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex align-items-center my-1"
-                                >
-                                  <FormGroup check inline>
-                                    <Label check>
-                                      <Input
-                                        checked={this.state.sundayCheck}
-                                        type="checkbox"
-                                        onChange={() => {
-                                          this.setState({
-                                            sundayCheck: !this.state
-                                              .sundayCheck,
-                                          })
-                                        }}
-                                      />{' '}
-                                      Sunday
-                                    </Label>
-                                  </FormGroup>
-                                  <FormGroup check inline>
-                                    <Label check>
-                                      <Input
-                                        checked={this.state.overtimeSunday}
-                                        type="checkbox"
-                                        onChange={() => {
-                                          this.setState({
-                                            overtimeSunday: !this.state
-                                              .overtimeSunday,
-                                          })
-                                        }}
-                                      />{' '}
-                                      Overtime
-                                    </Label>
-                                  </FormGroup>
-                                </Row>
-
-                                <Row
-                                  xs={12}
-                                  sm={12}
-                                  md={12}
-                                  className="d-flex justify-content-around my-1"
-                                >
-                                  <Row>
-                                    <Label for="exampleEmail">Check In</Label>
-                                    <Input
-                                      value={this.state.sundayCheckIn1}
-                                      type="time"
-                                      name="sundayCheckIn1"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-
-                                  <Row>
-                                    <Label for="exampleEmail">Check Out</Label>
-                                    <Input
-                                      value={this.state.sundayCheckOut1}
-                                      type="time"
-                                      name="sundayCheckOut1"
-                                      onChange={(e) => this.handleChange(e)}
-                                    />
-                                  </Row>
-                                </Row>
-
-                                {parseInt(this.state.typeRoster) === 2 ? (
-                                  <Row
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    className="d-flex justify-content-around my-1"
-                                  >
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check In#2
-                                      </Label>
-                                      <Input
-                                        value={this.state.sundayCheckIn2}
-                                        type="time"
-                                        name="sundayCheckIn2"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check Out#2
-                                      </Label>
-                                      <Input
-                                        value={this.state.sundayCheckOut2}
-                                        type="time"
-                                        name="sundayCheckOut2"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-                                  </Row>
-                                ) : (
-                                  <></>
-                                )}
-                                {this.state.overtimeSunday ? (
-                                  <Row
-                                    xs={12}
-                                    sm={12}
-                                    md={12}
-                                    className="d-flex justify-content-around my-1"
-                                  >
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check In(Overtime)
-                                      </Label>
-                                      <Input
-                                        value={this.state.sundayCheckInEarly}
-                                        type="time"
-                                        name="sundayCheckInEarly"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-
-                                    <Row>
-                                      <Label for="exampleEmail">
-                                        Check Out(Overtime)
-                                      </Label>
-                                      <Input
-                                        value={this.state.sundayCheckOutLate}
-                                        type="time"
-                                        name="sundayCheckOutLate"
-                                        onChange={(e) => this.handleChange(e)}
-                                      />
-                                    </Row>
-                                  </Row>
-                                ) : (
-                                  <></>
-                                )}
-                              </Col>
-                            </Row>
-                          </Form>
+                          <div style={{ height: '700px' }}>
+                            <Calendar
+                              localizer={localizer}
+                              events={events}
+                              startAccessor="start"
+                              endAccessor="end"
+                            />
+                          </div>
                         </CardBody>
                         <CardFooter>
-                          <Button
-                            onClick={this.toggleRosterModal}
-                            color="danger"
+                          <Link
+                            to="/admin/user/addroster"
+                            className="btn btn-danger m-2 my-sm-0"
                           >
-                            {this.state.isLoadingRoster ? (
-                              <div
-                                className="spinner-border spinner-border-sm text-white"
-                                role="status"
-                              >
-                                <span className="sr-only">Loading...</span>
-                              </div>
-                            ) : (
-                              'Update Roster'
-                            )}
-                          </Button>
+                            Add Roster
+                          </Link>
+                          
                         </CardFooter>
                       </Card>
                     </GridItem>
                   </GridContainer>
                 ) : (
+                  // <GridContainer>
+                  //   <GridItem xs={12} sm={12} md={12}>
+                  //     <Card>
+                  //       <CardHeader color="danger">
+                  //         <h4 className="cardTitleWhite">
+                  //           Roster {this.props.user.dataProfile[0].name}
+                  //         </h4>
+                  //         <p className="cardCategoryWhite">
+                  //           Customize user profile
+                  //         </p>
+                  //       </CardHeader>
+                  //       <CardBody>
+                  //         <Form>
+                  //           <Row form>
+                  //             <Col xs={12} sm={12} md={12}>
+                  //               {' '}
+                  //               <FormGroup>
+                  //                 <Label for="exampleEmail">Type</Label>
+                  //                 <Input
+                  //                   value={this.state.typeRoster}
+                  //                   type="select"
+                  //                   name="typeRoster"
+                  //                   id="exampleSelect"
+                  //                   onChange={this.handleChange}
+                  //                 >
+                  //                   <option key={1} value={1}>
+                  //                     Persist
+                  //                   </option>
+                  //                   <option key={2} value={2}>
+                  //                     Shift
+                  //                   </option>
+                  //                 </Input>
+                  //               </FormGroup>
+                  //             </Col>
+                  //           </Row>
+                  //           <Row
+                  //             form
+                  //             className="d-flex justify-content-around my-2"
+                  //           >
+                  //             {/* SENIN */}
+                  //             <Col
+                  //               xs={12}
+                  //               sm={12}
+                  //               md={5}
+                  //               className="p-4 border border-danger"
+                  //             >
+                  //               <Row
+                  //                 xs={12}
+                  //                 sm={12}
+                  //                 md={12}
+                  //                 className="d-flex align-items-center my-1"
+                  //               >
+                  //                 <FormGroup check inline>
+                  //                   <Label check>
+                  //                     <Input
+                  //                       checked={this.state.mondayCheck}
+                  //                       type="checkbox"
+                  //                       onChange={() => {
+                  //                         this.setState({
+                  //                           mondayCheck: !this.state
+                  //                             .mondayCheck,
+                  //                         })
+                  //                       }}
+                  //                     />{' '}
+                  //                     Monday
+                  //                   </Label>
+                  //                 </FormGroup>
+                  //                 <FormGroup check inline>
+                  //                   <Label check>
+                  //                     <Input
+                  //                       checked={this.state.overtimeMonday}
+                  //                       type="checkbox"
+                  //                       onChange={() => {
+                  //                         this.setState({
+                  //                           overtimeMonday: !this.state
+                  //                             .overtimeMonday,
+                  //                         })
+                  //                       }}
+                  //                     />{' '}
+                  //                     Overtime
+                  //                   </Label>
+                  //                 </FormGroup>
+                  //               </Row>
+
+                  //               <Row
+                  //                 xs={12}
+                  //                 sm={12}
+                  //                 md={12}
+                  //                 className="d-flex justify-content-around my-1"
+                  //               >
+                  //                 <Row>
+                  //                   <Label for="exampleEmail">Check In</Label>
+                  //                   <Input
+                  //                     value={this.state.mondayCheckIn1}
+                  //                     type="time"
+                  //                     name="mondayCheckIn1"
+                  //                     onChange={(e) => this.handleChange(e)}
+                  //                   />
+                  //                 </Row>
+
+                  //                 <Row>
+                  //                   <Label for="exampleEmail">Check Out</Label>
+                  //                   <Input
+                  //                     value={this.state.mondayCheckOut1}
+                  //                     type="time"
+                  //                     name="mondayCheckOut1"
+                  //                     onChange={(e) => this.handleChange(e)}
+                  //                   />
+                  //                 </Row>
+                  //               </Row>
+
+                  //               {parseInt(this.state.typeRoster) === 2 ? (
+                  //                 <Row
+                  //                   xs={12}
+                  //                   sm={12}
+                  //                   md={12}
+                  //                   className="d-flex justify-content-around my-1"
+                  //                 >
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check In#2
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.mondayCheckIn2}
+                  //                       type="time"
+                  //                       name="mondayCheckIn2"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check Out#2
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.mondayCheckOut2}
+                  //                       type="time"
+                  //                       name="mondayCheckOut2"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+                  //                 </Row>
+                  //               ) : (
+                  //                 <></>
+                  //               )}
+                  //               {this.state.overtimeMonday ? (
+                  //                 <Row
+                  //                   xs={12}
+                  //                   sm={12}
+                  //                   md={12}
+                  //                   className="d-flex justify-content-around my-1"
+                  //                 >
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check In(Overtime)
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.mondayCheckInEarly}
+                  //                       type="time"
+                  //                       name="mondayCheckInEarly"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check Out(Overtime)
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.mondayCheckOutLate}
+                  //                       type="time"
+                  //                       name="mondayCheckOutLate"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+                  //                 </Row>
+                  //               ) : (
+                  //                 <></>
+                  //               )}
+                  //             </Col>
+                  //             {/* SELASA */}
+                  //             <Col
+                  //               xs={12}
+                  //               sm={12}
+                  //               md={5}
+                  //               className="p-4 border border-danger"
+                  //             >
+                  //               <Row
+                  //                 xs={12}
+                  //                 sm={12}
+                  //                 md={12}
+                  //                 className="d-flex align-items-center my-1"
+                  //               >
+                  //                 <FormGroup check inline>
+                  //                   <Label check>
+                  //                     <Input
+                  //                       checked={this.state.tuesdayCheck}
+                  //                       type="checkbox"
+                  //                       onChange={() => {
+                  //                         this.setState({
+                  //                           tuesdayCheck: !this.state
+                  //                             .tuesdayCheck,
+                  //                         })
+                  //                       }}
+                  //                     />{' '}
+                  //                     Tuesday
+                  //                   </Label>
+                  //                 </FormGroup>
+                  //                 <FormGroup check inline>
+                  //                   <Label check>
+                  //                     <Input
+                  //                       checked={this.state.overtimeTuesday}
+                  //                       type="checkbox"
+                  //                       onChange={() => {
+                  //                         this.setState({
+                  //                           overtimeTuesday: !this.state
+                  //                             .overtimeTuesday,
+                  //                         })
+                  //                       }}
+                  //                     />{' '}
+                  //                     Overtime
+                  //                   </Label>
+                  //                 </FormGroup>
+                  //               </Row>
+
+                  //               <Row
+                  //                 xs={12}
+                  //                 sm={12}
+                  //                 md={12}
+                  //                 className="d-flex justify-content-around my-1"
+                  //               >
+                  //                 <Row>
+                  //                   <Label for="exampleEmail">Check In</Label>
+                  //                   <Input
+                  //                     value={this.state.tuesdayCheckIn1}
+                  //                     type="time"
+                  //                     name="tuesdayCheckIn1"
+                  //                     onChange={(e) => this.handleChange(e)}
+                  //                   />
+                  //                 </Row>
+
+                  //                 <Row>
+                  //                   <Label for="exampleEmail">Check Out</Label>
+                  //                   <Input
+                  //                     value={this.state.tuesdayCheckOut1}
+                  //                     type="time"
+                  //                     name="tuesdayCheckOut1"
+                  //                     onChange={(e) => this.handleChange(e)}
+                  //                   />
+                  //                 </Row>
+                  //               </Row>
+
+                  //               {parseInt(this.state.typeRoster) === 2 ? (
+                  //                 <Row
+                  //                   xs={12}
+                  //                   sm={12}
+                  //                   md={12}
+                  //                   className="d-flex justify-content-around my-1"
+                  //                 >
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check In#2
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.tuesdayCheckIn2}
+                  //                       type="time"
+                  //                       name="tuesdayCheckIn2"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check Out#2
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.tuesdayCheckOut2}
+                  //                       type="time"
+                  //                       name="tuesdayCheckOut2"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+                  //                 </Row>
+                  //               ) : (
+                  //                 <></>
+                  //               )}
+                  //               {this.state.overtimeTuesday ? (
+                  //                 <Row
+                  //                   xs={12}
+                  //                   sm={12}
+                  //                   md={12}
+                  //                   className="d-flex justify-content-around my-1"
+                  //                 >
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check In(Overtime)
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.tuesdayCheckInEarly}
+                  //                       type="time"
+                  //                       name="tuesdayCheckInEarly"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check Out(Overtime)
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.tuesdayCheckOutLate}
+                  //                       type="time"
+                  //                       name="tuesdayCheckOutLate"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+                  //                 </Row>
+                  //               ) : (
+                  //                 <></>
+                  //               )}
+                  //             </Col>
+                  //           </Row>
+                  //           {/* RABU */}
+                  //           <Row
+                  //             form
+                  //             className="d-flex justify-content-around my-2"
+                  //           >
+                  //             <Col
+                  //               xs={12}
+                  //               sm={12}
+                  //               md={5}
+                  //               className="p-4 border border-danger"
+                  //             >
+                  //               <Row
+                  //                 xs={12}
+                  //                 sm={12}
+                  //                 md={12}
+                  //                 className="d-flex align-items-center my-1"
+                  //               >
+                  //                 <FormGroup check inline>
+                  //                   <Label check>
+                  //                     <Input
+                  //                       checked={this.state.wednesdayCheck}
+                  //                       type="checkbox"
+                  //                       onChange={() => {
+                  //                         this.setState({
+                  //                           wednesdayCheck: !this.state
+                  //                             .wednesdayCheck,
+                  //                         })
+                  //                       }}
+                  //                     />{' '}
+                  //                     Wednesday
+                  //                   </Label>
+                  //                 </FormGroup>
+                  //                 <FormGroup check inline>
+                  //                   <Label check>
+                  //                     <Input
+                  //                       checked={this.state.overtimeWednesday}
+                  //                       type="checkbox"
+                  //                       onChange={() => {
+                  //                         this.setState({
+                  //                           overtimeWednesday: !this.state
+                  //                             .overtimeWednesday,
+                  //                         })
+                  //                       }}
+                  //                     />{' '}
+                  //                     Overtime
+                  //                   </Label>
+                  //                 </FormGroup>
+                  //               </Row>
+
+                  //               <Row
+                  //                 xs={12}
+                  //                 sm={12}
+                  //                 md={12}
+                  //                 className="d-flex justify-content-around my-1"
+                  //               >
+                  //                 <Row>
+                  //                   <Label for="exampleEmail">Check In</Label>
+                  //                   <Input
+                  //                     value={this.state.wednesdayCheckIn1}
+                  //                     type="time"
+                  //                     name="wednesdayCheckIn1"
+                  //                     onChange={(e) => this.handleChange(e)}
+                  //                   />
+                  //                 </Row>
+
+                  //                 <Row>
+                  //                   <Label for="exampleEmail">Check Out</Label>
+                  //                   <Input
+                  //                     value={this.state.wednesdayCheckOut2}
+                  //                     type="time"
+                  //                     name="wednesdayCheckOut2"
+                  //                     onChange={(e) => this.handleChange(e)}
+                  //                   />
+                  //                 </Row>
+                  //               </Row>
+
+                  //               {parseInt(this.state.typeRoster) === 2 ? (
+                  //                 <Row
+                  //                   xs={12}
+                  //                   sm={12}
+                  //                   md={12}
+                  //                   className="d-flex justify-content-around my-1"
+                  //                 >
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check In#2
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.wednesdayCheckIn2}
+                  //                       type="time"
+                  //                       name="wednesdayCheckIn2"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check Out#2
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.wednesdayCheckOut2}
+                  //                       type="time"
+                  //                       name="wednesdayCheckOut2"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+                  //                 </Row>
+                  //               ) : (
+                  //                 <></>
+                  //               )}
+                  //               {this.state.overtimeWednesday ? (
+                  //                 <Row
+                  //                   xs={12}
+                  //                   sm={12}
+                  //                   md={12}
+                  //                   className="d-flex justify-content-around my-1"
+                  //                 >
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check In(Overtime)
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.wednesdayCheckInEarly}
+                  //                       type="time"
+                  //                       name="wednesdayCheckInEarly"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check Out(Overtime)
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.wednesdayCheckOutLate}
+                  //                       type="time"
+                  //                       name="wednesdayCheckOutLate"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+                  //                 </Row>
+                  //               ) : (
+                  //                 <></>
+                  //               )}
+                  //             </Col>
+                  //             {/* KAMIS */}
+                  //             <Col
+                  //               xs={12}
+                  //               sm={12}
+                  //               md={5}
+                  //               className="p-4 border border-danger"
+                  //             >
+                  //               <Row
+                  //                 xs={12}
+                  //                 sm={12}
+                  //                 md={12}
+                  //                 className="d-flex align-items-center my-1"
+                  //               >
+                  //                 <FormGroup check inline>
+                  //                   <Label check>
+                  //                     <Input
+                  //                       checked={this.state.thursdayCheck}
+                  //                       type="checkbox"
+                  //                       onChange={() => {
+                  //                         this.setState({
+                  //                           thursdayCheck: !this.state
+                  //                             .thursdayCheck,
+                  //                         })
+                  //                       }}
+                  //                     />{' '}
+                  //                     Thursday
+                  //                   </Label>
+                  //                 </FormGroup>
+                  //                 <FormGroup check inline>
+                  //                   <Label check>
+                  //                     <Input
+                  //                       checked={this.state.overtimeThursday}
+                  //                       type="checkbox"
+                  //                       onChange={() => {
+                  //                         this.setState({
+                  //                           overtimeThursday: !this.state
+                  //                             .overtimeThursday,
+                  //                         })
+                  //                       }}
+                  //                     />{' '}
+                  //                     Overtime
+                  //                   </Label>
+                  //                 </FormGroup>
+                  //               </Row>
+
+                  //               <Row
+                  //                 xs={12}
+                  //                 sm={12}
+                  //                 md={12}
+                  //                 className="d-flex justify-content-around my-1"
+                  //               >
+                  //                 <Row>
+                  //                   <Label for="exampleEmail">Check In</Label>
+                  //                   <Input
+                  //                     value={this.state.thursdayCheckIn1}
+                  //                     type="time"
+                  //                     name="thursdayCheckIn1"
+                  //                     onChange={(e) => this.handleChange(e)}
+                  //                   />
+                  //                 </Row>
+
+                  //                 <Row>
+                  //                   <Label for="exampleEmail">Check Out</Label>
+                  //                   <Input
+                  //                     value={this.state.thursdayCheckOut1}
+                  //                     type="time"
+                  //                     name="thursdayCheckOut1"
+                  //                     onChange={(e) => this.handleChange(e)}
+                  //                   />
+                  //                 </Row>
+                  //               </Row>
+
+                  //               {parseInt(this.state.typeRoster) === 2 ? (
+                  //                 <Row
+                  //                   xs={12}
+                  //                   sm={12}
+                  //                   md={12}
+                  //                   className="d-flex justify-content-around my-1"
+                  //                 >
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check In#2
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.thursdayCheckIn2}
+                  //                       type="time"
+                  //                       name="thursdayCheckIn2"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check Out#2
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.thursdayCheckOut2}
+                  //                       type="time"
+                  //                       name="thursdayCheckOut2"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+                  //                 </Row>
+                  //               ) : (
+                  //                 <></>
+                  //               )}
+                  //               {this.state.overtimeThursday ? (
+                  //                 <Row
+                  //                   xs={12}
+                  //                   sm={12}
+                  //                   md={12}
+                  //                   className="d-flex justify-content-around my-1"
+                  //                 >
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check In(Overtime)
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.thursdayCheckInEarly}
+                  //                       type="time"
+                  //                       name="thursdayCheckInEarly"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check Out(Overtime)
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.thursdayCheckOutLate}
+                  //                       type="time"
+                  //                       name="thursdayCheckOutLate"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+                  //                 </Row>
+                  //               ) : (
+                  //                 <></>
+                  //               )}
+                  //             </Col>
+                  //           </Row>
+                  //           {/* JUMAT */}
+                  //           <Row
+                  //             form
+                  //             className="d-flex justify-content-around my-2"
+                  //           >
+                  //             <Col
+                  //               xs={12}
+                  //               sm={12}
+                  //               md={5}
+                  //               className="p-4 border border-danger"
+                  //             >
+                  //               <Row
+                  //                 xs={12}
+                  //                 sm={12}
+                  //                 md={12}
+                  //                 className="d-flex align-items-center my-1"
+                  //               >
+                  //                 <FormGroup check inline>
+                  //                   <Label check>
+                  //                     <Input
+                  //                       checked={this.state.fridayCheck}
+                  //                       type="checkbox"
+                  //                       onChange={() => {
+                  //                         this.setState({
+                  //                           fridayCheck: !this.state
+                  //                             .fridayCheck,
+                  //                         })
+                  //                       }}
+                  //                     />{' '}
+                  //                     Friday
+                  //                   </Label>
+                  //                 </FormGroup>
+                  //                 <FormGroup check inline>
+                  //                   <Label check>
+                  //                     <Input
+                  //                       checked={this.state.overtimeFriday}
+                  //                       type="checkbox"
+                  //                       onChange={() => {
+                  //                         this.setState({
+                  //                           overtimeFriday: !this.state
+                  //                             .overtimeFriday,
+                  //                         })
+                  //                       }}
+                  //                     />{' '}
+                  //                     Overtime
+                  //                   </Label>
+                  //                 </FormGroup>
+                  //               </Row>
+
+                  //               <Row
+                  //                 xs={12}
+                  //                 sm={12}
+                  //                 md={12}
+                  //                 className="d-flex justify-content-around my-1"
+                  //               >
+                  //                 <Row>
+                  //                   <Label for="exampleEmail">Check In</Label>
+                  //                   <Input
+                  //                     value={this.state.fridayCheckIn1}
+                  //                     type="time"
+                  //                     name="fridayCheckIn1"
+                  //                     onChange={(e) => this.handleChange(e)}
+                  //                   />
+                  //                 </Row>
+
+                  //                 <Row>
+                  //                   <Label for="exampleEmail">Check Out</Label>
+                  //                   <Input
+                  //                     value={this.state.fridayCheckOut1}
+                  //                     type="time"
+                  //                     name="fridayCheckOut1"
+                  //                     onChange={(e) => this.handleChange(e)}
+                  //                   />
+                  //                 </Row>
+                  //               </Row>
+
+                  //               {parseInt(this.state.typeRoster) === 2 ? (
+                  //                 <Row
+                  //                   xs={12}
+                  //                   sm={12}
+                  //                   md={12}
+                  //                   className="d-flex justify-content-around my-1"
+                  //                 >
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check In#2
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.fridayCheckIn2}
+                  //                       type="time"
+                  //                       name="fridayCheckIn2"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check Out#2
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.fridayCheckOut2}
+                  //                       type="time"
+                  //                       name="fridayCheckOut2"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+                  //                 </Row>
+                  //               ) : (
+                  //                 <></>
+                  //               )}
+                  //               {this.state.overtimeFriday ? (
+                  //                 <Row
+                  //                   xs={12}
+                  //                   sm={12}
+                  //                   md={12}
+                  //                   className="d-flex justify-content-around my-1"
+                  //                 >
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check In(Overtime)
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.fridayCheckInEarly}
+                  //                       type="time"
+                  //                       name="fridayCheckInEarly"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check Out(Overtime)
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.fridayCheckOutLate}
+                  //                       type="time"
+                  //                       name="fridayCheckOutLate"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+                  //                 </Row>
+                  //               ) : (
+                  //                 <></>
+                  //               )}
+                  //             </Col>
+                  //             {/* SABTU */}
+                  //             <Col
+                  //               xs={12}
+                  //               sm={12}
+                  //               md={5}
+                  //               className="p-4 border border-danger"
+                  //             >
+                  //               <Row
+                  //                 xs={12}
+                  //                 sm={12}
+                  //                 md={12}
+                  //                 className="d-flex align-items-center my-1"
+                  //               >
+                  //                 <FormGroup check inline>
+                  //                   <Label check>
+                  //                     <Input
+                  //                       checked={this.state.saturdayCheck}
+                  //                       type="checkbox"
+                  //                       onChange={() => {
+                  //                         this.setState({
+                  //                           saturdayCheck: !this.state
+                  //                             .saturdayCheck,
+                  //                         })
+                  //                       }}
+                  //                     />{' '}
+                  //                     Saturday
+                  //                   </Label>
+                  //                 </FormGroup>
+                  //                 <FormGroup check inline>
+                  //                   <Label check>
+                  //                     <Input
+                  //                       checked={this.state.overtimeSaturday}
+                  //                       type="checkbox"
+                  //                       onChange={() => {
+                  //                         this.setState({
+                  //                           overtimeSaturday: !this.state
+                  //                             .overtimeSaturday,
+                  //                         })
+                  //                       }}
+                  //                     />{' '}
+                  //                     Overtime
+                  //                   </Label>
+                  //                 </FormGroup>
+                  //               </Row>
+
+                  //               <Row
+                  //                 xs={12}
+                  //                 sm={12}
+                  //                 md={12}
+                  //                 className="d-flex justify-content-around my-1"
+                  //               >
+                  //                 <Row>
+                  //                   <Label for="exampleEmail">Check In</Label>
+                  //                   <Input
+                  //                     value={this.state.saturdayCheckIn1}
+                  //                     type="time"
+                  //                     name="saturdayCheckIn1"
+                  //                     onChange={(e) => this.handleChange(e)}
+                  //                   />
+                  //                 </Row>
+
+                  //                 <Row>
+                  //                   <Label for="exampleEmail">Check Out</Label>
+                  //                   <Input
+                  //                     value={this.state.saturdayCheckOut1}
+                  //                     type="time"
+                  //                     name="saturdayCheckOut1"
+                  //                     onChange={(e) => this.handleChange(e)}
+                  //                   />
+                  //                 </Row>
+                  //               </Row>
+
+                  //               {parseInt(this.state.typeRoster) === 2 ? (
+                  //                 <Row
+                  //                   xs={12}
+                  //                   sm={12}
+                  //                   md={12}
+                  //                   className="d-flex justify-content-around my-1"
+                  //                 >
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check In#2
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.saturdayCheckIn2}
+                  //                       type="time"
+                  //                       name="SaturdayCheckIn2"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check Out#2
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.saturdayCheckOut2}
+                  //                       type="time"
+                  //                       name="saturdayCheckOut2"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+                  //                 </Row>
+                  //               ) : (
+                  //                 <></>
+                  //               )}
+                  //               {this.state.overtimeSaturday ? (
+                  //                 <Row
+                  //                   xs={12}
+                  //                   sm={12}
+                  //                   md={12}
+                  //                   className="d-flex justify-content-around my-1"
+                  //                 >
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check In(Overtime)
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.saturdayCheckInEarly}
+                  //                       type="time"
+                  //                       name="saturdayCheckInEarly"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check Out(Overtime)
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.saturdayCheckOutLate}
+                  //                       type="time"
+                  //                       name="saturdayCheckOutLate"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+                  //                 </Row>
+                  //               ) : (
+                  //                 <></>
+                  //               )}
+                  //             </Col>
+                  //           </Row>
+                  //           {/* MINGGU */}
+                  //           <Row
+                  //             form
+                  //             className="d-flex justify-content-around my-2"
+                  //           >
+                  //             <Col
+                  //               xs={12}
+                  //               sm={12}
+                  //               md={5}
+                  //               className="p-4 border border-danger"
+                  //             >
+                  //               <Row
+                  //                 xs={12}
+                  //                 sm={12}
+                  //                 md={12}
+                  //                 className="d-flex align-items-center my-1"
+                  //               >
+                  //                 <FormGroup check inline>
+                  //                   <Label check>
+                  //                     <Input
+                  //                       checked={this.state.sundayCheck}
+                  //                       type="checkbox"
+                  //                       onChange={() => {
+                  //                         this.setState({
+                  //                           sundayCheck: !this.state
+                  //                             .sundayCheck,
+                  //                         })
+                  //                       }}
+                  //                     />{' '}
+                  //                     Sunday
+                  //                   </Label>
+                  //                 </FormGroup>
+                  //                 <FormGroup check inline>
+                  //                   <Label check>
+                  //                     <Input
+                  //                       checked={this.state.overtimeSunday}
+                  //                       type="checkbox"
+                  //                       onChange={() => {
+                  //                         this.setState({
+                  //                           overtimeSunday: !this.state
+                  //                             .overtimeSunday,
+                  //                         })
+                  //                       }}
+                  //                     />{' '}
+                  //                     Overtime
+                  //                   </Label>
+                  //                 </FormGroup>
+                  //               </Row>
+
+                  //               <Row
+                  //                 xs={12}
+                  //                 sm={12}
+                  //                 md={12}
+                  //                 className="d-flex justify-content-around my-1"
+                  //               >
+                  //                 <Row>
+                  //                   <Label for="exampleEmail">Check In</Label>
+                  //                   <Input
+                  //                     value={this.state.sundayCheckIn1}
+                  //                     type="time"
+                  //                     name="sundayCheckIn1"
+                  //                     onChange={(e) => this.handleChange(e)}
+                  //                   />
+                  //                 </Row>
+
+                  //                 <Row>
+                  //                   <Label for="exampleEmail">Check Out</Label>
+                  //                   <Input
+                  //                     value={this.state.sundayCheckOut1}
+                  //                     type="time"
+                  //                     name="sundayCheckOut1"
+                  //                     onChange={(e) => this.handleChange(e)}
+                  //                   />
+                  //                 </Row>
+                  //               </Row>
+
+                  //               {parseInt(this.state.typeRoster) === 2 ? (
+                  //                 <Row
+                  //                   xs={12}
+                  //                   sm={12}
+                  //                   md={12}
+                  //                   className="d-flex justify-content-around my-1"
+                  //                 >
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check In#2
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.sundayCheckIn2}
+                  //                       type="time"
+                  //                       name="sundayCheckIn2"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check Out#2
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.sundayCheckOut2}
+                  //                       type="time"
+                  //                       name="sundayCheckOut2"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+                  //                 </Row>
+                  //               ) : (
+                  //                 <></>
+                  //               )}
+                  //               {this.state.overtimeSunday ? (
+                  //                 <Row
+                  //                   xs={12}
+                  //                   sm={12}
+                  //                   md={12}
+                  //                   className="d-flex justify-content-around my-1"
+                  //                 >
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check In(Overtime)
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.sundayCheckInEarly}
+                  //                       type="time"
+                  //                       name="sundayCheckInEarly"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+
+                  //                   <Row>
+                  //                     <Label for="exampleEmail">
+                  //                       Check Out(Overtime)
+                  //                     </Label>
+                  //                     <Input
+                  //                       value={this.state.sundayCheckOutLate}
+                  //                       type="time"
+                  //                       name="sundayCheckOutLate"
+                  //                       onChange={(e) => this.handleChange(e)}
+                  //                     />
+                  //                   </Row>
+                  //                 </Row>
+                  //               ) : (
+                  //                 <></>
+                  //               )}
+                  //             </Col>
+                  //           </Row>
+                  //         </Form>
+                  //       </CardBody>
+                  //       <CardFooter>
+                  //         <Button
+                  //           onClick={this.toggleRosterModal}
+                  //           color="danger"
+                  //         >
+                  //           {this.state.isLoadingRoster ? (
+                  //             <div
+                  //               className="spinner-border spinner-border-sm text-white"
+                  //               role="status"
+                  //             >
+                  //               <span className="sr-only">Loading...</span>
+                  //             </div>
+                  //           ) : (
+                  //             'Update Roster'
+                  //           )}
+                  //         </Button>
+                  //       </CardFooter>
+                  //     </Card>
+                  //   </GridItem>
+                  // </GridContainer>
                   <></>
                 )}
 
