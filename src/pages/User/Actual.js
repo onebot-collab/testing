@@ -40,6 +40,7 @@ import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
 import Add from '@material-ui/icons/Add'
 // core components
+// import moment from 'moment'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Button from '../../components/CustomButtons/Button'
@@ -231,25 +232,20 @@ class User extends Component {
     typeTime,
     total_leave,
   ) {
-    this.setState({ isLoading: true })
-    this.props.getRosterByUser(this.props.login.token, id).then((res) => {
-      this.props.newToken(res.action.payload.data.newToken)
-      this.props.history.push(`/admin/user/${id}`, {
-        id,
-        name,
-        email,
-        phone,
-        photo_url,
-        birthdate,
-        joined_date,
-        role,
-        address,
-        department_id,
-        departmentName,
-        typeTime,
-        total_leave,
-      })
-      this.setState({ isLoading: false })
+    this.props.history.push(`/admin/user/${id}`, {
+      id,
+      name,
+      email,
+      phone,
+      photo_url,
+      birthdate,
+      joined_date,
+      role,
+      address,
+      department_id,
+      departmentName,
+      typeTime,
+      total_leave,
     })
   }
 

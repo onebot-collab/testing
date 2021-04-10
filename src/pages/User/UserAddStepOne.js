@@ -437,7 +437,7 @@ class UserAddStepOne extends Component {
                               onChange={this.handleChange}
                             >
                               <option key={1} value={1}>
-                                Muslim
+                                Islam
                               </option>
                               <option key={2} value={2}>
                                 Protestant
@@ -446,10 +446,10 @@ class UserAddStepOne extends Component {
                                 Catholic
                               </option>
                               <option key={4} value={4}>
-                                Hindu
+                                Hinduism
                               </option>
                               <option key={5} value={5}>
-                                Buddhist
+                                Buddhism
                               </option>
                               <option key={6} value={6}>
                                 Others

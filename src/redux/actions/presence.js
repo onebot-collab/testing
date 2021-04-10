@@ -74,9 +74,11 @@ const statsUserAttendance = (token, id) => ({
   ),
 })
 
-const getRosterByUser = (token, id) => ({
+const getRosterByUser = (token, id, date) => ({
   type: 'ROSTERUSER',
-  payload: axios(token).get(`${URL}api/v1/absent/attendanceRoaster/${id}`),
+  payload: axios(token).get(
+    `${URL}api/v1/absent/attendanceRoaster/${id}?startDate=${date}`,
+  ),
 })
 
 const updateRosterUser = (token, dataSubmit, id) => ({
