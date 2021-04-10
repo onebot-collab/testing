@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable no-useless-escape */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
@@ -61,6 +62,7 @@ class UserAddStepOne extends Component {
       timeType: 1,
       profilePicture: null,
       page: 1,
+      employmentStatus: 3,
       // files: [],
     }
     this.handleChange = this.handleChange.bind(this)
@@ -359,9 +361,9 @@ class UserAddStepOne extends Component {
                           <FormGroup>
                             <Label for="exampleSelect">Employment Status</Label>
                             <Input
-                              value={this.state.role}
+                              value={this.state.employmentStatus}
                               type="select"
-                              name="role"
+                              name="employmentStatus"
                               id="exampleSelect"
                               onChange={this.handleChange}
                             >
@@ -384,6 +386,45 @@ class UserAddStepOne extends Component {
                           </FormGroup>
                         </Col>
                       </Row>
+                      {parseInt(this.state.employmentStatus) < 3 ? (
+                        <Row form>
+                          <Col xs={12} sm={12} md={2}></Col>
+                          <Col xs={12} sm={12} md={2}></Col>
+                          <Col xs={12} sm={12} md={4}></Col>
+                          <Col xs={6} sm={6} md={2}></Col>
+                          <Col xs={3} sm={3} md={1}>
+                            <FormGroup>
+                              <Label for="exampleSelect">Duration</Label>
+                              <Input
+                                value={this.state.duration}
+                                name="duration"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={3} sm={3} md={1}>
+                            <FormGroup>
+                              <Label for="exampleSelect">Type</Label>
+                              <Input
+                                value={this.state.durationType}
+                                type="select"
+                                name="durationType"
+                                id="exampleSelect"
+                                onChange={this.handleChange}
+                              >
+                                <option key={1} value={1}>
+                                  Month
+                                </option>
+                                <option key={2} value={2}>
+                                  Year
+                                </option>
+                              </Input>
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                      ) : (
+                        <></>
+                      )}
                       <Row form>
                         <Col xs={12} sm={12} md={4}>
                           <FormGroup>
@@ -411,7 +452,7 @@ class UserAddStepOne extends Component {
                                 Buddhist
                               </option>
                               <option key={6} value={6}>
-                                Confucian
+                                Others
                               </option>
                             </Input>
                           </FormGroup>
