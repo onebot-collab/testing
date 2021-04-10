@@ -303,7 +303,7 @@ class CalendarScreen extends Component {
                     <div style={{ height: '500px' }}>
                       <Calendar
                         selectable={true}
-                        onNavigate={(e) => console.log(e)}
+                        // onNavigate={(e) => console.log(e)}
                         // onSelectEvent={(e) => console.log(e)}
                         localizer={localizer}
                         events={events}

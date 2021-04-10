@@ -37,6 +37,7 @@ import {
   Modal,
   ModalBody,
   ModalFooter,
+  ModalHeader,
   Label,
   Input,
   CustomInput,
@@ -83,6 +84,7 @@ class UserDetail extends Component {
       showUpdateModal: false,
       showRosterModal: false,
       showDeleteModal: false,
+      showEditRoster: false,
       isLoadingFetch: true,
       isLoadingDelete: false,
       isLoadingUpdate: false,
@@ -104,6 +106,9 @@ class UserDetail extends Component {
       avatar: null,
       dateRoster: `${moment().format('YYYY-MM-DD')}`,
       isLoadingRoster: false,
+      editDate: '',
+      editStartDate: '',
+      editEndDate: '',
     }
     this.toggleUpdateModal = this.toggleUpdateModal.bind(this)
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this)
@@ -111,6 +116,8 @@ class UserDetail extends Component {
     this.fetchProfile = this.fetchProfile.bind(this)
     this.toggleRosterModal = this.toggleRosterModal.bind(this)
     this.nextMonthData = this.nextMonthData.bind(this)
+    this.toggleEditRoster = this.toggleEditRoster.bind(this)
+    this.onClickEvent = this.onClickEvent.bind(this)
   }
 
   handleChange(event) {
@@ -126,6 +133,12 @@ class UserDetail extends Component {
   toggleRosterModal() {
     this.setState({
       showRosterModal: !this.state.showRosterModal,
+    })
+  }
+
+  toggleEditRoster() {
+    this.setState({
+      showEditRoster: !this.state.showEditRoster,
     })
   }
 
@@ -312,6 +325,11 @@ class UserDetail extends Component {
         this.props.newToken(res.action.payload.data.newToken)
         this.setState({ isLoadingRoster: false })
       })
+  }
+
+  onClickEvent(e) {
+    this.setState({ editStartDate: e.start, editEndDate: e.end })
+    this.toggleEditRoster()
   }
 
   componentDidMount() {
@@ -661,6 +679,7 @@ class UserDetail extends Component {
                         <div style={{ height: '700px' }}>
                           <Calendar
                             selectable={true}
+                            onSelectEvent={(e) => this.onClickEvent(e)}
                             onNavigate={(e) => this.nextMonthData(e)}
                             localizer={localizer}
                             events={this.props.presence.dataUserRoster}
@@ -711,7 +730,7 @@ class UserDetail extends Component {
                 {/* Roster Modal */}
                 <Modal isOpen={this.state.showRosterModal}>
                   <ModalBody className="h4">
-                    Update Roster {this.props.user.dataProfile[0].name} ?
+                    Roster Detail {this.props.user.dataProfile[0].name} ?
                   </ModalBody>
                   <ModalFooter>
                     {this.state.isLoadingUpdate ? (
@@ -771,6 +790,50 @@ class UserDetail extends Component {
                       Cancel
                     </Button>
                   </ModalFooter>
+                </Modal>
+
+                {/* EDIT MODAL */}
+                <Modal isOpen={this.state.showEditRoster}>
+                  <ModalHeader className="h1">Add Filter</ModalHeader>
+                  <Form>
+                    <ModalBody>
+                      <h6>Start Date</h6>
+                      <Input
+                        value={this.state.editStartDate}
+                        type="date"
+                        name="editStartDate"
+                        className="mb-2 shadow-none"
+                        onChange={this.handleChange}
+                      />
+                      <h6>End Date</h6>
+                      <Input
+                        value={this.state.editEndDate}
+                        type="date"
+                        name="editEndDate"
+                        className="mb-2 shadow-none"
+                        onChange={this.handleChange}
+                      />
+                    </ModalBody>
+                    <ModalFooter>
+                      {/* {this.state.isLoadingAddCampaign ? (
+                <Button color="primary">
+                  <div
+                    className="spinner-border spinner-border-sm text-danger"
+                    role="status"
+                  >
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                </Button>
+              ) : ( */}
+                      <Button color="secondary" onClick={this.toggleEditRoster}>
+                        Submit
+                      </Button>
+                      {/* )} */}
+                      <Button color="primary" onClick={this.toggleEditRoster}>
+                        Cancel
+                      </Button>
+                    </ModalFooter>
+                  </Form>
                 </Modal>
               </>
             )}

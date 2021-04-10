@@ -83,7 +83,6 @@ class User extends Component {
     this.prevPage = this.prevPage.bind(this)
     this.nextPage = this.nextPage.bind(this)
     this.register = this.register.bind(this)
-    this.navigateToDetail = this.navigateToDetail.bind(this)
   }
 
   handleChange(event) {
@@ -215,38 +214,6 @@ class User extends Component {
         })
         this.setState({ isLoadingRegister: false })
       })
-  }
-
-  navigateToDetail(
-    id,
-    name,
-    email,
-    phone,
-    photo_url,
-    birthdate,
-    joined_date,
-    role,
-    address,
-    department_id,
-    departmentName,
-    typeTime,
-    total_leave,
-  ) {
-    this.props.history.push(`/admin/user/${id}`, {
-      id,
-      name,
-      email,
-      phone,
-      photo_url,
-      birthdate,
-      joined_date,
-      role,
-      address,
-      department_id,
-      departmentName,
-      typeTime,
-      total_leave,
-    })
   }
 
   componentDidMount() {
@@ -749,23 +716,24 @@ class User extends Component {
                                     <ListItemSecondaryAction>
                                       {/* <Visibility edge="end" /> */}
                                       <Link
-                                        onClick={() =>
-                                          this.navigateToDetail(
-                                            res.id,
-                                            res.name,
-                                            res.email,
-                                            res.phone,
-                                            res.photo_url,
-                                            res.birthdate,
-                                            res.joined_date,
-                                            res.role,
-                                            res.address,
-                                            res.department_id,
-                                            res.departmentName,
-                                            res.typeTime,
-                                            res.total_leave,
-                                          )
-                                        }
+                                        to={{
+                                          pathname: `/admin/user/${res.id}`,
+                                          state: {
+                                            id: `${res.id}`,
+                                            name: `${res.name}`,
+                                            email: `${res.email}`,
+                                            phone: `${res.phone}`,
+                                            photo_url: `${res.photo_url}`,
+                                            birthdate: `${res.birthdate}`,
+                                            joined_date: `${res.joined_date}`,
+                                            role: `${res.role}`,
+                                            address: `${res.address}`,
+                                            department_id: `${res.department_id}`,
+                                            departmentName: `${res.departmentName}`,
+                                            typeTime: `${res.typeTime}`,
+                                            total_leave: `${res.total_leave}`,
+                                          },
+                                        }}
                                       >
                                         <Tooltip
                                           id="tooltip-top-start"
