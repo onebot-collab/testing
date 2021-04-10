@@ -211,32 +211,6 @@ class UserAddStepOne extends Component {
                 <h4 className="mr-6 ">Step 1 of 3</h4>
               </div>
               <div className="d-flex flex-row col justify-content-end">
-                {/* <button
-                  className="btn btn-danger m-2 my-sm-0"
-                  type="submit"
-                  onClick={this.toggleFilterModal}
-                >
-                  <Tooltip
-                    id="tooltip-top-start"
-                    title="Filter"
-                    placement="top"
-                    classes={{
-                      tooltip: classesBody.tooltip,
-                    }}
-                  >
-                    {this.state.isLoadingExportAllLog ? (
-                      <div
-                        className="spinner-border spinner-border-sm text-white"
-                        role="status"
-                      >
-                        <span className="sr-only">Loading...</span>
-                      </div>
-                    ) : (
-                      <Sort className="iconWhiteColor" />
-                    )}
-                  </Tooltip>
-                </button> */}
-
                 <Link
                   to="/admin/user/stepTwo"
                   className="btn btn-danger m-2 my-sm-0"
@@ -272,38 +246,6 @@ class UserAddStepOne extends Component {
                   </CardHeader>
                   <CardBody>
                     <Form>
-                      {/* <Row form>
-                        <Col xs={12} sm={12} md={4}>
-                          <FormGroup>
-                            <Label for="exampleEmail">First Name</Label>
-                            <Input
-                              value={this.state.name}
-                              name="name"
-                              onChange={(e) => this.handleChange(e)}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col xs={12} sm={12} md={4}>
-                          <FormGroup>
-                            <Label for="exampleEmail">Middle Name</Label>
-                            <Input
-                              value={this.state.email}
-                              name="email"
-                              onChange={(e) => this.handleChange(e)}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col xs={12} sm={12} md={4}>
-                          <FormGroup>
-                            <Label for="exampleEmail">Last Name</Label>
-                            <Input
-                              value={this.state.phone}
-                              name="phone"
-                              onChange={(e) => this.handleChange(e)}
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row> */}
                       <Row form>
                         <Col xs={12} sm={12} md={4}>
                           <FormGroup>
@@ -337,28 +279,6 @@ class UserAddStepOne extends Component {
                         </Col>
                       </Row>
                       <Row form>
-                        {/* <Col xs={12} sm={12} md={6}>
-                          <FormGroup>
-                            <Label for="examplePassword">Password</Label>
-                            <Input
-                              value={this.state.password}
-                              type="password"
-                              name="password"
-                              onChange={(e) => this.handleChange(e)}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col xs={12} sm={12} md={6}>
-                          <FormGroup>
-                            <Label for="examplePassword">Passcode</Label>
-                            <Input
-                              value={this.state.passcode}
-                              type="password"
-                              name="passcode"
-                              onChange={(e) => this.handleChange(e)}
-                            />
-                          </FormGroup>
-                        </Col> */}
                         <Col xs={12} sm={12} md={4}>
                           <FormGroup>
                             <Label for="exampleEmail">Email</Label>
@@ -391,28 +311,6 @@ class UserAddStepOne extends Component {
                         </Col>
                       </Row>
                       <Row form>
-                        {/* <Col xs={12} sm={12} md={6}>
-                          <FormGroup>
-                            <Label for="examplePassword">Password</Label>
-                            <Input
-                              value={this.state.password}
-                              type="password"
-                              name="password"
-                              onChange={(e) => this.handleChange(e)}
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col xs={12} sm={12} md={6}>
-                          <FormGroup>
-                            <Label for="examplePassword">Passcode</Label>
-                            <Input
-                              value={this.state.passcode}
-                              type="password"
-                              name="passcode"
-                              onChange={(e) => this.handleChange(e)}
-                            />
-                          </FormGroup>
-                        </Col> */}
                         <Col xs={12} sm={12} md={2}>
                           <FormGroup>
                             <Label for="exampleEmail">Place of Birth</Label>
@@ -427,12 +325,12 @@ class UserAddStepOne extends Component {
                           <FormGroup>
                             <Label for="exampleEmail">Date of Birth</Label>
                             <Input
-                                  type="date"
-                                  name="joinedDate"
-                                  id="exampleDate"
-                                  placeholder="date placeholder"
-                                  onChange={(e) => this.handleChange(e)}
-                                />
+                              type="date"
+                              name="joinedDate"
+                              id="exampleDate"
+                              placeholder="date placeholder"
+                              onChange={(e) => this.handleChange(e)}
+                            />
                           </FormGroup>
                         </Col>
                         <Col xs={12} sm={12} md={4}>
@@ -583,24 +481,6 @@ class UserAddStepOne extends Component {
                         </Col>
                       </Row>
                       <Row form>
-                        {/* <Col xs={12} sm={12} md={12}>
-                          {' '}
-                          <FormGroup>
-                            <Label for="exampleCustomFileBrowser">
-                              Profile Picture
-                            </Label>
-                            <CustomInput
-                              type="file"
-                              id="exampleCustomFileBrowser"
-                              name="profilePicture"
-                              onChange={(e) =>
-                                this.setState({
-                                  profilePicture: e.target.files[0],
-                                })
-                              }
-                            />
-                          </FormGroup>
-                        </Col> */}
                         <Col xs={12} sm={12} md={4}>
                           {' '}
                           <FormGroup>
@@ -695,161 +575,12 @@ class UserAddStepOne extends Component {
                         <Col xs={12} sm={12} md={12}>
                           {' '}
                           <FormGroup>
-                          <Label for="exampleEmail">Profile Picture</Label>
+                            <Label for="exampleEmail">Profile Picture</Label>
                             <Basic />
                           </FormGroup>
                         </Col>
                       </Row>
                     </Form>
-                    {/* <GridContainer className="fieldGridContainer">
-                      <GridItem xs={12} sm={12} md={4}>
-                        <TextField
-                          label="Name"
-                          name="name"
-                          value={this.state.name}
-                          onChange={this.handleChange}
-                          className="textFieldWidth"
-                        />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <TextField
-                          label="Email"
-                          type="email"
-                          name="email"
-                          value={this.state.email}
-                          onChange={this.handleChange}
-                          className="textFieldWidth"
-                        />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <TextField
-                          label="Phone"
-                          type="phone"
-                          name="phone"
-                          value={this.state.phone}
-                          onChange={this.handleChange}
-                          className="textFieldWidth"
-                        />
-                      </GridItem>
-                    </GridContainer>
-                    <GridContainer>
-                      <GridItem xs={12} sm={12} md={6}>
-                        <TextField
-                          label="Password"
-                          type="password"
-                          name="password"
-                          value={this.state.password}
-                          onChange={this.handleChange}
-                          className="textFieldWidth"
-                        />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={6}>
-                        <TextField
-                          label="Passcode"
-                          type="password"
-                          name="passcode"
-                          value={this.state.passcode}
-                          onChange={this.handleChange}
-                          className="textFieldWidth"
-                        />
-                      </GridItem>
-                    </GridContainer>
-                    <GridContainer>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <TextField
-                          label="Role"
-                          name="role"
-                          value={this.state.role}
-                          onChange={this.handleChange}
-                          className="textFieldWidth"
-                          select
-                        >
-                          <MenuItem key={1} value={1}>
-                            Admin
-                          </MenuItem>
-                          <MenuItem key={2} value={2}>
-                            User
-                          </MenuItem>
-                        </TextField>
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <TextField
-                          label="Department"
-                          name="department"
-                          value={this.state.department}
-                          onChange={this.handleChange}
-                          className="textFieldWidth"
-                          select
-                        >
-                          <MenuItem key={1} value={1}>
-                            General
-                          </MenuItem>
-                          <MenuItem key={2} value={2}>
-                            Development
-                          </MenuItem>
-                        </TextField>
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <TextField
-                          label="Time type"
-                          name="timeType"
-                          value={this.state.timeType}
-                          onChange={this.handleChange}
-                          className="textFieldWidth"
-                          select
-                        >
-                          <MenuItem key={1} value={1}>
-                            Office hours
-                          </MenuItem>
-                          <MenuItem key={2} value={2}>
-                            Free hours
-                          </MenuItem>
-                        </TextField>
-                      </GridItem>
-                    </GridContainer>
-                    <GridContainer>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <TextField
-                          label="Joined date"
-                          type="date"
-                          name="joinedDate"
-                          value={this.state.joinedDate}
-                          onChange={this.handleChange}
-                          className="textFieldWidth"
-                        />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <TextField
-                          label="Birth date"
-                          type="date"
-                          name="birthDate"
-                          value={this.state.birthDate}
-                          onChange={this.handleChange}
-                          className="textFieldWidth"
-                        />
-                      </GridItem>
-                      <GridItem xs={12} sm={12} md={4}>
-                        <TextField
-                          label="Address"
-                          name="address"
-                          value={this.state.address}
-                          onChange={this.handleChange}
-                          className="textFieldWidth"
-                        />
-                      </GridItem>
-                    </GridContainer>
-                    <GridContainer>
-                      <GridItem xs={12} sm={12} md={12}>
-                        <input
-                          type="file"
-                          name="image"
-                          className="textFieldWidth"
-                          onChange={(e) =>
-                            this.setState({ profilePicture: e.target.files[0] })
-                          }
-                        />
-                      </GridItem>
-                    </GridContainer> */}
                   </CardBody>
                 </Card>
               </GridItem>
