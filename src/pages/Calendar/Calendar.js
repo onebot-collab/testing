@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-boolean-value */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-access-state-in-setstate */
@@ -301,6 +302,9 @@ class CalendarScreen extends Component {
                   <CardBody>
                     <div style={{ height: '500px' }}>
                       <Calendar
+                        selectable={true}
+                        // onNavigate={(e) => console.log(e)}
+                        // onSelectEvent={(e) => console.log(e)}
                         localizer={localizer}
                         events={events}
                         startAccessor="start"

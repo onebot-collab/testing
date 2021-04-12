@@ -212,13 +212,6 @@ class UserAddStepThree extends Component {
                     )}
                   </Tooltip>
                 </Link>
-                {/* <button
-                  className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
-                  type="submit"
-                  onClick={this.export}
-                >
-                  Submit
-                </button> */}
               </div>
             </nav>
             <GridContainer>
