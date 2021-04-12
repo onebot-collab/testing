@@ -107,8 +107,11 @@ class UserDetail extends Component {
       dateRoster: `${moment().format('YYYY-MM-DD')}`,
       isLoadingRoster: false,
       editDate: '',
-      editStartDate: '',
-      editEndDate: '',
+      editCheckIn: '',
+      editCheckOut: '',
+      editCheckInOvertime: '',
+      editCheckOutOvertime: '',
+      editOvertime: false,
     }
     this.toggleUpdateModal = this.toggleUpdateModal.bind(this)
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this)
@@ -328,7 +331,11 @@ class UserDetail extends Component {
   }
 
   onClickEvent(e) {
-    this.setState({ editStartDate: e.start, editEndDate: e.end })
+    this.setState({
+      editStartDate: e.start,
+      editEndDate: e.end,
+      editOvertime: e.overtime === 1,
+    })
     this.toggleEditRoster()
   }
 
@@ -794,42 +801,79 @@ class UserDetail extends Component {
 
                 {/* EDIT MODAL */}
                 <Modal isOpen={this.state.showEditRoster}>
-                  <ModalHeader className="h1">Add Filter</ModalHeader>
+                  <ModalHeader className="h1">Roster Schedule</ModalHeader>
                   <Form>
                     <ModalBody>
-                      <h6>Start Date</h6>
-                      <Input
-                        value={this.state.editStartDate}
-                        type="date"
-                        name="editStartDate"
-                        className="mb-2 shadow-none"
-                        onChange={this.handleChange}
-                      />
-                      <h6>End Date</h6>
-                      <Input
-                        value={this.state.editEndDate}
-                        type="date"
-                        name="editEndDate"
-                        className="mb-2 shadow-none"
-                        onChange={this.handleChange}
-                      />
+                      <Row>
+                        <Col>
+                          <h6>Check In</h6>
+                          <Input
+                            value={this.state.editStartDate}
+                            type="time"
+                            name="editStartDate"
+                            className="mb-2 shadow-none"
+                            onChange={this.handleChange}
+                          />
+                        </Col>
+                        <Col>
+                          <h6>Check Out</h6>
+                          <Input
+                            value={this.state.editStartDate}
+                            type="time"
+                            name="editStartDate"
+                            className="mb-2 shadow-none"
+                            onChange={this.handleChange}
+                          />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col className="ml-3">
+                          <Label check>
+                            <Input
+                              checked={this.state.editOvertime}
+                              type="checkbox"
+                              onChange={() => {
+                                this.setState({
+                                  editOvertime: !this.state.editOvertime,
+                                })
+                              }}
+                            />{' '}
+                            Overtime
+                          </Label>
+                        </Col>
+                      </Row>
+                      {this.state.editOvertime ? (
+                        <Row>
+                          <Col>
+                            <h6>Check In Overtime</h6>
+                            <Input
+                              value={this.state.editCheckInOvertime}
+                              type="time"
+                              name="editCheckInOvertime"
+                              className="mb-2 shadow-none"
+                              onChange={this.handleChange}
+                            />
+                          </Col>
+                          <Col>
+                            <h6>Check Out Overtime</h6>
+                            <Input
+                              value={this.state.editCheckOutOvertime}
+                              type="time"
+                              name="editCheckOutOvertime"
+                              className="mb-2 shadow-none"
+                              onChange={this.handleChange}
+                            />
+                          </Col>
+                        </Row>
+                      ) : (
+                        <></>
+                      )}
                     </ModalBody>
                     <ModalFooter>
-                      {/* {this.state.isLoadingAddCampaign ? (
-                <Button color="primary">
-                  <div
-                    className="spinner-border spinner-border-sm text-danger"
-                    role="status"
-                  >
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                </Button>
-              ) : ( */}
                       <Button color="secondary" onClick={this.toggleEditRoster}>
                         Submit
                       </Button>
-                      {/* )} */}
-                      <Button color="primary" onClick={this.toggleEditRoster}>
+                      <Button color="danger" onClick={this.toggleEditRoster}>
                         Cancel
                       </Button>
                     </ModalFooter>
