@@ -167,7 +167,7 @@ class UserDetail extends Component {
               .getRosterByUser(
                 res.action.payload.data.newToken,
                 parseInt(this.props.location.state.id),
-                moment().format().slice(0, 9),
+                moment().format().slice(0, 10),
               )
               .then((res) => {
                 this.setState({ isLoadingFetch: false })
