@@ -19,7 +19,7 @@ class AddRoster extends Component {
     return (
       <Form>
         <Row form>
-          <Col xs={12} sm={12} md={8}>
+          <Col xs={10} sm={10} md={8}>
             <FormGroup>
               <Input
                 value={this.state.name}
@@ -27,15 +27,6 @@ class AddRoster extends Component {
                 onChange={(e) => this.handleChange(e)}
               />
             </FormGroup>
-          </Col>
-          <Col xs={12} sm={12} md={4}>
-            <button
-              className="btn btn-danger"
-              type="submit"
-              //   onClick={this.toggleFilterModal}
-            >
-              Save
-            </button>
           </Col>
         </Row>
         <Row form className="mb-3">
@@ -51,18 +42,6 @@ class AddRoster extends Component {
               />
             </Form>
           </Col>
-          <Col xs={12} sm={12} md={1} className="m-1">
-            <Form>
-              <Input
-                value={this.state.name}
-                onChange={this.handleChange}
-                type="time"
-                name="time"
-                id="exampleDate"
-                placeholder="date placeholder"
-              />
-            </Form>
-          </Col>
           <Col xs={12} sm={12} md={1}><div className="d-flex align-items-center justify-content-center mt-2">to</div></Col>
           <Col xs={12} sm={12} md={2} className="m-1">
             <Form>
@@ -71,18 +50,6 @@ class AddRoster extends Component {
                 onChange={this.handleChange}
                 type="date"
                 name="date"
-                id="exampleDate"
-                placeholder="date placeholder"
-              />
-            </Form>
-          </Col>
-          <Col xs={12} sm={12} md={1} className="m-1">
-            <Form>
-              <Input
-                value={this.state.name}
-                onChange={this.handleChange}
-                type="time"
-                name="time"
                 id="exampleDate"
                 placeholder="date placeholder"
               />

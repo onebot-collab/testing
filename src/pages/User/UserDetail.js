@@ -83,6 +83,7 @@ class UserDetail extends Component {
       department_id: `${this.props.location.state.department_id}`,
       showUpdateModal: false,
       showRosterModal: false,
+      showAddRosterModal: false,
       showDeleteModal: false,
       showEditRoster: false,
       isLoadingFetch: true,
@@ -112,9 +113,25 @@ class UserDetail extends Component {
       editCheckInOvertime: '',
       editCheckOutOvertime: '',
       editOvertime: false,
+      addRosterType: 1,
+      addRosterMonday: false,
+      addRosterTuesday: false,
+      addRosterWednesday: false,
+      addRosterThursday: false,
+      addRosterFriday: false,
+      addRosterSaturday: false,
+      addRosterSunday: false,
+      addRosterStartDate: '',
+      addRosterEndDate: '',
+      addRosterCheckIn: '',
+      addRosterCheckOut: '',
+      addRosterOvertime: false,
+      addRosterCheckInOvertime: '',
+      addRosterCheckOutOvertime: '',
     }
     this.toggleUpdateModal = this.toggleUpdateModal.bind(this)
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this)
+    this.toggleAddRosterModal = this.toggleAddRosterModal.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.fetchProfile = this.fetchProfile.bind(this)
     this.toggleRosterModal = this.toggleRosterModal.bind(this)
@@ -122,6 +139,7 @@ class UserDetail extends Component {
     this.toggleEditRoster = this.toggleEditRoster.bind(this)
     this.onClickEvent = this.onClickEvent.bind(this)
     this.updateRoster = this.updateRoster.bind(this)
+    this.addRoster = this.addRoster.bind(this)
   }
 
   handleChange(event) {
@@ -137,6 +155,12 @@ class UserDetail extends Component {
   toggleRosterModal() {
     this.setState({
       showRosterModal: !this.state.showRosterModal,
+    })
+  }
+
+  toggleAddRosterModal() {
+    this.setState({
+      showAddRosterModal: !this.state.showAddRosterModal,
     })
   }
 
@@ -280,6 +304,329 @@ class UserDetail extends Component {
           text: `${res.response.data.message}`,
         })
       })
+  }
+
+  addRoster() {
+    this.setState({ isLoadingFetch: true, showAddRosterModal: false })
+    var dataSubmit = {
+      type: parseInt(this.state.addRosterType),
+      date: this.state.addRosterStartDate,
+      checkIn: this.state.addRosterCheckIn,
+      checkOut: this.state.addRosterCheckOut,
+      earlyCheckIn:
+        this.state.addRosterCheckInOvertime === '' ||
+        this.state.addRosterOvertime === false
+          ? '0'
+          : this.state.addRosterCheckInOvertime,
+      lateCheckOut:
+        this.state.addRosterCheckOutOvertime === '' ||
+        this.state.addRosterOvertime === false
+          ? '0'
+          : this.state.addRosterCheckOutOvertime,
+    }
+
+    var mondayData = {
+      day: 1,
+      type: 3,
+      startDate: this.state.addRosterStartDate,
+      endDate: this.state.addRosterEndDate,
+      checkIn: this.state.addRosterMonday ? this.state.addRosterCheckIn : '0',
+      checkOut: this.state.addRosterMonday ? this.state.addRosterCheckOut : '0',
+      earlyCheckIn:
+        this.state.addRosterCheckInOvertime === '' ||
+        this.state.addRosterOvertime === false
+          ? '0'
+          : this.state.addRosterCheckInOvertime,
+      lateCheckOut:
+        this.state.addRosterCheckOutOvertime === '' ||
+        this.state.addRosterOvertime === false
+          ? '0'
+          : this.state.addRosterCheckOutOvertime,
+    }
+
+    var tuesdayData = {
+      day: 2,
+      type: 3,
+      startDate: this.state.addRosterStartDate,
+      endDate: this.state.addRosterEndDate,
+      checkIn: this.state.addRosterMonday ? this.state.addRosterCheckIn : '0',
+      checkOut: this.state.addRosterMonday ? this.state.addRosterCheckOut : '0',
+      earlyCheckIn:
+        this.state.addRosterCheckInOvertime === '' ||
+        this.state.addRosterOvertime === false
+          ? '0'
+          : this.state.addRosterCheckInOvertime,
+      lateCheckOut:
+        this.state.addRosterCheckOutOvertime === '' ||
+        this.state.addRosterOvertime === false
+          ? '0'
+          : this.state.addRosterCheckOutOvertime,
+    }
+
+    var wednesdayData = {
+      day: 3,
+      type: 3,
+      startDate: this.state.addRosterStartDate,
+      endDate: this.state.addRosterEndDate,
+      checkIn: this.state.addRosterMonday ? this.state.addRosterCheckIn : '0',
+      checkOut: this.state.addRosterMonday ? this.state.addRosterCheckOut : '0',
+      earlyCheckIn:
+        this.state.addRosterCheckInOvertime === '' ||
+        this.state.addRosterOvertime === false
+          ? '0'
+          : this.state.addRosterCheckInOvertime,
+      lateCheckOut:
+        this.state.addRosterCheckOutOvertime === '' ||
+        this.state.addRosterOvertime === false
+          ? '0'
+          : this.state.addRosterCheckOutOvertime,
+    }
+
+    var thursdayData = {
+      day: 4,
+      type: 3,
+      startDate: this.state.addRosterStartDate,
+      endDate: this.state.addRosterEndDate,
+      checkIn: this.state.addRosterMonday ? this.state.addRosterCheckIn : '0',
+      checkOut: this.state.addRosterMonday ? this.state.addRosterCheckOut : '0',
+      earlyCheckIn:
+        this.state.addRosterCheckInOvertime === '' ||
+        this.state.addRosterOvertime === false
+          ? '0'
+          : this.state.addRosterCheckInOvertime,
+      lateCheckOut:
+        this.state.addRosterCheckOutOvertime === '' ||
+        this.state.addRosterOvertime === false
+          ? '0'
+          : this.state.addRosterCheckOutOvertime,
+    }
+
+    var fridayData = {
+      day: 5,
+      type: 3,
+      startDate: this.state.addRosterStartDate,
+      endDate: this.state.addRosterEndDate,
+      checkIn: this.state.addRosterMonday ? this.state.addRosterCheckIn : '0',
+      checkOut: this.state.addRosterMonday ? this.state.addRosterCheckOut : '0',
+      earlyCheckIn:
+        this.state.addRosterCheckInOvertime === '' ||
+        this.state.addRosterOvertime === false
+          ? '0'
+          : this.state.addRosterCheckInOvertime,
+      lateCheckOut:
+        this.state.addRosterCheckOutOvertime === '' ||
+        this.state.addRosterOvertime === false
+          ? '0'
+          : this.state.addRosterCheckOutOvertime,
+    }
+
+    var saturdayData = {
+      day: 6,
+      type: 3,
+      startDate: this.state.addRosterStartDate,
+      endDate: this.state.addRosterEndDate,
+      checkIn: this.state.addRosterMonday ? this.state.addRosterCheckIn : '0',
+      checkOut: this.state.addRosterMonday ? this.state.addRosterCheckOut : '0',
+      earlyCheckIn:
+        this.state.addRosterCheckInOvertime === '' ||
+        this.state.addRosterOvertime === false
+          ? '0'
+          : this.state.addRosterCheckInOvertime,
+      lateCheckOut:
+        this.state.addRosterCheckOutOvertime === '' ||
+        this.state.addRosterOvertime === false
+          ? '0'
+          : this.state.addRosterCheckOutOvertime,
+    }
+
+    var sundayData = {
+      day: 0,
+      type: 3,
+      startDate: this.state.addRosterStartDate,
+      endDate: this.state.addRosterEndDate,
+      checkIn: this.state.addRosterMonday ? this.state.addRosterCheckIn : '0',
+      checkOut: this.state.addRosterMonday ? this.state.addRosterCheckOut : '0',
+      earlyCheckIn:
+        this.state.addRosterCheckInOvertime === '' ||
+        this.state.addRosterOvertime === false
+          ? '0'
+          : this.state.addRosterCheckInOvertime,
+      lateCheckOut:
+        this.state.addRosterCheckOutOvertime === '' ||
+        this.state.addRosterOvertime === false
+          ? '0'
+          : this.state.addRosterCheckOutOvertime,
+    }
+
+    if (this.state.addRosterType !== 3) {
+      this.props
+        .updateRosterUser(
+          this.props.login.token,
+          dataSubmit,
+          parseInt(this.props.location.state.id),
+        )
+        .then((res) => {
+          swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Roster Updated',
+          })
+          this.props
+            .getRosterByUser(
+              res.action.payload.data.newToken,
+              parseInt(this.props.location.state.id),
+              moment().format().slice(0, 10),
+            )
+            .then((res) => {
+              this.props.newToken(res.action.payload.data.newToken)
+              this.setState({ isLoadingFetch: false })
+            })
+            .catch((res) => {
+              this.setState({ isLoadingFetch: false })
+            })
+        })
+        .catch((res) => {
+          swal.fire({
+            icon: 'error',
+            title: 'Failed',
+            text: `${res.response.data.message}`,
+          })
+          this.setState({ isLoadingFetch: false })
+        })
+    } else {
+      this.props
+        .updateRosterUser(
+          this.props.login.token,
+          mondayData,
+          parseInt(this.props.location.state.id),
+        )
+        .then((res) => {
+          this.props
+            .updateRosterUser(
+              res.action.payload.data.newToken,
+              tuesdayData,
+              parseInt(this.props.location.state.id),
+            )
+            .then((res) => {
+              this.props
+                .updateRosterUser(
+                  res.action.payload.data.newToken,
+                  wednesdayData,
+                  parseInt(this.props.location.state.id),
+                )
+                .then((res) => {
+                  this.props
+                    .updateRosterUser(
+                      res.action.payload.data.newToken,
+                      thursdayData,
+                      parseInt(this.props.location.state.id),
+                    )
+                    .then((res) => {
+                      this.props
+                        .updateRosterUser(
+                          res.action.payload.data.newToken,
+                          fridayData,
+                          parseInt(this.props.location.state.id),
+                        )
+                        .then((res) => {
+                          this.props
+                            .updateRosterUser(
+                              res.action.payload.data.newToken,
+                              saturdayData,
+                              parseInt(this.props.location.state.id),
+                            )
+                            .then((res) => {
+                              this.props
+                                .updateRosterUser(
+                                  res.action.payload.data.newToken,
+                                  sundayData,
+                                  parseInt(this.props.location.state.id),
+                                )
+                                .then((res) => {
+                                  swal.fire({
+                                    icon: 'success',
+                                    title: 'Success',
+                                    text: 'Roster Updated',
+                                  })
+                                  this.props
+                                    .getRosterByUser(
+                                      res.action.payload.data.newToken,
+                                      parseInt(this.props.location.state.id),
+                                      moment().format().slice(0, 10),
+                                    )
+                                    .then((res) => {
+                                      this.props.newToken(
+                                        res.action.payload.data.newToken,
+                                      )
+                                      this.setState({ isLoadingFetch: false })
+                                    })
+                                    .catch((res) => {
+                                      this.setState({ isLoadingFetch: false })
+                                    })
+                                })
+                                .catch((res) => {
+                                  swal.fire({
+                                    icon: 'error',
+                                    title: 'Failed',
+                                    text: `${res.response.data.message}`,
+                                  })
+                                  this.setState({ isLoadingFetch: false })
+                                })
+                            })
+                            .catch((res) => {
+                              swal.fire({
+                                icon: 'error',
+                                title: 'Failed',
+                                text: `${res.response.data.message}`,
+                              })
+                              this.setState({ isLoadingFetch: false })
+                            })
+                        })
+                        .catch((res) => {
+                          swal.fire({
+                            icon: 'error',
+                            title: 'Failed',
+                            text: `${res.response.data.message}`,
+                          })
+                          this.setState({ isLoadingFetch: false })
+                        })
+                    })
+                    .catch((res) => {
+                      swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
+                        text: `${res.response.data.message}`,
+                      })
+                      this.setState({ isLoadingFetch: false })
+                    })
+                })
+                .catch((res) => {
+                  swal.fire({
+                    icon: 'error',
+                    title: 'Failed',
+                    text: `${res.response.data.message}`,
+                  })
+                  this.setState({ isLoadingFetch: false })
+                })
+            })
+            .catch((res) => {
+              swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: `${res.response.data.message}`,
+              })
+              this.setState({ isLoadingFetch: false })
+            })
+        })
+        .catch((res) => {
+          swal.fire({
+            icon: 'error',
+            title: 'Failed',
+            text: `${res.response.data.message}`,
+          })
+          this.setState({ isLoadingFetch: false })
+        })
+    }
   }
 
   nextMonthData(e) {
@@ -695,15 +1042,12 @@ class UserDetail extends Component {
                         </div>
                       </CardBody>
                       <CardFooter>
-                        {/* <Button onClick={this.toggleUpdateModal} color="danger">
-                          Add Roster
-                        </Button> */}
-                        <Link
-                          to="/admin/user/addroster"
-                          className="btn btn-danger my-2 mx-2 my-sm-0"
+                        <Button
+                          onClick={this.toggleAddRosterModal}
+                          color="danger"
                         >
                           Add Roster
-                        </Link>
+                        </Button>
                       </CardFooter>
                     </Card>
                   </GridItem>
@@ -816,7 +1160,7 @@ class UserDetail extends Component {
                     <ModalBody>
                       <Row>
                         <Col>
-                          <h6>Check In</h6>
+                          <Label for="exampleSelect">Check In</Label>
                           <Input
                             value={this.state.editCheckIn}
                             type="time"
@@ -826,7 +1170,7 @@ class UserDetail extends Component {
                           />
                         </Col>
                         <Col>
-                          <h6>Check Out</h6>
+                          <Label for="exampleSelect">Check Out</Label>
                           <Input
                             value={this.state.editCheckOut}
                             type="time"
@@ -855,7 +1199,7 @@ class UserDetail extends Component {
                       {this.state.editOvertime ? (
                         <Row>
                           <Col>
-                            <h6>Check In Overtime</h6>
+                            <Label for="exampleSelect">Check In Overtime</Label>
                             <Input
                               value={this.state.editCheckInOvertime}
                               type="time"
@@ -865,7 +1209,9 @@ class UserDetail extends Component {
                             />
                           </Col>
                           <Col>
-                            <h6>Check Out Overtime</h6>
+                            <Label for="exampleSelect">
+                              Check Out Overtime
+                            </Label>
                             <Input
                               value={this.state.editCheckOutOvertime}
                               type="time"
@@ -884,6 +1230,267 @@ class UserDetail extends Component {
                         Submit
                       </Button>
                       <Button color="danger" onClick={this.toggleEditRoster}>
+                        Cancel
+                      </Button>
+                    </ModalFooter>
+                  </Form>
+                </Modal>
+
+                {/* ADD ROSTER */}
+                <Modal isOpen={this.state.showAddRosterModal}>
+                  <ModalHeader className="h1">Add Roster</ModalHeader>
+                  <Form>
+                    <ModalBody>
+                      <Row>
+                        <Col>
+                          <FormGroup>
+                            <Label for="exampleSelect">Type</Label>
+                            <Input
+                              value={this.state.addRosterType}
+                              type="select"
+                              name="addRosterType"
+                              id="exampleSelect"
+                              onChange={this.handleChange}
+                            >
+                              <option key={1} value={1}>
+                                Once
+                              </option>
+                              <option key={2} value={2}>
+                                Monthly
+                              </option>
+                              <option key={3} value={3}>
+                                Custom
+                              </option>
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      {parseInt(this.state.addRosterType) === 3 ? (
+                        <>
+                          <Row>
+                            <Col>
+                              <Label for="exampleSelect">Start Date</Label>
+                              <Input
+                                value={this.state.addRosterStartDate}
+                                type="date"
+                                name="addRosterStartDate"
+                                className="mb-2 shadow-none"
+                                onChange={this.handleChange}
+                              />
+                            </Col>
+                            <Col>
+                              <Label for="exampleSelect">End Date</Label>
+                              <Input
+                                value={this.state.addRosterEndDate}
+                                type="date"
+                                name="addRosterEndDate"
+                                className="mb-2 shadow-none"
+                                onChange={this.handleChange}
+                              />
+                            </Col>
+                          </Row>
+                          <Row form className="mb-3">
+                            <Col className="ml-4">
+                              <div className="d-flex align-items-center">
+                                <Input
+                                  checked={this.state.addRosterMonday}
+                                  type="checkbox"
+                                  onChange={() => {
+                                    this.setState({
+                                      addRosterMonday: !this.state
+                                        .addRosterMonday,
+                                    })
+                                  }}
+                                />
+                                <div>Monday</div>
+                              </div>
+                            </Col>
+                            <Col>
+                              <div className="d-flex align-items-center">
+                                <Input
+                                  checked={this.state.addRosterTuesday}
+                                  type="checkbox"
+                                  onChange={() => {
+                                    this.setState({
+                                      addRosterTuesday: !this.state
+                                        .addRosterTuesday,
+                                    })
+                                  }}
+                                />
+                                <div>Tuesday</div>
+                              </div>
+                            </Col>
+                            <Col>
+                              <div className="d-flex align-items-center">
+                                <Input
+                                  checked={this.state.addRosterWednesday}
+                                  type="checkbox"
+                                  onChange={() => {
+                                    this.setState({
+                                      addRosterWednesday: !this.state
+                                        .addRosterWednesday,
+                                    })
+                                  }}
+                                />
+                                <div>Wednesday</div>
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row form className="mb-3">
+                            <Col className="ml-4">
+                              <div className="d-flex align-items-center">
+                                <Input
+                                  checked={this.state.addRosterThursday}
+                                  type="checkbox"
+                                  onChange={() => {
+                                    this.setState({
+                                      addRosterThursday: !this.state
+                                        .addRosterThursday,
+                                    })
+                                  }}
+                                />
+                                <div>Thursday</div>
+                              </div>
+                            </Col>
+                            <Col>
+                              <div className="d-flex align-items-center">
+                                <Input
+                                  checked={this.state.addRosterFriday}
+                                  type="checkbox"
+                                  onChange={() => {
+                                    this.setState({
+                                      addRosterFriday: !this.state
+                                        .addRosterFriday,
+                                    })
+                                  }}
+                                />
+                                <div>Friday</div>
+                              </div>
+                            </Col>
+                            <Col>
+                              <div className="d-flex align-items-center">
+                                <Input
+                                  checked={this.state.addRosterSaturday}
+                                  type="checkbox"
+                                  onChange={() => {
+                                    this.setState({
+                                      addRosterSaturday: !this.state
+                                        .addRosterSaturday,
+                                    })
+                                  }}
+                                />
+                                <div>Saturday</div>
+                              </div>
+                            </Col>
+                          </Row>
+                          <Row form className="mb-3">
+                            <Col className="ml-4">
+                              <div className="d-flex align-items-center">
+                                <Input
+                                  checked={this.state.addRosterSunday}
+                                  type="checkbox"
+                                  onChange={() => {
+                                    this.setState({
+                                      addRosterSunday: !this.state
+                                        .addRosterSunday,
+                                    })
+                                  }}
+                                />
+                                <div>Sunday</div>
+                              </div>
+                            </Col>
+                          </Row>
+                        </>
+                      ) : (
+                        <Row>
+                          <Col>
+                            <Label for="exampleSelect">Date</Label>
+                            <Input
+                              value={this.state.addRosterStartDate}
+                              type="date"
+                              name="addRosterStartDate"
+                              className="mb-2 shadow-none"
+                              onChange={this.handleChange}
+                            />
+                          </Col>
+                        </Row>
+                      )}
+                      <Row>
+                        <Col>
+                          <Label for="exampleSelect">Check In</Label>
+                          <Input
+                            value={this.state.addRosterCheckIn}
+                            type="time"
+                            name="addRosterCheckIn"
+                            className="mb-2 shadow-none"
+                            onChange={this.handleChange}
+                          />
+                        </Col>
+                        <Col>
+                          <Label for="exampleSelect">Check Out</Label>
+                          <Input
+                            value={this.state.addRosterCheckOut}
+                            type="time"
+                            name="addRosterCheckOut"
+                            className="mb-2 shadow-none"
+                            onChange={this.handleChange}
+                          />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col className="ml-4">
+                          <Label check>
+                            <Input
+                              checked={this.state.addRosterOvertime}
+                              type="checkbox"
+                              onChange={() => {
+                                this.setState({
+                                  addRosterOvertime: !this.state
+                                    .addRosterOvertime,
+                                })
+                              }}
+                            />{' '}
+                            Overtime
+                          </Label>
+                        </Col>
+                      </Row>
+                      {this.state.addRosterOvertime ? (
+                        <Row>
+                          <Col>
+                            <Label for="exampleSelect">Check In Overtime</Label>
+                            <Input
+                              value={this.state.addRosterCheckInOvertime}
+                              type="time"
+                              name="addRosterCheckInOvertime"
+                              className="mb-2 shadow-none"
+                              onChange={this.handleChange}
+                            />
+                          </Col>
+                          <Col>
+                            <Label for="exampleSelect">
+                              Check Out Overtime
+                            </Label>
+                            <Input
+                              value={this.state.addRosterCheckOutOvertime}
+                              type="time"
+                              name="addRosterCheckOutOvertime"
+                              className="mb-2 shadow-none"
+                              onChange={this.handleChange}
+                            />
+                          </Col>
+                        </Row>
+                      ) : (
+                        <></>
+                      )}
+                    </ModalBody>
+                    <ModalFooter>
+                      <Button color="secondary" onClick={this.addRoster}>
+                        Submit
+                      </Button>
+                      <Button
+                        color="danger"
+                        onClick={this.toggleAddRosterModal}
+                      >
                         Cancel
                       </Button>
                     </ModalFooter>
