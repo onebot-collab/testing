@@ -121,6 +121,7 @@ class UserDetail extends Component {
     this.nextMonthData = this.nextMonthData.bind(this)
     this.toggleEditRoster = this.toggleEditRoster.bind(this)
     this.onClickEvent = this.onClickEvent.bind(this)
+    this.updateRoster = this.updateRoster.bind(this)
   }
 
   handleChange(event) {
@@ -195,71 +196,6 @@ class UserDetail extends Component {
     this.props.sendNotif(dataSubmit)
   }
 
-  update() {
-    // this.setState({ isLoadingUpdate: true })
-    // const dataSubmit = new FormData()
-    // if (this.state.nameInput !== this.state.name) {
-    //   dataSubmit.append('name', this.state.nameInput)
-    // }
-    // if (this.state.emailInput !== this.state.email) {
-    //   dataSubmit.append('email', this.state.emailInput)
-    // }
-    // if (this.state.passwordInput !== '') {
-    //   dataSubmit.append('password', this.state.passwordInput)
-    // }
-    // if (this.state.passcodeInput !== '') {
-    //   dataSubmit.append('passcode', this.state.passcodeInput)
-    // }
-    // if (this.state.phoneInput !== this.state.phone) {
-    //   dataSubmit.append('phone', this.state.phoneInput)
-    // }
-    // if (this.state.roleInput !== this.state.role) {
-    //   dataSubmit.append('role', this.state.roleInput)
-    // }
-    // if (this.state.departmentId !== this.state.department_id) {
-    //   dataSubmit.append('department_id', this.state.department_id)
-    // }
-    // if (this.state.addressInput !== this.state.address) {
-    //   dataSubmit.append('address', this.state.addressInput)
-    // }
-    // if (this.state.timeTypeInput !== '') {
-    //   dataSubmit.append('time_type_id', this.state.timeTypeInput)
-    // }
-    // if (this.state.joinedDateInput !== this.state.joined_date) {
-    //   dataSubmit.append('joined_date', this.state.timeTypeInput)
-    // }
-    // if (this.state.birthDateInput !== this.state.birthDate) {
-    //   dataSubmit.append('birthdate', this.state.birthDateInput)
-    // }
-    // if (this.state.avatar !== null) {
-    //   dataSubmit.append('avatar', this.state.avatar)
-    // }
-    // this.props
-    //   .updateUser(
-    //     this.props.location.state.id,
-    //     dataSubmit,
-    //     this.props.login.token,
-    //   )
-    //   .then((res) => {
-    //     this.setState({ isLoadingUpdate: false })
-    //     this.props.history.push('/admin/user')
-    //     swal.fire({
-    //       icon: 'success',
-    //       title: 'Success',
-    //       text: 'User successsfully updated',
-    //     })
-    //     this.props.newToken(res.action.payload.data.newToken)
-    //   })
-    //   .catch((res) => {
-    //     this.setState({ isLoadingUpdate: false })
-    //     swal.fire({
-    //       icon: 'error',
-    //       title: 'Failed',
-    //       text: `${res.response.data.message}`,
-    //     })
-    //   })
-  }
-
   delete() {
     this.setState({ isLoadingDelete: true })
     const id = `${this.props.location.state.id}`
@@ -284,7 +220,67 @@ class UserDetail extends Component {
       })
   }
 
-  updateRoster() {}
+  updateRoster() {
+    this.setState({ isLoadingFetch: true, showEditRoster: false })
+    if (this.state.editOvertime) {
+      var dataSubmit = {
+        date: this.state.editDate,
+        type: 1,
+        checkIn: this.state.editCheckIn,
+        checkOut: this.state.editCheckOut,
+        earlyCheckIn:
+          this.state.editCheckInOvertime === ''
+            ? '0'
+            : this.state.editCheckInOvertime,
+        lateCheckOut:
+          this.state.editCheckOutOvertime === ''
+            ? '0'
+            : this.state.editCheckOutOvertime,
+      }
+    } else {
+      var dataSubmit = {
+        date: this.state.editDate,
+        type: 1,
+        checkIn: this.state.editCheckIn,
+        checkOut: this.state.editCheckOut,
+        earlyCheckIn: '0',
+        lateCheckOut: '0',
+      }
+    }
+
+    this.props
+      .updateRosterUser(
+        this.props.login.token,
+        dataSubmit,
+        this.props.location.state.id,
+      )
+      .then((res) => {
+        this.props.newToken(res.action.payload.data.newToken)
+        swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Roster Updated',
+        })
+        this.props
+          .getRosterByUser(
+            res.action.payload.data.newToken,
+            parseInt(this.props.location.state.id),
+            moment().format().slice(0, 10),
+          )
+          .then((res) => {
+            this.setState({ isLoadingFetch: false })
+            this.props.newToken(res.action.payload.data.newToken)
+          })
+      })
+      .catch((res) => {
+        this.setState({ isLoadingFetch: false })
+        swal.fire({
+          icon: 'error',
+          title: 'Failed',
+          text: `${res.response.data.message}`,
+        })
+      })
+  }
 
   nextMonthData(e) {
     this.setState({ isLoadingRoster: true })
@@ -332,8 +328,11 @@ class UserDetail extends Component {
 
   onClickEvent(e) {
     this.setState({
-      editStartDate: e.start,
-      editEndDate: e.end,
+      editDate: e.start,
+      editCheckIn: e.checkIn,
+      editCheckOut: e.checkOut,
+      editCheckInOvertime: e.earlyCheckIn,
+      editCheckOutOvertime: e.lateCheckOut,
       editOvertime: e.overtime === 1,
     })
     this.toggleEditRoster()
@@ -702,7 +701,9 @@ class UserDetail extends Component {
                         <Link
                           to="/admin/user/addroster"
                           className="btn btn-danger my-2 mx-2 my-sm-0"
-                        >Add Roster</Link>
+                        >
+                          Add Roster
+                        </Link>
                       </CardFooter>
                     </Card>
                   </GridItem>
@@ -817,9 +818,9 @@ class UserDetail extends Component {
                         <Col>
                           <h6>Check In</h6>
                           <Input
-                            value={this.state.editStartDate}
+                            value={this.state.editCheckIn}
                             type="time"
-                            name="editStartDate"
+                            name="editCheckIn"
                             className="mb-2 shadow-none"
                             onChange={this.handleChange}
                           />
@@ -827,9 +828,9 @@ class UserDetail extends Component {
                         <Col>
                           <h6>Check Out</h6>
                           <Input
-                            value={this.state.editStartDate}
+                            value={this.state.editCheckOut}
                             type="time"
-                            name="editStartDate"
+                            name="editCheckOut"
                             className="mb-2 shadow-none"
                             onChange={this.handleChange}
                           />
@@ -879,7 +880,7 @@ class UserDetail extends Component {
                       )}
                     </ModalBody>
                     <ModalFooter>
-                      <Button color="secondary" onClick={this.toggleEditRoster}>
+                      <Button color="secondary" onClick={this.updateRoster}>
                         Submit
                       </Button>
                       <Button color="danger" onClick={this.toggleEditRoster}>
