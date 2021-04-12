@@ -84,6 +84,7 @@ class UserDetail extends Component {
       showUpdateModal: false,
       showRosterModal: false,
       showAddRosterModal: false,
+      showDeleteRosterModal: false,
       showDeleteModal: false,
       showEditRoster: false,
       isLoadingFetch: true,
@@ -128,6 +129,9 @@ class UserDetail extends Component {
       addRosterOvertime: false,
       addRosterCheckInOvertime: '',
       addRosterCheckOutOvertime: '',
+      deleteOption: 1,
+      deleteStartDate: '',
+      deleteEndDate: '',
     }
     this.toggleUpdateModal = this.toggleUpdateModal.bind(this)
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this)
@@ -140,6 +144,8 @@ class UserDetail extends Component {
     this.onClickEvent = this.onClickEvent.bind(this)
     this.updateRoster = this.updateRoster.bind(this)
     this.addRoster = this.addRoster.bind(this)
+    this.toggleDeleteRosterModal = this.toggleDeleteRosterModal.bind(this)
+    this.deleteRoster = this.deleteRoster.bind(this)
   }
 
   handleChange(event) {
@@ -176,6 +182,12 @@ class UserDetail extends Component {
     })
   }
 
+  toggleDeleteRosterModal() {
+    this.setState({
+      showDeleteRosterModal: !this.state.showDeleteRosterModal,
+    })
+  }
+
   redirect() {
     this.props.history.push('/login')
   }
@@ -192,7 +204,7 @@ class UserDetail extends Component {
               .getRosterByUser(
                 res.action.payload.data.newToken,
                 parseInt(this.props.location.state.id),
-                moment().format().slice(0, 10),
+                `${moment().format('YYYY-MM')}-01`,
               )
               .then((res) => {
                 this.setState({ isLoadingFetch: false })
@@ -283,7 +295,7 @@ class UserDetail extends Component {
         swal.fire({
           icon: 'success',
           title: 'Success',
-          text: 'Roster Updated',
+          text: 'Roster Deleted',
         })
         this.props
           .getRosterByUser(
@@ -349,8 +361,10 @@ class UserDetail extends Component {
       type: 3,
       startDate: this.state.addRosterStartDate,
       endDate: this.state.addRosterEndDate,
-      checkIn: this.state.addRosterMonday ? this.state.addRosterCheckIn : '0',
-      checkOut: this.state.addRosterMonday ? this.state.addRosterCheckOut : '0',
+      checkIn: this.state.addRosterTuesday ? this.state.addRosterCheckIn : '0',
+      checkOut: this.state.addRosterTuesday
+        ? this.state.addRosterCheckOut
+        : '0',
       earlyCheckIn:
         this.state.addRosterCheckInOvertime === '' ||
         this.state.addRosterOvertime === false
@@ -368,8 +382,12 @@ class UserDetail extends Component {
       type: 3,
       startDate: this.state.addRosterStartDate,
       endDate: this.state.addRosterEndDate,
-      checkIn: this.state.addRosterMonday ? this.state.addRosterCheckIn : '0',
-      checkOut: this.state.addRosterMonday ? this.state.addRosterCheckOut : '0',
+      checkIn: this.state.addRosterWednesday
+        ? this.state.addRosterCheckIn
+        : '0',
+      checkOut: this.state.addRosterWednesday
+        ? this.state.addRosterCheckOut
+        : '0',
       earlyCheckIn:
         this.state.addRosterCheckInOvertime === '' ||
         this.state.addRosterOvertime === false
@@ -387,8 +405,10 @@ class UserDetail extends Component {
       type: 3,
       startDate: this.state.addRosterStartDate,
       endDate: this.state.addRosterEndDate,
-      checkIn: this.state.addRosterMonday ? this.state.addRosterCheckIn : '0',
-      checkOut: this.state.addRosterMonday ? this.state.addRosterCheckOut : '0',
+      checkIn: this.state.addRosterThursday ? this.state.addRosterCheckIn : '0',
+      checkOut: this.state.addRosterThursday
+        ? this.state.addRosterCheckOut
+        : '0',
       earlyCheckIn:
         this.state.addRosterCheckInOvertime === '' ||
         this.state.addRosterOvertime === false
@@ -406,8 +426,8 @@ class UserDetail extends Component {
       type: 3,
       startDate: this.state.addRosterStartDate,
       endDate: this.state.addRosterEndDate,
-      checkIn: this.state.addRosterMonday ? this.state.addRosterCheckIn : '0',
-      checkOut: this.state.addRosterMonday ? this.state.addRosterCheckOut : '0',
+      checkIn: this.state.addRosterFriday ? this.state.addRosterCheckIn : '0',
+      checkOut: this.state.addRosterFriday ? this.state.addRosterCheckOut : '0',
       earlyCheckIn:
         this.state.addRosterCheckInOvertime === '' ||
         this.state.addRosterOvertime === false
@@ -425,8 +445,10 @@ class UserDetail extends Component {
       type: 3,
       startDate: this.state.addRosterStartDate,
       endDate: this.state.addRosterEndDate,
-      checkIn: this.state.addRosterMonday ? this.state.addRosterCheckIn : '0',
-      checkOut: this.state.addRosterMonday ? this.state.addRosterCheckOut : '0',
+      checkIn: this.state.addRosterSaturday ? this.state.addRosterCheckIn : '0',
+      checkOut: this.state.addRosterSaturday
+        ? this.state.addRosterCheckOut
+        : '0',
       earlyCheckIn:
         this.state.addRosterCheckInOvertime === '' ||
         this.state.addRosterOvertime === false
@@ -444,8 +466,8 @@ class UserDetail extends Component {
       type: 3,
       startDate: this.state.addRosterStartDate,
       endDate: this.state.addRosterEndDate,
-      checkIn: this.state.addRosterMonday ? this.state.addRosterCheckIn : '0',
-      checkOut: this.state.addRosterMonday ? this.state.addRosterCheckOut : '0',
+      checkIn: this.state.addRosterSunday ? this.state.addRosterCheckIn : '0',
+      checkOut: this.state.addRosterSunday ? this.state.addRosterCheckOut : '0',
       earlyCheckIn:
         this.state.addRosterCheckInOvertime === '' ||
         this.state.addRosterOvertime === false
@@ -458,7 +480,7 @@ class UserDetail extends Component {
           : this.state.addRosterCheckOutOvertime,
     }
 
-    if (this.state.addRosterType !== 3) {
+    if (this.state.addRosterType != 3) {
       this.props
         .updateRosterUser(
           this.props.login.token,
@@ -475,11 +497,28 @@ class UserDetail extends Component {
             .getRosterByUser(
               res.action.payload.data.newToken,
               parseInt(this.props.location.state.id),
-              moment().format().slice(0, 10),
+              `${moment().format('YYYY-MM')}-01`,
             )
             .then((res) => {
               this.props.newToken(res.action.payload.data.newToken)
-              this.setState({ isLoadingFetch: false })
+              this.setState({
+                isLoadingFetch: false,
+                addRosterStartDate: '',
+                addRosterEndDate: '',
+                addRosterCheckIn: '',
+                addRosterCheckOut: '',
+                addRosterCheckInOvertime: '',
+                addRosterCheckOutOvertime: '',
+                addRosterOvertime: false,
+                addRosterType: 1,
+                addRosterMonday: false,
+                addRosterTuesday: false,
+                addRosterWednesday: false,
+                addRosterThursday: false,
+                addRosterFriday: false,
+                addRosterSaturday: false,
+                addRosterSunday: false,
+              })
             })
             .catch((res) => {
               this.setState({ isLoadingFetch: false })
@@ -552,13 +591,30 @@ class UserDetail extends Component {
                                     .getRosterByUser(
                                       res.action.payload.data.newToken,
                                       parseInt(this.props.location.state.id),
-                                      moment().format().slice(0, 10),
+                                      `${moment().format('YYYY-MM')}-01`,
                                     )
                                     .then((res) => {
                                       this.props.newToken(
                                         res.action.payload.data.newToken,
                                       )
-                                      this.setState({ isLoadingFetch: false })
+                                      this.setState({
+                                        isLoadingFetch: false,
+                                        addRosterStartDate: '',
+                                        addRosterEndDate: '',
+                                        addRosterCheckIn: '',
+                                        addRosterCheckOut: '',
+                                        addRosterCheckInOvertime: '',
+                                        addRosterCheckOutOvertime: '',
+                                        addRosterOvertime: false,
+                                        addRosterType: 1,
+                                        addRosterMonday: false,
+                                        addRosterTuesday: false,
+                                        addRosterWednesday: false,
+                                        addRosterThursday: false,
+                                        addRosterFriday: false,
+                                        addRosterSaturday: false,
+                                        addRosterSunday: false,
+                                      })
                                     })
                                     .catch((res) => {
                                       this.setState({ isLoadingFetch: false })
@@ -670,6 +726,84 @@ class UserDetail extends Component {
       .then((res) => {
         this.props.newToken(res.action.payload.data.newToken)
         this.setState({ isLoadingRoster: false })
+      })
+  }
+
+  deleteRoster() {
+    this.setState({
+      isLoadingFetch: true,
+      showEditRoster: false,
+      showDeleteRosterModal: false,
+    })
+    if (this.state.deleteOption == 1) {
+      var dataSubmit = {
+        type: 1,
+        date: this.state.editDate,
+        checkIn: '0',
+        checkOut: '0',
+        earlyCheckIn: '0',
+        lateCheckOut: '0',
+      }
+    } else if (this.state.deleteOption == 2) {
+      var dataSubmit = {
+        type: 4,
+        date: this.state.editDate,
+        checkIn: '0',
+        checkOut: '0',
+        earlyCheckIn: '0',
+        lateCheckOut: '0',
+      }
+    } else {
+      var dataSubmit = {
+        type: 3,
+        startDate: this.state.deleteStartDate,
+        endDate: this.state.deleteEndDate,
+        day: 1,
+        checkIn: '0',
+        checkOut: '0',
+        earlyCheckIn: '0',
+        lateCheckOut: '0',
+      }
+    }
+
+    this.props
+      .updateRosterUser(
+        this.props.login.token,
+        dataSubmit,
+        parseInt(this.props.location.state.id),
+      )
+      .then((res) => {
+        swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Roster Updated',
+        })
+        this.props
+          .getRosterByUser(
+            res.action.payload.data.newToken,
+            parseInt(this.props.location.state.id),
+            `${moment().format('YYYY-MM')}-01`,
+          )
+          .then((res) => {
+            this.setState({ isLoadingFetch: false })
+            this.props.newToken(res.action.payload.data.newToken)
+          })
+          .catch((res) => {
+            swal.fire({
+              icon: 'error',
+              title: 'Failed',
+              text: `${res.response.data.message}`,
+            })
+            this.setState({ isLoadingFetch: false })
+          })
+      })
+      .catch((res) => {
+        swal.fire({
+          icon: 'error',
+          title: 'Failed',
+          text: `${res.response.data.message}`,
+        })
+        this.setState({ isLoadingFetch: false })
       })
   }
 
@@ -1153,6 +1287,81 @@ class UserDetail extends Component {
                   </ModalFooter>
                 </Modal>
 
+                {/* Delete Roster Modal */}
+                <Modal isOpen={this.state.showDeleteRosterModal}>
+                  <ModalHeader className="h4">Delete Option</ModalHeader>
+                  <ModalBody>
+                    <FormGroup>
+                      <div className="d-flex flex-column">
+                        <CustomInput
+                          type="radio"
+                          id="exampleCustomRadio4"
+                          name="deleteOption"
+                          label="Only this"
+                          value={1}
+                          onChange={(e) => this.handleChange(e)}
+                          inline
+                        />
+                        <CustomInput
+                          type="radio"
+                          id="exampleCustomRadio5"
+                          name="deleteOption"
+                          label="All current"
+                          value={2}
+                          onChange={(e) => this.handleChange(e)}
+                          inline
+                        />
+                        <CustomInput
+                          type="radio"
+                          id="exampleCustomRadio6"
+                          name="deleteOption"
+                          label="Custom"
+                          value={3}
+                          onChange={(e) => this.handleChange(e)}
+                          inline
+                        />
+                      </div>
+                    </FormGroup>
+                    {parseInt(this.state.deleteOption) === 3 ? (
+                      <Row>
+                        <Col>
+                          <Label for="exampleSelect">Start Date</Label>
+                          <Input
+                            value={this.state.deleteStartDate}
+                            type="date"
+                            name="deleteStartDate"
+                            className="mb-2 shadow-none"
+                            onChange={this.handleChange}
+                          />
+                        </Col>
+                        <Col>
+                          <Label for="exampleSelect">End Date</Label>
+                          <Input
+                            value={this.state.deleteEndDate}
+                            type="date"
+                            name="deleteEndDate"
+                            className="mb-2 shadow-none"
+                            onChange={this.handleChange}
+                          />
+                        </Col>
+                      </Row>
+                    ) : (
+                      <></>
+                    )}
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button color="secondary" onClick={this.deleteRoster}>
+                      Delete
+                    </Button>
+                    <Button
+                      color="danger"
+                      onClick={this.toggleDeleteRosterModal}
+                    >
+                      Cancel
+                    </Button>
+                  </ModalFooter>
+                </Modal>
+
                 {/* EDIT MODAL */}
                 <Modal isOpen={this.state.showEditRoster}>
                   <ModalHeader className="h1">Roster Schedule</ModalHeader>
@@ -1228,6 +1437,12 @@ class UserDetail extends Component {
                     <ModalFooter>
                       <Button color="secondary" onClick={this.updateRoster}>
                         Submit
+                      </Button>
+                      <Button
+                        color="secondary"
+                        onClick={this.toggleDeleteRosterModal}
+                      >
+                        Delete
                       </Button>
                       <Button color="danger" onClick={this.toggleEditRoster}>
                         Cancel
