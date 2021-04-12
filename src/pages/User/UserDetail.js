@@ -695,6 +695,15 @@ class UserDetail extends Component {
                           />
                         </div>
                       </CardBody>
+                      <CardFooter>
+                        {/* <Button onClick={this.toggleUpdateModal} color="danger">
+                          Add Roster
+                        </Button> */}
+                        <Link
+                          to="/admin/user/addroster"
+                          className="btn btn-danger my-2 mx-2 my-sm-0"
+                        >Add Roster</Link>
+                      </CardFooter>
                     </Card>
                   </GridItem>
                 </GridContainer>
