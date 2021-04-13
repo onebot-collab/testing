@@ -1094,7 +1094,7 @@ class UserDetail extends Component {
                                 {this.props.user.dataProfile[0].phone}
                               </ListItemText>
                             </ListItem>
-                            <ListItem>
+                            {/* <ListItem>
                               <ListItemIcon>
                                 <Today />
                               </ListItemIcon>
@@ -1104,7 +1104,7 @@ class UserDetail extends Component {
                                   10,
                                 )}
                               </ListItemText>
-                            </ListItem>
+                            </ListItem> */}
                             <ListItem>
                               <ListItemIcon>
                                 <Cake />
@@ -1140,6 +1140,19 @@ class UserDetail extends Component {
                                 {this.props.user.dataProfile[0].role === 1
                                   ? 'Admin'
                                   : 'User'}
+                              </ListItemText>
+                            </ListItem>
+                            <ListItem>
+                              <ListItemIcon>
+                                <AccountTree />
+                              </ListItemIcon>
+                              <ListItemText>
+                                <Link
+                                  to="/admin/user/resume"
+                                  className="btn btn-danger m-2 my-sm-0"
+                                >
+                                  Download Resume
+                                </Link>
                               </ListItemText>
                             </ListItem>
                           </List>

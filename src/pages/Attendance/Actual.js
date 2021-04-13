@@ -261,29 +261,53 @@ class Attendance extends Component {
                             <TableHead>
                               <TableRow>
                                 <TableCell component="th">
-                                  <h6 className="textPrimaryColor">Name</h6>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h6 className="textPrimaryColor">
-                                    Department
+                                  <h6>
+                                    <strong className="textPrimaryColor">
+                                      Name
+                                    </strong>
                                   </h6>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h6 className="textPrimaryColor">Check In</h6>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h6 className="textPrimaryColor">
-                                    Check Out
+                                  <h6>
+                                    <strong className="textPrimaryColor">
+                                      Department
+                                    </strong>
                                   </h6>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h6 className="textPrimaryColor">Date</h6>
+                                  <h6>
+                                    <strong className="textPrimaryColor">
+                                      Check In
+                                    </strong>
+                                  </h6>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h6 className="textPrimaryColor">On Time</h6>
+                                  <h6>
+                                    <strong className="textPrimaryColor">
+                                      Check Out
+                                    </strong>
+                                  </h6>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h6 className="textPrimaryColor">Action</h6>
+                                  <h6>
+                                    <strong className="textPrimaryColor">
+                                      Date
+                                    </strong>
+                                  </h6>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h6>
+                                    <strong className="textPrimaryColor">
+                                      On Time
+                                    </strong>
+                                  </h6>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h6>
+                                    <strong className="textPrimaryColor">
+                                      Action
+                                    </strong>
+                                  </h6>
                                 </TableCell>
                               </TableRow>
                             </TableHead>
@@ -294,31 +318,19 @@ class Attendance extends Component {
                                   key={i}
                                 >
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.nameUser}
-                                    </p>
+                                    {res.nameUser}
                                   </TableCell>
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.name}
-                                    </p>
+                                    {res.name}
                                   </TableCell>
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.att_time}
-                                    </p>
+                                    {res.att_time}
                                   </TableCell>
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.end_time === null
-                                        ? '-'
-                                        : res.end_time}
-                                    </p>
+                                    {res.end_time === null ? '-' : res.end_time}
                                   </TableCell>
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.att_date}
-                                    </p>
+                                    {res.att_date}
                                   </TableCell>
                                   <TableCell
                                     className={classesBody.tableActions}
@@ -390,8 +402,8 @@ class Attendance extends Component {
                                 />
                               </IconButton>
                             </div>
-                            <div>
-                              <p>{this.state.page}</p>
+                            <div className="d-flex align-items-center">
+                              {this.state.page}
                             </div>
                             <div className="p-2">
                               <IconButton onClick={this.nextPage}>

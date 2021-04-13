@@ -425,34 +425,60 @@ class Ticketing extends Component {
                             <TableHead>
                               <TableRow>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">No</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Requester
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      No
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Assign To
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Requester
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Observer</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Status</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">On Time</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Created At
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Assign To
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Action</h5>
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Observer
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Status
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      On Time
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Created At
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Action
+                                    </strong>
+                                  </h5>
                                 </TableCell>
                               </TableRow>
                             </TableHead>
@@ -463,28 +489,20 @@ class Ticketing extends Component {
                                   key={i}
                                 >
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.no_ticket}
-                                    </p>
+                                    {res.no_ticket}
                                   </TableCell>
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.nameFrom}
-                                    </p>
+                                    {res.nameFrom}
                                   </TableCell>
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.category === '2'
-                                        ? res.nameAssignGroup
-                                        : res.nameAssign}
-                                    </p>
+                                    {res.category === '2'
+                                      ? res.nameAssignGroup
+                                      : res.nameAssign}
                                   </TableCell>
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.nameObserve === null
-                                        ? '-'
-                                        : res.nameObserve}
-                                    </p>
+                                    {res.nameObserve === null
+                                      ? '-'
+                                      : res.nameObserve}
                                   </TableCell>
                                   <TableCell component="th">
                                     {res.statusid === 1 ? (
@@ -545,11 +563,9 @@ class Ticketing extends Component {
                                     </TableCell>
                                   )}
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.date.slice(8, 10)}-
-                                      {res.date.slice(5, 8)}
-                                      {res.date.slice(0, 4)}
-                                    </p>
+                                    {res.date.slice(8, 10)}-
+                                    {res.date.slice(5, 8)}
+                                    {res.date.slice(0, 4)}
                                   </TableCell>
                                   <TableCell
                                     className={classesBody.tableActions}
@@ -605,9 +621,9 @@ class Ticketing extends Component {
                               />
                             </IconButton>
                           </div>
-                          <div>
-                            <p>{this.state.page}</p>
-                          </div>
+                          <div className="d-flex align-items-center">
+                              {this.state.page}
+                            </div>
                           <div className="p-2">
                             <IconButton onClick={this.nextPage}>
                               <ArrowRight

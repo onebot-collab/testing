@@ -458,16 +458,32 @@ class AttendanceDetail extends Component {
                           <TableHead>
                             <TableRow>
                               <TableCell component="th">
-                                <h6 className="textPrimaryColor">Check In</h6>
+                                <h6>
+                                  <strong className="textPrimaryColor">
+                                    Check In
+                                  </strong>
+                                </h6>
                               </TableCell>
                               <TableCell component="th">
-                                <h6 className="textPrimaryColor">Check Out</h6>
+                                <h6>
+                                  <strong className="textPrimaryColor">
+                                    Check Out
+                                  </strong>
+                                </h6>
                               </TableCell>
                               <TableCell component="th">
-                                <h6 className="textPrimaryColor">Date</h6>
+                                <h6>
+                                  <strong className="textPrimaryColor">
+                                    Date
+                                  </strong>
+                                </h6>
                               </TableCell>
                               <TableCell component="th">
-                                <h6 className="textPrimaryColor">On Time</h6>
+                                <h6>
+                                  <strong className="textPrimaryColor">
+                                    On Time
+                                  </strong>
+                                </h6>
                               </TableCell>
                             </TableRow>
                           </TableHead>
@@ -507,21 +523,15 @@ class AttendanceDetail extends Component {
                                 {this.props.presence.dataUserLog.map((res) => (
                                   <TableRow className={classesBody.tableRow}>
                                     <TableCell component="th">
-                                      <p className="textPrimaryColor">
-                                        {res.att_time}
-                                      </p>
+                                      {res.att_time}
                                     </TableCell>
                                     <TableCell component="th">
-                                      <p className="textPrimaryColor">
-                                        {res.end_time === null
-                                          ? '-'
-                                          : res.end_time}
-                                      </p>
+                                      {res.end_time === null
+                                        ? '-'
+                                        : res.end_time}
                                     </TableCell>
                                     <TableCell component="th">
-                                      <p className="textPrimaryColor">
-                                        {res.att_date}
-                                      </p>
+                                      {res.att_date}
                                     </TableCell>
                                     <TableCell
                                       className={classesBody.tableActions}
