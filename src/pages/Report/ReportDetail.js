@@ -6,13 +6,10 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import { connect } from 'react-redux'
 import './ReportDetail.css'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
-// import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
-// import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Paper from '@material-ui/core/Paper'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -22,12 +19,6 @@ import ListItemText from '@material-ui/core/ListItemText'
 import { Link } from 'react-router-dom'
 
 // @material-ui/icons
-// import Edit from '@material-ui/icons/Edit'
-// import { Visibility } from '@material-ui/icons'
-// import CalendarToday from '@material-ui/icons/CalendarToday'
-// import Apartment from '@material-ui/icons/Apartment'
-// import AssignmentInd from '@material-ui/icons/AssignmentInd'
-// import Assignment from '@material-ui/icons/Assignment'
 import Attachment from '@material-ui/icons/Attachment'
 import CheckCircle from '@material-ui/icons/CheckCircle'
 import Cancel from '@material-ui/icons/Cancel'
@@ -35,7 +26,6 @@ import Print from '@material-ui/icons/Print'
 
 import moment from 'moment'
 
-// import Check from '@material-ui/icons/Check'
 // core components
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
@@ -58,8 +48,6 @@ class ReportDetail extends Component {
       // created_at: props.location.state.created_at,
       nameReport: props.location.state.nameReport,
       fileName: props.location.state.fileName,
-      // fileName2: props.location.state.fileName2,
-      // fileName3: props.location.state.fileName3,
     }
     this.export = this.export.bind(this)
   }
