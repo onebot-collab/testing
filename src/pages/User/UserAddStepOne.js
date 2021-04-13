@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable radix */
 /* eslint-disable no-useless-escape */
 /* eslint-disable react/no-array-index-key */
@@ -6,7 +7,6 @@
 /* eslint-disable react/no-access-state-in-setstate */
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import swal from 'sweetalert2'
 import './Actual.css'
 import { makeStyles } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -45,161 +45,91 @@ import stylesBody from '../../assets/jss/material-dashboard-react/components/tas
 class UserAddStepOne extends Component {
   constructor(props) {
     super(props)
-    // this.onDrop = (files) => {
-    //   this.setState({ files })
-    // }
     this.state = {
-      name: '',
-      email: '',
-      phone: '',
-      password: '',
-      passcode: '',
-      joinedDate: '',
+      firstName: '',
+      middleName: '',
+      lastName: '',
+      privateEmail: '',
+      phone1: '',
+      phone2: '',
+      birthPlace: '',
       birthDate: '',
-      address: '',
-      role: 2,
-      department: 1,
-      timeType: 1,
-      profilePicture: null,
-      page: 1,
-      employmentStatus: 3,
-      // files: [],
+      maritalStatus: 1,
+      employmentType: 3,
+      employmentDuration: '',
+      employmentDurationType: 1,
+      religion: 1,
+      bloodType: 1,
+      gender: '',
+      country: '',
+      city: '',
+      district: '',
+      zipCode: '',
+      // profilePict: '',
     }
     this.handleChange = this.handleChange.bind(this)
-    this.handleSearch = this.handleSearch.bind(this)
-    this.prevPage = this.prevPage.bind(this)
     this.nextPage = this.nextPage.bind(this)
-    this.register = this.register.bind(this)
   }
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  handleSearch(event) {
-    this.setState({ [event.target.name]: event.target.value })
-    setTimeout(() => {
-      this.fetch()
-    }, 100)
-  }
-
   nextPage() {
-    if (this.state.page < this.props.user.infoUser.totalPage) {
-      this.setState({ page: this.state.page + 1 })
-      setTimeout(() => {
-        this.fetch()
-      }, 100)
-    }
-  }
+    const {
+      firstName,
+      middleName,
+      lastName,
+      privateEmail,
+      phone1,
+      phone2,
+      birthPlace,
+      birthDate,
+      maritalStatus,
+      employmentType,
+      employmentDuration,
+      employmentDurationType,
+      religion,
+      bloodType,
+      gender,
+      country,
+      city,
+      district,
+      zipCode,
+    } = this.state
 
-  prevPage() {
-    if (this.state.page > 1) {
-      this.setState({ page: this.state.page - 1 })
-      setTimeout(() => {
-        this.fetch()
-      }, 100)
+    const dataPageOne = {
+      firstName,
+      middleName,
+      lastName,
+      privateEmail,
+      phone1,
+      phone2,
+      birthPlace,
+      birthDate,
+      maritalStatus,
+      employmentDuration,
+      employmentType,
+      employmentDurationType,
+      religion,
+      bloodType,
+      gender,
+      country,
+      city,
+      district,
+      zipCode,
     }
+
+    this.props.history.push('/admin/user/stepTwo', { dataPageOne })
   }
 
   redirect() {
     this.props.history.push('/login')
   }
 
-  pressed() {
-    const dataSubmit = {
-      to: '/topics/gmiadmin',
-      notification: {
-        title: 'New User Registered',
-        body: `${this.props.login.dataLogin.name} add ${this.state.name}`,
-        mutable_content: true,
-        sound: 'Tri-tone',
-      },
-      data: {
-        route: 'Inventory',
-        initialRoute: 'Inventory',
-      },
-    }
-
-    this.props.sendNotif(dataSubmit)
-  }
-
-  register(event) {
-    event.preventDefault()
-    const joinedDate = `${this.state.joinedDate.slice(
-      0,
-      4,
-    )}-${this.state.joinedDate.slice(5, 7)}-${this.state.joinedDate.slice(
-      8,
-      10,
-    )}`
-    const birthDate = `${this.state.birthDate.slice(
-      0,
-      4,
-    )}-${this.state.birthDate.slice(5, 7)}-${this.state.birthDate.slice(8, 10)}`
-    const dataSubmit = new FormData()
-
-    dataSubmit.append('name', this.state.name)
-    dataSubmit.append('email', this.state.email)
-    dataSubmit.append('phone', this.state.phone)
-    dataSubmit.append('password', this.state.password)
-    dataSubmit.append('passcode', this.state.passcode)
-    dataSubmit.append('address', this.state.address)
-    dataSubmit.append('joineddate', joinedDate)
-    dataSubmit.append('birthdate', birthDate)
-    dataSubmit.append('time_type', this.state.timeType)
-    dataSubmit.append('role', this.state.role)
-    dataSubmit.append('department', this.state.department)
-    dataSubmit.append('photo', this.state.profilePicture)
-
-    this.props
-      .registerUser(dataSubmit, this.props.login.token)
-      .then((res) => {
-        this.setState({
-          name: '',
-          email: '',
-          phone: '',
-          password: '',
-          passcode: '',
-          joinedDate: '',
-          birthDate: '',
-          address: '',
-          role: 2,
-          department: 1,
-          timeType: 1,
-          profilePicture: null,
-        })
-        this.fetch()
-        swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: 'User successsfully registered',
-        })
-        this.props.newToken(res.action.payload.data.newToken)
-        // this.pressed()
-      })
-      .catch(() => {
-        swal.fire({
-          icon: 'error',
-          title: 'Failed',
-          text: 'Data already used',
-        })
-      })
-  }
-
   componentDidMount() {}
 
   render() {
-    // const departmentData = this.props.department.dataDepartment
-    // const departmentList = departmentData.map((val) => (
-    //   <option key={val.id} value={val.id}>
-    //     {val.name}
-    //   </option>
-    // ))
-    // const files = this.state.files.map((file) => (
-    //   <li key={file.name}>
-    //     {file.name} - {file.size} bytes
-    //   </li>
-    // ))
     const classesBody = makeStyles(stylesBody)
 
     return (
@@ -214,7 +144,7 @@ class UserAddStepOne extends Component {
               </div>
               <div className="d-flex flex-row col justify-content-end">
                 <Link
-                  to="/admin/user/stepTwo"
+                  onClick={this.nextPage}
                   className="btn btn-danger m-2 my-sm-0"
                 >
                   {' '}
@@ -253,8 +183,8 @@ class UserAddStepOne extends Component {
                           <FormGroup>
                             <Label for="exampleEmail">First Name</Label>
                             <Input
-                              value={this.state.name}
-                              name="name"
+                              value={this.state.firstName}
+                              name="firstName"
                               onChange={(e) => this.handleChange(e)}
                             />
                           </FormGroup>
@@ -263,8 +193,8 @@ class UserAddStepOne extends Component {
                           <FormGroup>
                             <Label for="exampleEmail">Middle Name</Label>
                             <Input
-                              value={this.state.email}
-                              name="email"
+                              value={this.state.middleName}
+                              name="middleName"
                               onChange={(e) => this.handleChange(e)}
                             />
                           </FormGroup>
@@ -273,8 +203,8 @@ class UserAddStepOne extends Component {
                           <FormGroup>
                             <Label for="exampleEmail">Last Name</Label>
                             <Input
-                              value={this.state.phone}
-                              name="phone"
+                              value={this.state.lastName}
+                              name="lastName"
                               onChange={(e) => this.handleChange(e)}
                             />
                           </FormGroup>
@@ -285,8 +215,8 @@ class UserAddStepOne extends Component {
                           <FormGroup>
                             <Label for="exampleEmail">Email</Label>
                             <Input
-                              value={this.state.name}
-                              name="name"
+                              value={this.state.privateEmail}
+                              name="privateEmail"
                               onChange={(e) => this.handleChange(e)}
                             />
                           </FormGroup>
@@ -295,8 +225,8 @@ class UserAddStepOne extends Component {
                           <FormGroup>
                             <Label for="exampleEmail">Phone 1</Label>
                             <Input
-                              value={this.state.email}
-                              name="email"
+                              value={this.state.phone1}
+                              name="phone1"
                               onChange={(e) => this.handleChange(e)}
                             />
                           </FormGroup>
@@ -305,8 +235,8 @@ class UserAddStepOne extends Component {
                           <FormGroup>
                             <Label for="exampleEmail">Phone 2</Label>
                             <Input
-                              value={this.state.email}
-                              name="email"
+                              value={this.state.phone2}
+                              name="phone2"
                               onChange={(e) => this.handleChange(e)}
                             />
                           </FormGroup>
@@ -317,8 +247,8 @@ class UserAddStepOne extends Component {
                           <FormGroup>
                             <Label for="exampleEmail">Place of Birth</Label>
                             <Input
-                              value={this.state.name}
-                              name="name"
+                              value={this.state.birthPlace}
+                              name="birthPlace"
                               onChange={(e) => this.handleChange(e)}
                             />
                           </FormGroup>
@@ -327,8 +257,9 @@ class UserAddStepOne extends Component {
                           <FormGroup>
                             <Label for="exampleEmail">Date of Birth</Label>
                             <Input
+                              value={this.state.birthDate}
                               type="date"
-                              name="joinedDate"
+                              name="birthDate"
                               id="exampleDate"
                               placeholder="date placeholder"
                               onChange={(e) => this.handleChange(e)}
@@ -339,9 +270,9 @@ class UserAddStepOne extends Component {
                           <FormGroup>
                             <Label for="exampleEmail">Marital Status</Label>
                             <Input
-                              value={this.state.role}
+                              value={this.state.maritalStatus}
                               type="select"
-                              name="role"
+                              name="maritalStatus"
                               id="exampleSelect"
                               onChange={this.handleChange}
                             >
@@ -361,9 +292,9 @@ class UserAddStepOne extends Component {
                           <FormGroup>
                             <Label for="exampleSelect">Employment Status</Label>
                             <Input
-                              value={this.state.employmentStatus}
+                              value={this.state.employmentType}
                               type="select"
-                              name="employmentStatus"
+                              name="employmentType"
                               id="exampleSelect"
                               onChange={this.handleChange}
                             >
@@ -386,7 +317,7 @@ class UserAddStepOne extends Component {
                           </FormGroup>
                         </Col>
                       </Row>
-                      {parseInt(this.state.employmentStatus) < 3 ? (
+                      {parseInt(this.state.employmentType) < 3 ? (
                         <Row form>
                           <Col xs={12} sm={12} md={2}></Col>
                           <Col xs={12} sm={12} md={2}></Col>
@@ -396,8 +327,8 @@ class UserAddStepOne extends Component {
                             <FormGroup>
                               <Label for="exampleSelect">Duration</Label>
                               <Input
-                                value={this.state.duration}
-                                name="duration"
+                                value={this.state.employmentDuration}
+                                name="employmentDuration"
                                 onChange={(e) => this.handleChange(e)}
                               />
                             </FormGroup>
@@ -406,9 +337,9 @@ class UserAddStepOne extends Component {
                             <FormGroup>
                               <Label for="exampleSelect">Type</Label>
                               <Input
-                                value={this.state.durationType}
+                                value={this.state.employmentDurationType}
                                 type="select"
-                                name="durationType"
+                                name="employmentDurationType"
                                 id="exampleSelect"
                                 onChange={this.handleChange}
                               >
@@ -430,9 +361,9 @@ class UserAddStepOne extends Component {
                           <FormGroup>
                             <Label for="exampleSelect">Religion</Label>
                             <Input
-                              value={this.state.role}
+                              value={this.state.religion}
                               type="select"
-                              name="role"
+                              name="religion"
                               id="exampleSelect"
                               onChange={this.handleChange}
                             >
@@ -461,9 +392,9 @@ class UserAddStepOne extends Component {
                           <FormGroup>
                             <Label for="exampleSelect">Blood Type</Label>
                             <Input
-                              value={this.state.department}
+                              value={this.state.bloodType}
                               type="select"
-                              name="department"
+                              name="bloodType"
                               onChange={this.handleChange}
                               id="exampleSelect"
                             >
@@ -500,7 +431,7 @@ class UserAddStepOne extends Component {
                                 id="exampleCustomRadio"
                                 name="gender"
                                 label="Female"
-                                value={3}
+                                value={2}
                                 onChange={(e) => this.handleChange(e)}
                                 inline
                               />
@@ -528,9 +459,9 @@ class UserAddStepOne extends Component {
                           <FormGroup>
                             <Label for="exampleEmail">Country</Label>
                             <Input
-                              value={this.state.department}
+                              value={this.state.country}
                               type="select"
-                              name="department"
+                              name="country"
                               onChange={this.handleChange}
                               id="exampleSelect"
                             >
@@ -554,8 +485,8 @@ class UserAddStepOne extends Component {
                           <FormGroup>
                             <Label for="exampleEmail">City</Label>
                             <Input
-                              value={this.state.department}
-                              name="department"
+                              value={this.state.city}
+                              name="city"
                               onChange={this.handleChange}
                               id="exampleSelect"
                             />
@@ -566,8 +497,8 @@ class UserAddStepOne extends Component {
                           <FormGroup>
                             <Label for="exampleEmail">District</Label>
                             <Input
-                              value={this.state.department}
-                              name="department"
+                              value={this.state.district}
+                              name="district"
                               onChange={this.handleChange}
                               id="exampleSelect"
                             />
@@ -578,8 +509,8 @@ class UserAddStepOne extends Component {
                           <FormGroup>
                             <Label for="exampleEmail">ZIP</Label>
                             <Input
-                              value={this.state.address}
-                              name="address"
+                              value={this.state.zipCode}
+                              name="zipCode"
                               onChange={(e) => this.handleChange(e)}
                             />
                           </FormGroup>
