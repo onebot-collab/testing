@@ -79,7 +79,6 @@ class AttendanceDetail extends Component {
       page: 1,
       showFilterModal: false,
       name: '',
-      department: '',
       date: '',
       onTime: '',
     }
@@ -609,14 +608,6 @@ class AttendanceDetail extends Component {
                 value={this.state.name}
                 type="text"
                 name="name"
-                className="mb-2 shadow-none"
-                onChange={this.handleChange}
-              />
-              <h6>Department</h6>
-              <Input
-                value={this.state.department}
-                type="text"
-                name="department"
                 className="mb-2 shadow-none"
                 onChange={this.handleChange}
               />

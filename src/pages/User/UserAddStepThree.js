@@ -50,12 +50,14 @@ class UserAddStepThree extends Component {
       timeType: 1,
       profilePicture: null,
       page: 1,
+      isLoadingFetch: false,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.prevPage = this.prevPage.bind(this)
     this.nextPage = this.nextPage.bind(this)
     this.register = this.register.bind(this)
+    this.fetch = this.fetch.bind(this)
   }
 
   handleChange(event) {
@@ -172,10 +174,21 @@ class UserAddStepThree extends Component {
       })
   }
 
-  componentDidMount() {}
+  fetch() {
+    this.setState({ isLoadingFetch: true })
+    this.props.getDepartment(this.props.login.token).then((res) => {
+      this.setState({ isLoadingFetch: false })
+      this.props.newToken(res.action.payload.data.newToken)
+    })
+  }
+
+  componentDidMount() {
+    this.fetch()
+  }
 
   render() {
     const classesBody = makeStyles(stylesBody)
+    const departmentData = this.props.department.dataDepartment
     return (
       <div>
         {!this.props.login.isLogin ? (
@@ -200,141 +213,145 @@ class UserAddStepThree extends Component {
                       tooltip: classesBody.tooltip,
                     }}
                   >
-                    {this.state.isLoadingExportAllLog ? (
-                      <div
-                        className="spinner-border spinner-border-sm text-white"
-                        role="status"
-                      >
-                        <span className="sr-only">Loading...</span>
-                      </div>
-                    ) : (
-                      <NavigateBefore className="iconWhiteColor" />
-                    )}
+                    <NavigateBefore className="iconWhiteColor" />
                   </Tooltip>
                 </Link>
               </div>
             </nav>
-            <GridContainer>
-              <GridItem xs={12} sm={12} md={12}>
-                <Card>
-                  <CardHeader color="danger">
-                    <h4 className="cardTitleWhite">Add User</h4>
-                  </CardHeader>
-                  <CardBody>
-                    <Form>
-                      <Col xs={12} sm={12} md={12}>
-                        <FormGroup>
-                          <Label for="examplePassword">Email</Label>
-                          <Input
-                            value={this.state.password}
-                            type="password"
-                            name="password"
-                            onChange={(e) => this.handleChange(e)}
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col xs={12} sm={12} md={12}>
-                        <FormGroup>
-                          <Label for="examplePassword">Password</Label>
-                          <Input
-                            value={this.state.passcode}
-                            type="password"
-                            name="passcode"
-                            onChange={(e) => this.handleChange(e)}
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Row className="mx-1">
-                        <Col xs={12} sm={12} md={3}>
+            {this.state.isLoadingFetch ? (
+              <center>
+                <div
+                  className="spinner-border spinner-border-sm text-black"
+                  role="status"
+                >
+                  <span className="sr-only">Loading...</span>
+                </div>
+              </center>
+            ) : (
+              <GridContainer>
+                <GridItem xs={12} sm={12} md={12}>
+                  <Card>
+                    <CardHeader color="danger">
+                      <h4 className="cardTitleWhite">Add User</h4>
+                    </CardHeader>
+                    <CardBody>
+                      <Form>
+                        <Col xs={12} sm={12} md={12}>
                           <FormGroup>
-                            <Label for="exampleEmail">Role</Label>
+                            <Label for="examplePassword">Email</Label>
                             <Input
-                              value={this.state.role}
-                              type="select"
-                              name="role"
-                              id="exampleSelect"
-                              onChange={this.handleChange}
-                            >
-                              <option key={1} value={1}>
-                                Admin
-                              </option>
-                              <option key={2} value={2}>
-                                User
-                              </option>
-                            </Input>
-                          </FormGroup>
-                        </Col>
-                        <Col xs={12} sm={12} md={3}>
-                          <FormGroup>
-                            <Label for="exampleEmail">Department</Label>
-                            <Input
-                              value={this.state.role}
-                              type="select"
-                              name="role"
-                              id="exampleSelect"
-                              onChange={this.handleChange}
-                            >
-                              <option key={1} value={1}>
-                                Development
-                              </option>
-                              <option key={2} value={2}>
-                                Networking
-                              </option>
-                            </Input>
-                          </FormGroup>
-                        </Col>
-                        <Col xs={12} sm={12} md={3}>
-                          <FormGroup>
-                            <Label for="exampleEmail">Time Type</Label>
-                            <Input
-                              value={this.state.role}
-                              type="select"
-                              name="role"
-                              id="exampleSelect"
-                              onChange={this.handleChange}
-                            >
-                              <option key={1} value={1}>
-                                Office Hours
-                              </option>
-                              <option key={2} value={2}>
-                                Free Hours
-                              </option>
-                            </Input>
-                          </FormGroup>
-                        </Col>
-                        <Col xs={12} sm={12} md={3}>
-                          <FormGroup>
-                            <Label for="exampleEmail">Joined Date</Label>
-                            <Input
-                              type="date"
-                              value={this.state.email}
-                              name="email"
+                              value={this.state.password}
+                              type="password"
+                              name="password"
                               onChange={(e) => this.handleChange(e)}
                             />
                           </FormGroup>
                         </Col>
-                      </Row>
-                    </Form>
-                  </CardBody>
-                  <CardFooter>
-                    {this.state.isLoadingRegister ? (
-                      <Button color="danger">
-                        <div
-                          className="spinner-border spinner-border-sm text-light"
-                          role="status"
-                        >
-                          <span className="sr-only">Loading...</span>
-                        </div>
-                      </Button>
-                    ) : (
-                      <Button onClick={this.register} color="danger">
-                        Submit
-                      </Button>
-                    )}
-                  </CardFooter>
-                </Card>
-              </GridItem>
-            </GridContainer>
+                        <Col xs={12} sm={12} md={12}>
+                          <FormGroup>
+                            <Label for="examplePassword">Password</Label>
+                            <Input
+                              value={this.state.passcode}
+                              type="password"
+                              name="passcode"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col>
+                        <Row className="mx-1">
+                          <Col xs={12} sm={12} md={3}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Role</Label>
+                              <Input
+                                value={this.state.role}
+                                type="select"
+                                name="role"
+                                id="exampleSelect"
+                                onChange={this.handleChange}
+                              >
+                                <option key={1} value={1}>
+                                  Admin
+                                </option>
+                                <option key={2} value={2}>
+                                  User
+                                </option>
+                              </Input>
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={3}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Department</Label>
+                              <Input
+                                value={this.state.role}
+                                type="select"
+                                name="role"
+                                id="exampleSelect"
+                                onChange={this.handleChange}
+                              >
+                                {departmentData.map((res) => (
+                                  <option key={res.id} value={res.id}>
+                                    {res.name}
+                                  </option>
+                                ))}
+                              </Input>
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={3}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Time Type</Label>
+                              <Input
+                                value={this.state.role}
+                                type="select"
+                                name="role"
+                                id="exampleSelect"
+                                onChange={this.handleChange}
+                              >
+                                <option key={1} value={1}>
+                                  Free Hours
+                                </option>
+                                <option key={2} value={2}>
+                                  Security
+                                </option>
+                                <option key={2} value={2}>
+                                  Office Hours
+                                </option>
+                              </Input>
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={3}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Joined Date</Label>
+                              <Input
+                                type="date"
+                                value={this.state.email}
+                                name="email"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                      </Form>
+                    </CardBody>
+                    <CardFooter>
+                      {this.state.isLoadingRegister ? (
+                        <Button color="danger">
+                          <div
+                            className="spinner-border spinner-border-sm text-light"
+                            role="status"
+                          >
+                            <span className="sr-only">Loading...</span>
+                          </div>
+                        </Button>
+                      ) : (
+                        <Button onClick={this.register} color="danger">
+                          Submit
+                        </Button>
+                      )}
+                    </CardFooter>
+                  </Card>
+                </GridItem>
+              </GridContainer>
+            )}
           </>
         )}
       </div>

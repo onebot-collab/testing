@@ -1047,7 +1047,10 @@ class UserDetail extends Component {
                         </Form>
                       </CardBody>
                       <CardFooter>
-                        <Button onClick={this.toggleUpdateModal} color="primary">
+                        <Button
+                          onClick={this.toggleUpdateModal}
+                          color="primary"
+                        >
                           Update Profile
                         </Button>
                       </CardFooter>
@@ -1143,7 +1146,10 @@ class UserDetail extends Component {
                         </div>
                       </CardBody>
                       <CardFooter>
-                        <Button onClick={this.toggleDeleteModal} color="primary">
+                        <Button
+                          onClick={this.toggleDeleteModal}
+                          color="primary"
+                        >
                           Delete {this.props.user.dataProfile[0].name}
                         </Button>
                       </CardFooter>
@@ -1361,7 +1367,12 @@ class UserDetail extends Component {
 
                 {/* EDIT MODAL */}
                 <Modal isOpen={this.state.showEditRoster}>
-                  <div className="d-flex justify-content-between row px-4 pt-4"><div>Roaster Scedhule</div><div><Delete onClick={this.toggleDeleteRosterModal}/></div></div>
+                  <div className="d-flex justify-content-between row px-4 pt-4">
+                    <div>Roster Scedhule</div>
+                    <div>
+                      <Delete onClick={this.toggleDeleteRosterModal} />
+                    </div>
+                  </div>
                   <Form>
                     <ModalBody>
                       <Row>
