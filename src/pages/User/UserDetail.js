@@ -15,6 +15,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 // @material-ui/core components
+import Button from '@material-ui/core/Button'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -26,6 +27,7 @@ import Phone from '@material-ui/icons/Phone'
 import Today from '@material-ui/icons/Today'
 import Cake from '@material-ui/icons/Cake'
 import Timer from '@material-ui/icons/Timer'
+import Delete from '@material-ui/icons/Delete'
 import Home from '@material-ui/icons/Home'
 import AccountTree from '@material-ui/icons/AccountTree'
 // core components
@@ -56,7 +58,6 @@ import { getRosterByUser, updateRosterUser } from '../../redux/actions/presence'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 // import CustomInput from '../../components/CustomInput/CustomInput'
-import Button from '../../components/CustomButtons/Button'
 import Card from '../../components/Card/Card'
 import CardHeader from '../../components/Card/CardHeader'
 import CardAvatar from '../../components/Card/CardAvatar'
@@ -1046,7 +1047,7 @@ class UserDetail extends Component {
                         </Form>
                       </CardBody>
                       <CardFooter>
-                        <Button onClick={this.toggleUpdateModal} color="danger">
+                        <Button onClick={this.toggleUpdateModal} color="primary">
                           Update Profile
                         </Button>
                       </CardFooter>
@@ -1142,7 +1143,7 @@ class UserDetail extends Component {
                         </div>
                       </CardBody>
                       <CardFooter>
-                        <Button onClick={this.toggleDeleteModal} color="danger">
+                        <Button onClick={this.toggleDeleteModal} color="primary">
                           Delete {this.props.user.dataProfile[0].name}
                         </Button>
                       </CardFooter>
@@ -1177,7 +1178,7 @@ class UserDetail extends Component {
                       <CardFooter>
                         <Button
                           onClick={this.toggleAddRosterModal}
-                          color="danger"
+                          color="primary"
                         >
                           Add Roster
                         </Button>
@@ -1213,7 +1214,7 @@ class UserDetail extends Component {
                       </Button>
                     )}
                     <Button
-                      color="danger"
+                      color="primary"
                       onClick={() => this.toggleUpdateModal(0)}
                     >
                       Cancel
@@ -1248,7 +1249,7 @@ class UserDetail extends Component {
                       </Button>
                     )}
                     <Button
-                      color="danger"
+                      color="primary"
                       onClick={() => this.toggleRosterModal()}
                     >
                       Cancel
@@ -1278,7 +1279,7 @@ class UserDetail extends Component {
                       </Button>
                     )}
                     <Button
-                      color="danger"
+                      color="primary"
                       onClick={() => this.toggleDeleteModal(0)}
                     >
                       Cancel
@@ -1299,7 +1300,6 @@ class UserDetail extends Component {
                           label="Only this"
                           value={1}
                           onChange={(e) => this.handleChange(e)}
-                          inline
                         />
                         <CustomInput
                           type="radio"
@@ -1308,7 +1308,6 @@ class UserDetail extends Component {
                           label="All current"
                           value={2}
                           onChange={(e) => this.handleChange(e)}
-                          inline
                         />
                         <CustomInput
                           type="radio"
@@ -1317,7 +1316,6 @@ class UserDetail extends Component {
                           label="Custom"
                           value={3}
                           onChange={(e) => this.handleChange(e)}
-                          inline
                         />
                       </div>
                     </FormGroup>
@@ -1353,7 +1351,7 @@ class UserDetail extends Component {
                       Delete
                     </Button>
                     <Button
-                      color="danger"
+                      color="primary"
                       onClick={this.toggleDeleteRosterModal}
                     >
                       Cancel
@@ -1363,7 +1361,7 @@ class UserDetail extends Component {
 
                 {/* EDIT MODAL */}
                 <Modal isOpen={this.state.showEditRoster}>
-                  <ModalHeader className="h1">Roster Schedule</ModalHeader>
+                  <div className="d-flex justify-content-between row px-4 pt-4"><div>Roaster Scedhule</div><div><Delete onClick={this.toggleDeleteRosterModal}/></div></div>
                   <Form>
                     <ModalBody>
                       <Row>
@@ -1437,13 +1435,13 @@ class UserDetail extends Component {
                       <Button color="secondary" onClick={this.updateRoster}>
                         Submit
                       </Button>
-                      <Button
+                      {/* <Button
                         color="secondary"
                         onClick={this.toggleDeleteRosterModal}
                       >
                         Delete
-                      </Button>
-                      <Button color="danger" onClick={this.toggleEditRoster}>
+                      </Button> */}
+                      <Button color="primary" onClick={this.toggleEditRoster}>
                         Cancel
                       </Button>
                     </ModalFooter>
@@ -1702,7 +1700,7 @@ class UserDetail extends Component {
                         Submit
                       </Button>
                       <Button
-                        color="danger"
+                        color="primary"
                         onClick={this.toggleAddRosterModal}
                       >
                         Cancel
