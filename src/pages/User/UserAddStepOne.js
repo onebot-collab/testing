@@ -526,7 +526,7 @@ class UserAddStepOne extends Component {
                         <Col xs={12} sm={12} md={4}>
                           {' '}
                           <FormGroup>
-                            <Label for="exampleEmail">Province</Label>
+                            <Label for="exampleEmail">Country</Label>
                             <Input
                               value={this.state.department}
                               type="select"
@@ -555,24 +555,10 @@ class UserAddStepOne extends Component {
                             <Label for="exampleEmail">City</Label>
                             <Input
                               value={this.state.department}
-                              type="select"
                               name="department"
                               onChange={this.handleChange}
                               id="exampleSelect"
-                            >
-                              <option key={1} value={1}>
-                                A
-                              </option>
-                              <option key={2} value={2}>
-                                B
-                              </option>
-                              <option key={3} value={3}>
-                                AB
-                              </option>
-                              <option key={4} value={4}>
-                                O
-                              </option>
-                            </Input>
+                            />
                           </FormGroup>
                         </Col>
                         <Col xs={12} sm={12} md={3}>
@@ -581,24 +567,10 @@ class UserAddStepOne extends Component {
                             <Label for="exampleEmail">District</Label>
                             <Input
                               value={this.state.department}
-                              type="select"
                               name="department"
                               onChange={this.handleChange}
                               id="exampleSelect"
-                            >
-                              <option key={1} value={1}>
-                                A
-                              </option>
-                              <option key={2} value={2}>
-                                B
-                              </option>
-                              <option key={3} value={3}>
-                                AB
-                              </option>
-                              <option key={4} value={4}>
-                                O
-                              </option>
-                            </Input>
+                            />
                           </FormGroup>
                         </Col>
                         <Col xs={12} sm={12} md={2}>
