@@ -755,10 +755,9 @@ class UserDetail extends Component {
       }
     } else {
       var dataSubmit = {
-        type: 3,
+        type: 4,
         startDate: this.state.deleteStartDate,
         endDate: this.state.deleteEndDate,
-        day: 1,
         checkIn: '0',
         checkOut: '0',
         earlyCheckIn: '0',
