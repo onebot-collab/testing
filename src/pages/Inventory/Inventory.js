@@ -512,21 +512,39 @@ class Inventory extends Component {
                             <TableHead>
                               <TableRow>
                                 <TableCell component="th">
-                                  <h6 className="textPrimaryColor">Image</h6>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h6 className="textPrimaryColor">Name</h6>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h6 className="textPrimaryColor">Brand</h6>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h6 className="textPrimaryColor">
-                                    Created Date
+                                  <h6>
+                                    <strong className="textPrimaryColor">
+                                      Image
+                                    </strong>
                                   </h6>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h6 className="textPrimaryColor">Action</h6>
+                                  <h6>
+                                    <strong className="textPrimaryColor">
+                                      Name
+                                    </strong>
+                                  </h6>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h6>
+                                    <strong className="textPrimaryColor">
+                                      Brand
+                                    </strong>
+                                  </h6>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h6>
+                                    <strong className="textPrimaryColor">
+                                      Created Date
+                                    </strong>
+                                  </h6>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h6>
+                                    <strong className="textPrimaryColor">
+                                      Action
+                                    </strong>
+                                  </h6>
                                 </TableCell>
                               </TableRow>
                             </TableHead>

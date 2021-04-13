@@ -258,25 +258,39 @@ class Report extends Component {
                             <TableHead>
                               <TableRow>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Name</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Description
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Name
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Attachment
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Description
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Created At
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Attachment
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Action</h5>
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Created At
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Action
+                                    </strong>
+                                  </h5>
                                 </TableCell>
                               </TableRow>
                             </TableHead>
@@ -284,36 +298,28 @@ class Report extends Component {
                               {this.props.report.dataAllReport.map((res, i) => (
                                 <TableRow className={classes.tableRow} key={i}>
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.nameUser}
-                                    </p>
+                                    {res.nameUser}
                                   </TableCell>
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.nameReport}
-                                    </p>
+                                    {res.nameReport}
                                   </TableCell>
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.fileName ===
-                                      'public/report/img.jpg' ? (
-                                        <span className="badge badge-secondary">
-                                          No Attachment
-                                        </span>
-                                      ) : (
-                                        <span className="badge badge-success">
-                                          {res.fileName.replace(
-                                            'public/report/',
-                                            '',
-                                          )}
-                                        </span>
-                                      )}
-                                    </p>
+                                    {res.fileName ===
+                                    'public/report/img.jpg' ? (
+                                      <span className="badge badge-secondary">
+                                        No Attachment
+                                      </span>
+                                    ) : (
+                                      <span className="badge badge-success">
+                                        {res.fileName.replace(
+                                          'public/report/',
+                                          '',
+                                        )}
+                                      </span>
+                                    )}
                                   </TableCell>
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.created_at}
-                                    </p>
+                                    {res.created_at}
                                   </TableCell>
                                   <TableCell
                                     className={classesBody.tableActions}

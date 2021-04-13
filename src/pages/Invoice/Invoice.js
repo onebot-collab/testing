@@ -363,33 +363,53 @@ class Invoice extends Component {
                             <TableHead>
                               <TableRow>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">No</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Requested By
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      No
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Total Amount
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Requested By
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Status</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Responder
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Total Amount
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Created At
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Status
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor"> Action</h5>{' '}
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Responder
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Created At
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Action
+                                    </strong>
+                                  </h5>{' '}
                                 </TableCell>
                               </TableRow>
                             </TableHead>
@@ -431,19 +451,13 @@ class Invoice extends Component {
                                           key={i}
                                         >
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.invoice_no}
-                                            </p>
+                                            {res.invoice_no}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.requestname}
-                                            </p>
+                                            {res.requestname}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              Rp {res.total_amount}
-                                            </p>
+                                            Rp {res.total_amount}
                                           </TableCell>
                                           <TableCell component="th">
                                             {res.status === 0 ? (
@@ -471,16 +485,12 @@ class Invoice extends Component {
                                             )}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.responder === null
-                                                ? '-'
-                                                : res.nameResponder}
-                                            </p>
+                                            {res.responder === null
+                                              ? '-'
+                                              : res.nameResponder}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.date}
-                                            </p>
+                                            {res.date}
                                           </TableCell>
                                           <TableCell
                                             className={classesBody.tableActions}
@@ -595,33 +605,54 @@ class Invoice extends Component {
                             <TableHead>
                               <TableRow>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">No</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Requested By
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      No
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Total Amount
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      {' '}
+                                      Requested By
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Status</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Responder
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Total Amount
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Created At
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Status
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor"> Action</h5>{' '}
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Responder
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Created At
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Action
+                                    </strong>{' '}
+                                  </h5>{' '}
                                 </TableCell>
                               </TableRow>
                             </TableHead>
@@ -663,19 +694,13 @@ class Invoice extends Component {
                                           key={i}
                                         >
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.invoice_no}
-                                            </p>
+                                            {res.invoice_no}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.requestname}
-                                            </p>
+                                            {res.requestname}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              Rp {res.total_amount}
-                                            </p>
+                                            Rp {res.total_amount}
                                           </TableCell>
                                           <TableCell component="th">
                                             {res.status === 0 ? (
@@ -703,16 +728,12 @@ class Invoice extends Component {
                                             )}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.responder === null
-                                                ? '-'
-                                                : res.nameResponder}
-                                            </p>
+                                            {res.responder === null
+                                              ? '-'
+                                              : res.nameResponder}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.date}
-                                            </p>
+                                            {res.date}
                                           </TableCell>
                                           <TableCell
                                             className={classesBody.tableActions}
@@ -817,33 +838,53 @@ class Invoice extends Component {
                             <TableHead>
                               <TableRow>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">No</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Requested By
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      No
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Total Amount
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Requested By
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Status</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Responder
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Total Amount
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Created At
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Status
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor"> Action</h5>{' '}
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Responder
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Created At
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Action
+                                    </strong>{' '}
+                                  </h5>{' '}
                                 </TableCell>
                               </TableRow>
                             </TableHead>
@@ -885,19 +926,13 @@ class Invoice extends Component {
                                           key={i}
                                         >
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.invoice_no}
-                                            </p>
+                                            {res.invoice_no}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.requestname}
-                                            </p>
+                                            {res.requestname}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              Rp {res.total_amount}
-                                            </p>
+                                            Rp {res.total_amount}
                                           </TableCell>
                                           <TableCell component="th">
                                             {res.status === 0 ? (
@@ -925,16 +960,12 @@ class Invoice extends Component {
                                             )}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.responder === null
-                                                ? '-'
-                                                : res.nameResponder}
-                                            </p>
+                                            {res.responder === null
+                                              ? '-'
+                                              : res.nameResponder}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.date}
-                                            </p>
+                                            {res.date}
                                           </TableCell>
                                           <TableCell
                                             className={classesBody.tableActions}
@@ -1039,33 +1070,53 @@ class Invoice extends Component {
                             <TableHead>
                               <TableRow>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">No</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Requested By
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      No
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Total Amount
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Requested By
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Status</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Responder
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Total Amount
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Created At
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Status
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor"> Action</h5>{' '}
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Responder
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Created At
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Action
+                                    </strong>
+                                  </h5>{' '}
                                 </TableCell>
                               </TableRow>
                             </TableHead>
@@ -1107,19 +1158,13 @@ class Invoice extends Component {
                                           key={i}
                                         >
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.invoice_no}
-                                            </p>
+                                            {res.invoice_no}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.requestname}
-                                            </p>
+                                            {res.requestname}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              Rp {res.total_amount}
-                                            </p>
+                                            Rp {res.total_amount}
                                           </TableCell>
                                           <TableCell component="th">
                                             {res.status === 0 ? (
@@ -1147,16 +1192,12 @@ class Invoice extends Component {
                                             )}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.responder === null
-                                                ? '-'
-                                                : res.nameResponder}
-                                            </p>
+                                            {res.responder === null
+                                              ? '-'
+                                              : res.nameResponder}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.date}
-                                            </p>
+                                            {res.date}
                                           </TableCell>
                                           <TableCell
                                             className={classesBody.tableActions}
@@ -1261,33 +1302,53 @@ class Invoice extends Component {
                             <TableHead>
                               <TableRow>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">No</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Requested By
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      No
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Total Amount
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Requested By
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Status</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Responder
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Total Amount
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Created At
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Status
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor"> Action</h5>{' '}
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Responder
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Created At
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Action
+                                    </strong>
+                                  </h5>{' '}
                                 </TableCell>
                               </TableRow>
                             </TableHead>
@@ -1329,19 +1390,13 @@ class Invoice extends Component {
                                           key={i}
                                         >
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.invoice_no}
-                                            </p>
+                                            {res.invoice_no}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.requestname}
-                                            </p>
+                                            {res.requestname}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              Rp {res.total_amount}
-                                            </p>
+                                            Rp {res.total_amount}
                                           </TableCell>
                                           <TableCell component="th">
                                             {res.status === 0 ? (
@@ -1369,16 +1424,12 @@ class Invoice extends Component {
                                             )}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.responder === null
-                                                ? '-'
-                                                : res.nameResponder}
-                                            </p>
+                                            {res.responder === null
+                                              ? '-'
+                                              : res.nameResponder}
                                           </TableCell>
                                           <TableCell component="th">
-                                            <p className="textPrimaryColor">
-                                              {res.date}
-                                            </p>
+                                            {res.date}
                                           </TableCell>
                                           <TableCell
                                             className={classesBody.tableActions}

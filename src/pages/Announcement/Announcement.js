@@ -404,26 +404,46 @@ class Announcement extends Component {
                             <TableHead>
                               <TableRow>
                                 <TableCell component="th">
-                                  <h6 className="textPrimaryColor">Title</h6>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h6 className="textPrimaryColor">
-                                    Description
+                                  <h6>
+                                    <strong className="textPrimaryColor">
+                                      Title
+                                    </strong>
                                   </h6>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h6 className="textPrimaryColor">
-                                    Department
+                                  <h6>
+                                    <strong className="textPrimaryColor">
+                                      Description
+                                    </strong>
                                   </h6>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h6 className="textPrimaryColor">By</h6>
+                                  <h6>
+                                    <strong className="textPrimaryColor">
+                                      Department
+                                    </strong>
+                                  </h6>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h6 className="textPrimaryColor">Date</h6>
+                                  <h6>
+                                    <strong className="textPrimaryColor">
+                                      By
+                                    </strong>
+                                  </h6>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h6 className="textPrimaryColor">Action</h6>
+                                  <h6>
+                                    <strong className="textPrimaryColor">
+                                      Date
+                                    </strong>
+                                  </h6>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h6>
+                                    <strong className="textPrimaryColor">
+                                      Action
+                                    </strong>
+                                  </h6>
                                 </TableCell>
                               </TableRow>
                             </TableHead>
@@ -435,29 +455,19 @@ class Announcement extends Component {
                                     key={index}
                                   >
                                     <TableCell component="th">
-                                      <p className="textPrimaryColor">
-                                        {campaign.title}
-                                      </p>
+                                      {campaign.title}
                                     </TableCell>
                                     <TableCell component="th">
-                                      <p className="textPrimaryColor">
-                                        {campaign.description}
-                                      </p>
+                                      {campaign.description}
                                     </TableCell>
                                     <TableCell component="th">
-                                      <p className="textPrimaryColor">
-                                        {campaign.departmentName}
-                                      </p>
+                                      {campaign.departmentName}
                                     </TableCell>
                                     <TableCell component="th">
-                                      <p className="textPrimaryColor">
-                                        {campaign.createdby_name}
-                                      </p>
+                                      {campaign.createdby_name}
                                     </TableCell>
                                     <TableCell component="th">
-                                      <p className="textPrimaryColor">
-                                        {campaign.created_at}
-                                      </p>
+                                      {campaign.created_at}
                                     </TableCell>
                                     <TableCell
                                       className={classesBody.tableActions}

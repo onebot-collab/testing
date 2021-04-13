@@ -425,34 +425,60 @@ class Ticketing extends Component {
                             <TableHead>
                               <TableRow>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">No</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Requester
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      No
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Assign To
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Requester
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Observer</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Status</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">On Time</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Created At
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Assign To
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Action</h5>
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Observer
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Status
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      On Time
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Created At
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Action
+                                    </strong>
+                                  </h5>
                                 </TableCell>
                               </TableRow>
                             </TableHead>

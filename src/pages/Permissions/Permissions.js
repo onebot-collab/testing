@@ -262,31 +262,53 @@ class Permissions extends Component {
                             <TableHead>
                               <TableRow>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Name</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Department
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Name
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Reason</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Status</h5>
-                                </TableCell>
-                                <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Responder
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Department
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">
-                                    Created At
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Reason
+                                    </strong>
                                   </h5>
                                 </TableCell>
                                 <TableCell component="th">
-                                  <h5 className="textPrimaryColor">Action</h5>
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Status
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Responder
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Created At
+                                    </strong>
+                                  </h5>
+                                </TableCell>
+                                <TableCell component="th">
+                                  <h5>
+                                    <strong className="textPrimaryColor">
+                                      Action
+                                    </strong>
+                                  </h5>
                                 </TableCell>
                               </TableRow>
                             </TableHead>
@@ -294,19 +316,13 @@ class Permissions extends Component {
                               {this.props.izin.dataIzinAll.map((res, i) => (
                                 <TableRow className={classes.tableRow} key={i}>
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.nameuser}
-                                    </p>
+                                    {res.nameuser}
                                   </TableCell>
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.department}
-                                    </p>
+                                    {res.department}
                                   </TableCell>
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.type}
-                                    </p>
+                                    {res.type}
                                   </TableCell>
                                   <TableCell component="th">
                                     {res.status === 0 ? (
@@ -326,14 +342,10 @@ class Permissions extends Component {
                                     )}
                                   </TableCell>
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.name_tosend}
-                                    </p>
+                                    {res.name_tosend}
                                   </TableCell>
                                   <TableCell component="th">
-                                    <p className="textPrimaryColor">
-                                      {res.startdate}
-                                    </p>
+                                    {res.startdate}
                                   </TableCell>
                                   <TableCell
                                     className={classesBody.tableActions}
