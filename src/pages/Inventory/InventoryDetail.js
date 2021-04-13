@@ -586,7 +586,7 @@ class InventoryDetail extends Component {
                   Submit
                 </Button>
               )}
-              <Button color="secondary" onClick={this.toggleEditModal}>
+              <Button color="primary" onClick={this.toggleEditModal}>
                 Cancel
               </Button>
             </ModalFooter>

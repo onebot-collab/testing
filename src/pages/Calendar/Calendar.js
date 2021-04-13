@@ -265,32 +265,50 @@ class CalendarScreen extends Component {
           <>{this.redirect()}</>
         ) : (
           <>
-            <nav className="navbar navbar-light bg-light">
-              <Button
-                onClick={this.toggleAddModal}
-                variant="contained"
-                color="primary"
-                // className="buttonAdd"
-                startIcon={<Add />}
-              >
-                Add
-              </Button>
-              <form className="form-inline">
-                <input
-                  className="form-control mr-sm-2"
-                  type="search"
-                  name="search"
-                  onChange={this.handleSearch}
-                  placeholder="Type Something ..."
-                  aria-label="Search"
-                ></input>
+            <nav className="navbar navbar-light bg-light d-flex justify-content-end">
+              <div className="d-flex flex-row">
+                <form className="form-inline mr-5">
+                  <input
+                    className="form-control mr-sm-2"
+                    type="search"
+                    name="search"
+                    onChange={this.handleSearch}
+                    placeholder="Type Something ..."
+                    aria-label="Search"
+                  ></input>
+                  <button
+                    className="btn btn-outline-danger my-2 my-sm-0"
+                    type="submit"
+                  >
+                    Search
+                  </button>
+                </form>
                 <button
-                  className="btn btn-outline-danger my-2 my-sm-0"
+                  className="btn btn-danger m-2 my-sm-0"
                   type="submit"
+                  onClick={this.toggleAddModal}
                 >
-                  Search
+                  <Tooltip
+                    id="tooltip-top-start"
+                    title="Add"
+                    placement="top"
+                    classes={{
+                      tooltip: classesBody.tooltip,
+                    }}
+                  >
+                    {this.state.isLoadingExportAllLog ? (
+                      <div
+                        className="spinner-border spinner-border-sm text-white"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    ) : (
+                      <Add className="iconWhiteColor" />
+                    )}
+                  </Tooltip>
                 </button>
-              </form>
+              </div>
             </nav>
             <GridContainer>
               <GridItem xs={12} sm={12} md={8}>
