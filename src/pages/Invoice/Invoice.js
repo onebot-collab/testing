@@ -545,8 +545,8 @@ class Invoice extends Component {
                                 />
                               </IconButton>
                             </div>
-                            <div>
-                              <p>{this.state.pageWaiting}</p>
+                            <div className="d-flex align-items-center">
+                              {this.state.pageWaiting}
                             </div>
                             <div className="p-2">
                               <IconButton onClick={() => this.nextPage(1)}>
@@ -788,8 +788,8 @@ class Invoice extends Component {
                                 />
                               </IconButton>
                             </div>
-                            <div>
-                              <p>{this.state.pageApproved}</p>
+                            <div className="d-flex align-items-center">
+                              {this.state.pageApproved}
                             </div>
                             <div className="p-2">
                               <IconButton onClick={() => this.nextPage(2)}>
@@ -1020,8 +1020,8 @@ class Invoice extends Component {
                                 />
                               </IconButton>
                             </div>
-                            <div>
-                              <p>{this.state.pageRejected}</p>
+                            <div className="d-flex align-items-center">
+                              {this.state.pageRejected}
                             </div>
                             <div className="p-2">
                               <IconButton onClick={() => this.nextPage(3)}>
@@ -1252,8 +1252,8 @@ class Invoice extends Component {
                                 />
                               </IconButton>
                             </div>
-                            <div>
-                              <p>{this.state.pageProcessed}</p>
+                            <div className="d-flex align-items-center">
+                              {this.state.pageProcessed}
                             </div>
                             <div className="p-2">
                               <IconButton onClick={() => this.nextPage(4)}>
@@ -1481,8 +1481,8 @@ class Invoice extends Component {
                                 />
                               </IconButton>
                             </div>
-                            <div>
-                              <p>{this.state.pageClosed}</p>
+                            <div className="d-flex align-items-center">
+                              {this.state.pageClosed}
                             </div>
                             <div className="p-2">
                               <IconButton onClick={() => this.nextPage(5)}>
