@@ -1381,7 +1381,7 @@ class UserDetail extends Component {
                 {/* EDIT MODAL */}
                 <Modal isOpen={this.state.showEditRoster}>
                   <div className="d-flex justify-content-between row px-4 pt-4">
-                    <div>Roaster Scedhule</div>
+                    <div>Roster Scedhule</div>
                     <div>
                       <Delete onClick={this.toggleDeleteRosterModal} />
                     </div>

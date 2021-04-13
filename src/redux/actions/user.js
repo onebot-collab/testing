@@ -8,7 +8,9 @@ const getAdmin = () => ({
 
 const getUser = (token, search, page) => ({
   type: 'GETUSER',
-  payload: axios(token).get(`${URL}api/v1/user/allbyusers/0?limit=15&search=${search}&page=${page}`),
+  payload: axios(token).get(
+    `${URL}api/v1/user/allbyusers/0?limit=15&search=${search}&page=${page}`,
+  ),
 })
 
 const registerUser = (dataSubmit, token) => ({
