@@ -20,24 +20,7 @@ import Tooltip from '@material-ui/core/Tooltip'
 import Print from '@material-ui/icons/Print'
 
 import moment from 'moment'
-// import Accordion from '@material-ui/core/Accordion'
-// import AccordionDetails from '@material-ui/core/AccordionDetails'
-// import AccordionSummary from '@material-ui/core/AccordionSummary'
-// import ListItemIcon from '@material-ui/core/ListItemIcon'
-// import ListItemText from '@material-ui/core/ListItemText'
 import { Link } from 'react-router-dom'
-
-// @material-ui/icons
-// import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-// import Edit from '@material-ui/icons/Edit'
-// import { Visibility } from '@material-ui/icons'
-// import CalendarToday from '@material-ui/icons/CalendarToday'
-// import Apartment from '@material-ui/icons/Apartment'
-// import AssignmentInd from '@material-ui/icons/AssignmentInd'
-// import Assignment from '@material-ui/icons/Assignment'
-// import Attachment from '@material-ui/icons/Attachment'
-// import CheckCircle from '@material-ui/icons/CheckCircle'
-// import Cancel from '@material-ui/icons/Cancel'
 
 // import Check from '@material-ui/icons/Check'
 // core components
