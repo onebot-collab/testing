@@ -16,7 +16,7 @@ import { NavigateBefore } from '@material-ui/icons'
 // import MenuItem from '@material-ui/core/MenuItem'
 // import TablePagination from '@material-ui/core/TablePagination'
 // Reactstrap/code
-import { Col, Form, FormGroup, Label, Input } from 'reactstrap'
+import { Col, Form, FormGroup, Label, Input, Row } from 'reactstrap'
 // @material-ui/icons components
 // core components
 import Button from '../../components/CustomButtons/Button'
@@ -244,6 +244,76 @@ class UserAddStepThree extends Component {
                           />
                         </FormGroup>
                       </Col>
+                      <Row className="mx-1">
+                        <Col xs={12} sm={12} md={3}>
+                          <FormGroup>
+                            <Label for="exampleEmail">Role</Label>
+                            <Input
+                              value={this.state.role}
+                              type="select"
+                              name="role"
+                              id="exampleSelect"
+                              onChange={this.handleChange}
+                            >
+                              <option key={1} value={1}>
+                                Admin
+                              </option>
+                              <option key={2} value={2}>
+                                User
+                              </option>
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={3}>
+                          <FormGroup>
+                            <Label for="exampleEmail">Department</Label>
+                            <Input
+                              value={this.state.role}
+                              type="select"
+                              name="role"
+                              id="exampleSelect"
+                              onChange={this.handleChange}
+                            >
+                              <option key={1} value={1}>
+                                Development
+                              </option>
+                              <option key={2} value={2}>
+                                Networking
+                              </option>
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={3}>
+                          <FormGroup>
+                            <Label for="exampleEmail">Time Type</Label>
+                            <Input
+                              value={this.state.role}
+                              type="select"
+                              name="role"
+                              id="exampleSelect"
+                              onChange={this.handleChange}
+                            >
+                              <option key={1} value={1}>
+                                Office Hours
+                              </option>
+                              <option key={2} value={2}>
+                                Free Hours
+                              </option>
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        <Col xs={12} sm={12} md={3}>
+                          <FormGroup>
+                            <Label for="exampleEmail">Joined Date</Label>
+                            <Input
+                              type="date"
+                              value={this.state.email}
+                              name="email"
+                              onChange={(e) => this.handleChange(e)}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
                     </Form>
                   </CardBody>
                   <CardFooter>
