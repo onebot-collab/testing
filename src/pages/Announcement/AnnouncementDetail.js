@@ -10,16 +10,8 @@ import { connect } from 'react-redux'
 import './AnnouncementDetail.css'
 import 'react-pro-sidebar/dist/css/styles.css'
 import { makeStyles } from '@material-ui/core/styles'
-// import Box from '@material-ui/core/Box'
-// import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import Tooltip from '@material-ui/core/Tooltip'
-// import Typography from '@material-ui/core/Typography'
-// import Paper from '@material-ui/core/Paper'
-// import ListItem from '@material-ui/core/ListItem'
-// import ListItemIcon from '@material-ui/core/ListItemIcon'
-// import ListItemText from '@material-ui/core/ListItemText'
-// import { Link } from 'react-router-dom'
 import Select from 'react-select'
 import {
   Form,
@@ -34,21 +26,10 @@ import { Link } from 'react-router-dom'
 
 // @material-ui/icons
 import { Edit } from '@material-ui/icons'
-// import Apartment from '@material-ui/icons/Apartment'
-// import AssignmentInd from '@material-ui/icons/AssignmentInd'
-// import Attachment from '@material-ui/icons/Attachment'
-// import CheckCircle from '@material-ui/icons/CheckCircle'
-// import Cancel from '@material-ui/icons/Cancel'
-// import {
-//   getAllCampaign,
-//   deleteCampaign,
-//   postCampaign,
-// } from '../../redux/actions/campaign'
 import { getDepartment } from '../../redux/actions/department'
 import { patchCampaign } from '../../redux/actions/campaign'
 import { newToken } from '../../redux/actions/login'
 
-// import Check from '@material-ui/icons/Check'
 // core components
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
@@ -227,44 +208,6 @@ class AnnouncementDetail extends Component {
                     </Link>
                   </div>
                 </div>
-
-                {/* <Grid item xs container direction="column" spacing={2}>
-                  <Grid item xs> 
-                    <ListItem className="listItemWidth">
-                      <ListItemText>
-                        <Typography variant="subtitle1">
-                          {this.props.location.state.departmentName}
-                        </Typography>
-                        <Typography variant="subtitle1">
-                          {this.props.location.state.created_at}
-                        </Typography>
-                      </ListItemText>
-                    </ListItem>
-
-                    <Typography variant="body2" className="paperGridCentre">
-                      <p className="textPrimaryColor">
-                        {this.props.location.state.description}
-                      </p>
-                    </Typography>
-                  </Grid>
-                  <Grid item xs>
-                    <Paper elevation={2} className="d-flex flex-row p-3">
-                      <ListItem>
-                        <ListItemIcon>
-                          <Attachment edge="start" />
-                        </ListItemIcon>
-                        <ListItemText>file.pdf</ListItemText>
-                        <ListItemIcon>
-                          <Cancel edge="end" className="CancelColor" />
-                          <CheckCircle
-                            edge="end"
-                            className="CheckCircleColor"
-                          />
-                        </ListItemIcon>
-                      </ListItem>
-                    </Paper>
-                  </Grid>
-                </Grid> */}
               </CardBody>
             </Card>
           </GridItem>
