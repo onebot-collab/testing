@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-useless-escape */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
@@ -24,7 +25,7 @@ import Card from '../../components/Card/Card'
 import CardHeader from '../../components/Card/CardHeader'
 import CardBody from '../../components/Card/CardBody'
 
-import { getUser, registerUser } from '../../redux/actions/user'
+import { getUser, registerUser, formTwo } from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
 import { newToken } from '../../redux/actions/login'
 import { sendNotif } from '../../redux/actions/fcm'
@@ -34,9 +35,6 @@ class UserAddStepTwo extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: '',
-      email: '',
-      phone: '',
       eduLevel1: 3,
       eduLevel2: 3,
       eduLevel3: 3,
@@ -116,6 +114,31 @@ class UserAddStepTwo extends Component {
       famZip3: '',
       famZip4: '',
       famZip5: '',
+      workCompany1: '',
+      workCompany2: '',
+      workCompany3: '',
+      workCompany4: '',
+      workCompany5: '',
+      workPeriod1: '',
+      workPeriod2: '',
+      workPeriod3: '',
+      workPeriod4: '',
+      workPeriod5: '',
+      workFirstRole1: '',
+      workFirstRole2: '',
+      workFirstRole3: '',
+      workFirstRole4: '',
+      workFirstRole5: '',
+      workLastRole1: '',
+      workLastRole2: '',
+      workLastRole3: '',
+      workLastRole4: '',
+      workLastRole5: '',
+      workSalary1: '',
+      workSalary2: '',
+      workSalary3: '',
+      workSalary4: '',
+      workSalary5: '',
       family2: false,
       family3: false,
       family4: false,
@@ -137,9 +160,113 @@ class UserAddStepTwo extends Component {
   }
 
   nextPage() {
-    this.props.history.push('/admin/user/stepThree', {
-      dataPageOne: this.props.location.state.dataPageOne,
-    })
+    const dataSubmit = {
+      eduLevel1: 3,
+      eduLevel2: 3,
+      eduLevel3: 3,
+      eduLevel4: 3,
+      eduLevel5: 3,
+      eduInstitution1: '',
+      eduInstitution2: '',
+      eduInstitution3: '',
+      eduInstitution4: '',
+      eduInstitution5: '',
+      eduPeriod1: '',
+      eduPeriod2: '',
+      eduPeriod3: '',
+      eduPeriod4: '',
+      eduPeriod5: '',
+      eduMajor1: '',
+      eduMajor2: '',
+      eduMajor3: '',
+      eduMajor4: '',
+      eduMajor5: '',
+      eduGrade1: '',
+      eduGrade2: '',
+      eduGrade3: '',
+      eduGrade4: '',
+      eduGrade5: '',
+      famName1: '',
+      famName2: '',
+      famName3: '',
+      famName4: '',
+      famName5: '',
+      famGender1: 1,
+      famGender2: 1,
+      famGender3: 1,
+      famGender4: 1,
+      famGender5: 1,
+      famTel1: '',
+      famTel2: '',
+      famTel3: '',
+      famTel4: '',
+      famTel5: '',
+      famRelationship1: '',
+      famRelationship2: '',
+      famRelationship3: '',
+      famRelationship4: '',
+      famRelationship5: '',
+      famOccupation1: '',
+      famOccupation2: '',
+      famOccupation3: '',
+      famOccupation4: '',
+      famOccupation5: '',
+      famAddress1: '',
+      famAddress2: '',
+      famAddress3: '',
+      famAddress4: '',
+      famAddress5: '',
+      famCountry1: 1,
+      famCountry2: 1,
+      famCountry3: 1,
+      famCountry4: 1,
+      famCountry5: 1,
+      famCity1: '',
+      famCity2: '',
+      famCity3: '',
+      famCity4: '',
+      famCity5: '',
+      famDistrict1: '',
+      famDistrict2: '',
+      famDistrict3: '',
+      famDistrict4: '',
+      famDistrict5: '',
+      famZip1: '',
+      famZip2: '',
+      famZip3: '',
+      famZip4: '',
+      famZip5: '',
+      workCompany1: '',
+      workCompany2: '',
+      workCompany3: '',
+      workCompany4: '',
+      workCompany5: '',
+      workPeriod1: '',
+      workPeriod2: '',
+      workPeriod3: '',
+      workPeriod4: '',
+      workPeriod5: '',
+      workFirstRole1: '',
+      workFirstRole2: '',
+      workFirstRole3: '',
+      workFirstRole4: '',
+      workFirstRole5: '',
+      workLastRole1: '',
+      workLastRole2: '',
+      workLastRole3: '',
+      workLastRole4: '',
+      workLastRole5: '',
+      workSalary1: '',
+      workSalary2: '',
+      workSalary3: '',
+      workSalary4: '',
+      workSalary5: '',
+    }
+
+    this.props.formTwo(dataSubmit)
+    setTimeout(() => {
+      this.props.history.push('/admin/user/stepThree')
+    }, 100)
   }
 
   addEducation() {
@@ -219,7 +346,7 @@ class UserAddStepTwo extends Component {
                   </Tooltip>
                 </Link>
                 <Link
-                  to="/admin/user/stepThree"
+                  onClick={this.nextPage}
                   className="btn btn-danger m-2 my-sm-0"
                 >
                   {' '}
@@ -255,7 +382,7 @@ class UserAddStepTwo extends Component {
                     <Form>
                       <Col form>
                         <div className="d-flex justify-content-between">
-                          <h5>Education Background</h5>
+                          <h5>Educational Background</h5>
                           <button
                             className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
                             type="button"
@@ -1498,8 +1625,8 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">Company</Label>
                               <Input
-                                value={this.state.name}
-                                name="name"
+                                value={this.state.workCompany1}
+                                name="workCompany1"
                                 onChange={(e) => this.handleChange(e)}
                               />
                             </FormGroup>
@@ -1508,8 +1635,8 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">Period</Label>
                               <Input
-                                value={this.state.email}
-                                name="email"
+                                value={this.state.workPeriod1}
+                                name="workPeriod1"
                                 onChange={(e) => this.handleChange(e)}
                               />
                             </FormGroup>
@@ -1518,8 +1645,8 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">First Role</Label>
                               <Input
-                                value={this.state.phone}
-                                name="phone"
+                                value={this.state.workFirstRole1}
+                                name="workFirstRole1"
                                 onChange={(e) => this.handleChange(e)}
                               />
                             </FormGroup>
@@ -1528,8 +1655,8 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">Last Role</Label>
                               <Input
-                                value={this.state.phone}
-                                name="phone"
+                                value={this.state.workLastRole1}
+                                name="workLastRole1"
                                 onChange={(e) => this.handleChange(e)}
                               />
                             </FormGroup>
@@ -1538,8 +1665,8 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">Last Salary</Label>
                               <Input
-                                value={this.state.phone}
-                                name="phone"
+                                value={this.state.workSalary1}
+                                name="workSalary1"
                                 onChange={(e) => this.handleChange(e)}
                               />
                             </FormGroup>
@@ -1563,8 +1690,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Company</Label>
                                 <Input
-                                  value={this.state.name}
-                                  name="name"
+                                  value={this.state.workCompany2}
+                                  name="workCompany2"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1573,8 +1700,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Period</Label>
                                 <Input
-                                  value={this.state.email}
-                                  name="email"
+                                  value={this.state.workPeriod2}
+                                  name="workPeriod2"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1583,8 +1710,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">First Role</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workFirstRole2}
+                                  name="workFirstRole2"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1593,8 +1720,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Last Role</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workLastRole2}
+                                  name="workLastRole2"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1603,8 +1730,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Last Salary</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workSalary2}
+                                  name="workSalary2"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1631,8 +1758,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Company</Label>
                                 <Input
-                                  value={this.state.name}
-                                  name="name"
+                                  value={this.state.workCompany3}
+                                  name="workCompany3"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1641,8 +1768,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Period</Label>
                                 <Input
-                                  value={this.state.email}
-                                  name="email"
+                                  value={this.state.workPeriod3}
+                                  name="workPeriod3"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1651,8 +1778,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">First Role</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workFirstRole3}
+                                  name="workFirstRole3"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1661,8 +1788,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Last Role</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workLastRole3}
+                                  name="workLastRole3"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1671,8 +1798,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Last Salary</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workSalary3}
+                                  name="workSalary3"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1699,8 +1826,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Company</Label>
                                 <Input
-                                  value={this.state.name}
-                                  name="name"
+                                  value={this.state.workCompany4}
+                                  name="workCompany4"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1709,8 +1836,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Period</Label>
                                 <Input
-                                  value={this.state.email}
-                                  name="email"
+                                  value={this.state.workPeriod4}
+                                  name="workPeriod4"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1719,8 +1846,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">First Role</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workFirstRole4}
+                                  name="workFirstRole4"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1729,8 +1856,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Last Role</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workLastRole4}
+                                  name="workLastRole4"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1739,8 +1866,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Last Salary</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workSalary4}
+                                  name="workSalary4"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1767,8 +1894,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Company</Label>
                                 <Input
-                                  value={this.state.name}
-                                  name="name"
+                                  value={this.state.workCompany5}
+                                  name="workCompany5"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1777,8 +1904,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Period</Label>
                                 <Input
-                                  value={this.state.email}
-                                  name="email"
+                                  value={this.state.workPeriod5}
+                                  name="workPeriod5"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1787,8 +1914,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">First Role</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workFirstRole5}
+                                  name="workFirstRole5"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1797,8 +1924,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Last Role</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workLastRole5}
+                                  name="workLastRole5"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1807,8 +1934,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Last Salary</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workSalary5}
+                                  name="workSalary5"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1841,6 +1968,7 @@ const mapDispatchToProps = {
   getDepartment,
   sendNotif,
   newToken,
+  formTwo,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserAddStepTwo)

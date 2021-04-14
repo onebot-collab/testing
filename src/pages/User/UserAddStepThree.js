@@ -184,6 +184,7 @@ class UserAddStepThree extends Component {
 
   componentDidMount() {
     this.fetch()
+    console.log('XXXXXXXXXXXX', this.props.user.dataFormOne.firstName)
   }
 
   render() {

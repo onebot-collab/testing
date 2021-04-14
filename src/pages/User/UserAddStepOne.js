@@ -36,7 +36,7 @@ import Card from '../../components/Card/Card'
 import CardHeader from '../../components/Card/CardHeader'
 import CardBody from '../../components/Card/CardBody'
 
-import { getUser, registerUser } from '../../redux/actions/user'
+import { getUser, registerUser, formOne } from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
 import { newToken } from '../../redux/actions/login'
 import { sendNotif } from '../../redux/actions/fcm'
@@ -76,51 +76,31 @@ class UserAddStepOne extends Component {
   }
 
   nextPage() {
-    const {
-      firstName,
-      middleName,
-      lastName,
-      privateEmail,
-      phone1,
-      phone2,
-      birthPlace,
-      birthDate,
-      maritalStatus,
-      employmentType,
-      employmentDuration,
-      employmentDurationType,
-      religion,
-      bloodType,
-      gender,
-      country,
-      city,
-      district,
-      zipCode,
-    } = this.state
-
-    const dataPageOne = {
-      firstName,
-      middleName,
-      lastName,
-      privateEmail,
-      phone1,
-      phone2,
-      birthPlace,
-      birthDate,
-      maritalStatus,
-      employmentDuration,
-      employmentType,
-      employmentDurationType,
-      religion,
-      bloodType,
-      gender,
-      country,
-      city,
-      district,
-      zipCode,
+    const dataSubmit = {
+      firstName: this.state.firstName,
+      middleName: this.state.middleName,
+      lastName: this.state.lastName,
+      privateEmail: this.state.privateEmail,
+      phone1: this.state.phone1,
+      phone2: this.state.phone2,
+      birthPlace: this.state.birthPlace,
+      birthDate: this.state.birthPlace,
+      maritalStatus: this.state.maritalStatus,
+      employmentDuration: this.state.employmentDuration,
+      employmentType: this.state.employmentType,
+      employmentDurationType: this.state.employmentDurationType,
+      religion: this.state.religion,
+      bloodType: this.state.bloodType,
+      gender: this.state.gender,
+      country: this.state.country,
+      city: this.state.city,
+      district: this.state.district,
+      zipCode: this.state.zipCode,
     }
-
-    this.props.history.push('/admin/user/stepTwo', { dataPageOne })
+    this.props.formOne(dataSubmit)
+    setTimeout(() => {
+      this.props.history.push('/admin/user/stepTwo')
+    }, 100)
   }
 
   redirect() {
@@ -548,6 +528,7 @@ const mapDispatchToProps = {
   getDepartment,
   sendNotif,
   newToken,
+  formOne,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserAddStepOne)

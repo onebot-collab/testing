@@ -5,6 +5,8 @@ const initialState = {
   dataUser: [],
   infoUser: [],
   dataProfile: [],
+  dataFormOne: [],
+  dataFormTwo: [],
 }
 
 const user = (state = initialState, action) => {
@@ -99,6 +101,18 @@ const user = (state = initialState, action) => {
         isLoading: false,
         isError: false,
         dataProfile: action.payload.data.data,
+      }
+    }
+    case 'FORMONE': {
+      return {
+        ...state,
+        dataFormOne: action.meta,
+      }
+    }
+    case 'FORMTWO': {
+      return {
+        ...state,
+        dataFormTwo: action.meta,
       }
     }
     default: {
