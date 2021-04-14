@@ -29,7 +29,7 @@ import {
 import { NavigateNext } from '@material-ui/icons'
 // @material-ui/icons components
 // core components
-import Basic from './DragnDrop'
+// import Basic from './DragnDrop'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
@@ -61,11 +61,12 @@ class UserAddStepOne extends Component {
       religion: 1,
       bloodType: 1,
       gender: '',
+      address: '',
       country: '',
       city: '',
       district: '',
       zipCode: '',
-      // profilePict: '',
+      profilePicture: '',
     }
     this.handleChange = this.handleChange.bind(this)
     this.nextPage = this.nextPage.bind(this)
@@ -92,10 +93,12 @@ class UserAddStepOne extends Component {
       religion: this.state.religion,
       bloodType: this.state.bloodType,
       gender: this.state.gender,
+      address: this.state.address,
       country: this.state.country,
       city: this.state.city,
       district: this.state.district,
       zipCode: this.state.zipCode,
+      profilePicture: this.state.profilePicture,
     }
     this.props.formOne(dataSubmit)
     setTimeout(() => {
@@ -500,8 +503,20 @@ class UserAddStepOne extends Component {
                         <Col xs={12} sm={12} md={12}>
                           {' '}
                           <FormGroup>
-                            <Label for="exampleEmail">Profile Picture</Label>
-                            <Basic />
+                            <Label for="exampleCustomFileBrowser">
+                              Profile Picture
+                            </Label>
+                            <CustomInput
+                              type="file"
+                              id="exampleCustomFileBrowser"
+                              name="profilePicture"
+                              onChange={(e) =>
+                                this.setState({
+                                  profilePicture: e.target.files[0],
+                                })
+                              }
+                            />
+                            {/* <Basic /> */}
                           </FormGroup>
                         </Col>
                       </Row>
