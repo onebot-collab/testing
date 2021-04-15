@@ -12,7 +12,7 @@ const getAllCampaign = (token, search, page, startDate, endDate) => ({
 const getCampaign = (token, id, startDate, endDate) => ({
   type: 'GETCAMPAIGN',
   payload: axios(token).get(
-    `${URL}api/v1/broadcast/all/${id}??startDate=${startDate}&endDate=${endDate}`,
+    `${URL}api/v1/broadcast/all/${id}?startDate=${startDate}&endDate=${endDate}`,
   ),
 })
 
