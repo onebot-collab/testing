@@ -45,6 +45,7 @@ import {
 } from 'reactstrap'
 import {
   getAllCampaign,
+  getCampaign,
   deleteCampaign,
   postCampaign,
 } from '../../redux/actions/campaign'
@@ -81,6 +82,8 @@ class Announcement extends Component {
       deleteId: 0,
       search: '',
       page: 1,
+      startDateFilter: '',
+      endDateFilter: '',
     }
     this.fetch = this.fetch.bind(this)
     this.deleteAct = this.deleteAct.bind(this)
@@ -93,6 +96,7 @@ class Announcement extends Component {
     this.toggleFilterModal = this.toggleFilterModal.bind(this)
     this.nextPage = this.nextPage.bind(this)
     this.prevPage = this.prevPage.bind(this)
+    this.filterCampaign = this.filterCampaign.bind(this)
   }
 
   toggleFilterModal() {
@@ -132,6 +136,8 @@ class Announcement extends Component {
         this.props.login.token,
         this.state.search,
         this.state.page,
+        this.state.startDateFilter,
+        this.state.endDateFilter,
       )
       .then((res) => {
         this.setState({ isLoadingCampaign: false })
@@ -256,6 +262,36 @@ class Announcement extends Component {
           text: 'Failed to create announcement',
         })
       })
+  }
+
+  filterCampaign() {
+    this.setState({ isLoadingCampaign: true, showFilterModal: false })
+    if (parseInt(this.state.selectedDepartment) !== 1) {
+      this.props
+        .getCampaign(
+          this.props.login.token,
+          this.state.selectedDepartment,
+          this.state.startDateFilter,
+          this.state.endDateFilter,
+        )
+        .then((res) => {
+          this.props.newToken(res.action.payload.data.newToken)
+          this.setState({ isLoadingCampaign: false })
+        })
+    } else {
+      this.props
+        .getAllCampaign(
+          this.props.login.token,
+          this.state.search,
+          this.state.page,
+          this.state.startDateFilter,
+          this.state.endDateFilter,
+        )
+        .then((res) => {
+          this.props.newToken(res.action.payload.data.newToken)
+          this.setState({ isLoadingCampaign: false })
+        })
+    }
   }
 
   componentDidMount() {
@@ -579,17 +615,17 @@ class Announcement extends Component {
                   <br />
                   <h6>Start Date</h6>
                   <Input
-                    value={this.state.date}
+                    value={this.state.startDateFilter}
                     type="date"
-                    name="start_date"
+                    name="startDateFilter"
                     className="mb-2 shadow-none"
                     onChange={this.handleChange}
                   />
                   <h6>End Date</h6>
                   <Input
-                    value={this.state.date}
+                    value={this.state.endDateFilter}
                     type="date"
-                    name="end_date"
+                    name="endDateFilter"
                     className="mb-2 shadow-none"
                     onChange={this.handleChange}
                   />
@@ -605,7 +641,7 @@ class Announcement extends Component {
                   </div>
                 </Button>
               ) : ( */}
-                  <Button color="secondary" onClick={this.toggleFilterModal}>
+                  <Button color="secondary" onClick={this.filterCampaign}>
                     Submit
                   </Button>
                   {/* )} */}
@@ -696,6 +732,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   getAllCampaign,
+  getCampaign,
   deleteCampaign,
   postCampaign,
   getDepartment,
