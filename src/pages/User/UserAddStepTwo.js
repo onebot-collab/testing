@@ -161,11 +161,11 @@ class UserAddStepTwo extends Component {
 
   nextPage() {
     const dataSubmit = {
-      eduLevel1: 3,
-      eduLevel2: 3,
-      eduLevel3: 3,
-      eduLevel4: 3,
-      eduLevel5: 3,
+      eduLevel1: this.state.eduLevel1,
+      eduLevel2: this.state.eduLevel2,
+      eduLevel3: this.state.eduLevel3,
+      eduLevel4: this.state.eduLevel4,
+      eduLevel5: this.state.eduLevel5,
       eduInstitution1: this.state.eduInstitution1,
       eduInstitution2: this.state.eduInstitution2,
       eduInstitution3: this.state.eduInstitution3,
@@ -191,11 +191,11 @@ class UserAddStepTwo extends Component {
       famName3: this.state.famName3,
       famName4: this.state.famName4,
       famName5: this.state.famName5,
-      famGender1: 1,
-      famGender2: 1,
-      famGender3: 1,
-      famGender4: 1,
-      famGender5: 1,
+      famGender1: this.state.famGender1,
+      famGender2: this.state.famGender2,
+      famGender3: this.state.famGender3,
+      famGender4: this.state.famGender4,
+      famGender5: this.state.famGender5,
       famTel1: this.state.famTel1,
       famTel2: this.state.famTel2,
       famTel3: this.state.famTel3,
@@ -216,11 +216,11 @@ class UserAddStepTwo extends Component {
       famAddress3: this.state.famAddress3,
       famAddress4: this.state.famAddress4,
       famAddress5: this.state.famAddress5,
-      famCountry1: 1,
-      famCountry2: 1,
-      famCountry3: 1,
-      famCountry4: 1,
-      famCountry5: 1,
+      famCountry1: this.state.famCountry1,
+      famCountry2: this.state.famCountry2,
+      famCountry3: this.state.famCountry3,
+      famCountry4: this.state.famCountry4,
+      famCountry5: this.state.famCountry5,
       famCity1: this.state.famCity1,
       famCity2: this.state.famCity2,
       famCity3: this.state.famCity3,
@@ -891,10 +891,10 @@ class UserAddStepTwo extends Component {
                                 onChange={this.handleChange}
                                 id="exampleSelect"
                               >
-                                <option key={1} value={1}>
+                                <option key={1} value="Male">
                                   Male
                                 </option>
-                                <option key={2} value={2}>
+                                <option key={2} value="Female">
                                   Female
                                 </option>
                               </Input>
@@ -958,14 +958,14 @@ class UserAddStepTwo extends Component {
                                 <option key={1} value="Indonesia">
                                   Indonesia
                                 </option>
-                                <option key={2} value={2}>
-                                  B
+                                <option key={2} value="India">
+                                  India
                                 </option>
-                                <option key={3} value={3}>
-                                  AB
+                                <option key={3} value="Singapore">
+                                  Singapore
                                 </option>
-                                <option key={4} value={4}>
-                                  O
+                                <option key={4} value="Malaysia">
+                                  Malaysia
                                 </option>
                               </Input>
                             </FormGroup>
@@ -1041,10 +1041,10 @@ class UserAddStepTwo extends Component {
                                     onChange={this.handleChange}
                                     id="exampleSelect"
                                   >
-                                    <option key={1} value={1}>
+                                    <option key={1} value="Male">
                                       Male
                                     </option>
-                                    <option key={2} value={2}>
+                                    <option key={2} value="Female">
                                       Female
                                     </option>
                                   </Input>
@@ -1108,14 +1108,14 @@ class UserAddStepTwo extends Component {
                                     <option key={1} value="Indonesia">
                                       Indonesia
                                     </option>
-                                    <option key={2} value={2}>
-                                      B
+                                    <option key={2} value="India">
+                                      India
                                     </option>
-                                    <option key={3} value={3}>
-                                      AB
+                                    <option key={3} value="Singapore">
+                                      Singapore
                                     </option>
-                                    <option key={4} value={4}>
-                                      O
+                                    <option key={4} value="Malaysia">
+                                      Malaysia
                                     </option>
                                   </Input>
                                 </FormGroup>
@@ -1195,10 +1195,10 @@ class UserAddStepTwo extends Component {
                                     onChange={this.handleChange}
                                     id="exampleSelect"
                                   >
-                                    <option key={1} value={1}>
+                                    <option key={1} value="Male">
                                       Male
                                     </option>
-                                    <option key={2} value={2}>
+                                    <option key={2} value="Female">
                                       Female
                                     </option>
                                   </Input>
@@ -1262,14 +1262,14 @@ class UserAddStepTwo extends Component {
                                     <option key={1} value="Indonesia">
                                       Indonesia
                                     </option>
-                                    <option key={2} value={2}>
-                                      B
+                                    <option key={2} value="India">
+                                      India
                                     </option>
-                                    <option key={3} value={3}>
-                                      AB
+                                    <option key={3} value="Singapore">
+                                      Singapore
                                     </option>
-                                    <option key={4} value={4}>
-                                      O
+                                    <option key={4} value="Malaysia">
+                                      Malaysia
                                     </option>
                                   </Input>
                                 </FormGroup>
@@ -1350,10 +1350,10 @@ class UserAddStepTwo extends Component {
                                     onChange={this.handleChange}
                                     id="exampleSelect"
                                   >
-                                    <option key={1} value={1}>
+                                    <option key={1} value="Male">
                                       Male
                                     </option>
-                                    <option key={2} value={2}>
+                                    <option key={2} value="Female">
                                       Female
                                     </option>
                                   </Input>
@@ -1417,14 +1417,14 @@ class UserAddStepTwo extends Component {
                                     <option key={1} value="Indonesia">
                                       Indonesia
                                     </option>
-                                    <option key={2} value={2}>
-                                      B
+                                    <option key={2} value="India">
+                                      India
                                     </option>
-                                    <option key={3} value={3}>
-                                      AB
+                                    <option key={3} value="Singapore">
+                                      Singapore
                                     </option>
-                                    <option key={4} value={4}>
-                                      O
+                                    <option key={4} value="Malaysia">
+                                      Malaysia
                                     </option>
                                   </Input>
                                 </FormGroup>
@@ -1506,10 +1506,10 @@ class UserAddStepTwo extends Component {
                                     onChange={this.handleChange}
                                     id="exampleSelect"
                                   >
-                                    <option key={1} value={1}>
+                                    <option key={1} value="Male">
                                       Male
                                     </option>
-                                    <option key={2} value={2}>
+                                    <option key={2} value="Female">
                                       Female
                                     </option>
                                   </Input>
@@ -1573,14 +1573,14 @@ class UserAddStepTwo extends Component {
                                     <option key={1} value="Indonesia">
                                       Indonesia
                                     </option>
-                                    <option key={2} value={2}>
-                                      B
+                                    <option key={2} value="India">
+                                      India
                                     </option>
-                                    <option key={3} value={3}>
-                                      AB
+                                    <option key={3} value="Singapore">
+                                      Singapore
                                     </option>
-                                    <option key={4} value={4}>
-                                      O
+                                    <option key={4} value="Malaysia">
+                                      Malaysia
                                     </option>
                                   </Input>
                                 </FormGroup>

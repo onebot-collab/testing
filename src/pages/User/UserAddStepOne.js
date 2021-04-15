@@ -54,13 +54,13 @@ class UserAddStepOne extends Component {
       phone2: '',
       birthPlace: '',
       birthDate: '',
-      maritalStatus: 1,
+      maritalStatus: 'Single',
       employmentType: 3,
       employmentDuration: '',
       employmentDurationType: 1,
       religion: 'Islam',
       bloodType: 'A',
-      gender: 1,
+      gender: 'Male',
       address: '',
       country: 'Indonesia',
       city: '',
@@ -259,13 +259,13 @@ class UserAddStepOne extends Component {
                               id="exampleSelect"
                               onChange={this.handleChange}
                             >
-                              <option key={1} value={1}>
+                              <option key={1} value="Single">
                                 Single
                               </option>
-                              <option key={2} value={2}>
+                              <option key={2} value="Married">
                                 Married
                               </option>
-                              <option key={3} value={3}>
+                              <option key={3} value="Widow/Widower">
                                 Widow/Widower
                               </option>
                             </Input>
@@ -408,7 +408,7 @@ class UserAddStepOne extends Component {
                                 id="exampleCustomRadio2"
                                 name="gender"
                                 label="Male"
-                                value={1}
+                                value="Male"
                                 onChange={(e) => this.handleChange(e)}
                                 inline
                               />
@@ -417,7 +417,7 @@ class UserAddStepOne extends Component {
                                 id="exampleCustomRadio"
                                 name="gender"
                                 label="Female"
-                                value={2}
+                                value="Female"
                                 onChange={(e) => this.handleChange(e)}
                                 inline
                               />
