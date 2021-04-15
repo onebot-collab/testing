@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-useless-escape */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
@@ -24,7 +25,7 @@ import Card from '../../components/Card/Card'
 import CardHeader from '../../components/Card/CardHeader'
 import CardBody from '../../components/Card/CardBody'
 
-import { getUser, registerUser } from '../../redux/actions/user'
+import { getUser, registerUser, formTwo } from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
 import { newToken } from '../../redux/actions/login'
 import { sendNotif } from '../../redux/actions/fcm'
@@ -34,17 +35,11 @@ class UserAddStepTwo extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: '',
-      email: '',
-      phone: '',
-      address: '',
-      department: 1,
-      page: 1,
-      eduLevel1: 3,
-      eduLevel2: 3,
-      eduLevel3: 3,
-      eduLevel4: 3,
-      eduLevel5: 3,
+      eduLevel1: 'SMA/SMK',
+      eduLevel2: 'SMA/SMK',
+      eduLevel3: 'SMA/SMK',
+      eduLevel4: 'SMA/SMK',
+      eduLevel5: 'SMA/SMK',
       eduInstitution1: '',
       eduInstitution2: '',
       eduInstitution3: '',
@@ -69,6 +64,81 @@ class UserAddStepTwo extends Component {
       education3: false,
       education4: false,
       education5: false,
+      famName1: '',
+      famName2: '',
+      famName3: '',
+      famName4: '',
+      famName5: '',
+      famGender1: 1,
+      famGender2: 1,
+      famGender3: 1,
+      famGender4: 1,
+      famGender5: 1,
+      famTel1: '',
+      famTel2: '',
+      famTel3: '',
+      famTel4: '',
+      famTel5: '',
+      famRelationship1: '',
+      famRelationship2: '',
+      famRelationship3: '',
+      famRelationship4: '',
+      famRelationship5: '',
+      famOccupation1: '',
+      famOccupation2: '',
+      famOccupation3: '',
+      famOccupation4: '',
+      famOccupation5: '',
+      famAddress1: '',
+      famAddress2: '',
+      famAddress3: '',
+      famAddress4: '',
+      famAddress5: '',
+      famCountry1: 'Indonesia',
+      famCountry2: 'Indonesia',
+      famCountry3: 'Indonesia',
+      famCountry4: 'Indonesia',
+      famCountry5: 'Indonesia',
+      famCity1: '',
+      famCity2: '',
+      famCity3: '',
+      famCity4: '',
+      famCity5: '',
+      famDistrict1: '',
+      famDistrict2: '',
+      famDistrict3: '',
+      famDistrict4: '',
+      famDistrict5: '',
+      famZip1: '',
+      famZip2: '',
+      famZip3: '',
+      famZip4: '',
+      famZip5: '',
+      workCompany1: '',
+      workCompany2: '',
+      workCompany3: '',
+      workCompany4: '',
+      workCompany5: '',
+      workPeriod1: '',
+      workPeriod2: '',
+      workPeriod3: '',
+      workPeriod4: '',
+      workPeriod5: '',
+      workFirstRole1: '',
+      workFirstRole2: '',
+      workFirstRole3: '',
+      workFirstRole4: '',
+      workFirstRole5: '',
+      workLastRole1: '',
+      workLastRole2: '',
+      workLastRole3: '',
+      workLastRole4: '',
+      workLastRole5: '',
+      workSalary1: '',
+      workSalary2: '',
+      workSalary3: '',
+      workSalary4: '',
+      workSalary5: '',
       family2: false,
       family3: false,
       family4: false,
@@ -79,10 +149,7 @@ class UserAddStepTwo extends Component {
       work5: false,
     }
     this.handleChange = this.handleChange.bind(this)
-    this.handleSearch = this.handleSearch.bind(this)
-    this.prevPage = this.prevPage.bind(this)
     this.nextPage = this.nextPage.bind(this)
-    this.register = this.register.bind(this)
     this.addEducation = this.addEducation.bind(this)
     this.addFamily = this.addFamily.bind(this)
     this.addWork = this.addWork.bind(this)
@@ -93,12 +160,113 @@ class UserAddStepTwo extends Component {
   }
 
   nextPage() {
-    if (this.state.page < this.props.user.infoUser.totalPage) {
-      this.setState({ page: this.state.page + 1 })
-      setTimeout(() => {
-        this.fetch()
-      }, 100)
+    const dataSubmit = {
+      eduLevel1: this.state.eduLevel1,
+      eduLevel2: this.state.eduLevel2,
+      eduLevel3: this.state.eduLevel3,
+      eduLevel4: this.state.eduLevel4,
+      eduLevel5: this.state.eduLevel5,
+      eduInstitution1: this.state.eduInstitution1,
+      eduInstitution2: this.state.eduInstitution2,
+      eduInstitution3: this.state.eduInstitution3,
+      eduInstitution4: this.state.eduInstitution4,
+      eduInstitution5: this.state.eduInstitution5,
+      eduPeriod1: this.state.eduPeriod1,
+      eduPeriod2: this.state.eduPeriod2,
+      eduPeriod3: this.state.eduPeriod3,
+      eduPeriod4: this.state.eduPeriod4,
+      eduPeriod5: this.state.eduPeriod5,
+      eduMajor1: this.state.eduMajor1,
+      eduMajor2: this.state.eduMajor2,
+      eduMajor3: this.state.eduMajor3,
+      eduMajor4: this.state.eduMajor4,
+      eduMajor5: this.state.eduMajor5,
+      eduGrade1: this.state.eduGrade1,
+      eduGrade2: this.state.eduGrade2,
+      eduGrade3: this.state.eduGrade3,
+      eduGrade4: this.state.eduGrade4,
+      eduGrade5: this.state.eduGrade5,
+      famName1: this.state.famName1,
+      famName2: this.state.famName2,
+      famName3: this.state.famName3,
+      famName4: this.state.famName4,
+      famName5: this.state.famName5,
+      famGender1: this.state.famGender1,
+      famGender2: this.state.famGender2,
+      famGender3: this.state.famGender3,
+      famGender4: this.state.famGender4,
+      famGender5: this.state.famGender5,
+      famTel1: this.state.famTel1,
+      famTel2: this.state.famTel2,
+      famTel3: this.state.famTel3,
+      famTel4: this.state.famTel4,
+      famTel5: this.state.famTel5,
+      famRelationship1: this.state.famRelationship1,
+      famRelationship2: this.state.famRelationship2,
+      famRelationship3: this.state.famRelationship3,
+      famRelationship4: this.state.famRelationship4,
+      famRelationship5: this.state.famRelationship5,
+      famOccupation1: this.state.famOccupation1,
+      famOccupation2: this.state.famOccupation2,
+      famOccupation3: this.state.famOccupation3,
+      famOccupation4: this.state.famOccupation4,
+      famOccupation5: this.state.famOccupation5,
+      famAddress1: this.state.famAddress1,
+      famAddress2: this.state.famAddress2,
+      famAddress3: this.state.famAddress3,
+      famAddress4: this.state.famAddress4,
+      famAddress5: this.state.famAddress5,
+      famCountry1: this.state.famCountry1,
+      famCountry2: this.state.famCountry2,
+      famCountry3: this.state.famCountry3,
+      famCountry4: this.state.famCountry4,
+      famCountry5: this.state.famCountry5,
+      famCity1: this.state.famCity1,
+      famCity2: this.state.famCity2,
+      famCity3: this.state.famCity3,
+      famCity4: this.state.famCity4,
+      famCity5: this.state.famCity5,
+      famDistrict1: this.state.famDistrict1,
+      famDistrict2: this.state.famDistrict2,
+      famDistrict3: this.state.famDistrict3,
+      famDistrict4: this.state.famDistrict4,
+      famDistrict5: this.state.famDistrict5,
+      famZip1: this.state.famZip1,
+      famZip2: this.state.famZip2,
+      famZip3: this.state.famZip3,
+      famZip4: this.state.famZip4,
+      famZip5: this.state.famZip5,
+      workCompany1: this.state.workCompany1,
+      workCompany2: this.state.workCompany2,
+      workCompany3: this.state.workCompany3,
+      workCompany4: this.state.workCompany4,
+      workCompany5: this.state.workCompany5,
+      workPeriod1: this.state.workPeriod1,
+      workPeriod2: this.state.workPeriod2,
+      workPeriod3: this.state.workPeriod3,
+      workPeriod4: this.state.workPeriod4,
+      workPeriod5: this.state.workPeriod5,
+      workFirstRole1: this.state.workFirstRole1,
+      workFirstRole2: this.state.workFirstRole2,
+      workFirstRole3: this.state.workFirstRole3,
+      workFirstRole4: this.state.workFirstRole4,
+      workFirstRole5: this.state.workFirstRole5,
+      workLastRole1: this.state.workLastRole1,
+      workLastRole2: this.state.workLastRole2,
+      workLastRole3: this.state.workLastRole3,
+      workLastRole4: this.state.workLastRole4,
+      workLastRole5: this.state.workLastRole5,
+      workSalary1: this.state.workSalary1,
+      workSalary2: this.state.workSalary2,
+      workSalary3: this.state.workSalary3,
+      workSalary4: this.state.workSalary4,
+      workSalary5: this.state.workSalary5,
     }
+
+    this.props.formTwo(dataSubmit)
+    setTimeout(() => {
+      this.props.history.push('/admin/user/stepThree')
+    }, 100)
   }
 
   addEducation() {
@@ -178,7 +346,7 @@ class UserAddStepTwo extends Component {
                   </Tooltip>
                 </Link>
                 <Link
-                  to="/admin/user/stepThree"
+                  onClick={this.nextPage}
                   className="btn btn-danger m-2 my-sm-0"
                 >
                   {' '}
@@ -214,7 +382,7 @@ class UserAddStepTwo extends Component {
                     <Form>
                       <Col form>
                         <div className="d-flex justify-content-between">
-                          <h5>Education Background</h5>
+                          <h5>Educational Background</h5>
                           <button
                             className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
                             type="button"
@@ -234,26 +402,29 @@ class UserAddStepTwo extends Component {
                                 onChange={this.handleChange}
                                 id="exampleSelect"
                               >
-                                <option key={1} value={1}>
+                                <option key={1} value="SD">
                                   SD
                                 </option>
-                                <option key={2} value={2}>
+                                <option key={2} value="SMP">
                                   SMP
                                 </option>
-                                <option key={3} value={3}>
-                                  SMA/SMK Sederajat
+                                <option key={3} value="SMA/SMK">
+                                  SMA/SMK
                                 </option>
-                                <option key={4} value={4}>
+                                <option key={4} value="D1">
                                   D1
                                 </option>
-                                <option key={5} value={5}>
+                                <option key={5} value="D3">
                                   D3
                                 </option>
-                                <option key={6} value={6}>
+                                <option key={6} value="S1">
                                   S1
                                 </option>
-                                <option key={7} value={7}>
+                                <option key={7} value="S2">
                                   S2
+                                </option>
+                                <option key={8} value="S3">
+                                  S3
                                 </option>
                               </Input>
                             </FormGroup>
@@ -325,26 +496,29 @@ class UserAddStepTwo extends Component {
                                   onChange={this.handleChange}
                                   id="exampleSelect"
                                 >
-                                  <option key={1} value={1}>
+                                  <option key={1} value="SD">
                                     SD
                                   </option>
-                                  <option key={2} value={2}>
+                                  <option key={2} value="SMP">
                                     SMP
                                   </option>
-                                  <option key={3} value={3}>
-                                    SMA/SMK Sederajat
+                                  <option key={3} value="SMA/SMK">
+                                    SMA/SMK
                                   </option>
-                                  <option key={4} value={4}>
+                                  <option key={4} value="D1">
                                     D1
                                   </option>
-                                  <option key={5} value={5}>
+                                  <option key={5} value="D3">
                                     D3
                                   </option>
-                                  <option key={6} value={6}>
+                                  <option key={6} value="S1">
                                     S1
                                   </option>
-                                  <option key={7} value={7}>
+                                  <option key={7} value="S2">
                                     S2
+                                  </option>
+                                  <option key={8} value="S3">
+                                    S3
                                   </option>
                                 </Input>
                               </FormGroup>
@@ -419,26 +593,29 @@ class UserAddStepTwo extends Component {
                                   onChange={this.handleChange}
                                   id="exampleSelect"
                                 >
-                                  <option key={1} value={1}>
+                                  <option key={1} value="SD">
                                     SD
                                   </option>
-                                  <option key={2} value={2}>
+                                  <option key={2} value="SMP">
                                     SMP
                                   </option>
-                                  <option key={3} value={3}>
-                                    SMA/SMK Sederajat
+                                  <option key={3} value="SMA/SMK">
+                                    SMA/SMK
                                   </option>
-                                  <option key={4} value={4}>
+                                  <option key={4} value="D1">
                                     D1
                                   </option>
-                                  <option key={5} value={5}>
+                                  <option key={5} value="D3">
                                     D3
                                   </option>
-                                  <option key={6} value={6}>
+                                  <option key={6} value="S1">
                                     S1
                                   </option>
-                                  <option key={7} value={7}>
+                                  <option key={7} value="S2">
                                     S2
+                                  </option>
+                                  <option key={8} value="S3">
+                                    S3
                                   </option>
                                 </Input>
                               </FormGroup>
@@ -513,26 +690,29 @@ class UserAddStepTwo extends Component {
                                   onChange={this.handleChange}
                                   id="exampleSelect"
                                 >
-                                  <option key={1} value={1}>
+                                  <option key={1} value="SD">
                                     SD
                                   </option>
-                                  <option key={2} value={2}>
+                                  <option key={2} value="SMP">
                                     SMP
                                   </option>
-                                  <option key={3} value={3}>
-                                    SMA/SMK Sederajat
+                                  <option key={3} value="SMA/SMK">
+                                    SMA/SMK
                                   </option>
-                                  <option key={4} value={4}>
+                                  <option key={4} value="D1">
                                     D1
                                   </option>
-                                  <option key={5} value={5}>
+                                  <option key={5} value="D3">
                                     D3
                                   </option>
-                                  <option key={6} value={6}>
+                                  <option key={6} value="S1">
                                     S1
                                   </option>
-                                  <option key={7} value={7}>
+                                  <option key={7} value="S2">
                                     S2
+                                  </option>
+                                  <option key={8} value="S3">
+                                    S3
                                   </option>
                                 </Input>
                               </FormGroup>
@@ -607,26 +787,29 @@ class UserAddStepTwo extends Component {
                                   onChange={this.handleChange}
                                   id="exampleSelect"
                                 >
-                                  <option key={1} value={1}>
+                                  <option key={1} value="SD">
                                     SD
                                   </option>
-                                  <option key={2} value={2}>
+                                  <option key={2} value="SMP">
                                     SMP
                                   </option>
-                                  <option key={3} value={3}>
-                                    SMA/SMK Sederajat
+                                  <option key={3} value="SMA/SMK">
+                                    SMA/SMK
                                   </option>
-                                  <option key={4} value={4}>
+                                  <option key={4} value="D1">
                                     D1
                                   </option>
-                                  <option key={5} value={5}>
+                                  <option key={5} value="D3">
                                     D3
                                   </option>
-                                  <option key={6} value={6}>
+                                  <option key={6} value="S1">
                                     S1
                                   </option>
-                                  <option key={7} value={7}>
+                                  <option key={7} value="S2">
                                     S2
+                                  </option>
+                                  <option key={8} value="S3">
+                                    S3
                                   </option>
                                 </Input>
                               </FormGroup>
@@ -692,8 +875,8 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">Name</Label>
                               <Input
-                                value={this.state.name}
-                                name="name"
+                                value={this.state.famName1}
+                                name="famName1"
                                 onChange={(e) => this.handleChange(e)}
                               />
                             </FormGroup>
@@ -702,16 +885,16 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">Gender</Label>
                               <Input
-                                value={this.state.department}
+                                value={this.state.famGender1}
                                 type="select"
-                                name="department"
+                                name="famGender1"
                                 onChange={this.handleChange}
                                 id="exampleSelect"
                               >
-                                <option key={1} value={1}>
+                                <option key={1} value="Male">
                                   Male
                                 </option>
-                                <option key={2} value={2}>
+                                <option key={2} value="Female">
                                   Female
                                 </option>
                               </Input>
@@ -721,8 +904,8 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">Telepon</Label>
                               <Input
-                                value={this.state.phone}
-                                name="phone"
+                                value={this.state.famTel1}
+                                name="famTel1"
                                 onChange={(e) => this.handleChange(e)}
                               />
                             </FormGroup>
@@ -731,8 +914,8 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">Relationship</Label>
                               <Input
-                                value={this.state.phone}
-                                name="phone"
+                                value={this.state.famRelationship1}
+                                name="famRelationship1"
                                 onChange={(e) => this.handleChange(e)}
                               />
                             </FormGroup>
@@ -741,8 +924,8 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">Occupation</Label>
                               <Input
-                                value={this.state.phone}
-                                name="phone"
+                                value={this.state.famOccupation1}
+                                name="famOccupation1"
                                 onChange={(e) => this.handleChange(e)}
                               />
                             </FormGroup>
@@ -753,8 +936,8 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">Address</Label>
                               <Input
-                                value={this.state.name}
-                                name="name"
+                                value={this.state.famAddress1}
+                                name="famAddress1"
                                 onChange={(e) => this.handleChange(e)}
                               />
                             </FormGroup>
@@ -764,25 +947,25 @@ class UserAddStepTwo extends Component {
                           <Col xs={12} sm={12} md={4}>
                             {' '}
                             <FormGroup>
-                              <Label for="exampleEmail">Province</Label>
+                              <Label for="exampleEmail">Country</Label>
                               <Input
-                                value={this.state.department}
+                                value={this.state.famCountry1}
                                 type="select"
-                                name="department"
+                                name="famCountry1"
                                 onChange={this.handleChange}
                                 id="exampleSelect"
                               >
-                                <option key={1} value={1}>
-                                  A
+                                <option key={1} value="Indonesia">
+                                  Indonesia
                                 </option>
-                                <option key={2} value={2}>
-                                  B
+                                <option key={2} value="India">
+                                  India
                                 </option>
-                                <option key={3} value={3}>
-                                  AB
+                                <option key={3} value="Singapore">
+                                  Singapore
                                 </option>
-                                <option key={4} value={4}>
-                                  O
+                                <option key={4} value="Malaysia">
+                                  Malaysia
                                 </option>
                               </Input>
                             </FormGroup>
@@ -792,25 +975,10 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">City</Label>
                               <Input
-                                value={this.state.department}
-                                type="select"
-                                name="department"
+                                value={this.state.famCity1}
+                                name="famCity1"
                                 onChange={this.handleChange}
-                                id="exampleSelect"
-                              >
-                                <option key={1} value={1}>
-                                  A
-                                </option>
-                                <option key={2} value={2}>
-                                  B
-                                </option>
-                                <option key={3} value={3}>
-                                  AB
-                                </option>
-                                <option key={4} value={4}>
-                                  O
-                                </option>
-                              </Input>
+                              />
                             </FormGroup>
                           </Col>
                           <Col xs={12} sm={12} md={3}>
@@ -818,25 +986,10 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">District</Label>
                               <Input
-                                value={this.state.department}
-                                type="select"
-                                name="department"
+                                value={this.state.famDistrict1}
+                                name="famDistrict1"
                                 onChange={this.handleChange}
-                                id="exampleSelect"
-                              >
-                                <option key={1} value={1}>
-                                  A
-                                </option>
-                                <option key={2} value={2}>
-                                  B
-                                </option>
-                                <option key={3} value={3}>
-                                  AB
-                                </option>
-                                <option key={4} value={4}>
-                                  O
-                                </option>
-                              </Input>
+                              />
                             </FormGroup>
                           </Col>
                           <Col xs={12} sm={12} md={2}>
@@ -844,8 +997,8 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">ZIP</Label>
                               <Input
-                                value={this.state.address}
-                                name="address"
+                                value={this.state.famZip1}
+                                name="famZip1"
                                 onChange={(e) => this.handleChange(e)}
                               />
                             </FormGroup>
@@ -872,8 +1025,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Name</Label>
                                   <Input
-                                    value={this.state.name}
-                                    name="name"
+                                    value={this.state.famName2}
+                                    name="famName2"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -882,16 +1035,16 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Gender</Label>
                                   <Input
-                                    value={this.state.department}
+                                    value={this.state.famGender2}
                                     type="select"
-                                    name="department"
+                                    name="famGender2"
                                     onChange={this.handleChange}
                                     id="exampleSelect"
                                   >
-                                    <option key={1} value={1}>
+                                    <option key={1} value="Male">
                                       Male
                                     </option>
-                                    <option key={2} value={2}>
+                                    <option key={2} value="Female">
                                       Female
                                     </option>
                                   </Input>
@@ -901,8 +1054,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Telepon</Label>
                                   <Input
-                                    value={this.state.phone}
-                                    name="phone"
+                                    value={this.state.famTel2}
+                                    name="famTel2"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -911,8 +1064,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Relationship</Label>
                                   <Input
-                                    value={this.state.phone}
-                                    name="phone"
+                                    value={this.state.famRelationship2}
+                                    name="famRelationship2"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -921,8 +1074,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Occupation</Label>
                                   <Input
-                                    value={this.state.phone}
-                                    name="phone"
+                                    value={this.state.famOccupation2}
+                                    name="famOccupation2"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -933,8 +1086,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Address</Label>
                                   <Input
-                                    value={this.state.name}
-                                    name="name"
+                                    value={this.state.famAddress2}
+                                    name="famAddress2"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -944,25 +1097,25 @@ class UserAddStepTwo extends Component {
                               <Col xs={12} sm={12} md={4}>
                                 {' '}
                                 <FormGroup>
-                                  <Label for="exampleEmail">Province</Label>
+                                  <Label for="exampleEmail">Country</Label>
                                   <Input
-                                    value={this.state.department}
+                                    value={this.state.famCountry2}
                                     type="select"
-                                    name="department"
+                                    name="famCountry2"
                                     onChange={this.handleChange}
                                     id="exampleSelect"
                                   >
-                                    <option key={1} value={1}>
-                                      A
+                                    <option key={1} value="Indonesia">
+                                      Indonesia
                                     </option>
-                                    <option key={2} value={2}>
-                                      B
+                                    <option key={2} value="India">
+                                      India
                                     </option>
-                                    <option key={3} value={3}>
-                                      AB
+                                    <option key={3} value="Singapore">
+                                      Singapore
                                     </option>
-                                    <option key={4} value={4}>
-                                      O
+                                    <option key={4} value="Malaysia">
+                                      Malaysia
                                     </option>
                                   </Input>
                                 </FormGroup>
@@ -972,25 +1125,10 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">City</Label>
                                   <Input
-                                    value={this.state.department}
-                                    type="select"
-                                    name="department"
+                                    value={this.state.famCity2}
+                                    name="famCity2"
                                     onChange={this.handleChange}
-                                    id="exampleSelect"
-                                  >
-                                    <option key={1} value={1}>
-                                      A
-                                    </option>
-                                    <option key={2} value={2}>
-                                      B
-                                    </option>
-                                    <option key={3} value={3}>
-                                      AB
-                                    </option>
-                                    <option key={4} value={4}>
-                                      O
-                                    </option>
-                                  </Input>
+                                  />
                                 </FormGroup>
                               </Col>
                               <Col xs={12} sm={12} md={3}>
@@ -998,25 +1136,10 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">District</Label>
                                   <Input
-                                    value={this.state.department}
-                                    type="select"
-                                    name="department"
+                                    value={this.state.famDistrict2}
+                                    name="famDistrict2"
                                     onChange={this.handleChange}
-                                    id="exampleSelect"
-                                  >
-                                    <option key={1} value={1}>
-                                      A
-                                    </option>
-                                    <option key={2} value={2}>
-                                      B
-                                    </option>
-                                    <option key={3} value={3}>
-                                      AB
-                                    </option>
-                                    <option key={4} value={4}>
-                                      O
-                                    </option>
-                                  </Input>
+                                  />
                                 </FormGroup>
                               </Col>
                               <Col xs={12} sm={12} md={2}>
@@ -1024,8 +1147,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">ZIP</Label>
                                   <Input
-                                    value={this.state.address}
-                                    name="address"
+                                    value={this.state.famZip2}
+                                    name="famZip2"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1056,8 +1179,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Name</Label>
                                   <Input
-                                    value={this.state.name}
-                                    name="name"
+                                    value={this.state.famName3}
+                                    name="famName3"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1066,16 +1189,16 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Gender</Label>
                                   <Input
-                                    value={this.state.department}
+                                    value={this.state.famGender3}
                                     type="select"
-                                    name="department"
+                                    name="famGender3"
                                     onChange={this.handleChange}
                                     id="exampleSelect"
                                   >
-                                    <option key={1} value={1}>
+                                    <option key={1} value="Male">
                                       Male
                                     </option>
-                                    <option key={2} value={2}>
+                                    <option key={2} value="Female">
                                       Female
                                     </option>
                                   </Input>
@@ -1085,8 +1208,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Telepon</Label>
                                   <Input
-                                    value={this.state.phone}
-                                    name="phone"
+                                    value={this.state.famTel3}
+                                    name="famTel3"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1095,8 +1218,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Relationship</Label>
                                   <Input
-                                    value={this.state.phone}
-                                    name="phone"
+                                    value={this.state.famRelationship3}
+                                    name="famRelationship3"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1105,8 +1228,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Occupation</Label>
                                   <Input
-                                    value={this.state.phone}
-                                    name="phone"
+                                    value={this.state.famOccupation3}
+                                    name="famOccupation3"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1117,8 +1240,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Address</Label>
                                   <Input
-                                    value={this.state.name}
-                                    name="name"
+                                    value={this.state.famAddress3}
+                                    name="famAddress3"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1128,25 +1251,25 @@ class UserAddStepTwo extends Component {
                               <Col xs={12} sm={12} md={4}>
                                 {' '}
                                 <FormGroup>
-                                  <Label for="exampleEmail">Province</Label>
+                                  <Label for="exampleEmail">Country</Label>
                                   <Input
-                                    value={this.state.department}
+                                    value={this.state.famCountry3}
                                     type="select"
-                                    name="department"
+                                    name="famCountry3"
                                     onChange={this.handleChange}
                                     id="exampleSelect"
                                   >
-                                    <option key={1} value={1}>
-                                      A
+                                    <option key={1} value="Indonesia">
+                                      Indonesia
                                     </option>
-                                    <option key={2} value={2}>
-                                      B
+                                    <option key={2} value="India">
+                                      India
                                     </option>
-                                    <option key={3} value={3}>
-                                      AB
+                                    <option key={3} value="Singapore">
+                                      Singapore
                                     </option>
-                                    <option key={4} value={4}>
-                                      O
+                                    <option key={4} value="Malaysia">
+                                      Malaysia
                                     </option>
                                   </Input>
                                 </FormGroup>
@@ -1156,25 +1279,11 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">City</Label>
                                   <Input
-                                    value={this.state.department}
-                                    type="select"
-                                    name="department"
+                                    value={this.state.famCity3}
+                                    name="famCity3"
                                     onChange={this.handleChange}
                                     id="exampleSelect"
-                                  >
-                                    <option key={1} value={1}>
-                                      A
-                                    </option>
-                                    <option key={2} value={2}>
-                                      B
-                                    </option>
-                                    <option key={3} value={3}>
-                                      AB
-                                    </option>
-                                    <option key={4} value={4}>
-                                      O
-                                    </option>
-                                  </Input>
+                                  />
                                 </FormGroup>
                               </Col>
                               <Col xs={12} sm={12} md={3}>
@@ -1182,25 +1291,10 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">District</Label>
                                   <Input
-                                    value={this.state.department}
-                                    type="select"
-                                    name="department"
+                                    value={this.state.famDistrict3}
+                                    name="famDistrict3"
                                     onChange={this.handleChange}
-                                    id="exampleSelect"
-                                  >
-                                    <option key={1} value={1}>
-                                      A
-                                    </option>
-                                    <option key={2} value={2}>
-                                      B
-                                    </option>
-                                    <option key={3} value={3}>
-                                      AB
-                                    </option>
-                                    <option key={4} value={4}>
-                                      O
-                                    </option>
-                                  </Input>
+                                  />
                                 </FormGroup>
                               </Col>
                               <Col xs={12} sm={12} md={2}>
@@ -1208,8 +1302,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">ZIP</Label>
                                   <Input
-                                    value={this.state.address}
-                                    name="address"
+                                    value={this.state.famZip3}
+                                    name="famZip3"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1240,8 +1334,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Name</Label>
                                   <Input
-                                    value={this.state.name}
-                                    name="name"
+                                    value={this.state.famName4}
+                                    name="famName4"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1250,16 +1344,16 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Gender</Label>
                                   <Input
-                                    value={this.state.department}
+                                    value={this.state.famGender4}
                                     type="select"
-                                    name="department"
+                                    name="famGender4"
                                     onChange={this.handleChange}
                                     id="exampleSelect"
                                   >
-                                    <option key={1} value={1}>
+                                    <option key={1} value="Male">
                                       Male
                                     </option>
-                                    <option key={2} value={2}>
+                                    <option key={2} value="Female">
                                       Female
                                     </option>
                                   </Input>
@@ -1269,8 +1363,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Telepon</Label>
                                   <Input
-                                    value={this.state.phone}
-                                    name="phone"
+                                    value={this.state.famTel4}
+                                    name="famTel4"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1279,8 +1373,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Relationship</Label>
                                   <Input
-                                    value={this.state.phone}
-                                    name="phone"
+                                    value={this.state.famRelationship4}
+                                    name="famRelationship4"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1289,8 +1383,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Occupation</Label>
                                   <Input
-                                    value={this.state.phone}
-                                    name="phone"
+                                    value={this.state.famOccupation4}
+                                    name="famOccupation4"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1301,8 +1395,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Address</Label>
                                   <Input
-                                    value={this.state.name}
-                                    name="name"
+                                    value={this.state.famAddress4}
+                                    name="famAddress4"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1312,25 +1406,25 @@ class UserAddStepTwo extends Component {
                               <Col xs={12} sm={12} md={4}>
                                 {' '}
                                 <FormGroup>
-                                  <Label for="exampleEmail">Province</Label>
+                                  <Label for="exampleEmail">Country</Label>
                                   <Input
-                                    value={this.state.department}
+                                    value={this.state.famCountry4}
                                     type="select"
-                                    name="department"
+                                    name="famCountry4"
                                     onChange={this.handleChange}
                                     id="exampleSelect"
                                   >
-                                    <option key={1} value={1}>
-                                      A
+                                    <option key={1} value="Indonesia">
+                                      Indonesia
                                     </option>
-                                    <option key={2} value={2}>
-                                      B
+                                    <option key={2} value="India">
+                                      India
                                     </option>
-                                    <option key={3} value={3}>
-                                      AB
+                                    <option key={3} value="Singapore">
+                                      Singapore
                                     </option>
-                                    <option key={4} value={4}>
-                                      O
+                                    <option key={4} value="Malaysia">
+                                      Malaysia
                                     </option>
                                   </Input>
                                 </FormGroup>
@@ -1340,25 +1434,12 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">City</Label>
                                   <Input
-                                    value={this.state.department}
+                                    value={this.state.famCity4}
                                     type="select"
-                                    name="department"
+                                    name="famCity4"
                                     onChange={this.handleChange}
                                     id="exampleSelect"
-                                  >
-                                    <option key={1} value={1}>
-                                      A
-                                    </option>
-                                    <option key={2} value={2}>
-                                      B
-                                    </option>
-                                    <option key={3} value={3}>
-                                      AB
-                                    </option>
-                                    <option key={4} value={4}>
-                                      O
-                                    </option>
-                                  </Input>
+                                  />
                                 </FormGroup>
                               </Col>
                               <Col xs={12} sm={12} md={3}>
@@ -1366,25 +1447,10 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">District</Label>
                                   <Input
-                                    value={this.state.department}
-                                    type="select"
-                                    name="department"
+                                    value={this.state.famDistrict4}
+                                    name="famDistrict4"
                                     onChange={this.handleChange}
-                                    id="exampleSelect"
-                                  >
-                                    <option key={1} value={1}>
-                                      A
-                                    </option>
-                                    <option key={2} value={2}>
-                                      B
-                                    </option>
-                                    <option key={3} value={3}>
-                                      AB
-                                    </option>
-                                    <option key={4} value={4}>
-                                      O
-                                    </option>
-                                  </Input>
+                                  />
                                 </FormGroup>
                               </Col>
                               <Col xs={12} sm={12} md={2}>
@@ -1392,8 +1458,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">ZIP</Label>
                                   <Input
-                                    value={this.state.address}
-                                    name="address"
+                                    value={this.state.famZip4}
+                                    name="famZip4"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1424,8 +1490,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Name</Label>
                                   <Input
-                                    value={this.state.name}
-                                    name="name"
+                                    value={this.state.famName5}
+                                    name="famName5"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1434,16 +1500,16 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Gender</Label>
                                   <Input
-                                    value={this.state.department}
+                                    value={this.state.famGender5}
                                     type="select"
-                                    name="department"
+                                    name="famGender5"
                                     onChange={this.handleChange}
                                     id="exampleSelect"
                                   >
-                                    <option key={1} value={1}>
+                                    <option key={1} value="Male">
                                       Male
                                     </option>
-                                    <option key={2} value={2}>
+                                    <option key={2} value="Female">
                                       Female
                                     </option>
                                   </Input>
@@ -1453,8 +1519,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Telepon</Label>
                                   <Input
-                                    value={this.state.phone}
-                                    name="phone"
+                                    value={this.state.famTel5}
+                                    name="famTel5"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1463,8 +1529,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Relationship</Label>
                                   <Input
-                                    value={this.state.phone}
-                                    name="phone"
+                                    value={this.state.famRelationship5}
+                                    name="famRelationship5"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1473,8 +1539,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Occupation</Label>
                                   <Input
-                                    value={this.state.phone}
-                                    name="phone"
+                                    value={this.state.famOccupation5}
+                                    name="famOccupation5"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1485,8 +1551,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">Address</Label>
                                   <Input
-                                    value={this.state.name}
-                                    name="name"
+                                    value={this.state.famAddress5}
+                                    name="famAddress5"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1496,25 +1562,25 @@ class UserAddStepTwo extends Component {
                               <Col xs={12} sm={12} md={4}>
                                 {' '}
                                 <FormGroup>
-                                  <Label for="exampleEmail">Province</Label>
+                                  <Label for="exampleEmail">Country</Label>
                                   <Input
-                                    value={this.state.department}
+                                    value={this.state.famCountry5}
                                     type="select"
-                                    name="department"
+                                    name="famCountry5"
                                     onChange={this.handleChange}
                                     id="exampleSelect"
                                   >
-                                    <option key={1} value={1}>
-                                      A
+                                    <option key={1} value="Indonesia">
+                                      Indonesia
                                     </option>
-                                    <option key={2} value={2}>
-                                      B
+                                    <option key={2} value="India">
+                                      India
                                     </option>
-                                    <option key={3} value={3}>
-                                      AB
+                                    <option key={3} value="Singapore">
+                                      Singapore
                                     </option>
-                                    <option key={4} value={4}>
-                                      O
+                                    <option key={4} value="Malaysia">
+                                      Malaysia
                                     </option>
                                   </Input>
                                 </FormGroup>
@@ -1524,25 +1590,10 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">City</Label>
                                   <Input
-                                    value={this.state.department}
-                                    type="select"
-                                    name="department"
+                                    value={this.state.famCity5}
+                                    name="famCity5"
                                     onChange={this.handleChange}
-                                    id="exampleSelect"
-                                  >
-                                    <option key={1} value={1}>
-                                      A
-                                    </option>
-                                    <option key={2} value={2}>
-                                      B
-                                    </option>
-                                    <option key={3} value={3}>
-                                      AB
-                                    </option>
-                                    <option key={4} value={4}>
-                                      O
-                                    </option>
-                                  </Input>
+                                  />
                                 </FormGroup>
                               </Col>
                               <Col xs={12} sm={12} md={3}>
@@ -1550,25 +1601,10 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">District</Label>
                                   <Input
-                                    value={this.state.department}
-                                    type="select"
-                                    name="department"
+                                    value={this.state.famDistrict5}
+                                    name="famDistrict5"
                                     onChange={this.handleChange}
-                                    id="exampleSelect"
-                                  >
-                                    <option key={1} value={1}>
-                                      A
-                                    </option>
-                                    <option key={2} value={2}>
-                                      B
-                                    </option>
-                                    <option key={3} value={3}>
-                                      AB
-                                    </option>
-                                    <option key={4} value={4}>
-                                      O
-                                    </option>
-                                  </Input>
+                                  />
                                 </FormGroup>
                               </Col>
                               <Col xs={12} sm={12} md={2}>
@@ -1576,8 +1612,8 @@ class UserAddStepTwo extends Component {
                                 <FormGroup>
                                   <Label for="exampleEmail">ZIP</Label>
                                   <Input
-                                    value={this.state.address}
-                                    name="address"
+                                    value={this.state.famZip5}
+                                    name="famZip5"
                                     onChange={(e) => this.handleChange(e)}
                                   />
                                 </FormGroup>
@@ -1604,8 +1640,8 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">Company</Label>
                               <Input
-                                value={this.state.name}
-                                name="name"
+                                value={this.state.workCompany1}
+                                name="workCompany1"
                                 onChange={(e) => this.handleChange(e)}
                               />
                             </FormGroup>
@@ -1614,8 +1650,8 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">Period</Label>
                               <Input
-                                value={this.state.email}
-                                name="email"
+                                value={this.state.workPeriod1}
+                                name="workPeriod1"
                                 onChange={(e) => this.handleChange(e)}
                               />
                             </FormGroup>
@@ -1624,8 +1660,8 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">First Role</Label>
                               <Input
-                                value={this.state.phone}
-                                name="phone"
+                                value={this.state.workFirstRole1}
+                                name="workFirstRole1"
                                 onChange={(e) => this.handleChange(e)}
                               />
                             </FormGroup>
@@ -1634,8 +1670,8 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">Last Role</Label>
                               <Input
-                                value={this.state.phone}
-                                name="phone"
+                                value={this.state.workLastRole1}
+                                name="workLastRole1"
                                 onChange={(e) => this.handleChange(e)}
                               />
                             </FormGroup>
@@ -1644,8 +1680,8 @@ class UserAddStepTwo extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">Last Salary</Label>
                               <Input
-                                value={this.state.phone}
-                                name="phone"
+                                value={this.state.workSalary1}
+                                name="workSalary1"
                                 onChange={(e) => this.handleChange(e)}
                               />
                             </FormGroup>
@@ -1669,8 +1705,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Company</Label>
                                 <Input
-                                  value={this.state.name}
-                                  name="name"
+                                  value={this.state.workCompany2}
+                                  name="workCompany2"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1679,8 +1715,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Period</Label>
                                 <Input
-                                  value={this.state.email}
-                                  name="email"
+                                  value={this.state.workPeriod2}
+                                  name="workPeriod2"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1689,8 +1725,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">First Role</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workFirstRole2}
+                                  name="workFirstRole2"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1699,8 +1735,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Last Role</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workLastRole2}
+                                  name="workLastRole2"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1709,8 +1745,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Last Salary</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workSalary2}
+                                  name="workSalary2"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1737,8 +1773,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Company</Label>
                                 <Input
-                                  value={this.state.name}
-                                  name="name"
+                                  value={this.state.workCompany3}
+                                  name="workCompany3"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1747,8 +1783,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Period</Label>
                                 <Input
-                                  value={this.state.email}
-                                  name="email"
+                                  value={this.state.workPeriod3}
+                                  name="workPeriod3"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1757,8 +1793,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">First Role</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workFirstRole3}
+                                  name="workFirstRole3"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1767,8 +1803,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Last Role</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workLastRole3}
+                                  name="workLastRole3"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1777,8 +1813,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Last Salary</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workSalary3}
+                                  name="workSalary3"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1805,8 +1841,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Company</Label>
                                 <Input
-                                  value={this.state.name}
-                                  name="name"
+                                  value={this.state.workCompany4}
+                                  name="workCompany4"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1815,8 +1851,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Period</Label>
                                 <Input
-                                  value={this.state.email}
-                                  name="email"
+                                  value={this.state.workPeriod4}
+                                  name="workPeriod4"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1825,8 +1861,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">First Role</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workFirstRole4}
+                                  name="workFirstRole4"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1835,8 +1871,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Last Role</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workLastRole4}
+                                  name="workLastRole4"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1845,8 +1881,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Last Salary</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workSalary4}
+                                  name="workSalary4"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1873,8 +1909,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Company</Label>
                                 <Input
-                                  value={this.state.name}
-                                  name="name"
+                                  value={this.state.workCompany5}
+                                  name="workCompany5"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1883,8 +1919,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Period</Label>
                                 <Input
-                                  value={this.state.email}
-                                  name="email"
+                                  value={this.state.workPeriod5}
+                                  name="workPeriod5"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1893,8 +1929,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">First Role</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workFirstRole5}
+                                  name="workFirstRole5"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1903,8 +1939,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Last Role</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workLastRole5}
+                                  name="workLastRole5"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1913,8 +1949,8 @@ class UserAddStepTwo extends Component {
                               <FormGroup>
                                 <Label for="exampleEmail">Last Salary</Label>
                                 <Input
-                                  value={this.state.phone}
-                                  name="phone"
+                                  value={this.state.workSalary5}
+                                  name="workSalary5"
                                   onChange={(e) => this.handleChange(e)}
                                 />
                               </FormGroup>
@@ -1947,6 +1983,7 @@ const mapDispatchToProps = {
   getDepartment,
   sendNotif,
   newToken,
+  formTwo,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserAddStepTwo)

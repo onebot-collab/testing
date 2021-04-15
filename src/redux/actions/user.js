@@ -33,4 +33,23 @@ const updateUser = (id, dataSubmit, token) => ({
   payload: axios(token).post(`${URL}api/v1/user/updateuser/${id}`, dataSubmit),
 })
 
-export { getAdmin, getUser, registerUser, getProfile, deleteUser, updateUser }
+const formOne = (data) => ({
+  type: 'FORMONE',
+  meta: data,
+})
+
+const formTwo = (data) => ({
+  type: 'FORMTWO',
+  meta: data,
+})
+
+export {
+  getAdmin,
+  getUser,
+  registerUser,
+  getProfile,
+  deleteUser,
+  updateUser,
+  formOne,
+  formTwo,
+}

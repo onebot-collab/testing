@@ -2,14 +2,18 @@ import qs from 'querystring'
 import axios from '../../services/axios'
 const URL = 'http://10.7.9.6:8443/node/'
 
-const getAllCampaign = (token, search, page) => ({
+const getAllCampaign = (token, search, page, startDate, endDate) => ({
   type: 'GETCAMPAIGN',
-  payload: axios(token).get(`${URL}api/v1/broadcast?limit=15&search=${search}&page=${page}`),
+  payload: axios(token).get(
+    `${URL}api/v1/broadcast?limit=15&search=${search}&page=${page}&startDate=${startDate}&endDate=${endDate}`,
+  ),
 })
 
-const getCampaign = (id) => ({
+const getCampaign = (token, id, startDate, endDate) => ({
   type: 'GETCAMPAIGN',
-  payload: axios().get(`${URL}api/v1/broadcast/all/${id}`),
+  payload: axios(token).get(
+    `${URL}api/v1/broadcast/all/${id}?startDate=${startDate}&endDate=${endDate}`,
+  ),
 })
 
 const postCampaign = (dataSubmit, token) => ({

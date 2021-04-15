@@ -29,14 +29,14 @@ import {
 import { NavigateNext } from '@material-ui/icons'
 // @material-ui/icons components
 // core components
-import Basic from './DragnDrop'
+// import Basic from './DragnDrop'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
 import CardHeader from '../../components/Card/CardHeader'
 import CardBody from '../../components/Card/CardBody'
 
-import { getUser, registerUser } from '../../redux/actions/user'
+import { getUser, registerUser, formOne } from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
 import { newToken } from '../../redux/actions/login'
 import { sendNotif } from '../../redux/actions/fcm'
@@ -54,18 +54,19 @@ class UserAddStepOne extends Component {
       phone2: '',
       birthPlace: '',
       birthDate: '',
-      maritalStatus: 1,
+      maritalStatus: 'Single',
       employmentType: 3,
       employmentDuration: '',
       employmentDurationType: 1,
-      religion: 1,
-      bloodType: 1,
-      gender: '',
-      country: '',
+      religion: 'Islam',
+      bloodType: 'A',
+      gender: 'Male',
+      address: '',
+      country: 'Indonesia',
       city: '',
       district: '',
       zipCode: '',
-      // profilePict: '',
+      profilePicture: '',
     }
     this.handleChange = this.handleChange.bind(this)
     this.nextPage = this.nextPage.bind(this)
@@ -76,51 +77,33 @@ class UserAddStepOne extends Component {
   }
 
   nextPage() {
-    const {
-      firstName,
-      middleName,
-      lastName,
-      privateEmail,
-      phone1,
-      phone2,
-      birthPlace,
-      birthDate,
-      maritalStatus,
-      employmentType,
-      employmentDuration,
-      employmentDurationType,
-      religion,
-      bloodType,
-      gender,
-      country,
-      city,
-      district,
-      zipCode,
-    } = this.state
-
-    const dataPageOne = {
-      firstName,
-      middleName,
-      lastName,
-      privateEmail,
-      phone1,
-      phone2,
-      birthPlace,
-      birthDate,
-      maritalStatus,
-      employmentDuration,
-      employmentType,
-      employmentDurationType,
-      religion,
-      bloodType,
-      gender,
-      country,
-      city,
-      district,
-      zipCode,
+    const dataSubmit = {
+      firstName: this.state.firstName,
+      middleName: this.state.middleName,
+      lastName: this.state.lastName,
+      privateEmail: this.state.privateEmail,
+      phone1: this.state.phone1,
+      phone2: this.state.phone2,
+      birthPlace: this.state.birthPlace,
+      birthDate: this.state.birthDate,
+      maritalStatus: this.state.maritalStatus,
+      employmentDuration: this.state.employmentDuration,
+      employmentType: this.state.employmentType,
+      employmentDurationType: this.state.employmentDurationType,
+      religion: this.state.religion,
+      bloodType: this.state.bloodType,
+      gender: this.state.gender,
+      address: this.state.address,
+      country: this.state.country,
+      city: this.state.city,
+      district: this.state.district,
+      zipCode: this.state.zipCode,
+      profilePicture: this.state.profilePicture,
     }
-
-    this.props.history.push('/admin/user/stepTwo', { dataPageOne })
+    this.props.formOne(dataSubmit)
+    setTimeout(() => {
+      this.props.history.push('/admin/user/stepTwo')
+    }, 100)
   }
 
   redirect() {
@@ -276,13 +259,13 @@ class UserAddStepOne extends Component {
                               id="exampleSelect"
                               onChange={this.handleChange}
                             >
-                              <option key={1} value={1}>
+                              <option key={1} value="Single">
                                 Single
                               </option>
-                              <option key={2} value={2}>
+                              <option key={2} value="Married">
                                 Married
                               </option>
-                              <option key={3} value={3}>
+                              <option key={3} value="Widow/Widower">
                                 Widow/Widower
                               </option>
                             </Input>
@@ -367,22 +350,22 @@ class UserAddStepOne extends Component {
                               id="exampleSelect"
                               onChange={this.handleChange}
                             >
-                              <option key={1} value={1}>
+                              <option key={1} value="Islam">
                                 Islam
                               </option>
-                              <option key={2} value={2}>
+                              <option key={2} value="Protestant">
                                 Protestant
                               </option>
-                              <option key={3} value={3}>
+                              <option key={3} value="Catholic">
                                 Catholic
                               </option>
-                              <option key={4} value={4}>
+                              <option key={4} value="Hinduism">
                                 Hinduism
                               </option>
-                              <option key={5} value={5}>
+                              <option key={5} value="Buddhism">
                                 Buddhism
                               </option>
-                              <option key={6} value={6}>
+                              <option key={6} value="Others">
                                 Others
                               </option>
                             </Input>
@@ -398,17 +381,20 @@ class UserAddStepOne extends Component {
                               onChange={this.handleChange}
                               id="exampleSelect"
                             >
-                              <option key={1} value={1}>
+                              <option key={1} value="A">
                                 A
                               </option>
-                              <option key={2} value={2}>
+                              <option key={2} value="B">
                                 B
                               </option>
-                              <option key={3} value={3}>
+                              <option key={3} value="AB">
                                 AB
                               </option>
-                              <option key={4} value={4}>
+                              <option key={4} value="O">
                                 O
+                              </option>
+                              <option key={4} value="-">
+                                -
                               </option>
                             </Input>
                           </FormGroup>
@@ -422,7 +408,7 @@ class UserAddStepOne extends Component {
                                 id="exampleCustomRadio2"
                                 name="gender"
                                 label="Male"
-                                value={1}
+                                value="Male"
                                 onChange={(e) => this.handleChange(e)}
                                 inline
                               />
@@ -431,7 +417,7 @@ class UserAddStepOne extends Component {
                                 id="exampleCustomRadio"
                                 name="gender"
                                 label="Female"
-                                value={2}
+                                value="Female"
                                 onChange={(e) => this.handleChange(e)}
                                 inline
                               />
@@ -465,17 +451,17 @@ class UserAddStepOne extends Component {
                               onChange={this.handleChange}
                               id="exampleSelect"
                             >
-                              <option key={1} value={1}>
-                                A
+                              <option key={1} value="Indonesia">
+                                Indonesia
                               </option>
-                              <option key={2} value={2}>
-                                B
+                              <option key={2} value="Singapore">
+                                Singapore
                               </option>
-                              <option key={3} value={3}>
-                                AB
+                              <option key={3} value="Malaysia">
+                                Malaysia
                               </option>
-                              <option key={4} value={4}>
-                                O
+                              <option key={4} value="India">
+                                India
                               </option>
                             </Input>
                           </FormGroup>
@@ -520,8 +506,20 @@ class UserAddStepOne extends Component {
                         <Col xs={12} sm={12} md={12}>
                           {' '}
                           <FormGroup>
-                            <Label for="exampleEmail">Profile Picture</Label>
-                            <Basic />
+                            <Label for="exampleCustomFileBrowser">
+                              Profile Picture (4:3 Ratio)
+                            </Label>
+                            <CustomInput
+                              type="file"
+                              id="exampleCustomFileBrowser"
+                              name="profilePicture"
+                              onChange={(e) =>
+                                this.setState({
+                                  profilePicture: e.target.files[0],
+                                })
+                              }
+                            />
+                            {/* <Basic /> */}
                           </FormGroup>
                         </Col>
                       </Row>
@@ -548,6 +546,7 @@ const mapDispatchToProps = {
   getDepartment,
   sendNotif,
   newToken,
+  formOne,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserAddStepOne)

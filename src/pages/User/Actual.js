@@ -296,7 +296,7 @@ class User extends Component {
                         </center>
                       ) : (
                         <>
-                          <CardHeader color="danger">
+                          <CardHeader color="red">
                             <h4 className="cardTitleWhite">List User</h4>
                           </CardHeader>
                           <CardBody>

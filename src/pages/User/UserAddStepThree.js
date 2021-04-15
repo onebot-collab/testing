@@ -1,3 +1,8 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-redeclare */
+/* eslint-disable no-var */
+/* eslint-disable vars-on-top */
+/* eslint-disable block-scoped-var */
 /* eslint-disable no-useless-escape */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable react/prop-types */
@@ -39,17 +44,11 @@ class UserAddStepThree extends Component {
     this.state = {
       name: '',
       email: '',
-      phone: '',
       password: '',
-      passcode: '',
       joinedDate: '',
-      birthDate: '',
-      address: '',
       role: 2,
       department: 1,
       timeType: 1,
-      profilePicture: null,
-      page: 1,
       isLoadingFetch: false,
     }
     this.handleChange = this.handleChange.bind(this)
@@ -120,24 +119,180 @@ class UserAddStepThree extends Component {
       8,
       10,
     )}`
-    const birthDate = `${this.state.birthDate.slice(
+    const birthDate = `${this.props.user.dataFormOne.birthDate.slice(
       0,
       4,
-    )}-${this.state.birthDate.slice(5, 7)}-${this.state.birthDate.slice(8, 10)}`
+    )}-${this.props.user.dataFormOne.birthDate.slice(
+      5,
+      7,
+    )}-${this.props.user.dataFormOne.birthDate.slice(8, 10)}`
+
+    if (this.props.user.dataFormOne.employmentDurationType == 1) {
+      var { employmentDuration } = this.props.user.dataFormOne
+    } else {
+      var employmentDuration =
+        this.props.user.dataFormOne.employmentDuration * 12
+    }
+
     const dataSubmit = new FormData()
 
-    dataSubmit.append('name', this.state.name)
-    dataSubmit.append('email', this.state.email)
-    dataSubmit.append('phone', this.state.phone)
-    dataSubmit.append('password', this.state.password)
-    dataSubmit.append('passcode', this.state.passcode)
-    dataSubmit.append('address', this.state.address)
-    dataSubmit.append('joineddate', joinedDate)
+    dataSubmit.append('firstName', this.props.user.dataFormOne.firstName)
+    dataSubmit.append('name', this.props.user.dataFormOne.middleName)
+    dataSubmit.append('lastName', this.props.user.dataFormOne.lastName)
+    dataSubmit.append('emailPrivate', this.props.user.dataFormOne.privateEmail)
+    dataSubmit.append('phone', this.props.user.dataFormOne.phone1)
+    dataSubmit.append('phone2', this.props.user.dataFormOne.phone2)
+    dataSubmit.append('birthplace', this.props.user.dataFormOne.birthPlace)
     dataSubmit.append('birthdate', birthDate)
-    dataSubmit.append('time_type', this.state.timeType)
+    dataSubmit.append(
+      'maritalStatus',
+      this.props.user.dataFormOne.maritalStatus,
+    )
+    dataSubmit.append(
+      'employmentType',
+      this.props.user.dataFormOne.employmentType,
+    )
+    dataSubmit.append('employmentDuration', employmentDuration)
+    dataSubmit.append('religion', this.props.user.dataFormOne.religion)
+    dataSubmit.append('bloodType', this.props.user.dataFormOne.bloodType)
+    dataSubmit.append('gender', this.props.user.dataFormOne.gender)
+    dataSubmit.append('address', this.props.user.dataFormOne.address)
+    dataSubmit.append('country', this.props.user.dataFormOne.country)
+    dataSubmit.append('city', this.props.user.dataFormOne.city)
+    dataSubmit.append('zipCode', this.props.user.dataFormOne.zipCode)
+    dataSubmit.append('district', this.props.user.dataFormOne.district)
+    dataSubmit.append('photo', this.props.user.dataFormOne.profilePicture)
+    dataSubmit.append(
+      'educationBackground',
+      JSON.stringify([
+        {
+          level: this.props.user.dataFormTwo.eduLevel1,
+          institution: this.props.user.dataFormTwo.eduInstitution1,
+          period: this.props.user.dataFormTwo.eduPeriod1,
+          major: this.props.user.dataFormTwo.eduMajor1,
+          grade: this.props.user.dataFormTwo.eduGrade1,
+        },
+        {
+          level: this.props.user.dataFormTwo.eduLevel2,
+          institution: this.props.user.dataFormTwo.eduInstitution2,
+          period: this.props.user.dataFormTwo.eduPeriod2,
+          major: this.props.user.dataFormTwo.eduMajor2,
+          grade: this.props.user.dataFormTwo.eduGrade2,
+        },
+        {
+          level: this.props.user.dataFormTwo.eduLevel3,
+          institution: this.props.user.dataFormTwo.eduInstitution3,
+          period: this.props.user.dataFormTwo.eduPeriod3,
+          major: this.props.user.dataFormTwo.eduMajor3,
+          grade: this.props.user.dataFormTwo.eduGrade3,
+        },
+        {
+          level: this.props.user.dataFormTwo.eduLevel4,
+          institution: this.props.user.dataFormTwo.eduInstitution4,
+          period: this.props.user.dataFormTwo.eduPeriod4,
+          major: this.props.user.dataFormTwo.eduMajor4,
+          grade: this.props.user.dataFormTwo.eduGrade4,
+        },
+        {
+          level: this.props.user.dataFormTwo.eduLevel5,
+          institution: this.props.user.dataFormTwo.eduInstitution5,
+          period: this.props.user.dataFormTwo.eduPeriod5,
+          major: this.props.user.dataFormTwo.eduMajor5,
+          grade: this.props.user.dataFormTwo.eduGrade5,
+        },
+      ]),
+    )
+    dataSubmit.append(
+      'familyBackground',
+      JSON.stringify([
+        {
+          name: this.props.user.dataFormTwo.famName1,
+          gender: this.props.user.dataFormTwo.famGender1,
+          phone: this.props.user.dataFormTwo.famTel1,
+          relation: this.props.user.dataFormTwo.famRelationship1,
+          occupation: this.props.user.dataFormTwo.famOccupation1,
+          address: this.props.user.dataFormTwo.famAddress1,
+        },
+        {
+          name: this.props.user.dataFormTwo.famName2,
+          gender: this.props.user.dataFormTwo.famGender2,
+          phone: this.props.user.dataFormTwo.famTel2,
+          relation: this.props.user.dataFormTwo.famRelationship2,
+          occupation: this.props.user.dataFormTwo.famOccupation2,
+          address: this.props.user.dataFormTwo.famAddress2,
+        },
+        {
+          name: this.props.user.dataFormTwo.famName3,
+          gender: this.props.user.dataFormTwo.famGender3,
+          phone: this.props.user.dataFormTwo.famTel3,
+          relation: this.props.user.dataFormTwo.famRelationship3,
+          occupation: this.props.user.dataFormTwo.famOccupation3,
+          address: this.props.user.dataFormTwo.famAddress3,
+        },
+        {
+          name: this.props.user.dataFormTwo.famName4,
+          gender: this.props.user.dataFormTwo.famGender4,
+          phone: this.props.user.dataFormTwo.famTel4,
+          relation: this.props.user.dataFormTwo.famRelationship4,
+          occupation: this.props.user.dataFormTwo.famOccupation4,
+          address: this.props.user.dataFormTwo.famAddress4,
+        },
+        {
+          name: this.props.user.dataFormTwo.famName5,
+          gender: this.props.user.dataFormTwo.famGender5,
+          phone: this.props.user.dataFormTwo.famTel5,
+          relation: this.props.user.dataFormTwo.famRelationship5,
+          occupation: this.props.user.dataFormTwo.famOccupation5,
+          address: this.props.user.dataFormTwo.famAddress5,
+        },
+      ]),
+    )
+    dataSubmit.append(
+      'workingExperience',
+      JSON.stringify([
+        {
+          company: this.props.user.dataFormTwo.workCompany1,
+          period: this.props.user.dataFormTwo.workPeriod1,
+          firstRole: this.props.user.dataFormTwo.workFirstRole1,
+          lastRole: this.props.user.dataFormTwo.workLastRole1,
+          lastSalary: this.props.user.dataFormTwo.workSalary1,
+        },
+        {
+          company: this.props.user.dataFormTwo.workCompany2,
+          period: this.props.user.dataFormTwo.workPeriod2,
+          firstRole: this.props.user.dataFormTwo.workFirstRole2,
+          lastRole: this.props.user.dataFormTwo.workLastRole2,
+          lastSalary: this.props.user.dataFormTwo.workSalary2,
+        },
+        {
+          company: this.props.user.dataFormTwo.workCompany3,
+          period: this.props.user.dataFormTwo.workPeriod3,
+          firstRole: this.props.user.dataFormTwo.workFirstRole3,
+          lastRole: this.props.user.dataFormTwo.workLastRole3,
+          lastSalary: this.props.user.dataFormTwo.workSalary3,
+        },
+        {
+          company: this.props.user.dataFormTwo.workCompany4,
+          period: this.props.user.dataFormTwo.workPeriod4,
+          firstRole: this.props.user.dataFormTwo.workFirstRole4,
+          lastRole: this.props.user.dataFormTwo.workLastRole4,
+          lastSalary: this.props.user.dataFormTwo.workSalary4,
+        },
+        {
+          company: this.props.user.dataFormTwo.workCompany5,
+          period: this.props.user.dataFormTwo.workPeriod5,
+          firstRole: this.props.user.dataFormTwo.workFirstRole5,
+          lastRole: this.props.user.dataFormTwo.workLastRole5,
+          lastSalary: this.props.user.dataFormTwo.workSalary5,
+        },
+      ]),
+    )
+    dataSubmit.append('email', this.state.email)
+    dataSubmit.append('password', this.state.password)
+    dataSubmit.append('joineddate', joinedDate)
     dataSubmit.append('role', this.state.role)
     dataSubmit.append('department', this.state.department)
-    dataSubmit.append('photo', this.state.profilePicture)
+    dataSubmit.append('time_type', this.state.timeType)
 
     this.props
       .registerUser(dataSubmit, this.props.login.token)
@@ -145,16 +300,11 @@ class UserAddStepThree extends Component {
         this.setState({
           name: '',
           email: '',
-          phone: '',
           password: '',
-          passcode: '',
           joinedDate: '',
-          birthDate: '',
-          address: '',
           role: 2,
           department: 1,
           timeType: 1,
-          profilePicture: null,
         })
         this.fetch()
         swal.fire({
@@ -163,13 +313,14 @@ class UserAddStepThree extends Component {
           text: 'User successsfully registered',
         })
         this.props.newToken(res.action.payload.data.newToken)
+        this.props.history.push('/admin/user')
         // this.pressed()
       })
-      .catch(() => {
+      .catch((res) => {
         swal.fire({
           icon: 'error',
           title: 'Failed',
-          text: 'Data already used',
+          text: `${res.response.data.message}`,
         })
       })
   }
@@ -240,9 +391,9 @@ class UserAddStepThree extends Component {
                           <FormGroup>
                             <Label for="examplePassword">Email</Label>
                             <Input
-                              value={this.state.password}
-                              type="password"
-                              name="password"
+                              value={this.state.email}
+                              type="email"
+                              name="email"
                               onChange={(e) => this.handleChange(e)}
                             />
                           </FormGroup>
@@ -251,9 +402,9 @@ class UserAddStepThree extends Component {
                           <FormGroup>
                             <Label for="examplePassword">Password</Label>
                             <Input
-                              value={this.state.passcode}
+                              value={this.state.password}
                               type="password"
-                              name="passcode"
+                              name="password"
                               onChange={(e) => this.handleChange(e)}
                             />
                           </FormGroup>
@@ -282,9 +433,9 @@ class UserAddStepThree extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">Department</Label>
                               <Input
-                                value={this.state.role}
+                                value={this.state.department}
                                 type="select"
-                                name="role"
+                                name="department"
                                 id="exampleSelect"
                                 onChange={this.handleChange}
                               >
@@ -300,9 +451,9 @@ class UserAddStepThree extends Component {
                             <FormGroup>
                               <Label for="exampleEmail">Time Type</Label>
                               <Input
-                                value={this.state.role}
+                                value={this.state.timeType}
                                 type="select"
-                                name="role"
+                                name="timeType"
                                 id="exampleSelect"
                                 onChange={this.handleChange}
                               >
@@ -312,7 +463,7 @@ class UserAddStepThree extends Component {
                                 <option key={2} value={2}>
                                   Security
                                 </option>
-                                <option key={2} value={2}>
+                                <option key={3} value={3}>
                                   Office Hours
                                 </option>
                               </Input>
@@ -323,8 +474,8 @@ class UserAddStepThree extends Component {
                               <Label for="exampleEmail">Joined Date</Label>
                               <Input
                                 type="date"
-                                value={this.state.email}
-                                name="email"
+                                value={this.state.joinedDate}
+                                name="joinedDate"
                                 onChange={(e) => this.handleChange(e)}
                               />
                             </FormGroup>
