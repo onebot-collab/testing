@@ -35,11 +35,11 @@ class UserAddStepTwo extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      eduLevel1: 3,
-      eduLevel2: 3,
-      eduLevel3: 3,
-      eduLevel4: 3,
-      eduLevel5: 3,
+      eduLevel1: 'SMA/SMK',
+      eduLevel2: 'SMA/SMK',
+      eduLevel3: 'SMA/SMK',
+      eduLevel4: 'SMA/SMK',
+      eduLevel5: 'SMA/SMK',
       eduInstitution1: '',
       eduInstitution2: '',
       eduInstitution3: '',
@@ -94,11 +94,11 @@ class UserAddStepTwo extends Component {
       famAddress3: '',
       famAddress4: '',
       famAddress5: '',
-      famCountry1: 1,
-      famCountry2: 1,
-      famCountry3: 1,
-      famCountry4: 1,
-      famCountry5: 1,
+      famCountry1: 'Indonesia',
+      famCountry2: 'Indonesia',
+      famCountry3: 'Indonesia',
+      famCountry4: 'Indonesia',
+      famCountry5: 'Indonesia',
       famCity1: '',
       famCity2: '',
       famCity3: '',
@@ -166,101 +166,101 @@ class UserAddStepTwo extends Component {
       eduLevel3: 3,
       eduLevel4: 3,
       eduLevel5: 3,
-      eduInstitution1: '',
-      eduInstitution2: '',
-      eduInstitution3: '',
-      eduInstitution4: '',
-      eduInstitution5: '',
-      eduPeriod1: '',
-      eduPeriod2: '',
-      eduPeriod3: '',
-      eduPeriod4: '',
-      eduPeriod5: '',
-      eduMajor1: '',
-      eduMajor2: '',
-      eduMajor3: '',
-      eduMajor4: '',
-      eduMajor5: '',
-      eduGrade1: '',
-      eduGrade2: '',
-      eduGrade3: '',
-      eduGrade4: '',
-      eduGrade5: '',
-      famName1: '',
-      famName2: '',
-      famName3: '',
-      famName4: '',
-      famName5: '',
+      eduInstitution1: this.state.eduInstitution1,
+      eduInstitution2: this.state.eduInstitution2,
+      eduInstitution3: this.state.eduInstitution3,
+      eduInstitution4: this.state.eduInstitution4,
+      eduInstitution5: this.state.eduInstitution5,
+      eduPeriod1: this.state.eduPeriod1,
+      eduPeriod2: this.state.eduPeriod2,
+      eduPeriod3: this.state.eduPeriod3,
+      eduPeriod4: this.state.eduPeriod4,
+      eduPeriod5: this.state.eduPeriod5,
+      eduMajor1: this.state.eduMajor1,
+      eduMajor2: this.state.eduMajor2,
+      eduMajor3: this.state.eduMajor3,
+      eduMajor4: this.state.eduMajor4,
+      eduMajor5: this.state.eduMajor5,
+      eduGrade1: this.state.eduGrade1,
+      eduGrade2: this.state.eduGrade2,
+      eduGrade3: this.state.eduGrade3,
+      eduGrade4: this.state.eduGrade4,
+      eduGrade5: this.state.eduGrade5,
+      famName1: this.state.famName1,
+      famName2: this.state.famName2,
+      famName3: this.state.famName3,
+      famName4: this.state.famName4,
+      famName5: this.state.famName5,
       famGender1: 1,
       famGender2: 1,
       famGender3: 1,
       famGender4: 1,
       famGender5: 1,
-      famTel1: '',
-      famTel2: '',
-      famTel3: '',
-      famTel4: '',
-      famTel5: '',
-      famRelationship1: '',
-      famRelationship2: '',
-      famRelationship3: '',
-      famRelationship4: '',
-      famRelationship5: '',
-      famOccupation1: '',
-      famOccupation2: '',
-      famOccupation3: '',
-      famOccupation4: '',
-      famOccupation5: '',
-      famAddress1: '',
-      famAddress2: '',
-      famAddress3: '',
-      famAddress4: '',
-      famAddress5: '',
+      famTel1: this.state.famTel1,
+      famTel2: this.state.famTel2,
+      famTel3: this.state.famTel3,
+      famTel4: this.state.famTel4,
+      famTel5: this.state.famTel5,
+      famRelationship1: this.state.famRelationship1,
+      famRelationship2: this.state.famRelationship2,
+      famRelationship3: this.state.famRelationship3,
+      famRelationship4: this.state.famRelationship4,
+      famRelationship5: this.state.famRelationship5,
+      famOccupation1: this.state.famOccupation1,
+      famOccupation2: this.state.famOccupation2,
+      famOccupation3: this.state.famOccupation3,
+      famOccupation4: this.state.famOccupation4,
+      famOccupation5: this.state.famOccupation5,
+      famAddress1: this.state.famAddress1,
+      famAddress2: this.state.famAddress2,
+      famAddress3: this.state.famAddress3,
+      famAddress4: this.state.famAddress4,
+      famAddress5: this.state.famAddress5,
       famCountry1: 1,
       famCountry2: 1,
       famCountry3: 1,
       famCountry4: 1,
       famCountry5: 1,
-      famCity1: '',
-      famCity2: '',
-      famCity3: '',
-      famCity4: '',
-      famCity5: '',
-      famDistrict1: '',
-      famDistrict2: '',
-      famDistrict3: '',
-      famDistrict4: '',
-      famDistrict5: '',
-      famZip1: '',
-      famZip2: '',
-      famZip3: '',
-      famZip4: '',
-      famZip5: '',
-      workCompany1: '',
-      workCompany2: '',
-      workCompany3: '',
-      workCompany4: '',
-      workCompany5: '',
-      workPeriod1: '',
-      workPeriod2: '',
-      workPeriod3: '',
-      workPeriod4: '',
-      workPeriod5: '',
-      workFirstRole1: '',
-      workFirstRole2: '',
-      workFirstRole3: '',
-      workFirstRole4: '',
-      workFirstRole5: '',
-      workLastRole1: '',
-      workLastRole2: '',
-      workLastRole3: '',
-      workLastRole4: '',
-      workLastRole5: '',
-      workSalary1: '',
-      workSalary2: '',
-      workSalary3: '',
-      workSalary4: '',
-      workSalary5: '',
+      famCity1: this.state.famCity1,
+      famCity2: this.state.famCity2,
+      famCity3: this.state.famCity3,
+      famCity4: this.state.famCity4,
+      famCity5: this.state.famCity5,
+      famDistrict1: this.state.famDistrict1,
+      famDistrict2: this.state.famDistrict2,
+      famDistrict3: this.state.famDistrict3,
+      famDistrict4: this.state.famDistrict4,
+      famDistrict5: this.state.famDistrict5,
+      famZip1: this.state.famZip1,
+      famZip2: this.state.famZip2,
+      famZip3: this.state.famZip3,
+      famZip4: this.state.famZip4,
+      famZip5: this.state.famZip5,
+      workCompany1: this.state.workCompany1,
+      workCompany2: this.state.workCompany2,
+      workCompany3: this.state.workCompany3,
+      workCompany4: this.state.workCompany4,
+      workCompany5: this.state.workCompany5,
+      workPeriod1: this.state.workPeriod1,
+      workPeriod2: this.state.workPeriod2,
+      workPeriod3: this.state.workPeriod3,
+      workPeriod4: this.state.workPeriod4,
+      workPeriod5: this.state.workPeriod5,
+      workFirstRole1: this.state.workFirstRole1,
+      workFirstRole2: this.state.workFirstRole2,
+      workFirstRole3: this.state.workFirstRole3,
+      workFirstRole4: this.state.workFirstRole4,
+      workFirstRole5: this.state.workFirstRole5,
+      workLastRole1: this.state.workLastRole1,
+      workLastRole2: this.state.workLastRole2,
+      workLastRole3: this.state.workLastRole3,
+      workLastRole4: this.state.workLastRole4,
+      workLastRole5: this.state.workLastRole5,
+      workSalary1: this.state.workSalary1,
+      workSalary2: this.state.workSalary2,
+      workSalary3: this.state.workSalary3,
+      workSalary4: this.state.workSalary4,
+      workSalary5: this.state.workSalary5,
     }
 
     this.props.formTwo(dataSubmit)
@@ -402,26 +402,29 @@ class UserAddStepTwo extends Component {
                                 onChange={this.handleChange}
                                 id="exampleSelect"
                               >
-                                <option key={1} value={1}>
+                                <option key={1} value="SD">
                                   SD
                                 </option>
-                                <option key={2} value={2}>
+                                <option key={2} value="SMP">
                                   SMP
                                 </option>
-                                <option key={3} value={3}>
-                                  SMA/SMK Sederajat
+                                <option key={3} value="SMA/SMK">
+                                  SMA/SMK
                                 </option>
-                                <option key={4} value={4}>
+                                <option key={4} value="D1">
                                   D1
                                 </option>
-                                <option key={5} value={5}>
+                                <option key={5} value="D3">
                                   D3
                                 </option>
-                                <option key={6} value={6}>
+                                <option key={6} value="S1">
                                   S1
                                 </option>
-                                <option key={7} value={7}>
+                                <option key={7} value="S2">
                                   S2
+                                </option>
+                                <option key={8} value="S3">
+                                  S3
                                 </option>
                               </Input>
                             </FormGroup>
@@ -493,26 +496,29 @@ class UserAddStepTwo extends Component {
                                   onChange={this.handleChange}
                                   id="exampleSelect"
                                 >
-                                  <option key={1} value={1}>
+                                  <option key={1} value="SD">
                                     SD
                                   </option>
-                                  <option key={2} value={2}>
+                                  <option key={2} value="SMP">
                                     SMP
                                   </option>
-                                  <option key={3} value={3}>
-                                    SMA/SMK Sederajat
+                                  <option key={3} value="SMA/SMK">
+                                    SMA/SMK
                                   </option>
-                                  <option key={4} value={4}>
+                                  <option key={4} value="D1">
                                     D1
                                   </option>
-                                  <option key={5} value={5}>
+                                  <option key={5} value="D3">
                                     D3
                                   </option>
-                                  <option key={6} value={6}>
+                                  <option key={6} value="S1">
                                     S1
                                   </option>
-                                  <option key={7} value={7}>
+                                  <option key={7} value="S2">
                                     S2
+                                  </option>
+                                  <option key={8} value="S3">
+                                    S3
                                   </option>
                                 </Input>
                               </FormGroup>
@@ -587,26 +593,29 @@ class UserAddStepTwo extends Component {
                                   onChange={this.handleChange}
                                   id="exampleSelect"
                                 >
-                                  <option key={1} value={1}>
+                                  <option key={1} value="SD">
                                     SD
                                   </option>
-                                  <option key={2} value={2}>
+                                  <option key={2} value="SMP">
                                     SMP
                                   </option>
-                                  <option key={3} value={3}>
-                                    SMA/SMK Sederajat
+                                  <option key={3} value="SMA/SMK">
+                                    SMA/SMK
                                   </option>
-                                  <option key={4} value={4}>
+                                  <option key={4} value="D1">
                                     D1
                                   </option>
-                                  <option key={5} value={5}>
+                                  <option key={5} value="D3">
                                     D3
                                   </option>
-                                  <option key={6} value={6}>
+                                  <option key={6} value="S1">
                                     S1
                                   </option>
-                                  <option key={7} value={7}>
+                                  <option key={7} value="S2">
                                     S2
+                                  </option>
+                                  <option key={8} value="S3">
+                                    S3
                                   </option>
                                 </Input>
                               </FormGroup>
@@ -681,26 +690,29 @@ class UserAddStepTwo extends Component {
                                   onChange={this.handleChange}
                                   id="exampleSelect"
                                 >
-                                  <option key={1} value={1}>
+                                  <option key={1} value="SD">
                                     SD
                                   </option>
-                                  <option key={2} value={2}>
+                                  <option key={2} value="SMP">
                                     SMP
                                   </option>
-                                  <option key={3} value={3}>
-                                    SMA/SMK Sederajat
+                                  <option key={3} value="SMA/SMK">
+                                    SMA/SMK
                                   </option>
-                                  <option key={4} value={4}>
+                                  <option key={4} value="D1">
                                     D1
                                   </option>
-                                  <option key={5} value={5}>
+                                  <option key={5} value="D3">
                                     D3
                                   </option>
-                                  <option key={6} value={6}>
+                                  <option key={6} value="S1">
                                     S1
                                   </option>
-                                  <option key={7} value={7}>
+                                  <option key={7} value="S2">
                                     S2
+                                  </option>
+                                  <option key={8} value="S3">
+                                    S3
                                   </option>
                                 </Input>
                               </FormGroup>
@@ -775,26 +787,29 @@ class UserAddStepTwo extends Component {
                                   onChange={this.handleChange}
                                   id="exampleSelect"
                                 >
-                                  <option key={1} value={1}>
+                                  <option key={1} value="SD">
                                     SD
                                   </option>
-                                  <option key={2} value={2}>
+                                  <option key={2} value="SMP">
                                     SMP
                                   </option>
-                                  <option key={3} value={3}>
-                                    SMA/SMK Sederajat
+                                  <option key={3} value="SMA/SMK">
+                                    SMA/SMK
                                   </option>
-                                  <option key={4} value={4}>
+                                  <option key={4} value="D1">
                                     D1
                                   </option>
-                                  <option key={5} value={5}>
+                                  <option key={5} value="D3">
                                     D3
                                   </option>
-                                  <option key={6} value={6}>
+                                  <option key={6} value="S1">
                                     S1
                                   </option>
-                                  <option key={7} value={7}>
+                                  <option key={7} value="S2">
                                     S2
+                                  </option>
+                                  <option key={8} value="S3">
+                                    S3
                                   </option>
                                 </Input>
                               </FormGroup>

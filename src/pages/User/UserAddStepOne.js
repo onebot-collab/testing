@@ -58,11 +58,11 @@ class UserAddStepOne extends Component {
       employmentType: 3,
       employmentDuration: '',
       employmentDurationType: 1,
-      religion: 1,
-      bloodType: 1,
-      gender: '',
+      religion: 'Islam',
+      bloodType: 'A',
+      gender: 1,
       address: '',
-      country: '',
+      country: 'Indonesia',
       city: '',
       district: '',
       zipCode: '',
@@ -85,7 +85,7 @@ class UserAddStepOne extends Component {
       phone1: this.state.phone1,
       phone2: this.state.phone2,
       birthPlace: this.state.birthPlace,
-      birthDate: this.state.birthPlace,
+      birthDate: this.state.birthDate,
       maritalStatus: this.state.maritalStatus,
       employmentDuration: this.state.employmentDuration,
       employmentType: this.state.employmentType,
@@ -350,22 +350,22 @@ class UserAddStepOne extends Component {
                               id="exampleSelect"
                               onChange={this.handleChange}
                             >
-                              <option key={1} value={1}>
+                              <option key={1} value="Islam">
                                 Islam
                               </option>
-                              <option key={2} value={2}>
+                              <option key={2} value="Protestant">
                                 Protestant
                               </option>
-                              <option key={3} value={3}>
+                              <option key={3} value="Catholic">
                                 Catholic
                               </option>
-                              <option key={4} value={4}>
+                              <option key={4} value="Hinduism">
                                 Hinduism
                               </option>
-                              <option key={5} value={5}>
+                              <option key={5} value="Buddhism">
                                 Buddhism
                               </option>
-                              <option key={6} value={6}>
+                              <option key={6} value="Others">
                                 Others
                               </option>
                             </Input>
@@ -381,17 +381,20 @@ class UserAddStepOne extends Component {
                               onChange={this.handleChange}
                               id="exampleSelect"
                             >
-                              <option key={1} value={1}>
+                              <option key={1} value="A">
                                 A
                               </option>
-                              <option key={2} value={2}>
+                              <option key={2} value="B">
                                 B
                               </option>
-                              <option key={3} value={3}>
+                              <option key={3} value="AB">
                                 AB
                               </option>
-                              <option key={4} value={4}>
+                              <option key={4} value="O">
                                 O
+                              </option>
+                              <option key={4} value="-">
+                                -
                               </option>
                             </Input>
                           </FormGroup>
@@ -448,17 +451,17 @@ class UserAddStepOne extends Component {
                               onChange={this.handleChange}
                               id="exampleSelect"
                             >
-                              <option key={1} value={1}>
-                                A
+                              <option key={1} value="Indonesia">
+                                Indonesia
                               </option>
-                              <option key={2} value={2}>
-                                B
+                              <option key={2} value="Singapore">
+                                Singapore
                               </option>
-                              <option key={3} value={3}>
-                                AB
+                              <option key={3} value="Malaysia">
+                                Malaysia
                               </option>
-                              <option key={4} value={4}>
-                                O
+                              <option key={4} value="India">
+                                India
                               </option>
                             </Input>
                           </FormGroup>
@@ -504,7 +507,7 @@ class UserAddStepOne extends Component {
                           {' '}
                           <FormGroup>
                             <Label for="exampleCustomFileBrowser">
-                              Profile Picture
+                              Profile Picture (4:3 Ratio)
                             </Label>
                             <CustomInput
                               type="file"
