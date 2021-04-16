@@ -8,8 +8,8 @@ import { blackColor, hexToRgb } from '../../material-dashboard-react'
 const cardStyle = {
   card: {
     border: '0',
-    marginBottom: '30px',
-    marginTop: '50px',
+    marginBottom: '10px',
+    marginTop: '10px',
     borderRadius: '10px',
     // color: `rgba(${hexToRgb(blackColor)}, 0.87)`,
     // background: whiteColor,

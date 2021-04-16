@@ -11,7 +11,6 @@ import 'perfect-scrollbar/css/perfect-scrollbar.css'
 import { makeStyles } from '@material-ui/core/styles'
 // core components
 import Navbar from '../components/Navbars/Navbar'
-import Footer from '../components/Footer/Footer'
 import Sidebar from '../components/Sidebar/Sidebar'
 import FixedPlugin from '../components/FixedPlugin/FixedPlugin'
 
@@ -42,6 +41,9 @@ import UserAddStepOne from '../pages/User/UserAddStepOne'
 import UserAddStepTwo from '../pages/User/UserAddStepTwo'
 import UserAddStepThree from '../pages/User/UserAddStepThree'
 import UserDetail from '../pages/User/UserDetail'
+import UserEditPersonal from '../pages/User/UserEditPersonal'
+import UserEditBackground from '../pages/User/UserEditBackground'
+import UserEditAssets from '../pages/User/UserEditAssets'
 import UserResume from '../pages/User/UserResume'
 import AddRoster from '../pages/User/AddRoster'
 
@@ -92,6 +94,9 @@ const switchRoutes = (
     <Route exact path="/admin/user" component={User} />
     <Route exact path="/admin/user/add" component={UserAdd} />
     <Route exact path="/admin/user/addroster" component={AddRoster} />
+    <Route exact path="/admin/user/editPersonal" component={UserEditPersonal} />
+    <Route exact path="/admin/user/editBackground" component={UserEditBackground} />
+    <Route exact path="/admin/user/editAssets" component={UserEditAssets} />
     <Route exact path="/admin/user/stepOne" component={UserAddStepOne} />
     <Route exact path="/admin/user/stepTwo" component={UserAddStepTwo} />
     <Route exact path="/admin/user/stepThree" component={UserAddStepThree} />
@@ -177,7 +182,6 @@ export default function Admin({ ...rest }) {
         ) : (
           <div className={classes.map}>{switchRoutes}</div>
         )}
-        {getRoute() ? <Footer /> : null}
         <FixedPlugin
           handleImageClick={handleImageClick}
           handleColorClick={handleColorClick}

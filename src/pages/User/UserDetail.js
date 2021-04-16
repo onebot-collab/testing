@@ -1061,10 +1061,10 @@ class UserDetail extends Component {
                       <CardAvatar profile>
                         <a
                           target="_blank"
-                          href={`http://10.7.9.6:8443/node/${this.props.user.dataProfile[0].photo_url}?boAgRwlfX5=${this.props.login.token}`}
+                          href={`http://10.7.10.15:8443/node/${this.props.user.dataProfile[0].photo_url}?boAgRwlfX5=${this.props.login.token}`}
                         >
                           <img
-                            src={`http://10.7.9.6:8443/node/${this.props.user.dataProfile[0].photo_url}?boAgRwlfX5=${this.props.login.token}`}
+                            src={`http://10.7.10.15:8443/node/${this.props.user.dataProfile[0].photo_url}?boAgRwlfX5=${this.props.login.token}`}
                             alt="img"
                           />
                         </a>
@@ -1152,6 +1152,19 @@ class UserDetail extends Component {
                                   className="btn btn-danger m-2 my-sm-0"
                                 >
                                   Download Resume
+                                </Link>
+                              </ListItemText>
+                            </ListItem>
+                            <ListItem>
+                              <ListItemIcon>
+                                <AccountTree />
+                              </ListItemIcon>
+                              <ListItemText>
+                                <Link
+                                  to="/admin/user/editPersonal"
+                                  className="btn btn-danger m-2 my-sm-0"
+                                >
+                                  EDIT
                                 </Link>
                               </ListItemText>
                             </ListItem>

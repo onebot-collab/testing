@@ -159,7 +159,7 @@ class ReportDetail extends Component {
                             <>
                               <a
                                 target="_blank"
-                                href={`http://10.7.9.6:8443/node/${this.state.fileName}?boAgRwlfX5=${this.props.login.token}`}
+                                href={`http://10.7.10.15:8443/node/${this.state.fileName}?boAgRwlfX5=${this.props.login.token}`}
                               >
                                 {this.state.fileName.replace(
                                   'public/report/',
