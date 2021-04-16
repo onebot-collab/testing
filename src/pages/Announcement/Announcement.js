@@ -494,7 +494,12 @@ class Announcement extends Component {
                                       {campaign.title}
                                     </TableCell>
                                     <TableCell component="th">
-                                      {campaign.description}
+                                      {campaign.description.length > 50
+                                        ? `${campaign.description.slice(
+                                            0,
+                                            50,
+                                          )}...`
+                                        : campaign.description}
                                     </TableCell>
                                     <TableCell component="th">
                                       {campaign.departmentName}

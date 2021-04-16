@@ -400,8 +400,8 @@ class Permissions extends Component {
                             </IconButton>
                           </div>
                           <div className="d-flex align-items-center">
-                              {this.state.page}
-                            </div>
+                            {this.state.page}
+                          </div>
                           <div className="p-2">
                             <IconButton onClick={this.nextPage}>
                               <ArrowRight
