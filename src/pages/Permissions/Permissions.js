@@ -68,12 +68,19 @@ class Permissions extends Component {
       search: '',
       page: 1,
       showFilterModal: false,
+      filterStartDate: '',
+      filterEndDate: '',
+      filterStatus: '',
+      filterDepartment: '',
     }
     this.handleSearch = this.handleSearch.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleDepartmentChange = this.handleDepartmentChange.bind(this)
     this.nextPage = this.nextPage.bind(this)
     this.prevPage = this.prevPage.bind(this)
     this.export = this.export.bind(this)
     this.toggleFilterModal = this.toggleFilterModal.bind(this)
+    this.fetch = this.fetch.bind(this)
   }
 
   toggleFilterModal() {
@@ -87,6 +94,14 @@ class Permissions extends Component {
     setTimeout(() => {
       this.fetch()
     }, 100)
+  }
+
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value })
+  }
+
+  handleDepartmentChange(e) {
+    this.setState({ filterDepartment: e.value })
   }
 
   nextPage() {
@@ -107,8 +122,24 @@ class Permissions extends Component {
   }
 
   fetch() {
+    this.setState({ isLoading: true, showFilterModal: false })
+    const {
+      filterStatus,
+      filterDepartment,
+      filterStartDate,
+      filterEndDate,
+    } = this.state
+
     this.props
-      .allIzin(this.props.login.token, this.state.search, this.state.page)
+      .allIzin(
+        this.props.login.token,
+        this.state.search,
+        this.state.page,
+        filterStatus,
+        filterDepartment,
+        filterStartDate,
+        filterEndDate,
+      )
       .then((res) => {
         this.props
           .getDepartment(res.action.payload.data.newToken)
@@ -436,29 +467,32 @@ class Permissions extends Component {
                   )}
                   <h6>Start Date</h6>
                   <Input
-                    value={this.state.date}
+                    value={this.state.filterStartDate}
                     type="date"
-                    name="Date"
+                    name="filterStartDate"
                     className="mb-2 shadow-none"
                     onChange={this.handleChange}
                   />
                   <h6>End Date</h6>
                   <Input
-                    value={this.state.date}
+                    value={this.state.filterEndDate}
                     type="date"
-                    name="Date"
+                    name="filterEndDate"
                     className="mb-2 shadow-none"
                     onChange={this.handleChange}
                   />
                   <FormGroup>
                     <h6>Status</h6>
                     <Input
-                      value={this.state.onTime}
+                      value={this.state.filterStatus}
                       type="select"
-                      name="onTime"
+                      name="filterStatus"
                       id="exampleSelect"
                       onChange={this.handleChange}
                     >
+                      <option key={3} value="">
+                        All
+                      </option>
                       <option key={0} value={0}>
                         Waiting
                       </option>
@@ -482,7 +516,7 @@ class Permissions extends Component {
                   </div>
                 </Button>
               ) : ( */}
-                  <Button color="secondary" onClick={this.toggleFilterModal}>
+                  <Button color="secondary" onClick={this.fetch}>
                     Submit
                   </Button>
                   {/* )} */}

@@ -30,19 +30,28 @@ const monthlyStats = (id, date) => ({
   payload: axios().get(`${URL}api/v1/permit/stats/${id}/${date}`),
 })
 
-const allIzin = (token, search, page) => ({
+const allIzin = (token, search, page, status, department, start, end) => ({
   type: 'ALLIZIN',
-  payload: axios(token).get(`${URL}api/v1/permit?limit=15&search=${search}&page=${page}`),
+  payload: axios(token).get(
+    `${URL}api/v1/permit?limit=15&search=${search}&page=${page}&status=${status}&departmentId=${department}&startDate=${start}&endDate=${end}`,
+  ),
 })
 
 const exportAllIzin = (token) => ({
   type: 'EXPORTIZIN',
-  payload: axios(token).get(`${URL}api/v1/permit?downloadPdf=1`, {responseType: 'blob'}),
+  payload: axios(token).get(`${URL}api/v1/permit?downloadPdf=1`, {
+    responseType: 'blob',
+  }),
 })
 
 const exportIzinDetail = (token, id) => ({
   type: 'EXPORTIZINDETAIL',
-  payload: axios(token).get(`${URL}api/v1/permit/permitbyid/${id}?downloadPdf=1`, {responseType: 'blob'}),
+  payload: axios(token).get(
+    `${URL}api/v1/permit/permitbyid/${id}?downloadPdf=1`,
+    {
+      responseType: 'blob',
+    },
+  ),
 })
 
 const permitStats = (token) => ({
