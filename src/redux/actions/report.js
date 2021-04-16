@@ -1,9 +1,11 @@
 import axios from '../../services/axios'
 const URL = 'http://10.7.10.15:8443/node/'
 
-const getAllReport = (token, search, page) => ({
+const getAllReport = (token, search, page, department, start, end) => ({
   type: 'GETALLREPORT',
-  payload: axios(token).get(`${URL}api/v1/report?limit=15&search=${search}&page=${page}`),
+  payload: axios(token).get(
+    `${URL}api/v1/report?limit=15&search=${search}&page=${page}&departmentId=${department}&startDate=${start}&endDate=${end}`,
+  ),
 })
 
 const getUserReport = (id) => ({
@@ -28,7 +30,12 @@ const statsReport = (token) => ({
 
 const exportReportDetail = (token, id) => ({
   type: 'REPORT',
-  payload: axios(token).get(`${URL}api/v1/report/reportbyid/${id}?downloadPdf=1`, {responseType: 'blob'}),
+  payload: axios(token).get(
+    `${URL}api/v1/report/reportbyid/${id}?downloadPdf=1`,
+    {
+      responseType: 'blob',
+    },
+  ),
 })
 
 export {
