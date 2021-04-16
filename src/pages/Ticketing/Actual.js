@@ -65,7 +65,7 @@ import CardBody from '../../components/Card/CardBody'
 import CardHeader from '../../components/Card/CardHeader'
 import CardIcon from '../../components/Card/CardIcon'
 
-import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
+// import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
 import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
 import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
@@ -220,7 +220,7 @@ class Ticketing extends Component {
   //   return makeStyles(styles);
   // }
   render() {
-    const classes = makeStyles(styles)
+    // const classes = makeStyles(styles)
     const classesHead = makeStyles(stylesHead)
     const classesBody = makeStyles(stylesBody)
     const departmentData = this.props.department.dataDepartment
@@ -230,76 +230,6 @@ class Ticketing extends Component {
           <>{this.redirect()}</>
         ) : (
           <>
-            <nav className="navbar navbar-light bg-light d-flex justify-content-end">
-              <div className="d-flex flex-row">
-                <form className="form-inline mr-5">
-                  <input
-                    className="form-control mr-sm-2"
-                    type="search"
-                    name="search"
-                    onChange={this.handleSearch}
-                    placeholder="Type Something ..."
-                    aria-label="Search"
-                  ></input>
-                  <button
-                    className="btn btn-outline-danger my-2 my-sm-0"
-                    type="submit"
-                  >
-                    Search
-                  </button>
-                </form>
-                <button
-                  className="btn btn-danger m-2 my-sm-0"
-                  type="submit"
-                  onClick={this.toggleFilterModal}
-                >
-                  <Tooltip
-                    id="tooltip-top-start"
-                    title="Filter"
-                    placement="top"
-                    classes={{
-                      tooltip: classesBody.tooltip,
-                    }}
-                  >
-                    {this.state.isLoadingExportAllLog ? (
-                      <div
-                        className="spinner-border spinner-border-sm text-white"
-                        role="status"
-                      >
-                        <span className="sr-only">Loading...</span>
-                      </div>
-                    ) : (
-                      <Sort className="iconWhiteColor" />
-                    )}
-                  </Tooltip>
-                </button>
-                <button
-                  className="btn btn-danger my-2 my-sm-0"
-                  type="submit"
-                  onClick={this.export}
-                >
-                  <Tooltip
-                    id="tooltip-top-start"
-                    title="Export to PDF"
-                    placement="top"
-                    classes={{
-                      tooltip: classesBody.tooltip,
-                    }}
-                  >
-                    {this.state.isLoadingExportAllTicket ? (
-                      <div
-                        className="spinner-border spinner-border-sm text-white"
-                        role="status"
-                      >
-                        <span className="sr-only">Loading...</span>
-                      </div>
-                    ) : (
-                      <Print className="iconWhiteColor" />
-                    )}
-                  </Tooltip>
-                </button>
-              </div>
-            </nav>
             <GridContainer>
               {this.state.isLoadingStats ? (
                 <center>
@@ -414,33 +344,77 @@ class Ticketing extends Component {
                     </center>
                   ) : (
                     <>
-                      <CardHeader color="danger">
-                        <div className="d-flex flex-row justify-content-between">
-                          <h4 className={classes.cardTitleWhite}>Ticketing</h4>
-                          {/* {this.props.ticket.dataAllTicket[0] === undefined ||
-                          this.props.ticket.dataAllTicket === undefined ? (
-                            <p className={classes.cardCategoryWhite}>
-                              Last Updated -
-                            </p>
-                          ) : (
-                            <p className={classes.cardCategoryWhite}>
-                              Last Updated{' '}
-                              {this.props.ticket.dataAllTicket[0].updated_at.slice(
-                                8,
-                                10,
-                              )}
-                              -
-                              {this.props.ticket.dataAllTicket[0].updated_at.slice(
-                                5,
-                                8,
-                              )}
-                              {this.props.ticket.dataAllTicket[0].updated_at.slice(
-                                0,
-                                4,
-                              )}
-                            </p>
-                          )} */}
-                        </div>
+                      <CardHeader>
+                        <nav className="navbar d-flex justify-content-end">
+                          <div className="d-flex flex-row">
+                            <form className="form-inline mr-5">
+                              <input
+                                className="form-control mr-sm-2"
+                                type="search"
+                                name="search"
+                                onChange={this.handleSearch}
+                                placeholder="Type Something ..."
+                                aria-label="Search"
+                              ></input>
+                              <button
+                                className="btn btn-outline-danger my-2 my-sm-0"
+                                type="submit"
+                              >
+                                Search
+                              </button>
+                            </form>
+                            <button
+                              className="btn btn-danger m-2 my-sm-0"
+                              type="submit"
+                              onClick={this.toggleFilterModal}
+                            >
+                              <Tooltip
+                                id="tooltip-top-start"
+                                title="Filter"
+                                placement="top"
+                                classes={{
+                                  tooltip: classesBody.tooltip,
+                                }}
+                              >
+                                {this.state.isLoadingExportAllLog ? (
+                                  <div
+                                    className="spinner-border spinner-border-sm text-white"
+                                    role="status"
+                                  >
+                                    <span className="sr-only">Loading...</span>
+                                  </div>
+                                ) : (
+                                  <Sort className="iconWhiteColor" />
+                                )}
+                              </Tooltip>
+                            </button>
+                            <button
+                              className="btn btn-danger my-2 my-sm-0"
+                              type="submit"
+                              onClick={this.export}
+                            >
+                              <Tooltip
+                                id="tooltip-top-start"
+                                title="Export to PDF"
+                                placement="top"
+                                classes={{
+                                  tooltip: classesBody.tooltip,
+                                }}
+                              >
+                                {this.state.isLoadingExportAllTicket ? (
+                                  <div
+                                    className="spinner-border spinner-border-sm text-white"
+                                    role="status"
+                                  >
+                                    <span className="sr-only">Loading...</span>
+                                  </div>
+                                ) : (
+                                  <Print className="iconWhiteColor" />
+                                )}
+                              </Tooltip>
+                            </button>
+                          </div>
+                        </nav>
                       </CardHeader>
                       <CardBody>
                         <TableContainer>
@@ -511,23 +485,23 @@ class Ticketing extends Component {
                                   className={classesBody.tableRow}
                                   key={i}
                                 >
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     {res.no_ticket}
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     {res.nameFrom}
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     {res.category === '2'
                                       ? res.nameAssignGroup
                                       : res.nameAssign}
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     {res.nameObserve === null
                                       ? '-'
                                       : res.nameObserve}
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     {res.statusid === 1 ? (
                                       <span className="badge badge-pill badge-warning">
                                         Open
@@ -552,6 +526,7 @@ class Ticketing extends Component {
                                     <>
                                       <TableCell
                                         className={classesBody.tableActions}
+                                        size="small"
                                       >
                                         <p>-</p>
                                       </TableCell>
@@ -559,6 +534,7 @@ class Ticketing extends Component {
                                   ) : (
                                     <TableCell
                                       className={classesBody.tableActions}
+                                      size="small"
                                     >
                                       {res.isLate === '1' ? (
                                         <Tooltip
@@ -585,13 +561,14 @@ class Ticketing extends Component {
                                       )}
                                     </TableCell>
                                   )}
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     {res.date.slice(8, 10)}-
                                     {res.date.slice(5, 8)}
                                     {res.date.slice(0, 4)}
                                   </TableCell>
                                   <TableCell
                                     className={classesBody.tableActions}
+                                    size="small"
                                   >
                                     {' '}
                                     <Link

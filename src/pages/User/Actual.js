@@ -242,46 +242,6 @@ class User extends Component {
               </center>
             ) : (
               <>
-                <nav className="navbar navbar-light bg-light d-flex justify-content-end">
-                  <form className="form-inline">
-                    <input
-                      className="form-control mr-sm-2"
-                      type="search"
-                      name="search"
-                      onChange={this.handleSearch}
-                      placeholder="Type Something ..."
-                      aria-label="Search"
-                    ></input>
-                    <button
-                      className="btn btn-outline-danger my-2 my-sm-0"
-                      type="submit"
-                    >
-                      Search
-                    </button>
-                  </form>
-                  {/* <button
-                className="btn btn-danger my-2 my-sm-0"
-                type="submit"
-                onClick={this.export}
-              > */}
-                  <Link
-                    to="/admin/user/stepOne"
-                    className="btn btn-danger my-2 mx-2 my-sm-0"
-                  >
-                    <Tooltip
-                      id="tooltip-top-start"
-                      title="Add User"
-                      placement="top"
-                      classes={{
-                        tooltip: classesBody.tooltip,
-                      }}
-                    >
-                      <Add className="iconWhiteColor" />
-                      {/* )} */}
-                    </Tooltip>
-                  </Link>
-                  {/* </button> */}
-                </nav>
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={12}>
                     <Card>
@@ -297,7 +257,41 @@ class User extends Component {
                       ) : (
                         <>
                           <CardHeader color="red">
-                            <h4 className="cardTitleWhite">List User</h4>
+                            <nav className="navbar d-flex justify-content-end">
+                              <form className="form-inline">
+                                <input
+                                  className="form-control mr-sm-2"
+                                  type="search"
+                                  name="search"
+                                  onChange={this.handleSearch}
+                                  placeholder="Type Something ..."
+                                  aria-label="Search"
+                                ></input>
+                                <button
+                                  className="btn btn-outline-danger my-2 my-sm-0"
+                                  type="submit"
+                                >
+                                  Search
+                                </button>
+                              </form>
+                              <Link
+                                to="/admin/user/stepOne"
+                                className="btn btn-danger my-2 mx-2 my-sm-0"
+                              >
+                                <Tooltip
+                                  id="tooltip-top-start"
+                                  title="Add User"
+                                  placement="top"
+                                  classes={{
+                                    tooltip: classesBody.tooltip,
+                                  }}
+                                >
+                                  <Add className="iconWhiteColor" />
+                                  {/* )} */}
+                                </Tooltip>
+                              </Link>
+                              {/* </button> */}
+                            </nav>
                           </CardHeader>
                           <CardBody>
                             <TableContainer>
@@ -337,6 +331,7 @@ class User extends Component {
                                     >
                                       <TableCell
                                         component="th"
+                                        size="small"
                                         className={classesBody.tablePicture}
                                       >
                                         <Avatar
@@ -346,23 +341,27 @@ class User extends Component {
                                       <TableCell
                                         className="textPrimaryColor"
                                         component="th"
+                                        size="small"
                                       >
                                         {res.name}
                                       </TableCell>
                                       <TableCell
                                         className="textPrimaryColor"
                                         component="th"
+                                        size="small"
                                       >
                                         {res.departmentName}
                                       </TableCell>
                                       <TableCell
                                         className="textPrimaryColor"
                                         component="th"
+                                        size="small"
                                       >
                                         {res.email}
                                       </TableCell>
                                       <TableCell
                                         className={classesBody.tableActions}
+                                        size="small"
                                       >
                                         <Link
                                           to={{
@@ -416,8 +415,8 @@ class User extends Component {
                                 </IconButton>
                               </div>
                               <div className="d-flex align-items-center">
-                              {this.state.page}
-                            </div>
+                                {this.state.page}
+                              </div>
                               <div className="p-2">
                                 <IconButton onClick={this.nextPage}>
                                   <ArrowRight
