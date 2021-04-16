@@ -55,27 +55,25 @@ import styles from '../../assets/jss/material-dashboard-react/views/dashboardSty
 import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
 import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
-const options = [
-  { value: 1, label: 'General' },
-  { value: 2, label: 'Development' },
-  { value: 3, label: 'Networking' },
-]
-
 class Report extends Component {
   constructor(props) {
     super(props)
     this.state = {
       showAddModal: false,
-      selectedOption: false,
       isLoading: true,
       search: '',
       page: 1,
       showFilterModal: false,
+      filterDepartment: '',
+      filterStartDate: '',
+      filterEndDate: '',
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
+    this.handleDepartmentChange = this.handleDepartmentChange.bind(this)
     this.nextPage = this.nextPage.bind(this)
     this.prevPage = this.prevPage.bind(this)
+    this.fetch = this.fetch.bind(this)
     this.toggleAddModal = this.toggleAddModal.bind(this)
     this.toggleFilterModal = this.toggleFilterModal.bind(this)
   }
@@ -86,8 +84,12 @@ class Report extends Component {
     })
   }
 
-  handleChange(selectedOption) {
-    this.setState({ selectedOption })
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value })
+  }
+
+  handleDepartmentChange(e) {
+    this.setState({ filterDepartment: e.value })
   }
 
   redirect() {
@@ -120,8 +122,17 @@ class Report extends Component {
   }
 
   fetch() {
+    this.setState({ isLoading: true, showFilterModal: false })
+    const { filterDepartment, filterStartDate, filterEndDate } = this.state
     this.props
-      .getAllReport(this.props.login.token, this.state.search, this.state.page)
+      .getAllReport(
+        this.props.login.token,
+        this.state.search,
+        this.state.page,
+        filterDepartment,
+        filterStartDate,
+        filterEndDate,
+      )
       .then((res) => {
         this.props
           .getDepartment(res.action.payload.data.newToken)
@@ -146,7 +157,6 @@ class Report extends Component {
     const classes = makeStyles(styles)
     const classesHead = makeStyles(stylesHead)
     const classesBody = makeStyles(stylesBody)
-    const { selectedOption } = this.state
     const departmentData = this.props.department.dataDepartment
     return (
       <div>
@@ -368,17 +378,17 @@ class Report extends Component {
                   )}
                   <h6>Start Date</h6>
                   <Input
-                    value={this.state.date}
+                    value={this.state.filterStartDate}
                     type="date"
-                    name="Date"
+                    name="filterStartDate"
                     className="mb-2 shadow-none"
                     onChange={this.handleChange}
                   />
                   <h6>End Date</h6>
                   <Input
-                    value={this.state.date}
+                    value={this.state.filterEndDate}
                     type="date"
-                    name="Date"
+                    name="filterEndDate"
                     className="mb-2 shadow-none"
                     onChange={this.handleChange}
                   />
@@ -394,59 +404,11 @@ class Report extends Component {
                   </div>
                 </Button>
               ) : ( */}
-                  <Button color="secondary" onClick={this.toggleFilterModal}>
+                  <Button color="secondary" onClick={this.fetch}>
                     Submit
                   </Button>
                   {/* )} */}
                   <Button color="primary" onClick={this.toggleFilterModal}>
-                    Cancel
-                  </Button>
-                </ModalFooter>
-              </Form>
-            </Modal>
-            {/* Add Modal */}
-            <Modal isOpen={this.state.showAddModal}>
-              <ModalHeader className="h1">Add Report</ModalHeader>
-              <Form>
-                <ModalBody>
-                  <h6>Title</h6>
-                  <Input
-                    type="text"
-                    name="title"
-                    className="mb-2 shadow-none"
-                    onChange={this.handleChange}
-                  />
-                  <h6>Description</h6>
-                  <Input
-                    type="textarea"
-                    name="description"
-                    className="mb-3 shadow-none"
-                    onChange={this.handleChange}
-                  />
-                  <h6>Department</h6>
-                  {/* <Input type='select' name='genre' className="mb-3 shadow-none" onChange={this.handleChange} 
-									 value={this.state.genre}>
-                    {this.state.genreList.map((genre, index) =>(
-                    <option className="list-group-item bg-light" value={genre.id}>{genre.name}</option>
-                    ))}
-                  </Input>  */}
-                  {/* REACT-SELECT */}
-                  <Select
-                    value={selectedOption}
-                    onChange={this.handleChange}
-                    options={options}
-                  />
-                  {/* <Select onChange={this.genreChange} options={
-										dataGenre.map((genre) =>(
-											{ value: genre.id, label: genre.name}
-											))
-									}/> */}
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="primary" onClick={this.addBook}>
-                    Add Report
-                  </Button>
-                  <Button color="secondary" onClick={this.toggleAddModal}>
                     Cancel
                   </Button>
                 </ModalFooter>
