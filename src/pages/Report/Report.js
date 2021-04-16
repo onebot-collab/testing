@@ -154,58 +154,6 @@ class Report extends Component {
           <>{this.redirect()}</>
         ) : (
           <>
-            {/* <Button
-              onClick={this.toggleAddModal}
-              variant="contained"
-              color="primary"
-              // className="buttonAdd"
-              startIcon={<Add />}
-            >
-              Add
-            </Button> */}
-            <nav className="navbar navbar-light bg-light d-flex justify-content-end">
-              <form className="form-inline mr-5">
-                <input
-                  className="form-control mr-sm-2"
-                  type="search"
-                  name="search"
-                  onChange={this.handleSearch}
-                  placeholder="Type Something ..."
-                  aria-label="Search"
-                ></input>
-                <button
-                  className="btn btn-outline-danger my-2 my-sm-0"
-                  type="submit"
-                >
-                  Search
-                </button>
-              </form>
-              <button
-                className="btn btn-danger m-2 my-sm-0"
-                type="submit"
-                onClick={this.toggleFilterModal}
-              >
-                <Tooltip
-                  id="tooltip-top-start"
-                  title="Filter"
-                  placement="top"
-                  classes={{
-                    tooltip: classesBody.tooltip,
-                  }}
-                >
-                  {this.state.isLoadingExportAllLog ? (
-                    <div
-                      className="spinner-border spinner-border-sm text-white"
-                      role="status"
-                    >
-                      <span className="sr-only">Loading...</span>
-                    </div>
-                  ) : (
-                    <Sort className="iconWhiteColor" />
-                  )}
-                </Tooltip>
-              </button>
-            </nav>
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
                 <Card>
@@ -220,37 +168,50 @@ class Report extends Component {
                     </center>
                   ) : (
                     <>
-                      <CardHeader color="danger">
-                        <div className="d-flex flex-row justify-content-between">
-                          <h4 className={(classes.cardTitleWhite, 'd-flex')}>
-                            Report
-                          </h4>
-                          {/* {this.props.report.dataAllReport[0] === undefined ? (
-                            <p
-                              className={(classes.cardCategoryWhite, 'd-flex')}
+                      <CardHeader>
+                        <nav className="navbar d-flex justify-content-end">
+                          <form className="form-inline mr-5">
+                            <input
+                              className="form-control mr-sm-2"
+                              type="search"
+                              name="search"
+                              onChange={this.handleSearch}
+                              placeholder="Type Something ..."
+                              aria-label="Search"
+                            ></input>
+                            <button
+                              className="btn btn-outline-danger my-2 my-sm-0"
+                              type="submit"
                             >
-                              Last Updated -
-                            </p>
-                          ) : (
-                            <p
-                              className={(classes.cardCategoryWhite, 'd-flex')}
+                              Search
+                            </button>
+                          </form>
+                          <button
+                            className="btn btn-danger m-2 my-sm-0"
+                            type="submit"
+                            onClick={this.toggleFilterModal}
+                          >
+                            <Tooltip
+                              id="tooltip-top-start"
+                              title="Filter"
+                              placement="top"
+                              classes={{
+                                tooltip: classesBody.tooltip,
+                              }}
                             >
-                              Last Updated{' '}
-                              {this.props.report.dataAllReport[0].created_at.slice(
-                                8,
-                                10,
+                              {this.state.isLoadingExportAllLog ? (
+                                <div
+                                  className="spinner-border spinner-border-sm text-white"
+                                  role="status"
+                                >
+                                  <span className="sr-only">Loading...</span>
+                                </div>
+                              ) : (
+                                <Sort className="iconWhiteColor" />
                               )}
-                              {this.props.report.dataAllReport[0].created_at.slice(
-                                5,
-                                8,
-                              )}
-                              {this.props.report.dataAllReport[0].created_at.slice(
-                                0,
-                                4,
-                              )}
-                            </p>
-                          )} */}
-                        </div>
+                            </Tooltip>
+                          </button>
+                        </nav>
                       </CardHeader>
                       <CardBody>
                         <TableContainer>
@@ -297,13 +258,13 @@ class Report extends Component {
                             <TableBody>
                               {this.props.report.dataAllReport.map((res, i) => (
                                 <TableRow className={classes.tableRow} key={i}>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     {res.nameUser}
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     {res.nameReport}
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     {res.fileName ===
                                     'public/report/img.jpg' ? (
                                       <span className="badge badge-secondary">
@@ -318,11 +279,12 @@ class Report extends Component {
                                       </span>
                                     )}
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     {res.created_at}
                                   </TableCell>
                                   <TableCell
                                     className={classesBody.tableActions}
+                                    size="small"
                                   >
                                     <Link
                                       to={{
@@ -370,8 +332,8 @@ class Report extends Component {
                             </IconButton>
                           </div>
                           <div className="d-flex align-items-center">
-                              {this.state.page}
-                            </div>
+                            {this.state.page}
+                          </div>
                           <div className="p-2">
                             <IconButton onClick={this.nextPage}>
                               <ArrowRight

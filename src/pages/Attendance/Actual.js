@@ -159,77 +159,6 @@ class Attendance extends Component {
           <>{this.redirect()}</>
         ) : (
           <>
-            <nav className="navbar navbar-light bg-light d-flex justify-content-end">
-              <div className="d-flex flex-row">
-                <form className="form-inline mr-5">
-                  <input
-                    className="form-control mr-sm-2"
-                    type="search"
-                    name="search"
-                    onChange={this.handleSearch}
-                    placeholder="Type Something ..."
-                    aria-label="Search"
-                  ></input>
-                  <button
-                    className="btn btn-outline-danger my-2 my-sm-0"
-                    type="submit"
-                  >
-                    Search
-                  </button>
-                </form>
-                <button
-                  className="btn btn-danger m-2 my-sm-0"
-                  type="submit"
-                  onClick={this.toggleFilterModal}
-                >
-                  <Tooltip
-                    id="tooltip-top-start"
-                    title="Filter"
-                    placement="top"
-                    classes={{
-                      tooltip: classesBody.tooltip,
-                    }}
-                  >
-                    {this.state.isLoadingExportAllLog ? (
-                      <div
-                        className="spinner-border spinner-border-sm text-white"
-                        role="status"
-                      >
-                        <span className="sr-only">Loading...</span>
-                      </div>
-                    ) : (
-                      <Sort className="iconWhiteColor" />
-                    )}
-                  </Tooltip>
-                </button>
-                <button
-                  className="btn btn-danger m-2 my-sm-0"
-                  type="submit"
-                  onClick={this.export}
-                >
-                  <Tooltip
-                    id="tooltip-top-start"
-                    title="Export to PDF"
-                    placement="top"
-                    classes={{
-                      tooltip: classesBody.tooltip,
-                    }}
-                  >
-                    {this.state.isLoadingExportAllLog ? (
-                      <div
-                        className="spinner-border spinner-border-sm text-white"
-                        role="status"
-                      >
-                        <span className="sr-only">Loading...</span>
-                      </div>
-                    ) : (
-                      <Print className="iconWhiteColor" />
-                    )}
-                  </Tooltip>
-                </button>
-              </div>
-            </nav>
-
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
                 <Card>
@@ -245,15 +174,79 @@ class Attendance extends Component {
                   ) : (
                     <>
                       <CardHeader>
-                        <div className="d-flex flex-row justify-content-between">
+                        {/* <div className="d-flex flex-row justify-content-between">
                           <h4 className="col-12 col-sm-12">Attendance</h4>
-                          {/* <p className="col-6 col-sm-12">
-                            Last Updated{' '}
-                            {this.props.presence.dataAllLog[0] === undefined
-                              ? '-'
-                              : this.props.presence.dataAllLog[0].updated_at}
-                          </p> */}
-                        </div>
+                        </div> */}
+                        <nav className="navbar d-flex justify-content-end">
+                          <div className="d-flex flex-row">
+                            <form className="form-inline mr-5">
+                              <input
+                                className="form-control mr-sm-2"
+                                type="search"
+                                name="search"
+                                onChange={this.handleSearch}
+                                placeholder="Type Something ..."
+                                aria-label="Search"
+                              ></input>
+                              <button
+                                className="btn btn-outline-danger my-2 my-sm-0"
+                                type="submit"
+                              >
+                                Search
+                              </button>
+                            </form>
+                            <button
+                              className="btn btn-danger m-2 my-sm-0"
+                              type="submit"
+                              onClick={this.toggleFilterModal}
+                            >
+                              <Tooltip
+                                id="tooltip-top-start"
+                                title="Filter"
+                                placement="top"
+                                classes={{
+                                  tooltip: classesBody.tooltip,
+                                }}
+                              >
+                                {this.state.isLoadingExportAllLog ? (
+                                  <div
+                                    className="spinner-border spinner-border-sm text-white"
+                                    role="status"
+                                  >
+                                    <span className="sr-only">Loading...</span>
+                                  </div>
+                                ) : (
+                                  <Sort className="iconWhiteColor" />
+                                )}
+                              </Tooltip>
+                            </button>
+                            <button
+                              className="btn btn-danger m-2 my-sm-0"
+                              type="submit"
+                              onClick={this.export}
+                            >
+                              <Tooltip
+                                id="tooltip-top-start"
+                                title="Export to PDF"
+                                placement="top"
+                                classes={{
+                                  tooltip: classesBody.tooltip,
+                                }}
+                              >
+                                {this.state.isLoadingExportAllLog ? (
+                                  <div
+                                    className="spinner-border spinner-border-sm text-white"
+                                    role="status"
+                                  >
+                                    <span className="sr-only">Loading...</span>
+                                  </div>
+                                ) : (
+                                  <Print className="iconWhiteColor" />
+                                )}
+                              </Tooltip>
+                            </button>
+                          </div>
+                        </nav>
                       </CardHeader>
                       <CardBody>
                         <TableContainer>
@@ -312,80 +305,116 @@ class Attendance extends Component {
                               </TableRow>
                             </TableHead>
                             <TableBody>
-                              {this.props.presence.dataAllLog.map((res, i) => (
-                                <TableRow
-                                  className={classesBody.tableRow}
-                                  key={i}
-                                >
-                                  <TableCell component="th">
-                                    {res.nameUser}
+                              {this.props.presence.dataAllLog.length < 1 ? (
+                                <TableRow className={classesBody.tableRow}>
+                                  <TableCell component="th" size="small">
+                                    <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
-                                    {res.name}
+                                  <TableCell component="th" size="small">
+                                    <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
-                                    {res.att_time}
+                                  <TableCell component="th" size="small">
+                                    <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
-                                    {res.end_time === null ? '-' : res.end_time}
+                                  <TableCell component="th" size="small">
+                                    <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
-                                    {res.att_date}
+                                  <TableCell component="th" size="small">
+                                    <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell
-                                    className={classesBody.tableActions}
-                                  >
-                                    {res.isLate === 1 ? (
-                                      <Tooltip
-                                        id="tooltip-top-start"
-                                        title="Late"
-                                        placement="top"
-                                        classes={{
-                                          tooltip: classesBody.tooltip,
-                                        }}
-                                      >
-                                        <Cancel className="iconSecondaryColor" />
-                                      </Tooltip>
-                                    ) : (
-                                      <Tooltip
-                                        id="tooltip-top-start"
-                                        title="On time"
-                                        placement="top"
-                                        classes={{
-                                          tooltip: classesBody.tooltip,
-                                        }}
-                                      >
-                                        <CheckCircle className="iconPrimaryColor" />
-                                      </Tooltip>
-                                    )}
+                                  <TableCell component="th" size="small">
+                                    <p className="textPrimaryColor">-</p>
                                   </TableCell>
                                   <TableCell
                                     className={classesBody.tableActions}
                                   >
-                                    <Link
-                                      to={{
-                                        pathname: `/admin/attendance/detail`,
-                                        state: {
-                                          nameUser: `${res.nameUser}`,
-                                          name: `${res.name}`,
-                                          user_id: `${res.user_id}`,
-                                        },
-                                      }}
-                                    >
-                                      <Tooltip
-                                        id="tooltip-top-start"
-                                        title="Click to Detail"
-                                        placement="top"
-                                        classes={{
-                                          tooltip: classesBody.tooltip,
-                                        }}
-                                      >
-                                        <Visibility className="iconWhiteColor" />
-                                      </Tooltip>
-                                    </Link>
+                                    <p className="textPrimaryColor">-</p>
                                   </TableCell>
                                 </TableRow>
-                              ))}
+                              ) : (
+                                <>
+                                  {this.props.presence.dataAllLog.map(
+                                    (res, i) => (
+                                      <TableRow
+                                        className={classesBody.tableRow}
+                                        key={i}
+                                      >
+                                        <TableCell component="th" size="small">
+                                          {res.nameUser}
+                                        </TableCell>
+                                        <TableCell component="th" size="small">
+                                          {res.name}
+                                        </TableCell>
+                                        <TableCell component="th" size="small">
+                                          {res.att_time}
+                                        </TableCell>
+                                        <TableCell component="th" size="small">
+                                          {res.end_time === null
+                                            ? '-'
+                                            : res.end_time}
+                                        </TableCell>
+                                        <TableCell component="th" size="small">
+                                          {res.att_date}
+                                        </TableCell>
+                                        <TableCell
+                                          className={classesBody.tableActions}
+                                          size="small"
+                                        >
+                                          {res.isLate === 1 ? (
+                                            <Tooltip
+                                              id="tooltip-top-start"
+                                              title="Late"
+                                              placement="top"
+                                              classes={{
+                                                tooltip: classesBody.tooltip,
+                                              }}
+                                            >
+                                              <Cancel className="iconSecondaryColor" />
+                                            </Tooltip>
+                                          ) : (
+                                            <Tooltip
+                                              id="tooltip-top-start"
+                                              title="On time"
+                                              placement="top"
+                                              classes={{
+                                                tooltip: classesBody.tooltip,
+                                              }}
+                                            >
+                                              <CheckCircle className="iconPrimaryColor" />
+                                            </Tooltip>
+                                          )}
+                                        </TableCell>
+                                        <TableCell
+                                          className={classesBody.tableActions}
+                                          size="small"
+                                        >
+                                          <Link
+                                            to={{
+                                              pathname: `/admin/attendance/detail`,
+                                              state: {
+                                                nameUser: `${res.nameUser}`,
+                                                name: `${res.name}`,
+                                                user_id: `${res.user_id}`,
+                                              },
+                                            }}
+                                          >
+                                            <Tooltip
+                                              id="tooltip-top-start"
+                                              title="Click to Detail"
+                                              placement="top"
+                                              classes={{
+                                                tooltip: classesBody.tooltip,
+                                              }}
+                                            >
+                                              <Visibility className="iconWhiteColor" />
+                                            </Tooltip>
+                                          </Link>
+                                        </TableCell>
+                                      </TableRow>
+                                    ),
+                                  )}
+                                </>
+                              )}
                             </TableBody>
                           </Table>
                           <div className="d-flex flex-row justify-content-end">

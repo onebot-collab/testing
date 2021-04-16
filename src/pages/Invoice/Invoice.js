@@ -59,11 +59,10 @@ import { newToken } from '../../redux/actions/login'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
-import CardHeader from '../../components/Card/CardHeader'
 import CardBody from '../../components/Card/CardBody'
+import CardIcon from '../../components/Card/CardIcon'
 
 // core components
-import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
 import stylesHead from '../../assets/jss/material-dashboard-react/components/tableStyle'
 import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
@@ -290,7 +289,7 @@ class Invoice extends Component {
   }
 
   render() {
-    const classes = makeStyles(styles)
+    // const classes = makeStyles(styles)
     const classesHead = makeStyles(stylesHead)
     const classesBody = makeStyles(stylesBody)
     return (
@@ -383,17 +382,7 @@ class Invoice extends Component {
                     </center>
                   ) : (
                     <>
-                      <CardHeader color="warning">
-                        <div className="d-flex flex-row justify-content-between">
-                          <h4 className={classes.cardTitleWhite}>Waiting</h4>
-                          {/* <p className={classes.cardCategoryWhite}>
-                            Last Updated{' '}
-                            {this.props.invoice.dataInvoice[0] === undefined
-                              ? '-'
-                              : this.props.invoice.dataInvoice[0].updated_at}
-                          </p> */}
-                        </div>
-                      </CardHeader>
+                      <CardIcon color="warning">Waiting</CardIcon>
                       <CardBody>
                         <TableContainer>
                           <Table className={classesHead.table}>
@@ -454,22 +443,22 @@ class Invoice extends Component {
                               {this.props.invoice.dataInvoiceWaiting.length <
                               1 ? (
                                 <TableRow className={classesBody.tableRow}>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
                                   <TableCell
@@ -487,16 +476,28 @@ class Invoice extends Component {
                                           className={classesBody.tableRow}
                                           key={i}
                                         >
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.invoice_no}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.requestname}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             Rp {res.total_amount}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.status === 0 ? (
                                               <span className="badge badge-pill badge-warning">
                                                 Waiting
@@ -521,16 +522,23 @@ class Invoice extends Component {
                                               <></>
                                             )}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.responder === null
                                               ? '-'
                                               : res.nameResponder}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.date}
                                           </TableCell>
                                           <TableCell
                                             className={classesBody.tableActions}
+                                            size="small"
                                           >
                                             <Link
                                               to={{
@@ -625,17 +633,7 @@ class Invoice extends Component {
                     </center>
                   ) : (
                     <>
-                      <CardHeader color="success">
-                        <div className="d-flex flex-row justify-content-between">
-                          <h4 className={classes.cardTitleWhite}>Approved</h4>
-                          {/* <p className={classes.cardCategoryWhite}>
-                            Last Updated{' '}
-                            {this.props.invoice.dataInvoice[0] === undefined
-                              ? '-'
-                              : this.props.invoice.dataInvoice[0].updated_at}
-                          </p> */}
-                        </div>
-                      </CardHeader>
+                      <CardIcon color="success">Approved</CardIcon>
                       <CardBody>
                         <TableContainer>
                           <Table className={classesHead.table}>
@@ -697,26 +695,27 @@ class Invoice extends Component {
                               {this.props.invoice.dataInvoiceApproved.length <
                               1 ? (
                                 <TableRow className={classesBody.tableRow}>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
                                   <TableCell
                                     className={classesBody.tableActions}
+                                    size="small"
                                   >
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
@@ -730,16 +729,28 @@ class Invoice extends Component {
                                           className={classesBody.tableRow}
                                           key={i}
                                         >
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.invoice_no}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.requestname}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             Rp {res.total_amount}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.status === 0 ? (
                                               <span className="badge badge-pill badge-warning">
                                                 Waiting
@@ -764,12 +775,18 @@ class Invoice extends Component {
                                               <></>
                                             )}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.responder === null
                                               ? '-'
                                               : res.nameResponder}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.date}
                                           </TableCell>
                                           <TableCell
@@ -858,17 +875,7 @@ class Invoice extends Component {
                     </center>
                   ) : (
                     <>
-                      <CardHeader color="danger">
-                        <div className="d-flex flex-row justify-content-between">
-                          <h4 className={classes.cardTitleWhite}>Rejected</h4>
-                          {/* <p className={classes.cardCategoryWhite}>
-                            Last Updated{' '}
-                            {this.props.invoice.dataInvoice[0] === undefined
-                              ? '-'
-                              : this.props.invoice.dataInvoice[0].updated_at}
-                          </p> */}
-                        </div>
-                      </CardHeader>
+                      <CardIcon color="danger">Rejected</CardIcon>
                       <CardBody>
                         <TableContainer>
                           <Table className={classesHead.table}>
@@ -929,26 +936,27 @@ class Invoice extends Component {
                               {this.props.invoice.dataInvoiceRejected.length <
                               1 ? (
                                 <TableRow className={classesBody.tableRow}>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
                                   <TableCell
                                     className={classesBody.tableActions}
+                                    size="small"
                                   >
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
@@ -962,16 +970,28 @@ class Invoice extends Component {
                                           className={classesBody.tableRow}
                                           key={i}
                                         >
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.invoice_no}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.requestname}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             Rp {res.total_amount}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.status === 0 ? (
                                               <span className="badge badge-pill badge-warning">
                                                 Waiting
@@ -996,16 +1016,23 @@ class Invoice extends Component {
                                               <></>
                                             )}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.responder === null
                                               ? '-'
                                               : res.nameResponder}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.date}
                                           </TableCell>
                                           <TableCell
                                             className={classesBody.tableActions}
+                                            size="small"
                                           >
                                             <Link
                                               to={{
@@ -1090,17 +1117,7 @@ class Invoice extends Component {
                     </center>
                   ) : (
                     <>
-                      <CardHeader color="primary">
-                        <div className="d-flex flex-row justify-content-between">
-                          <h4 className={classes.cardTitleWhite}>Processed</h4>
-                          {/* <p className={classes.cardCategoryWhite}>
-                            Last Updated{' '}
-                            {this.props.invoice.dataInvoice[0] === undefined
-                              ? '-'
-                              : this.props.invoice.dataInvoice[0].updated_at}
-                          </p> */}
-                        </div>
-                      </CardHeader>
+                      <CardIcon color="primary">Processed</CardIcon>
                       <CardBody>
                         <TableContainer>
                           <Table className={classesHead.table}>
@@ -1161,26 +1178,27 @@ class Invoice extends Component {
                               {this.props.invoice.dataInvoiceProcessed.length <
                               1 ? (
                                 <TableRow className={classesBody.tableRow}>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
                                   <TableCell
                                     className={classesBody.tableActions}
+                                    size="small"
                                   >
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
@@ -1194,16 +1212,28 @@ class Invoice extends Component {
                                           className={classesBody.tableRow}
                                           key={i}
                                         >
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.invoice_no}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.requestname}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             Rp {res.total_amount}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.status === 0 ? (
                                               <span className="badge badge-pill badge-warning">
                                                 Waiting
@@ -1228,16 +1258,23 @@ class Invoice extends Component {
                                               <></>
                                             )}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.responder === null
                                               ? '-'
                                               : res.nameResponder}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.date}
                                           </TableCell>
                                           <TableCell
                                             className={classesBody.tableActions}
+                                            size="small"
                                           >
                                             <Link
                                               to={{
@@ -1322,17 +1359,7 @@ class Invoice extends Component {
                     </center>
                   ) : (
                     <>
-                      <CardHeader color="rose">
-                        <div className="d-flex flex-row justify-content-between">
-                          <h4 className={classes.cardTitleWhite}>Closed</h4>
-                          {/* <p className={classes.cardCategoryWhite}>
-                            Last Updated{' '}
-                            {this.props.invoice.dataInvoice[0] === undefined
-                              ? '-'
-                              : this.props.invoice.dataInvoice[0].updated_at}
-                          </p> */}
-                        </div>
-                      </CardHeader>
+                      <CardIcon color="rose">Closed</CardIcon>
                       <CardBody>
                         <TableContainer>
                           <Table className={classesHead.table}>
@@ -1393,26 +1420,27 @@ class Invoice extends Component {
                               {this.props.invoice.dataInvoiceClosed.length <
                               1 ? (
                                 <TableRow className={classesBody.tableRow}>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
-                                  <TableCell component="th">
+                                  <TableCell component="th" size="small">
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
                                   <TableCell
                                     className={classesBody.tableActions}
+                                    size="small"
                                   >
                                     <p className="textPrimaryColor">-</p>
                                   </TableCell>
@@ -1426,16 +1454,28 @@ class Invoice extends Component {
                                           className={classesBody.tableRow}
                                           key={i}
                                         >
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.invoice_no}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.requestname}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             Rp {res.total_amount}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.status === 0 ? (
                                               <span className="badge badge-pill badge-warning">
                                                 Waiting
@@ -1460,16 +1500,23 @@ class Invoice extends Component {
                                               <></>
                                             )}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.responder === null
                                               ? '-'
                                               : res.nameResponder}
                                           </TableCell>
-                                          <TableCell component="th">
+                                          <TableCell
+                                            component="th"
+                                            size="small"
+                                          >
                                             {res.date}
                                           </TableCell>
                                           <TableCell
                                             className={classesBody.tableActions}
+                                            size="small"
                                           >
                                             <Link
                                               to={{

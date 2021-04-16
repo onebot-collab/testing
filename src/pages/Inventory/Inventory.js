@@ -393,118 +393,113 @@ class Inventory extends Component {
               </center>
             ) : (
               <>
-                <nav className="navbar navbar-light bg-light d-flex justify-content-end">
-                  <div className="d-flex flex-row">
-                    <div className="d-flex flex-row">
-                      <form className="form-inline mr-5">
-                        <input
-                          className="form-control mr-sm-2"
-                          type="search"
-                          name="search"
-                          onChange={this.handleSearch}
-                          placeholder="Type Something ..."
-                          aria-label="Search"
-                        ></input>
-                        <button
-                          className="btn btn-outline-danger my-2 my-sm-0"
-                          type="submit"
-                        >
-                          Search
-                        </button>
-                      </form>
-                      <button
-                        className="btn btn-danger m-2 my-sm-0"
-                        type="submit"
-                        onClick={this.toggleFilterModal}
-                      >
-                        <Tooltip
-                          id="tooltip-top-start"
-                          title="Filter"
-                          placement="top"
-                          classes={{
-                            tooltip: classesBody.tooltip,
-                          }}
-                        >
-                          {this.state.isLoadingExportAllLog ? (
-                            <div
-                              className="spinner-border spinner-border-sm text-white"
-                              role="status"
-                            >
-                              <span className="sr-only">Loading...</span>
-                            </div>
-                          ) : (
-                            <Sort className="iconWhiteColor" />
-                          )}
-                        </Tooltip>
-                      </button>
-                      <button
-                        className="btn btn-danger my-2 my-sm-0"
-                        type="submit"
-                        onClick={this.export}
-                      >
-                        <Tooltip
-                          id="tooltip-top-start"
-                          title="Export to PDF"
-                          placement="top"
-                          classes={{
-                            tooltip: classesBody.tooltip,
-                          }}
-                        >
-                          {this.state.isLoadingExportInventory ? (
-                            <div
-                              className="spinner-border spinner-border-sm text-white"
-                              role="status"
-                            >
-                              <span className="sr-only">Loading...</span>
-                            </div>
-                          ) : (
-                            <Print className="iconWhiteColor" />
-                          )}
-                        </Tooltip>
-                      </button>
-                      <button
-                        className="btn btn-danger m-2 my-sm-0"
-                        type="submit"
-                        onClick={this.toggleAddModal}
-                      >
-                        <Tooltip
-                          id="tooltip-top-start"
-                          title="Add"
-                          placement="top"
-                          classes={{
-                            tooltip: classesBody.tooltip,
-                          }}
-                        >
-                          {this.state.isLoadingExportAllLog ? (
-                            <div
-                              className="spinner-border spinner-border-sm text-white"
-                              role="status"
-                            >
-                              <span className="sr-only">Loading...</span>
-                            </div>
-                          ) : (
-                            <Add className="iconWhiteColor" />
-                          )}
-                        </Tooltip>
-                      </button>
-                    </div>
-                  </div>
-                </nav>
-
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={12}>
                     <Card>
-                      <CardHeader color="danger">
-                        <div className="d-flex flex-row justify-content-between">
-                          <h4 className={classes.cardTitleWhite}>Inventory</h4>
-                          {/* <p className={classes.cardCategoryWhite}>
-                            Last Updated{' '}
-                            {this.props.inventory.dataInventory[0] === undefined
-                              ? '-'
-                              : this.props.inventory.dataInventory[0]
-                                  .created_at}
-                          </p> */}
-                        </div>
+                      <CardHeader>
+                        <nav className="navbar d-flex justify-content-end">
+                          <div className="d-flex flex-row">
+                            <div className="d-flex flex-row">
+                              <form className="form-inline mr-5">
+                                <input
+                                  className="form-control mr-sm-2"
+                                  type="search"
+                                  name="search"
+                                  onChange={this.handleSearch}
+                                  placeholder="Type Something ..."
+                                  aria-label="Search"
+                                ></input>
+                                <button
+                                  className="btn btn-outline-danger my-2 my-sm-0"
+                                  type="submit"
+                                >
+                                  Search
+                                </button>
+                              </form>
+                              <button
+                                className="btn btn-danger m-2 my-sm-0"
+                                type="submit"
+                                onClick={this.toggleFilterModal}
+                              >
+                                <Tooltip
+                                  id="tooltip-top-start"
+                                  title="Filter"
+                                  placement="top"
+                                  classes={{
+                                    tooltip: classesBody.tooltip,
+                                  }}
+                                >
+                                  {this.state.isLoadingExportAllLog ? (
+                                    <div
+                                      className="spinner-border spinner-border-sm text-white"
+                                      role="status"
+                                    >
+                                      <span className="sr-only">
+                                        Loading...
+                                      </span>
+                                    </div>
+                                  ) : (
+                                    <Sort className="iconWhiteColor" />
+                                  )}
+                                </Tooltip>
+                              </button>
+                              <button
+                                className="btn btn-danger my-2 my-sm-0"
+                                type="submit"
+                                onClick={this.export}
+                              >
+                                <Tooltip
+                                  id="tooltip-top-start"
+                                  title="Export to PDF"
+                                  placement="top"
+                                  classes={{
+                                    tooltip: classesBody.tooltip,
+                                  }}
+                                >
+                                  {this.state.isLoadingExportInventory ? (
+                                    <div
+                                      className="spinner-border spinner-border-sm text-white"
+                                      role="status"
+                                    >
+                                      <span className="sr-only">
+                                        Loading...
+                                      </span>
+                                    </div>
+                                  ) : (
+                                    <Print className="iconWhiteColor" />
+                                  )}
+                                </Tooltip>
+                              </button>
+                              <button
+                                className="btn btn-danger m-2 my-sm-0"
+                                type="submit"
+                                onClick={this.toggleAddModal}
+                              >
+                                <Tooltip
+                                  id="tooltip-top-start"
+                                  title="Add"
+                                  placement="top"
+                                  classes={{
+                                    tooltip: classesBody.tooltip,
+                                  }}
+                                >
+                                  {this.state.isLoadingExportAllLog ? (
+                                    <div
+                                      className="spinner-border spinner-border-sm text-white"
+                                      role="status"
+                                    >
+                                      <span className="sr-only">
+                                        Loading...
+                                      </span>
+                                    </div>
+                                  ) : (
+                                    <Add className="iconWhiteColor" />
+                                  )}
+                                </Tooltip>
+                              </button>
+                            </div>
+                          </div>
+                        </nav>
                       </CardHeader>
                       <CardBody>
                         <TableContainer>
@@ -557,6 +552,7 @@ class Inventory extends Component {
                                   >
                                     <TableCell
                                       component="th"
+                                      size="small"
                                       className={classesBody.tablePicture}
                                     >
                                       <Avatar
@@ -566,23 +562,27 @@ class Inventory extends Component {
                                     <TableCell
                                       className="textPrimaryColor"
                                       component="th"
+                                      size="small"
                                     >
                                       {res.name}
                                     </TableCell>
                                     <TableCell
                                       className="textPrimaryColor"
                                       component="th"
+                                      size="small"
                                     >
                                       {res.brand}
                                     </TableCell>
                                     <TableCell
                                       className="textPrimaryColor"
                                       component="th"
+                                      size="small"
                                     >
                                       {res.created_at}
                                     </TableCell>
                                     <TableCell
                                       className={classesBody.tableActions}
+                                      size="small"
                                     >
                                       <Link
                                         to={{
