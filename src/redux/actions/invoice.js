@@ -40,38 +40,38 @@ const uploadInvoiceImage = (dataSubmit, id) => ({
   payload: axios().patch(`${URL}api/v1/invoice/upload/${id}`, dataSubmit),
 })
 
-const invoiceWaiting = (token, search, page) => ({
+const invoiceWaiting = (token, search, page, sort, start, end) => ({
   type: 'INVOICEWAITING',
   payload: axios(token).get(
-    `${URL}api/v1/invoice/bystatus/0?limit=15&search=${search}&page=${page}`,
+    `${URL}api/v1/invoice/bystatus/0?limit=15&search=${search}&page=${page}&sort=${sort}&startDate=${start}&endDate=${end}`,
   ),
 })
 
-const invoiceApproved = (token, search, page) => ({
+const invoiceApproved = (token, search, page, sort, start, end) => ({
   type: 'INVOICEAPPROVED',
   payload: axios(token).get(
-    `${URL}api/v1/invoice/bystatus/1?limit=15&search=${search}&page=${page}`,
+    `${URL}api/v1/invoice/bystatus/1?limit=15&search=${search}&page=${page}&sort=${sort}&startDate=${start}&endDate=${end}`,
   ),
 })
 
-const invoiceRejected = (token, search, page) => ({
+const invoiceRejected = (token, search, page, sort, start, end) => ({
   type: 'INVOICEREJECTED',
   payload: axios(token).get(
-    `${URL}api/v1/invoice/bystatus/2?limit=15&search=${search}&page=${page}`,
+    `${URL}api/v1/invoice/bystatus/2?limit=15&search=${search}&page=${page}&sort=${sort}&startDate=${start}&endDate=${end}`,
   ),
 })
 
-const invoiceProcessed = (token, search, page) => ({
+const invoiceProcessed = (token, search, page, sort, start, end) => ({
   type: 'INVOICEPROCESSED',
   payload: axios(token).get(
-    `${URL}api/v1/invoice/bystatus/3?limit=15&search=${search}&page=${page}`,
+    `${URL}api/v1/invoice/bystatus/3?limit=15&search=${search}&page=${page}&sort=${sort}&startDate=${start}&endDate=${end}`,
   ),
 })
 
-const invoiceClosed = (token, search, page) => ({
+const invoiceClosed = (token, search, page, sort, start, end) => ({
   type: 'INVOICECLOSED',
   payload: axios(token).get(
-    `${URL}api/v1/invoice/bystatus/4?limit=15&search=${search}&page=${page}`,
+    `${URL}api/v1/invoice/bystatus/4?limit=15&search=${search}&page=${page}&sort=${sort}&startDate=${start}&endDate=${end}`,
   ),
 })
 

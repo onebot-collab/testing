@@ -84,18 +84,27 @@ class Invoice extends Component {
       pageProcessed: 1,
       pageClosed: 1,
       showFilterModal: false,
+      filterSort: 0,
+      filterStartDate: '',
+      filterEndDate: '',
     }
     this.handleSearch = this.handleSearch.bind(this)
     this.nextPage = this.nextPage.bind(this)
     this.prevPage = this.prevPage.bind(this)
     this.export = this.export.bind(this)
+    this.fetch = this.fetch.bind(this)
     this.toggleFilterModal = this.toggleFilterModal.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   toggleFilterModal() {
     this.setState({
       showFilterModal: !this.state.showFilterModal,
     })
+  }
+
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   handleSearch(event) {
@@ -202,10 +211,26 @@ class Invoice extends Component {
   }
 
   fetch() {
+    this.setState({
+      isLoadingWaiting: true,
+      isLoadingApproved: true,
+      isLoadingRejected: true,
+      isLoadingProcessed: true,
+      isLoadingClosed: true,
+      showFilterModal: false,
+    })
     const { token } = this.props.login
+    const { filterSort, filterStartDate, filterEndDate } = this.state
 
     this.props
-      .invoiceWaiting(token, this.state.search, this.state.pageWaiting)
+      .invoiceWaiting(
+        token,
+        this.state.search,
+        this.state.pageWaiting,
+        filterSort,
+        filterStartDate,
+        filterEndDate,
+      )
       .then((res) => {
         this.setState({ isLoadingWaiting: false })
         this.props
@@ -213,6 +238,9 @@ class Invoice extends Component {
             res.action.payload.data.newToken,
             this.state.search,
             this.state.pageApproved,
+            filterSort,
+            filterStartDate,
+            filterEndDate,
           )
           .then(() => {
             this.setState({ isLoadingApproved: false })
@@ -221,6 +249,9 @@ class Invoice extends Component {
                 res.action.payload.data.newToken,
                 this.state.search,
                 this.state.pageRejected,
+                filterSort,
+                filterStartDate,
+                filterEndDate,
               )
               .then(() => {
                 this.setState({ isLoadingRejected: false })
@@ -229,6 +260,9 @@ class Invoice extends Component {
                     res.action.payload.data.newToken,
                     this.state.search,
                     this.state.pageProcessed,
+                    filterSort,
+                    filterStartDate,
+                    filterEndDate,
                   )
                   .then(() => {
                     this.setState({ isLoadingProcessed: false })
@@ -237,6 +271,9 @@ class Invoice extends Component {
                         res.action.payload.data.newToken,
                         this.state.search,
                         this.state.pageClosed,
+                        filterSort,
+                        filterStartDate,
+                        filterEndDate,
                       )
                       .then(() => {
                         this.setState({ isLoadingClosed: false })
@@ -1507,26 +1544,26 @@ class Invoice extends Component {
                 <ModalBody>
                   <h6>Start Date</h6>
                   <Input
-                    value={this.state.date}
+                    value={this.state.filterStartDate}
                     type="date"
-                    name="Date"
+                    name="filterStartDate"
                     className="mb-2 shadow-none"
                     onChange={this.handleChange}
                   />
                   <h6>End Date</h6>
                   <Input
-                    value={this.state.date}
+                    value={this.state.filterEndDate}
                     type="date"
-                    name="Date"
+                    name="filterEndDate"
                     className="mb-2 shadow-none"
                     onChange={this.handleChange}
                   />
                   <FormGroup>
                     <h6>Sort</h6>
                     <Input
-                      value={this.state.onTime}
+                      value={this.state.filterSort}
                       type="select"
-                      name="onTime"
+                      name="filterSort"
                       id="exampleSelect"
                       onChange={this.handleChange}
                     >
@@ -1550,7 +1587,7 @@ class Invoice extends Component {
                   </div>
                 </Button>
               ) : ( */}
-                  <Button color="secondary" onClick={this.toggleFilterModal}>
+                  <Button color="secondary" onClick={this.fetch}>
                     Submit
                   </Button>
                   {/* )} */}
