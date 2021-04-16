@@ -44,7 +44,9 @@ const ticketPoint = (dataSubmit) => ({
 
 const getTicketScore = (ticketId, assignId, token) => ({
   type: 'TICKETSCORE',
-  payload: axios(token).get(`${URL}api/v1/score/request/${ticketId}/${assignId}`),
+  payload: axios(token).get(
+    `${URL}api/v1/score/request/${ticketId}/${assignId}`,
+  ),
 })
 
 const getTicketPoint = (ticketId, assignId) => ({
@@ -67,9 +69,11 @@ const getTicketClosed = () => ({
   payload: axios().get(`${URL}api/v1/ticket/closed`),
 })
 
-const getAllTicket = (token, search, page) => ({
+const getAllTicket = (token, search, page, department, status, start, end) => ({
   type: 'ALLTICKET',
-  payload: axios(token).get(`${URL}api/v1/ticket?limit=15&search=${search}&page=${page}`),
+  payload: axios(token).get(
+    `${URL}api/v1/ticket?limit=15&search=${search}&page=${page}&departmentId=${department}&status=${status}&startDate=${start}&endDate=${end}`,
+  ),
 })
 
 const getTicketStats = (token) => ({
@@ -84,12 +88,19 @@ const statsTicketClosed = (token) => ({
 
 const exportAllTicket = (token) => ({
   type: 'TICKETSENT',
-  payload: axios(token).get(`${URL}api/v1/ticket?downloadPdf=1`, {responseType: 'blob'}),
+  payload: axios(token).get(`${URL}api/v1/ticket?downloadPdf=1`, {
+    responseType: 'blob',
+  }),
 })
 
 const exportDetailTicket = (token, ticketId) => ({
   type: 'TICKETSENT',
-  payload: axios(token).get(`${URL}api/v1/ticket/detailticket/${ticketId}?downloadPdf=1`, {responseType: 'blob'}),
+  payload: axios(token).get(
+    `${URL}api/v1/ticket/detailticket/${ticketId}?downloadPdf=1`,
+    {
+      responseType: 'blob',
+    },
+  ),
 })
 
 export {

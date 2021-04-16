@@ -73,31 +73,29 @@ import stylesBody from '../../assets/jss/material-dashboard-react/components/tas
 //   return makeStyles(styles);
 // }
 
-const options = [
-  { value: 'General', label: 'General' },
-  { value: 'Development', label: 'Development' },
-  { value: 'Networking', label: 'Networking' },
-]
 class Ticketing extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      showAddModal: false,
-      selectedOption: false,
       isLoading: true,
       isLoadingStats: true,
       isLoadingExportAllTicket: false,
       search: '',
       page: 1,
       showFilterModal: false,
+      filterDepartment: '',
+      filterStartDate: '',
+      filterEndDate: '',
+      filterStatus: '',
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleDepartmentChange = this.handleDepartmentChange.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.prevPage = this.prevPage.bind(this)
     this.nextPage = this.nextPage.bind(this)
-    this.toggleAddModal = this.toggleAddModal.bind(this)
     this.export = this.export.bind(this)
     this.toggleFilterModal = this.toggleFilterModal.bind(this)
+    this.fetch = this.fetch.bind(this)
   }
 
   toggleFilterModal() {
@@ -106,9 +104,12 @@ class Ticketing extends Component {
     })
   }
 
-  handleChange(selectedOption) {
-    this.setState({ selectedOption })
-    console.log(`Option selected:`, selectedOption)
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value })
+  }
+
+  handleDepartmentChange(e) {
+    this.setState({ filterDepartment: e.value })
   }
 
   handleSearch(event) {
@@ -136,19 +137,28 @@ class Ticketing extends Component {
     }
   }
 
-  toggleAddModal() {
-    this.setState({
-      showAddModal: !this.state.showAddModal,
-    })
-  }
-
   redirect() {
     this.props.history.push('/login')
   }
 
   fetch() {
+    this.setState({ isLoading: true, showFilterModal: false })
+    const {
+      filterDepartment,
+      filterStatus,
+      filterStartDate,
+      filterEndDate,
+    } = this.state
     this.props
-      .getAllTicket(this.props.login.token, this.state.search, this.state.page)
+      .getAllTicket(
+        this.props.login.token,
+        this.state.search,
+        this.state.page,
+        filterDepartment,
+        filterStatus,
+        filterStartDate,
+        filterEndDate,
+      )
       .then((res) => {
         this.props.newToken(res.action.payload.data.newToken)
         this.setState({ isLoading: false })
@@ -175,8 +185,22 @@ class Ticketing extends Component {
 
   componentDidMount() {
     this.setState({ isLoadingStats: true })
+    const {
+      filterDepartment,
+      filterStatus,
+      filterStartDate,
+      filterEndDate,
+    } = this.state
     this.props
-      .getAllTicket(this.props.login.token, this.state.search, this.state.page)
+      .getAllTicket(
+        this.props.login.token,
+        this.state.search,
+        this.state.page,
+        filterDepartment,
+        filterStatus,
+        filterStartDate,
+        filterEndDate,
+      )
       .then((res) => {
         this.setState({ isLoading: false })
         this.props
@@ -199,7 +223,6 @@ class Ticketing extends Component {
     const classes = makeStyles(styles)
     const classesHead = makeStyles(stylesHead)
     const classesBody = makeStyles(stylesBody)
-    const { selectedOption } = this.state
     const departmentData = this.props.department.dataDepartment
     return (
       <div>
@@ -622,8 +645,8 @@ class Ticketing extends Component {
                             </IconButton>
                           </div>
                           <div className="d-flex align-items-center">
-                              {this.state.page}
-                            </div>
+                            {this.state.page}
+                          </div>
                           <div className="p-2">
                             <IconButton onClick={this.nextPage}>
                               <ArrowRight
@@ -644,14 +667,6 @@ class Ticketing extends Component {
               <ModalHeader className="h1">Add Filter</ModalHeader>
               <Form>
                 <ModalBody>
-                  <h6>Name</h6>
-                  <Input
-                    value={this.state.name}
-                    type="text"
-                    name="name"
-                    className="mb-2 shadow-none"
-                    onChange={this.handleChange}
-                  />
                   <h6>Department</h6>
                   {this.state.isLoading ? (
                     <></>
@@ -666,39 +681,42 @@ class Ticketing extends Component {
                   )}
                   <h6>Start Date</h6>
                   <Input
-                    value={this.state.date}
+                    value={this.state.filterStartDate}
                     type="date"
-                    name="Date"
+                    name="filterStartDate"
                     className="mb-2 shadow-none"
                     onChange={this.handleChange}
                   />
                   <h6>End Date</h6>
                   <Input
-                    value={this.state.date}
+                    value={this.state.filterEndDate}
                     type="date"
-                    name="Date"
+                    name="filterEndDate"
                     className="mb-2 shadow-none"
                     onChange={this.handleChange}
                   />
                   <FormGroup>
                     <h6>Status</h6>
                     <Input
-                      value={this.state.onTime}
+                      value={this.state.filterStatus}
                       type="select"
-                      name="onTime"
+                      name="filterStatus"
                       id="exampleSelect"
                       onChange={this.handleChange}
                     >
-                      <option key={0} value={0}>
-                        Open
+                      <option key={0} value="">
+                        All
                       </option>
                       <option key={1} value={1}>
-                        Processed
+                        Open
                       </option>
                       <option key={2} value={2}>
-                        Solved
+                        Processed
                       </option>
                       <option key={3} value={3}>
+                        Solved
+                      </option>
+                      <option key={4} value={4}>
                         Closed
                       </option>
                     </Input>
@@ -715,61 +733,11 @@ class Ticketing extends Component {
                   </div>
                 </Button>
               ) : ( */}
-                  <Button color="secondary" onClick={this.toggleFilterModal}>
+                  <Button color="secondary" onClick={this.fetch}>
                     Submit
                   </Button>
                   {/* )} */}
                   <Button color="primary" onClick={this.toggleFilterModal}>
-                    Cancel
-                  </Button>
-                </ModalFooter>
-              </Form>
-            </Modal>
-            {/* Add Modal */}
-            <Modal isOpen={this.state.showAddModal}>
-              <ModalHeader className="h1">Add Report</ModalHeader>
-              <Form>
-                <ModalBody>
-                  <h6>Title</h6>
-                  <Input
-                    type="text"
-                    name="title"
-                    className="mb-2 shadow-none"
-                    onChange={this.handleChange}
-                  />
-                  <h6>Description</h6>
-                  <Input
-                    type="textarea"
-                    name="description"
-                    className="mb-3 shadow-none"
-                    onChange={this.handleChange}
-                  />
-                  <h6>Department</h6>
-                  {/* <Input type='select' name='genre' className="mb-3 shadow-none" onChange={this.handleChange} 
-									 value={this.state.genre}>
-                    {this.state.genreList.map((genre, index) =>(
-                    <option className="list-group-item bg-light" value={genre.id}>{genre.name}</option>
-                    ))}
-                  </Input>  */}
-                  {/* REACT-SELECT */}
-                  <Select
-                    value={selectedOption}
-                    onChange={this.handleChange}
-                    options={options}
-                  />
-                  <h6>Cover Folder (PDF Maks. 10 Mb)</h6>
-                  {/* <Input
-                type="file"
-                name="image"
-                className="mb-2"
-                onChange={}
-              /> */}
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="primary" onClick={this.addBook}>
-                    Add Report
-                  </Button>
-                  <Button color="secondary" onClick={this.toggleAddModal}>
                     Cancel
                   </Button>
                 </ModalFooter>
