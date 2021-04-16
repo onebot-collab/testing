@@ -421,7 +421,7 @@ class Announcement extends Component {
                     </center>
                   ) : (
                     <>
-                      <CardHeader color="danger">
+                      <CardHeader>
                         <div className="d-flex flex-row justify-content-between">
                           <h4 className={classes.cardTitleWhite}>
                             Announcement

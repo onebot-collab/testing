@@ -1155,6 +1155,19 @@ class UserDetail extends Component {
                                 </Link>
                               </ListItemText>
                             </ListItem>
+                            <ListItem>
+                              <ListItemIcon>
+                                <AccountTree />
+                              </ListItemIcon>
+                              <ListItemText>
+                                <Link
+                                  to="/admin/user/editPersonal"
+                                  className="btn btn-danger m-2 my-sm-0"
+                                >
+                                  EDIT
+                                </Link>
+                              </ListItemText>
+                            </ListItem>
                           </List>
                         </div>
                       </CardBody>

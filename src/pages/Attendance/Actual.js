@@ -244,7 +244,7 @@ class Attendance extends Component {
                     </center>
                   ) : (
                     <>
-                      <CardHeader color="danger">
+                      <CardHeader>
                         <div className="d-flex flex-row justify-content-between">
                           <h4 className="col-12 col-sm-12">Attendance</h4>
                           {/* <p className="col-6 col-sm-12">
