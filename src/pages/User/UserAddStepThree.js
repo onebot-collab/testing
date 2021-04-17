@@ -287,6 +287,66 @@ class UserAddStepThree extends Component {
         },
       ]),
     )
+    dataSubmit.append(
+      'dataUserOnHand',
+      JSON.stringify([
+        {
+          title: this.props.user.dataFormTwo.titleAssets1,
+          description: this.props.user.dataFormTwo.descAssets1,
+        },
+        {
+          title: this.props.user.dataFormTwo.titleAssets2,
+          description: this.props.user.dataFormTwo.descAssets2,
+        },
+        {
+          title: this.props.user.dataFormTwo.titleAssets3,
+          description: this.props.user.dataFormTwo.descAssets3,
+        },
+        {
+          title: this.props.user.dataFormTwo.titleAssets4,
+          description: this.props.user.dataFormTwo.descAssets4,
+        },
+        {
+          title: this.props.user.dataFormTwo.titleAssets5,
+          description: this.props.user.dataFormTwo.descAssets5,
+        },
+      ]),
+    )
+    dataSubmit.append('onHand1', this.props.user.dataFormTwo.fileAssets1)
+    dataSubmit.append('onHand2', this.props.user.dataFormTwo.fileAssets2)
+    dataSubmit.append('onHand3', this.props.user.dataFormTwo.fileAssets3)
+    dataSubmit.append('onHand4', this.props.user.dataFormTwo.fileAssets4)
+    dataSubmit.append('onHand5', this.props.user.dataFormTwo.fileAssets5)
+    dataSubmit.append(
+      'dataUserOffHand',
+      JSON.stringify([
+        {
+          title: this.props.user.dataFormTwo.titleAssetsOff1,
+          description: this.props.user.dataFormTwo.descAssetsOff1,
+        },
+        {
+          title: this.props.user.dataFormTwo.titleAssetsOff2,
+          description: this.props.user.dataFormTwo.descAssetsOff2,
+        },
+        {
+          title: this.props.user.dataFormTwo.titleAssetsOff3,
+          description: this.props.user.dataFormTwo.descAssetsOff3,
+        },
+        {
+          title: this.props.user.dataFormTwo.titleAssetsOff4,
+          description: this.props.user.dataFormTwo.descAssetsOff4,
+        },
+        {
+          title: this.props.user.dataFormTwo.titleAssetsOff5,
+          description: this.props.user.dataFormTwo.descAssetsOff5,
+        },
+      ]),
+    )
+    dataSubmit.append('offHand1', this.props.user.dataFormTwo.fileAssetsOff1)
+    dataSubmit.append('offHand2', this.props.user.dataFormTwo.fileAssetsOff2)
+    dataSubmit.append('offHand3', this.props.user.dataFormTwo.fileAssetsOff3)
+    dataSubmit.append('offHand4', this.props.user.dataFormTwo.fileAssetsOff4)
+    dataSubmit.append('offHand5', this.props.user.dataFormTwo.fileAssetsOff5)
     dataSubmit.append('email', this.state.email)
     dataSubmit.append('password', this.state.password)
     dataSubmit.append('joineddate', joinedDate)
