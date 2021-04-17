@@ -1,7 +1,7 @@
 import qs from 'querystring'
 import axios from '../../services/axios'
 import fcm from '../../services/fcm'
-const URL = 'http://10.7.10.15:8443/node/'
+const URL = 'http://10.7.10.6:8443/node/'
 
 const getAllFcm = () => ({
   type: 'ALLFCM',
