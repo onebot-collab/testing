@@ -72,6 +72,7 @@ class CalendarScreen extends Component {
     this.state = {
       // date: new Date(),
       showAddModal: false,
+      showFilterModal: false,
       title: '',
       dateAdd: '',
       description: '',
@@ -82,8 +83,10 @@ class CalendarScreen extends Component {
       isLoadingDelete: false,
       search: '',
       page: 1,
+      filterDate: '',
     }
     this.toggleAddModal = this.toggleAddModal.bind(this)
+    this.toggleFilterModal = this.toggleFilterModal.bind(this)
     this.addReminder = this.addReminder.bind(this)
     this.deleteAct = this.deleteAct.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -214,6 +217,12 @@ class CalendarScreen extends Component {
     })
   }
 
+  toggleFilterModal() {
+    this.setState({
+      showFilterModal: !this.state.showFilterModal,
+    })
+  }
+
   toggleDeleteModal(id) {
     this.setState({
       showDeleteModal: !this.state.showDeleteModal,
@@ -226,7 +235,7 @@ class CalendarScreen extends Component {
   }
 
   fetchReminder(day) {
-    this.setState({ isLoadingFetchReminder: true })
+    this.setState({ isLoadingFetchReminder: true, showFilterModal: false })
     const dataSubmit = {
       date: day,
     }
@@ -306,7 +315,7 @@ class CalendarScreen extends Component {
                         <button
                           className="btn m-2 my-sm-0"
                           type="submit"
-                          onClick={this.toggleAddModal}
+                          onClick={this.toggleFilterModal}
                         >
                           <Tooltip
                             id="tooltip-top-start"
@@ -584,6 +593,44 @@ class CalendarScreen extends Component {
                     </Button>
                   )}
                   <Button color="primary" onClick={this.toggleAddModal}>
+                    Cancel
+                  </Button>
+                </ModalFooter>
+              </Form>
+            </Modal>
+            {/* Filter Modal */}
+            <Modal isOpen={this.state.showFilterModal}>
+              <ModalHeader className="h1">Filter Event</ModalHeader>
+              <Form>
+                <ModalBody>
+                  <h6>Date</h6>
+                  <Input
+                    value={this.state.filterDate}
+                    type="date"
+                    name="filterDate"
+                    className="mb-2 shadow-none"
+                    onChange={this.handleChange}
+                  />
+                </ModalBody>
+                <ModalFooter>
+                  {this.state.isLoadingAddReminder ? (
+                    <Button color="primary">
+                      <div
+                        className="spinner-border spinner-border-sm text-danger"
+                        role="status"
+                      >
+                        <span className="sr-only">Loading...</span>
+                      </div>
+                    </Button>
+                  ) : (
+                    <Button
+                      color="secondary"
+                      onClick={() => this.fetchReminder(this.state.filterDate)}
+                    >
+                      Submit
+                    </Button>
+                  )}
+                  <Button color="primary" onClick={this.toggleFilterModal}>
                     Cancel
                   </Button>
                 </ModalFooter>
