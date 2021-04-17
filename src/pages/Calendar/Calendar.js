@@ -37,6 +37,7 @@ import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
 import Visibility from '@material-ui/icons/Visibility'
 import Delete from '@material-ui/icons/Delete'
+import Sort from '@material-ui/icons/Sort'
 // core components
 import {
   createReminder,
@@ -301,13 +302,32 @@ class CalendarScreen extends Component {
                             placeholder="Type Something ..."
                             aria-label="Search"
                           ></input>
-                          <button
-                            className="btn btn-outline-light my-2 my-sm-0"
-                            type="submit"
-                          >
-                            Search
-                          </button>
                         </form>
+                        <button
+                          className="btn m-2 my-sm-0"
+                          type="submit"
+                          onClick={this.toggleAddModal}
+                        >
+                          <Tooltip
+                            id="tooltip-top-start"
+                            title="Add"
+                            placement="top"
+                            classes={{
+                              tooltip: classesBody.tooltip,
+                            }}
+                          >
+                            {this.state.isLoadingExportAllLog ? (
+                              <div
+                                className="spinner-border spinner-border-sm text-white"
+                                role="status"
+                              >
+                                <span className="sr-only">Loading...</span>
+                              </div>
+                            ) : (
+                              <Sort className="iconWhiteColor" />
+                            )}
+                          </Tooltip>
+                        </button>
                         <button
                           className="btn m-2 my-sm-0"
                           type="submit"
