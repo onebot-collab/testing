@@ -35,7 +35,7 @@ import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 // import Button from '../../components/CustomButtons/Button'
 import Card from '../../components/Card/Card'
-import CardHeader from '../../components/Card/CardHeader'
+import CardIcon from '../../components/Card/CardIcon'
 import CardBody from '../../components/Card/CardBody'
 // import CardFooter from '../../components/Card/CardFooter'
 
@@ -256,7 +256,7 @@ class User extends Component {
                         </center>
                       ) : (
                         <>
-                          <CardHeader color="red">
+                          <CardIcon color="danger">
                             <nav className="navbar d-flex justify-content-end">
                               <form className="form-inline">
                                 <input
@@ -268,7 +268,7 @@ class User extends Component {
                                   aria-label="Search"
                                 ></input>
                                 <button
-                                  className="btn btn-outline-danger my-2 my-sm-0"
+                                  className="btn btn-outline-light my-2 my-sm-0"
                                   type="submit"
                                 >
                                   Search
@@ -276,7 +276,7 @@ class User extends Component {
                               </form>
                               <Link
                                 to="/admin/user/stepOne"
-                                className="btn btn-danger my-2 mx-2 my-sm-0"
+                                className="btn my-2 mx-2 my-sm-0"
                               >
                                 <Tooltip
                                   id="tooltip-top-start"
@@ -292,7 +292,7 @@ class User extends Component {
                               </Link>
                               {/* </button> */}
                             </nav>
-                          </CardHeader>
+                          </CardIcon>
                           <CardBody>
                             <TableContainer>
                               <Table className={classesHead.table}>
@@ -335,7 +335,7 @@ class User extends Component {
                                         className={classesBody.tablePicture}
                                       >
                                         <Avatar
-                                          src={`http://10.7.10.15:8443/node/${res.photo_url}?boAgRwlfX5=${this.props.login.token}`}
+                                          src={`http://10.7.10.6:8443/node/${res.photo_url}?boAgRwlfX5=${this.props.login.token}`}
                                         />
                                       </TableCell>
                                       <TableCell

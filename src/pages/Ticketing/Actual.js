@@ -344,7 +344,7 @@ class Ticketing extends Component {
                     </center>
                   ) : (
                     <>
-                      <CardHeader>
+                      <CardIcon color="danger">
                         <nav className="navbar d-flex justify-content-end">
                           <div className="d-flex flex-row">
                             <form className="form-inline mr-5">
@@ -357,14 +357,14 @@ class Ticketing extends Component {
                                 aria-label="Search"
                               ></input>
                               <button
-                                className="btn btn-outline-danger my-2 my-sm-0"
+                                className="btn btn-outline-light my-2 my-sm-0"
                                 type="submit"
                               >
                                 Search
                               </button>
                             </form>
                             <button
-                              className="btn btn-danger m-2 my-sm-0"
+                              className="btn m-2 my-sm-0"
                               type="submit"
                               onClick={this.toggleFilterModal}
                             >
@@ -389,7 +389,7 @@ class Ticketing extends Component {
                               </Tooltip>
                             </button>
                             <button
-                              className="btn btn-danger my-2 my-sm-0"
+                              className="btn my-2 my-sm-0"
                               type="submit"
                               onClick={this.export}
                             >
@@ -415,7 +415,7 @@ class Ticketing extends Component {
                             </button>
                           </div>
                         </nav>
-                      </CardHeader>
+                      </CardIcon>
                       <CardBody>
                         <TableContainer>
                           <Table className={classesHead.table}>

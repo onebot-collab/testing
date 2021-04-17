@@ -57,7 +57,7 @@ import { newToken } from '../../redux/actions/login'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
-import CardHeader from '../../components/Card/CardHeader'
+import CardIcon from '../../components/Card/CardIcon'
 import CardBody from '../../components/Card/CardBody'
 
 // Add Reactstrap Modal
@@ -325,7 +325,7 @@ class Announcement extends Component {
                     </center>
                   ) : (
                     <>
-                      <CardHeader>
+                      <CardIcon color="danger">
                         <nav className="navbar d-flex justify-content-end">
                           <div className="d-flex flex-row">
                             <form className="form-inline mr-5">
@@ -338,14 +338,14 @@ class Announcement extends Component {
                                 aria-label="Search"
                               ></input>
                               <button
-                                className="btn btn-outline-danger my-2 my-sm-0"
+                                className="btn btn-outline-light my-2 my-sm-0"
                                 type="submit"
                               >
                                 Search
                               </button>
                             </form>
                             <button
-                              className="btn btn-danger m-2 my-sm-0"
+                              className="btn m-2 my-sm-0"
                               type="submit"
                               onClick={this.toggleFilterModal}
                             >
@@ -370,7 +370,7 @@ class Announcement extends Component {
                               </Tooltip>
                             </button>
                             <button
-                              className="btn btn-danger m-2 my-sm-0"
+                              className="btn m-2 my-sm-0"
                               type="submit"
                               onClick={this.export}
                             >
@@ -395,7 +395,7 @@ class Announcement extends Component {
                               </Tooltip>
                             </button>
                             <button
-                              className="btn btn-danger m-2 my-sm-0"
+                              className="btn m-2 my-sm-0"
                               type="submit"
                               onClick={this.toggleAddModal}
                             >
@@ -421,7 +421,7 @@ class Announcement extends Component {
                             </button>
                           </div>
                         </nav>
-                      </CardHeader>
+                      </CardIcon>
                       <CardBody>
                         <TableContainer>
                           <Table className={classesHead.table}>

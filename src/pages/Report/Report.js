@@ -47,7 +47,7 @@ import { getDepartment } from '../../redux/actions/department'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
-import CardHeader from '../../components/Card/CardHeader'
+import CardIcon from '../../components/Card/CardIcon'
 import CardBody from '../../components/Card/CardBody'
 
 // core components
@@ -178,7 +178,7 @@ class Report extends Component {
                     </center>
                   ) : (
                     <>
-                      <CardHeader>
+                      <CardIcon color="danger">
                         <nav className="navbar d-flex justify-content-end">
                           <form className="form-inline mr-5">
                             <input
@@ -190,14 +190,14 @@ class Report extends Component {
                               aria-label="Search"
                             ></input>
                             <button
-                              className="btn btn-outline-danger my-2 my-sm-0"
+                              className="btn btn-outline-light my-2 my-sm-0"
                               type="submit"
                             >
                               Search
                             </button>
                           </form>
                           <button
-                            className="btn btn-danger m-2 my-sm-0"
+                            className="btn m-2 my-sm-0"
                             type="submit"
                             onClick={this.toggleFilterModal}
                           >
@@ -222,7 +222,7 @@ class Report extends Component {
                             </Tooltip>
                           </button>
                         </nav>
-                      </CardHeader>
+                      </CardIcon>
                       <CardBody>
                         <TableContainer>
                           <Table className={classesHead.table}>

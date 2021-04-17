@@ -49,8 +49,9 @@ import { newToken } from '../../redux/actions/login'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
-import CardHeader from '../../components/Card/CardHeader'
+// import CardHeader from '../../components/Card/CardHeader'
 import CardBody from '../../components/Card/CardBody'
+import CardIcon from '../../components/Card/CardIcon'
 
 // core components
 // import styles from '../../assets/jss/material-dashboard-react/views/dashboardStyle'
@@ -173,10 +174,7 @@ class Attendance extends Component {
                     </center>
                   ) : (
                     <>
-                      <CardHeader>
-                        {/* <div className="d-flex flex-row justify-content-between">
-                          <h4 className="col-12 col-sm-12">Attendance</h4>
-                        </div> */}
+                      <CardIcon color="danger">
                         <nav className="navbar d-flex justify-content-end">
                           <div className="d-flex flex-row">
                             <form className="form-inline mr-5">
@@ -189,14 +187,14 @@ class Attendance extends Component {
                                 aria-label="Search"
                               ></input>
                               <button
-                                className="btn btn-outline-danger my-2 my-sm-0"
+                                className="btn btn-outline-light my-2 my-sm-0"
                                 type="submit"
                               >
                                 Search
                               </button>
                             </form>
                             <button
-                              className="btn btn-danger m-2 my-sm-0"
+                              className="btn m-2 my-sm-0"
                               type="submit"
                               onClick={this.toggleFilterModal}
                             >
@@ -221,7 +219,7 @@ class Attendance extends Component {
                               </Tooltip>
                             </button>
                             <button
-                              className="btn btn-danger m-2 my-sm-0"
+                              className="btn m-2 my-sm-0"
                               type="submit"
                               onClick={this.export}
                             >
@@ -247,7 +245,8 @@ class Attendance extends Component {
                             </button>
                           </div>
                         </nav>
-                      </CardHeader>
+                      </CardIcon>
+
                       <CardBody>
                         <TableContainer>
                           <Table className={classesHead.table}>

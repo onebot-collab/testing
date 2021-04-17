@@ -50,7 +50,7 @@ import { newToken } from '../../redux/actions/login'
 import GridItem from '../../components/Grid/GridItem'
 import GridContainer from '../../components/Grid/GridContainer'
 import Card from '../../components/Card/Card'
-import CardHeader from '../../components/Card/CardHeader'
+import CardIcon from '../../components/Card/CardIcon'
 import CardBody from '../../components/Card/CardBody'
 import CardFooter from '../../components/Card/CardFooter'
 
@@ -184,7 +184,6 @@ class CalendarScreen extends Component {
   }
 
   deleteAct() {
-    console.log(this.state.deleteId)
     this.setState({ isLoadingDelete: true })
     this.props
       .deleteReminder(this.state.deleteId, this.props.login.token)
@@ -268,10 +267,10 @@ class CalendarScreen extends Component {
             <GridContainer>
               <GridItem xs={12} sm={12} md={8}>
                 <Card>
-                  <CardHeader color="danger">
+                  <CardIcon color="danger">
                     <h4 className="cardTitleWhite">Event</h4>
                     {/* <p className="cardCategoryWhite">by Admin</p> */}
-                  </CardHeader>
+                  </CardIcon>
                   <CardBody>
                     <div style={{ height: '500px' }}>
                       <Calendar
@@ -290,10 +289,10 @@ class CalendarScreen extends Component {
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
                 <Card>
-                  <CardHeader>
+                  <CardIcon color="danger">
                     <nav className="navbar d-flex justify-content-end">
                       <div className="d-flex flex-row">
-                        <form className="form-inline mr-5">
+                        <form className="form-inline mr-3">
                           <input
                             className="form-control mr-sm-2"
                             type="search"
@@ -303,14 +302,14 @@ class CalendarScreen extends Component {
                             aria-label="Search"
                           ></input>
                           <button
-                            className="btn btn-outline-danger my-2 my-sm-0"
+                            className="btn btn-outline-light my-2 my-sm-0"
                             type="submit"
                           >
                             Search
                           </button>
                         </form>
                         <button
-                          className="btn btn-danger m-2 my-sm-0"
+                          className="btn m-2 my-sm-0"
                           type="submit"
                           onClick={this.toggleAddModal}
                         >
@@ -336,7 +335,7 @@ class CalendarScreen extends Component {
                         </button>
                       </div>
                     </nav>
-                  </CardHeader>
+                  </CardIcon>
                   <CardBody>
                     <TableContainer>
                       <Table className={classesHead.table}>
