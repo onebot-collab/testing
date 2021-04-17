@@ -16,7 +16,15 @@ import { NavigateBefore, NavigateNext, Add, Remove } from '@material-ui/icons'
 // import MenuItem from '@material-ui/core/MenuItem'
 // import TablePagination from '@material-ui/core/TablePagination'
 // Reactstrap/code
-import { Col, Row, Form, FormGroup, Label, Input } from 'reactstrap'
+import {
+  Col,
+  Row,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  CustomInput,
+} from 'reactstrap'
 // @material-ui/icons components
 // core components
 import GridItem from '../../components/Grid/GridItem'
@@ -147,12 +155,51 @@ class UserAddStepTwo extends Component {
       work3: false,
       work4: false,
       work5: false,
+      titleAssets1: '',
+      titleAssets2: '',
+      titleAssets3: '',
+      titleAssets4: '',
+      titleAssets5: '',
+      descAssets1: '',
+      descAssets2: '',
+      descAssets3: '',
+      descAssets4: '',
+      descAssets5: '',
+      fileAssets1: '',
+      fileAssets2: '',
+      fileAssets3: '',
+      fileAssets4: '',
+      fileAssets5: '',
+      assets2: false,
+      assets3: false,
+      assets4: false,
+      assets5: false,
+      titleAssetsOff2: '',
+      titleAssetsOff3: '',
+      titleAssetsOff4: '',
+      titleAssetsOff5: '',
+      descAssetsOff1: '',
+      descAssetsOff2: '',
+      descAssetsOff3: '',
+      descAssetsOff4: '',
+      descAssetsOff5: '',
+      fileAssetsOff1: '',
+      fileAssetsOff2: '',
+      fileAssetsOff3: '',
+      fileAssetsOff4: '',
+      fileAssetsOff5: '',
+      assetsOff2: false,
+      assetsOff3: false,
+      assetsOff4: false,
+      assetsOff5: false,
     }
     this.handleChange = this.handleChange.bind(this)
     this.nextPage = this.nextPage.bind(this)
     this.addEducation = this.addEducation.bind(this)
     this.addFamily = this.addFamily.bind(this)
     this.addWork = this.addWork.bind(this)
+    this.addAsset = this.addAsset.bind(this)
+    this.addAssetOff = this.addAssetOff.bind(this)
   }
 
   handleChange(event) {
@@ -261,6 +308,36 @@ class UserAddStepTwo extends Component {
       workSalary3: this.state.workSalary3,
       workSalary4: this.state.workSalary4,
       workSalary5: this.state.workSalary5,
+      titleAssets1: this.state.titleAssets1,
+      titleAssets2: this.state.titleAssets2,
+      titleAssets3: this.state.titleAssets3,
+      titleAssets4: this.state.titleAssets4,
+      titleAssets5: this.state.titleAssets5,
+      descAssets1: this.state.descAssets1,
+      descAssets2: this.state.descAssets2,
+      descAssets3: this.state.descAssets3,
+      descAssets4: this.state.descAssets4,
+      descAssets5: this.state.descAssets5,
+      fileAssets1: this.state.fileAssets1,
+      fileAssets2: this.state.fileAssets2,
+      fileAssets3: this.state.fileAssets3,
+      fileAssets4: this.state.fileAssets4,
+      fileAssets5: this.state.fileAssets5,
+      titleAssetsOff1: this.state.titleAssetsOff1,
+      titleAssetsOff2: this.state.titleAssetsOff2,
+      titleAssetsOff3: this.state.titleAssetsOff3,
+      titleAssetsOff4: this.state.titleAssetsOff4,
+      titleAssetsOff5: this.state.titleAssetsOff5,
+      descAssetsOff1: this.state.descAssetsOff1,
+      descAssetsOff2: this.state.descAssetsOff2,
+      descAssetsOff3: this.state.descAssetsOff3,
+      descAssetsOff4: this.state.descAssetsOff4,
+      descAssetsOff5: this.state.descAssetsOff5,
+      fileAssetsOff1: this.state.fileAssetsOff1,
+      fileAssetsOff2: this.state.fileAssetsOff2,
+      fileAssetsOff3: this.state.fileAssetsOff3,
+      fileAssetsOff4: this.state.fileAssetsOff4,
+      fileAssetsOff5: this.state.fileAssetsOff5,
     }
 
     this.props.formTwo(dataSubmit)
@@ -302,6 +379,30 @@ class UserAddStepTwo extends Component {
       this.setState({ work4: true })
     } else {
       this.setState({ work5: true })
+    }
+  }
+
+  addAsset() {
+    if (!this.state.assets2) {
+      this.setState({ assets2: true })
+    } else if (!this.state.assets3) {
+      this.setState({ assets3: true })
+    } else if (!this.state.assets4) {
+      this.setState({ assets4: true })
+    } else {
+      this.setState({ assets5: true })
+    }
+  }
+
+  addAssetOff() {
+    if (!this.state.assetsOff2) {
+      this.setState({ assetsOff2: true })
+    } else if (!this.state.assetsOff3) {
+      this.setState({ assetsOff3: true })
+    } else if (!this.state.assetsOff4) {
+      this.setState({ assetsOff4: true })
+    } else {
+      this.setState({ assetsOff5: true })
     }
   }
 
@@ -1952,6 +2053,556 @@ class UserAddStepTwo extends Component {
                                   value={this.state.workSalary5}
                                   name="workSalary5"
                                   onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                        </Col>
+                      ) : (
+                        <></>
+                      )}
+                      <Col form>
+                        <div className="d-flex justify-content-between mt-5">
+                          <h5>Assets On Hand</h5>
+                          <button
+                            className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
+                            type="button"
+                            onClick={this.addAsset}
+                          >
+                            <Add />
+                          </button>
+                        </div>
+                        <Row form>
+                          <Col xs={12} sm={12} md={2}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Title</Label>
+                              <Input
+                                value={this.state.titleAssets1}
+                                name="titleAssets1"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={4}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Description</Label>
+                              <Input
+                                value={this.state.descAssets1}
+                                name="descAssets1"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={6}>
+                            <FormGroup>
+                              <Label for="exampleCustomFileBrowser">
+                                Assets
+                              </Label>
+                              <CustomInput
+                                type="file"
+                                id="exampleCustomFileBrowser"
+                                name="profilePicture"
+                                onChange={(e) =>
+                                  this.setState({
+                                    fileAssets1: e.target.files[0],
+                                  })
+                                }
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                      </Col>
+                      {this.state.assets2 ? (
+                        <Col form>
+                          <div className="d-flex justify-content-between">
+                            <h5>Assets 2</h5>
+                            <button
+                              className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
+                              type="button"
+                              onClick={() => this.setState({ assets2: false })}
+                            >
+                              <Remove />
+                            </button>
+                          </div>
+                          <Row form>
+                            <Col xs={12} sm={12} md={2}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Title</Label>
+                                <Input
+                                  value={this.state.titleAssets2}
+                                  name="titleAssets2"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={4}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Description</Label>
+                                <Input
+                                  value={this.state.descAssets2}
+                                  name="descAssets2"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={6}>
+                              <FormGroup>
+                                <Label for="exampleCustomFileBrowser">
+                                  Assets
+                                </Label>
+                                <CustomInput
+                                  type="file"
+                                  id="exampleCustomFileBrowser"
+                                  name="profilePicture"
+                                  onChange={(e) =>
+                                    this.setState({
+                                      fileAssets2: e.target.files[0],
+                                    })
+                                  }
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                        </Col>
+                      ) : (
+                        <></>
+                      )}
+                      {this.state.assets3 ? (
+                        <Col form>
+                          <div className="d-flex justify-content-between">
+                            <h5>Assets 3</h5>
+                            <button
+                              className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
+                              type="button"
+                              onClick={() => this.setState({ assets3: false })}
+                            >
+                              <Remove />
+                            </button>
+                          </div>
+                          <Row form>
+                            <Col xs={12} sm={12} md={2}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Title</Label>
+                                <Input
+                                  value={this.state.titleAssets3}
+                                  name="titleAssets3"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={4}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Description</Label>
+                                <Input
+                                  value={this.state.descAssets3}
+                                  name="descAssets3"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={6}>
+                              <FormGroup>
+                                <Label for="exampleCustomFileBrowser">
+                                  Assets
+                                </Label>
+                                <CustomInput
+                                  type="file"
+                                  id="exampleCustomFileBrowser"
+                                  name="profilePicture"
+                                  onChange={(e) =>
+                                    this.setState({
+                                      fileAssets3: e.target.files[0],
+                                    })
+                                  }
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                        </Col>
+                      ) : (
+                        <></>
+                      )}
+                      {this.state.assets4 ? (
+                        <Col form>
+                          <div className="d-flex justify-content-between">
+                            <h5>Assets 4</h5>
+                            <button
+                              className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
+                              type="button"
+                              onClick={() => this.setState({ assets4: false })}
+                            >
+                              <Remove />
+                            </button>
+                          </div>
+                          <Row form>
+                            <Col xs={12} sm={12} md={2}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Title</Label>
+                                <Input
+                                  value={this.state.titleAssets4}
+                                  name="titleAssets4"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={4}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Description</Label>
+                                <Input
+                                  value={this.state.descAssets4}
+                                  name="descAssets4"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={6}>
+                              <FormGroup>
+                                <Label for="exampleCustomFileBrowser">
+                                  Assets
+                                </Label>
+                                <CustomInput
+                                  type="file"
+                                  id="exampleCustomFileBrowser"
+                                  name="profilePicture"
+                                  onChange={(e) =>
+                                    this.setState({
+                                      fileAssets4: e.target.files[0],
+                                    })
+                                  }
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                        </Col>
+                      ) : (
+                        <></>
+                      )}
+                      {this.state.assets5 ? (
+                        <Col form>
+                          <div className="d-flex justify-content-between">
+                            <h5>Assets 5</h5>
+                            <button
+                              className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
+                              type="button"
+                              onClick={() => this.setState({ assets5: false })}
+                            >
+                              <Remove />
+                            </button>
+                          </div>
+                          <Row form>
+                            <Col xs={12} sm={12} md={2}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Title</Label>
+                                <Input
+                                  value={this.state.titleAssets5}
+                                  name="titleAssets5"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={4}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Description</Label>
+                                <Input
+                                  value={this.state.descAssets5}
+                                  name="descAssets5"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={6}>
+                              <FormGroup>
+                                <Label for="exampleCustomFileBrowser">
+                                  Assets
+                                </Label>
+                                <CustomInput
+                                  type="file"
+                                  id="exampleCustomFileBrowser"
+                                  name="profilePicture"
+                                  onChange={(e) =>
+                                    this.setState({
+                                      fileAssets5: e.target.files[0],
+                                    })
+                                  }
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                        </Col>
+                      ) : (
+                        <></>
+                      )}
+                      <Col form>
+                        <div className="d-flex justify-content-between mt-5">
+                          <h5>Assets Off Hand</h5>
+                          <button
+                            className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
+                            type="button"
+                            onClick={this.addAssetOff}
+                          >
+                            <Add />
+                          </button>
+                        </div>
+                        <Row form>
+                          <Col xs={12} sm={12} md={2}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Title</Label>
+                              <Input
+                                value={this.state.titleAssetsOff1}
+                                name="titleAssetsOff1"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={4}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Description</Label>
+                              <Input
+                                value={this.state.descAssetsOff1}
+                                name="descAssetsOff1"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={6}>
+                            <FormGroup>
+                              <Label for="exampleCustomFileBrowser">
+                                Assets
+                              </Label>
+                              <CustomInput
+                                type="file"
+                                id="exampleCustomFileBrowser"
+                                name="profilePicture"
+                                onChange={(e) =>
+                                  this.setState({
+                                    fileAssetsOff1: e.target.files[0],
+                                  })
+                                }
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                      </Col>
+                      {this.state.assetsOff2 ? (
+                        <Col form>
+                          <div className="d-flex justify-content-between">
+                            <h5>Assets 2</h5>
+                            <button
+                              className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
+                              type="button"
+                              onClick={() =>
+                                this.setState({ assetsOff2: false })
+                              }
+                            >
+                              <Remove />
+                            </button>
+                          </div>
+                          <Row form>
+                            <Col xs={12} sm={12} md={2}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Title</Label>
+                                <Input
+                                  value={this.state.titleAssetsOff2}
+                                  name="titleAssetsOff2"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={4}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Description</Label>
+                                <Input
+                                  value={this.state.descAssetsOff2}
+                                  name="descAssetsOff2"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={6}>
+                              <FormGroup>
+                                <Label for="exampleCustomFileBrowser">
+                                  Assets
+                                </Label>
+                                <CustomInput
+                                  type="file"
+                                  id="exampleCustomFileBrowser"
+                                  name="profilePicture"
+                                  onChange={(e) =>
+                                    this.setState({
+                                      fileAssetsOff2: e.target.files[0],
+                                    })
+                                  }
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                        </Col>
+                      ) : (
+                        <></>
+                      )}
+                      {this.state.assetsOff3 ? (
+                        <Col form>
+                          <div className="d-flex justify-content-between">
+                            <h5>Assets 3</h5>
+                            <button
+                              className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
+                              type="button"
+                              onClick={() =>
+                                this.setState({ assetsOff3: false })
+                              }
+                            >
+                              <Remove />
+                            </button>
+                          </div>
+                          <Row form>
+                            <Col xs={12} sm={12} md={2}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Title</Label>
+                                <Input
+                                  value={this.state.titleAssetsOff3}
+                                  name="titleAssetsOff3"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={4}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Description</Label>
+                                <Input
+                                  value={this.state.descAssetsOff3}
+                                  name="descAssetsOff3"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={6}>
+                              <FormGroup>
+                                <Label for="exampleCustomFileBrowser">
+                                  Assets
+                                </Label>
+                                <CustomInput
+                                  type="file"
+                                  id="exampleCustomFileBrowser"
+                                  name="profilePicture"
+                                  onChange={(e) =>
+                                    this.setState({
+                                      fileAssetsOff3: e.target.files[0],
+                                    })
+                                  }
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                        </Col>
+                      ) : (
+                        <></>
+                      )}
+                      {this.state.assetsOff4 ? (
+                        <Col form>
+                          <div className="d-flex justify-content-between">
+                            <h5>Assets 4</h5>
+                            <button
+                              className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
+                              type="button"
+                              onClick={() =>
+                                this.setState({ assetsOff4: false })
+                              }
+                            >
+                              <Remove />
+                            </button>
+                          </div>
+                          <Row form>
+                            <Col xs={12} sm={12} md={2}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Title</Label>
+                                <Input
+                                  value={this.state.titleAssetsOff4}
+                                  name="titleAssetsOff4"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={4}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Description</Label>
+                                <Input
+                                  value={this.state.descAssetsOff4}
+                                  name="descAssetsOff4"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={6}>
+                              <FormGroup>
+                                <Label for="exampleCustomFileBrowser">
+                                  Assets
+                                </Label>
+                                <CustomInput
+                                  type="file"
+                                  id="exampleCustomFileBrowser"
+                                  name="profilePicture"
+                                  onChange={(e) =>
+                                    this.setState({
+                                      fileAssetsOff4: e.target.files[0],
+                                    })
+                                  }
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                        </Col>
+                      ) : (
+                        <></>
+                      )}
+                      {this.state.assetsOff5 ? (
+                        <Col form>
+                          <div className="d-flex justify-content-between">
+                            <h5>Assets 5</h5>
+                            <button
+                              className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
+                              type="button"
+                              onClick={() =>
+                                this.setState({ assetsOff5: false })
+                              }
+                            >
+                              <Remove />
+                            </button>
+                          </div>
+                          <Row form>
+                            <Col xs={12} sm={12} md={2}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Title</Label>
+                                <Input
+                                  value={this.state.titleAssetsOff5}
+                                  name="titleAssetsOff5"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={4}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Description</Label>
+                                <Input
+                                  value={this.state.descAssetsOff5}
+                                  name="descAssetsOff5"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={6}>
+                              <FormGroup>
+                                <Label for="exampleCustomFileBrowser">
+                                  Assets
+                                </Label>
+                                <CustomInput
+                                  type="file"
+                                  id="exampleCustomFileBrowser"
+                                  name="fileAssetsOff5"
+                                  onChange={(e) =>
+                                    this.setState({
+                                      fileAssetsOff5: e.target.files[0],
+                                    })
+                                  }
                                 />
                               </FormGroup>
                             </Col>
