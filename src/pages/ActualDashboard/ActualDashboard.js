@@ -350,9 +350,9 @@ class ActualDashboard extends Component {
                 onClick={() => this.props.history.push('ticketing')}
               >
                 <Card chart>
-                  <CardHeader color="danger">
+                  <CardIcon color="danger">
                     <h4 className={classes.cardTitle}>Completed Tickets</h4>
-                  </CardHeader>
+                  </CardIcon>
                   {this.state.isLoadingTicketClosed ? (
                     <CardBody>
                       <div
@@ -425,9 +425,9 @@ class ActualDashboard extends Component {
                   chart
                   onClick={() => this.props.history.push('attendance')}
                 >
-                  <CardHeader color="danger">
+                  <CardIcon color="danger">
                     <h4 className={classes.cardTitle}>Attendance Statistics</h4>
-                  </CardHeader>
+                  </CardIcon>
                   <CardBody>
                     {this.state.isLoadingStatsAttendance ? (
                       <div
@@ -497,9 +497,9 @@ class ActualDashboard extends Component {
               </GridItem>
               <GridItem xs={12} sm={12} md={4}>
                 <Card chart onClick={() => this.props.history.push('report')}>
-                  <CardHeader color="danger">
+                  <CardIcon color="danger">
                     <h4 className={classes.cardTitle}>Incoming Reports</h4>
-                  </CardHeader>
+                  </CardIcon>
                   {this.state.isLoadingStatsReport ? (
                     <CardBody>
                       <div
