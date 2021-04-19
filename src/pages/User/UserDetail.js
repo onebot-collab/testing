@@ -248,11 +248,11 @@ class UserDetail extends Component {
         })
         this.props.newToken(res.action.payload.data.newToken)
       })
-      .catch(() => {
+      .catch((res) => {
         swal.fire({
           icon: 'error',
           title: 'Failed',
-          text: 'Failed to delete user',
+          text: `${res.response.data.message}`,
         })
       })
   }

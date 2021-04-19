@@ -69,6 +69,7 @@ class User extends Component {
       name: '',
       search: '',
       page: 1,
+      department: '',
       showFilterModal: false,
     }
     this.handleChange = this.handleChange.bind(this)
@@ -76,7 +77,7 @@ class User extends Component {
     this.prevPage = this.prevPage.bind(this)
     this.nextPage = this.nextPage.bind(this)
     this.toggleFilterModal = this.toggleFilterModal.bind(this)
-    // this.register = this.register.bind(this)
+    this.fetch = this.fetch.bind(this)
   }
 
   toggleFilterModal() {
@@ -115,9 +116,14 @@ class User extends Component {
   }
 
   fetch() {
-    this.setState({ isLoadingUser: true })
+    this.setState({ isLoadingUser: true, showFilterModal: false })
     this.props
-      .getUser(this.props.login.token, this.state.search, this.state.page)
+      .getUser(
+        this.props.login.token,
+        this.state.search,
+        this.state.page,
+        this.state.department,
+      )
       .then((res) => {
         this.setState({ isLoadingUser: false })
         this.props
@@ -158,6 +164,7 @@ class User extends Component {
     const classes = makeStyles(styles)
     const classesHead = makeStyles(stylesHead)
     const classesBody = makeStyles(stylesBody)
+    const departmentData = this.props.department.dataDepartment
 
     return (
       <div>
@@ -179,6 +186,68 @@ class User extends Component {
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={12}>
                     <Card>
+                      <CardIcon color="danger">
+                        <nav className="navbar d-flex justify-content-end">
+                          <form className="form-inline mr-5">
+                            <input
+                              className="form-control mr-sm-2"
+                              type="search"
+                              name="search"
+                              onChange={this.handleSearch}
+                              placeholder="Type Something ..."
+                              aria-label="Search"
+                            ></input>
+                            <button
+                              className="btn btn-outline-light my-2 my-sm-0"
+                              type="submit"
+                            >
+                              Search
+                            </button>
+                          </form>
+                          <button
+                            className="btn my-2 mx-2 my-sm-0"
+                            type="submit"
+                            onClick={this.toggleFilterModal}
+                          >
+                            <Tooltip
+                              id="tooltip-top-start"
+                              title="Filter"
+                              placement="top"
+                              classes={{
+                                tooltip: classesBody.tooltip,
+                              }}
+                            >
+                              {this.state.isLoadingExportAllLog ? (
+                                <div
+                                  className="spinner-border spinner-border-sm text-white"
+                                  role="status"
+                                >
+                                  <span className="sr-only">Loading...</span>
+                                </div>
+                              ) : (
+                                <Sort className="iconWhiteColor" />
+                              )}
+                            </Tooltip>
+                          </button>
+                          <Link
+                            to="/admin/user/stepOne"
+                            className="btn my-2 mx-2 my-sm-0"
+                          >
+                            <Tooltip
+                              id="tooltip-top-start"
+                              title="Add User"
+                              placement="top"
+                              classes={{
+                                tooltip: classesBody.tooltip,
+                              }}
+                            >
+                              <Add className="iconWhiteColor" />
+                              {/* )} */}
+                            </Tooltip>
+                          </Link>
+                          {/* </button> */}
+                        </nav>
+                      </CardIcon>
                       {this.state.isLoadingUser ? (
                         <center>
                           <div
@@ -190,70 +259,6 @@ class User extends Component {
                         </center>
                       ) : (
                         <>
-                          <CardIcon color="danger">
-                            <nav className="navbar d-flex justify-content-end">
-                              <form className="form-inline mr-5">
-                                <input
-                                  className="form-control mr-sm-2"
-                                  type="search"
-                                  name="search"
-                                  onChange={this.handleSearch}
-                                  placeholder="Type Something ..."
-                                  aria-label="Search"
-                                ></input>
-                                <button
-                                  className="btn btn-outline-light my-2 my-sm-0"
-                                  type="submit"
-                                >
-                                  Search
-                                </button>
-                              </form>
-                              <button
-                                className="btn my-2 mx-2 my-sm-0"
-                                type="submit"
-                                onClick={this.toggleFilterModal}
-                              >
-                                <Tooltip
-                                  id="tooltip-top-start"
-                                  title="Filter"
-                                  placement="top"
-                                  classes={{
-                                    tooltip: classesBody.tooltip,
-                                  }}
-                                >
-                                  {this.state.isLoadingExportAllLog ? (
-                                    <div
-                                      className="spinner-border spinner-border-sm text-white"
-                                      role="status"
-                                    >
-                                      <span className="sr-only">
-                                        Loading...
-                                      </span>
-                                    </div>
-                                  ) : (
-                                    <Sort className="iconWhiteColor" />
-                                  )}
-                                </Tooltip>
-                              </button>
-                              <Link
-                                to="/admin/user/stepOne"
-                                className="btn my-2 mx-2 my-sm-0"
-                              >
-                                <Tooltip
-                                  id="tooltip-top-start"
-                                  title="Add User"
-                                  placement="top"
-                                  classes={{
-                                    tooltip: classesBody.tooltip,
-                                  }}
-                                >
-                                  <Add className="iconWhiteColor" />
-                                  {/* )} */}
-                                </Tooltip>
-                              </Link>
-                              {/* </button> */}
-                            </nav>
-                          </CardIcon>
                           <CardBody>
                             <TableContainer>
                               <Table className={classesHead.table}>
@@ -401,74 +406,25 @@ class User extends Component {
                       <h6>Department</h6>
                       <FormGroup>
                         <Input
-                          value={this.state.filterStatus}
+                          value={this.state.department}
                           type="select"
-                          name="filterStatus"
+                          name="department"
                           id="exampleSelect"
                           onChange={this.handleChange}
                         >
                           <option key={0} value="">
                             All
                           </option>
-                          <option key={1} value={1}>
-                            Open
-                          </option>
-                          <option key={2} value={2}>
-                            Processed
-                          </option>
-                          <option key={3} value={3}>
-                            Solved
-                          </option>
-                          <option key={4} value={4}>
-                            Closed
-                          </option>
-                        </Input>
-                      </FormGroup>
-                      <h6>Start Date</h6>
-                      <Input
-                        value={this.state.filterStartDate}
-                        type="date"
-                        name="filterStartDate"
-                        className="mb-2 shadow-none"
-                        onChange={this.handleChange}
-                      />
-                      <h6>End Date</h6>
-                      <Input
-                        value={this.state.filterEndDate}
-                        type="date"
-                        name="filterEndDate"
-                        className="mb-2 shadow-none"
-                        onChange={this.handleChange}
-                      />
-                      <FormGroup>
-                        <h6>Status</h6>
-                        <Input
-                          value={this.state.filterStatus}
-                          type="select"
-                          name="filterStatus"
-                          id="exampleSelect"
-                          onChange={this.handleChange}
-                        >
-                          <option key={0} value="">
-                            All
-                          </option>
-                          <option key={1} value={1}>
-                            Open
-                          </option>
-                          <option key={2} value={2}>
-                            Processed
-                          </option>
-                          <option key={3} value={3}>
-                            Solved
-                          </option>
-                          <option key={4} value={4}>
-                            Closed
-                          </option>
+                          {departmentData.map((res) => (
+                            <option key={res.id} value={res.id}>
+                              {res.name}
+                            </option>
+                          ))}
                         </Input>
                       </FormGroup>
                     </ModalBody>
                     <ModalFooter>
-                      <Button color="secondary" onClick={this.toggleFilterModal}>
+                      <Button color="secondary" onClick={this.fetch}>
                         Submit
                       </Button>
                       {/* )} */}
