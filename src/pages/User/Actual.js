@@ -55,20 +55,6 @@ class User extends Component {
     super(props)
     this.state = {
       name: '',
-      // email: '',
-      // phone: '',
-      // password: '',
-      // passcode: '',
-      // joinedDate: '',
-      // birthDate: '',
-      // address: '',
-      // role: 2,
-      // department: 1,
-      // timeType: 1,
-      // profilePicture: null,
-      // isLoadingUser: false,
-      // isLoadingRegister: false,
-      // isLoading: false,
       search: '',
       page: 1,
     }
@@ -76,7 +62,6 @@ class User extends Component {
     this.handleSearch = this.handleSearch.bind(this)
     this.prevPage = this.prevPage.bind(this)
     this.nextPage = this.nextPage.bind(this)
-    // this.register = this.register.bind(this)
   }
 
   handleChange(event) {
@@ -144,72 +129,6 @@ class User extends Component {
     this.props.sendNotif(dataSubmit)
   }
 
-  // register(event) {
-  //   event.preventDefault()
-  //   this.setState({ isLoadingRegister: true })
-  //   const joinedDate = `${this.state.joinedDate.slice(
-  //     0,
-  //     4,
-  //   )}-${this.state.joinedDate.slice(5, 7)}-${this.state.joinedDate.slice(
-  //     8,
-  //     10,
-  //   )}`
-  //   const birthDate = `${this.state.birthDate.slice(
-  //     0,
-  //     4,
-  //   )}-${this.state.birthDate.slice(5, 7)}-${this.state.birthDate.slice(8, 10)}`
-  //   const dataSubmit = new FormData()
-
-  //   dataSubmit.append('name', this.state.name)
-  //   dataSubmit.append('email', this.state.email)
-  //   dataSubmit.append('phone', this.state.phone)
-  //   dataSubmit.append('password', this.state.password)
-  //   dataSubmit.append('passcode', this.state.passcode)
-  //   dataSubmit.append('address', this.state.address)
-  //   dataSubmit.append('joineddate', joinedDate)
-  //   dataSubmit.append('birthdate', birthDate)
-  //   dataSubmit.append('time_type', this.state.timeType)
-  //   dataSubmit.append('role', this.state.role)
-  //   dataSubmit.append('department', this.state.department)
-  //   dataSubmit.append('photo', this.state.profilePicture)
-
-  //   this.props
-  //     .registerUser(dataSubmit, this.props.login.token)
-  //     .then((res) => {
-  //       this.setState({
-  //         isLoadingRegister: false,
-  //         name: '',
-  //         email: '',
-  //         phone: '',
-  //         password: '',
-  //         passcode: '',
-  //         joinedDate: '',
-  //         birthDate: '',
-  //         address: '',
-  //         role: 2,
-  //         department: 1,
-  //         timeType: 1,
-  //         profilePicture: null,
-  //       })
-  //       this.fetch()
-  //       swal.fire({
-  //         icon: 'success',
-  //         title: 'Success',
-  //         text: 'User successsfully registered',
-  //       })
-  //       this.props.newToken(res.action.payload.data.newToken)
-  //       // this.pressed()
-  //     })
-  //     .catch(() => {
-  //       swal.fire({
-  //         icon: 'error',
-  //         title: 'Failed',
-  //         text: 'Data already used',
-  //       })
-  //       this.setState({ isLoadingRegister: false })
-  //     })
-  // }
-
   componentDidMount() {
     this.fetch()
   }
@@ -218,12 +137,6 @@ class User extends Component {
     const classes = makeStyles(styles)
     const classesHead = makeStyles(stylesHead)
     const classesBody = makeStyles(stylesBody)
-    // const departmentData = this.props.department.dataDepartment
-    // const departmentList = departmentData.map((val) => (
-    //   <option key={val.id} value={val.id}>
-    //     {val.name}
-    //   </option>
-    // ))
 
     return (
       <div>

@@ -200,6 +200,7 @@ class UserAddStepTwo extends Component {
     this.addWork = this.addWork.bind(this)
     this.addAsset = this.addAsset.bind(this)
     this.addAssetOff = this.addAssetOff.bind(this)
+    this.redirect = this.redirect.bind(this)
   }
 
   handleChange(event) {
@@ -404,6 +405,10 @@ class UserAddStepTwo extends Component {
     } else {
       this.setState({ assetsOff5: true })
     }
+  }
+
+  redirect() {
+    this.props.history.push('/login')
   }
 
   componentDidMount() {}
