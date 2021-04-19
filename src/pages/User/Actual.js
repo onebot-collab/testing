@@ -67,20 +67,6 @@ class User extends Component {
     super(props)
     this.state = {
       name: '',
-      // email: '',
-      // phone: '',
-      // password: '',
-      // passcode: '',
-      // joinedDate: '',
-      // birthDate: '',
-      // address: '',
-      // role: 2,
-      // department: 1,
-      // timeType: 1,
-      // profilePicture: null,
-      // isLoadingUser: false,
-      // isLoadingRegister: false,
-      // isLoading: false,
       search: '',
       page: 1,
       showFilterModal: false,
@@ -172,12 +158,6 @@ class User extends Component {
     const classes = makeStyles(styles)
     const classesHead = makeStyles(stylesHead)
     const classesBody = makeStyles(stylesBody)
-    // const departmentData = this.props.department.dataDepartment
-    // const departmentList = departmentData.map((val) => (
-    //   <option key={val.id} value={val.id}>
-    //     {val.name}
-    //   </option>
-    // ))
 
     return (
       <div>
