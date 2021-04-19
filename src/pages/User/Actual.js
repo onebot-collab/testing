@@ -12,6 +12,7 @@ import './Actual.css'
 // @material-ui/core components
 import Avatar from '@material-ui/core/Avatar'
 import Tooltip from '@material-ui/core/Tooltip'
+import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import { makeStyles } from '@material-ui/core/styles'
 import { Link } from 'react-router-dom'
@@ -29,6 +30,17 @@ import Visibility from '@material-ui/icons/Visibility'
 import ArrowLeft from '@material-ui/icons/ArrowLeft'
 import ArrowRight from '@material-ui/icons/ArrowRight'
 import Add from '@material-ui/icons/Add'
+import Sort from '@material-ui/icons/Sort'
+import {
+  Form,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  ModalFooter,
+  Input,
+  FormGroup,
+} from 'reactstrap'
+// import Select from 'react-select'
 // core components
 // import moment from 'moment'
 import GridItem from '../../components/Grid/GridItem'
@@ -71,12 +83,20 @@ class User extends Component {
       // isLoading: false,
       search: '',
       page: 1,
+      showFilterModal: false,
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.prevPage = this.prevPage.bind(this)
     this.nextPage = this.nextPage.bind(this)
+    this.toggleFilterModal = this.toggleFilterModal.bind(this)
     // this.register = this.register.bind(this)
+  }
+
+  toggleFilterModal() {
+    this.setState({
+      showFilterModal: !this.state.showFilterModal,
+    })
   }
 
   handleChange(event) {
@@ -144,72 +164,6 @@ class User extends Component {
     this.props.sendNotif(dataSubmit)
   }
 
-  // register(event) {
-  //   event.preventDefault()
-  //   this.setState({ isLoadingRegister: true })
-  //   const joinedDate = `${this.state.joinedDate.slice(
-  //     0,
-  //     4,
-  //   )}-${this.state.joinedDate.slice(5, 7)}-${this.state.joinedDate.slice(
-  //     8,
-  //     10,
-  //   )}`
-  //   const birthDate = `${this.state.birthDate.slice(
-  //     0,
-  //     4,
-  //   )}-${this.state.birthDate.slice(5, 7)}-${this.state.birthDate.slice(8, 10)}`
-  //   const dataSubmit = new FormData()
-
-  //   dataSubmit.append('name', this.state.name)
-  //   dataSubmit.append('email', this.state.email)
-  //   dataSubmit.append('phone', this.state.phone)
-  //   dataSubmit.append('password', this.state.password)
-  //   dataSubmit.append('passcode', this.state.passcode)
-  //   dataSubmit.append('address', this.state.address)
-  //   dataSubmit.append('joineddate', joinedDate)
-  //   dataSubmit.append('birthdate', birthDate)
-  //   dataSubmit.append('time_type', this.state.timeType)
-  //   dataSubmit.append('role', this.state.role)
-  //   dataSubmit.append('department', this.state.department)
-  //   dataSubmit.append('photo', this.state.profilePicture)
-
-  //   this.props
-  //     .registerUser(dataSubmit, this.props.login.token)
-  //     .then((res) => {
-  //       this.setState({
-  //         isLoadingRegister: false,
-  //         name: '',
-  //         email: '',
-  //         phone: '',
-  //         password: '',
-  //         passcode: '',
-  //         joinedDate: '',
-  //         birthDate: '',
-  //         address: '',
-  //         role: 2,
-  //         department: 1,
-  //         timeType: 1,
-  //         profilePicture: null,
-  //       })
-  //       this.fetch()
-  //       swal.fire({
-  //         icon: 'success',
-  //         title: 'Success',
-  //         text: 'User successsfully registered',
-  //       })
-  //       this.props.newToken(res.action.payload.data.newToken)
-  //       // this.pressed()
-  //     })
-  //     .catch(() => {
-  //       swal.fire({
-  //         icon: 'error',
-  //         title: 'Failed',
-  //         text: 'Data already used',
-  //       })
-  //       this.setState({ isLoadingRegister: false })
-  //     })
-  // }
-
   componentDidMount() {
     this.fetch()
   }
@@ -258,7 +212,7 @@ class User extends Component {
                         <>
                           <CardIcon color="danger">
                             <nav className="navbar d-flex justify-content-end">
-                              <form className="form-inline">
+                              <form className="form-inline mr-5">
                                 <input
                                   className="form-control mr-sm-2"
                                   type="search"
@@ -274,6 +228,33 @@ class User extends Component {
                                   Search
                                 </button>
                               </form>
+                              <button
+                                className="btn my-2 mx-2 my-sm-0"
+                                type="submit"
+                                onClick={this.toggleFilterModal}
+                              >
+                                <Tooltip
+                                  id="tooltip-top-start"
+                                  title="Filter"
+                                  placement="top"
+                                  classes={{
+                                    tooltip: classesBody.tooltip,
+                                  }}
+                                >
+                                  {this.state.isLoadingExportAllLog ? (
+                                    <div
+                                      className="spinner-border spinner-border-sm text-white"
+                                      role="status"
+                                    >
+                                      <span className="sr-only">
+                                        Loading...
+                                      </span>
+                                    </div>
+                                  ) : (
+                                    <Sort className="iconWhiteColor" />
+                                  )}
+                                </Tooltip>
+                              </button>
                               <Link
                                 to="/admin/user/stepOne"
                                 className="btn my-2 mx-2 my-sm-0"
@@ -432,6 +413,91 @@ class User extends Component {
                     </Card>
                   </GridItem>
                 </GridContainer>
+                {/* Filter Modal */}
+                <Modal isOpen={this.state.showFilterModal}>
+                  <ModalHeader className="h1">Add Filter</ModalHeader>
+                  <Form>
+                    <ModalBody>
+                      <h6>Department</h6>
+                      <FormGroup>
+                        <Input
+                          value={this.state.filterStatus}
+                          type="select"
+                          name="filterStatus"
+                          id="exampleSelect"
+                          onChange={this.handleChange}
+                        >
+                          <option key={0} value="">
+                            All
+                          </option>
+                          <option key={1} value={1}>
+                            Open
+                          </option>
+                          <option key={2} value={2}>
+                            Processed
+                          </option>
+                          <option key={3} value={3}>
+                            Solved
+                          </option>
+                          <option key={4} value={4}>
+                            Closed
+                          </option>
+                        </Input>
+                      </FormGroup>
+                      <h6>Start Date</h6>
+                      <Input
+                        value={this.state.filterStartDate}
+                        type="date"
+                        name="filterStartDate"
+                        className="mb-2 shadow-none"
+                        onChange={this.handleChange}
+                      />
+                      <h6>End Date</h6>
+                      <Input
+                        value={this.state.filterEndDate}
+                        type="date"
+                        name="filterEndDate"
+                        className="mb-2 shadow-none"
+                        onChange={this.handleChange}
+                      />
+                      <FormGroup>
+                        <h6>Status</h6>
+                        <Input
+                          value={this.state.filterStatus}
+                          type="select"
+                          name="filterStatus"
+                          id="exampleSelect"
+                          onChange={this.handleChange}
+                        >
+                          <option key={0} value="">
+                            All
+                          </option>
+                          <option key={1} value={1}>
+                            Open
+                          </option>
+                          <option key={2} value={2}>
+                            Processed
+                          </option>
+                          <option key={3} value={3}>
+                            Solved
+                          </option>
+                          <option key={4} value={4}>
+                            Closed
+                          </option>
+                        </Input>
+                      </FormGroup>
+                    </ModalBody>
+                    <ModalFooter>
+                      <Button color="secondary" onClick={this.toggleFilterModal}>
+                        Submit
+                      </Button>
+                      {/* )} */}
+                      <Button color="primary" onClick={this.toggleFilterModal}>
+                        Cancel
+                      </Button>
+                    </ModalFooter>
+                  </Form>
+                </Modal>
               </>
             )}
           </>
