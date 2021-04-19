@@ -43,6 +43,21 @@ const formTwo = (data) => ({
   meta: data,
 })
 
+const editFormPersonal = (data) => ({
+  type: 'EDITFORMPERSONAL',
+  meta: data,
+})
+
+const editFormBackground = (data) => ({
+  type: 'EDITFORMBACKGROUND',
+  meta: data,
+})
+
+const editFormAsset = (data) => ({
+  type: 'EDITFORMASSET',
+  meta: data,
+})
+
 export {
   getAdmin,
   getUser,
@@ -52,4 +67,7 @@ export {
   updateUser,
   formOne,
   formTwo,
+  editFormPersonal,
+  editFormBackground,
+  editFormAsset,
 }

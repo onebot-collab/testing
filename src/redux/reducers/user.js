@@ -7,6 +7,9 @@ const initialState = {
   dataProfile: [],
   dataFormOne: [],
   dataFormTwo: [],
+  dataFormEditPersonal: [],
+  dataFormEditBackground: [],
+  dataFormEditAsset: [],
 }
 
 const user = (state = initialState, action) => {
@@ -113,6 +116,24 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         dataFormTwo: action.meta,
+      }
+    }
+    case 'EDITFORMPERSONAL': {
+      return {
+        ...state,
+        dataFormEditPersonal: action.meta,
+      }
+    }
+    case 'EDITFORMBACKGROUND': {
+      return {
+        ...state,
+        dataFormEditBackground: action.meta,
+      }
+    }
+    case 'EDITFORMASSET': {
+      return {
+        ...state,
+        dataFormEditAsset: action.meta,
       }
     }
     default: {
