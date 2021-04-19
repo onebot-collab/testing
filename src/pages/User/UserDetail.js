@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-redeclare */
 /* eslint-disable no-unused-vars */
 /* eslint-disable vars-on-top */
@@ -49,7 +50,12 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 import moment from 'moment'
 import Button from '../../components/CustomButtons/Button'
 import events from './events'
-import { getProfile, deleteUser, updateUser } from '../../redux/actions/user'
+import {
+  getProfile,
+  deleteUser,
+  updateUser,
+  editFormPersonal,
+} from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
 import { newToken } from '../../redux/actions/login'
 import { sendNotif } from '../../redux/actions/fcm'
@@ -147,6 +153,7 @@ class UserDetail extends Component {
     this.addRoster = this.addRoster.bind(this)
     this.toggleDeleteRosterModal = this.toggleDeleteRosterModal.bind(this)
     this.deleteRoster = this.deleteRoster.bind(this)
+    this.editUser = this.editUser.bind(this)
   }
 
   handleChange(event) {
@@ -819,6 +826,47 @@ class UserDetail extends Component {
     this.toggleEditRoster()
   }
 
+  editUser() {
+    const {
+      id,
+      firstName,
+      name,
+      lastName,
+      emailPrivate,
+      phone,
+      phone2,
+      photo_url,
+      birthplace,
+      birthdate,
+      maritalStatus,
+      religion,
+      bloodType,
+      gender,
+      address,
+    } = this.props.location.state
+
+    const dataSubmit = {
+      id,
+      firstName,
+      name,
+      lastName,
+      emailPrivate,
+      phone,
+      phone2,
+      photo_url,
+      birthplace,
+      birthdate,
+      maritalStatus,
+      religion,
+      bloodType,
+      gender,
+      address,
+    }
+
+    this.props.editFormPersonal(dataSubmit)
+    this.props.history.push('/admin/user/editPersonal')
+  }
+
   componentDidMount() {
     this.fetchProfile()
   }
@@ -1160,12 +1208,7 @@ class UserDetail extends Component {
                                 <AccountTree />
                               </ListItemIcon>
                               <ListItemText>
-                                <Link
-                                  to="/admin/user/editPersonal"
-                                  className="btn btn-danger m-2 my-sm-0"
-                                >
-                                  EDIT
-                                </Link>
+                                <Link onClick={this.editUser}>EDIT</Link>
                               </ListItemText>
                             </ListItem>
                           </List>
@@ -1769,6 +1812,7 @@ const mapDispatchToProps = {
   newToken,
   getRosterByUser,
   updateRosterUser,
+  editFormPersonal,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserDetail)
