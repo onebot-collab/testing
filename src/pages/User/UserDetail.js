@@ -74,20 +74,20 @@ class UserDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: `${this.props.location.state.name}`,
-      email: `${this.props.location.state.email}`,
-      phone: `${this.props.location.state.phone}`,
+      name: `${this.props.user.dataFormEditPersonal.name}`,
+      email: `${this.props.user.dataFormEditPersonal.email}`,
+      phone: `${this.props.user.dataFormEditPersonal.phone}`,
       password: '',
       passcode: '',
-      birthDate: `${moment(this.props.location.state.birthdate).format(
-        'YYYY-MM-DD',
-      )}`,
-      joined_date: `${moment(this.props.location.state.joined_date).format(
-        'YYYY-MM-DD',
-      )}`,
-      address: `${this.props.location.state.address}`,
-      role: `${this.props.location.state.role}`,
-      department_id: `${this.props.location.state.department_id}`,
+      birthDate: `${moment(
+        this.props.user.dataFormEditPersonal.birthdate,
+      ).format('YYYY-MM-DD')}`,
+      joined_date: `${moment(
+        this.props.user.dataFormEditPersonal.joined_date,
+      ).format('YYYY-MM-DD')}`,
+      address: `${this.props.user.dataFormEditPersonal.address}`,
+      role: `${this.props.user.dataFormEditPersonal.role}`,
+      department_id: `${this.props.user.dataFormEditPersonal.department_id}`,
       showUpdateModal: false,
       showRosterModal: false,
       showAddRosterModal: false,
@@ -97,21 +97,21 @@ class UserDetail extends Component {
       isLoadingFetch: true,
       isLoadingDelete: false,
       isLoadingUpdate: false,
-      nameInput: `${this.props.location.state.name}`,
-      emailInput: `${this.props.location.state.email}`,
+      nameInput: `${this.props.user.dataFormEditPersonal.name}`,
+      emailInput: `${this.props.user.dataFormEditPersonal.email}`,
       passwordInput: '',
       passcodeInput: '',
-      phoneInput: `${this.props.location.state.phone}`,
-      roleInput: `${this.props.location.state.role}`,
-      departmentInput: `${this.props.location.state.department_id}`,
+      phoneInput: `${this.props.user.dataFormEditPersonal.phone}`,
+      roleInput: `${this.props.user.dataFormEditPersonal.role}`,
+      departmentInput: `${this.props.user.dataFormEditPersonal.department_id}`,
       timeTypeInput: '',
-      joinedDateInput: `${moment(this.props.location.state.joined_date).format(
-        'YYYY-MM-DD',
-      )}`,
-      birthDateInput: `${moment(this.props.location.state.birthdate).format(
-        'YYYY-MM-DD',
-      )}`,
-      addressInput: `${this.props.location.state.address}`,
+      joinedDateInput: `${moment(
+        this.props.user.dataFormEditPersonal.joined_date,
+      ).format('YYYY-MM-DD')}`,
+      birthDateInput: `${moment(
+        this.props.user.dataFormEditPersonal.birthdate,
+      ).format('YYYY-MM-DD')}`,
+      addressInput: `${this.props.user.dataFormEditPersonal.address}`,
       avatar: null,
       dateRoster: `${moment().format('YYYY-MM-DD')}`,
       isLoadingRoster: false,
@@ -203,7 +203,7 @@ class UserDetail extends Component {
   fetchProfile() {
     this.setState({ isLoadingFetch: true })
     this.props
-      .getProfile(this.props.location.state.id, this.props.login.token)
+      .getProfile(this.props.user.dataFormEditPersonal.id, this.props.login.token)
       .then((res) => {
         this.props
           .getDepartment(res.action.payload.data.newToken)
@@ -211,7 +211,7 @@ class UserDetail extends Component {
             this.props
               .getRosterByUser(
                 res.action.payload.data.newToken,
-                parseInt(this.props.location.state.id),
+                parseInt(this.props.user.dataFormEditPersonal.id),
                 `${moment().format('YYYY-MM')}-01`,
               )
               .then((res) => {
@@ -839,10 +839,13 @@ class UserDetail extends Component {
       birthplace,
       birthdate,
       maritalStatus,
+      employmentType,
+      employmentDuration,
       religion,
       bloodType,
       gender,
       address,
+      employmentStatus,
     } = this.props.location.state
 
     const dataSubmit = {
@@ -857,10 +860,13 @@ class UserDetail extends Component {
       birthplace,
       birthdate,
       maritalStatus,
+      employmentType,
+      employmentDuration,
       religion,
       bloodType,
       gender,
       address,
+      employmentStatus,
     }
 
     this.props.editFormPersonal(dataSubmit)

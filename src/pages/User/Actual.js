@@ -51,7 +51,13 @@ import CardIcon from '../../components/Card/CardIcon'
 import CardBody from '../../components/Card/CardBody'
 // import CardFooter from '../../components/Card/CardFooter'
 
-import { getUser, registerUser } from '../../redux/actions/user'
+import {
+  getUser,
+  registerUser,
+  editFormPersonal,
+  editFormBackground,
+  editFormAsset,
+} from '../../redux/actions/user'
 import { getDepartment } from '../../redux/actions/department'
 import { newToken } from '../../redux/actions/login'
 import { sendNotif } from '../../redux/actions/fcm'
@@ -78,6 +84,7 @@ class User extends Component {
     this.nextPage = this.nextPage.bind(this)
     this.toggleFilterModal = this.toggleFilterModal.bind(this)
     this.fetch = this.fetch.bind(this)
+    this.toDetail = this.toDetail.bind(this)
   }
 
   toggleFilterModal() {
@@ -154,6 +161,65 @@ class User extends Component {
     }
 
     this.props.sendNotif(dataSubmit)
+  }
+
+  toDetail(
+    id,
+    firstName,
+    name,
+    lastName,
+    email,
+    emailPrivate,
+    phone,
+    phone2,
+    photo_url,
+    birthdate,
+    birthplace,
+    maritalStatus,
+    religion,
+    bloodType,
+    gender,
+    employmentType,
+    employmentDuration,
+    joined_date,
+    role,
+    address,
+    department_id,
+    departmentName,
+    typeTime,
+    total_leave,
+    employmentStatus,
+  ) {
+    const dataSubmitPersonal = {
+      id,
+      firstName,
+      name,
+      lastName,
+      email,
+      emailPrivate,
+      phone,
+      phone2,
+      photo_url,
+      birthdate,
+      birthplace,
+      maritalStatus,
+      religion,
+      bloodType,
+      gender,
+      employmentType,
+      employmentDuration,
+      joined_date,
+      role,
+      address,
+      department_id,
+      departmentName,
+      typeTime,
+      total_leave,
+      employmentStatus,
+    }
+
+    this.props.editFormPersonal(dataSubmitPersonal)
+    this.props.history.push(`/admin/user/${id}`)
   }
 
   componentDidMount() {
@@ -330,35 +396,35 @@ class User extends Component {
                                         size="small"
                                       >
                                         <Link
-                                          to={{
-                                            pathname: `/admin/user/${res.id}`,
-                                            state: {
-                                              id: `${res.id}`,
-                                              firstName: `${res.firstName}`,
-                                              name: `${res.name}`,
-                                              lastName: `${res.lastName}`,
-                                              email: `${res.email}`,
-                                              emailPrivate: `${res.emailPrivate}`,
-                                              phone: `${res.phone}`,
-                                              phone2: `${res.phone2}`,
-                                              photo_url: `${res.photo_url}`,
-                                              birthdate: `${res.birthdate}`,
-                                              birthplace: `${res.birthplace}`,
-                                              maritalStatus: `${res.maritalStatus}`,
-                                              religion: `${res.religion}`,
-                                              bloodType: `${res.bloodType}`,
-                                              gender: `${res.gender}`,
-                                              // employmentType: `${res.employmentStatus[0].employmentType}`,
-                                              // employmentDuration: `${res.employmentStatus[0].employmentType}`,
-                                              joined_date: `${res.joined_date}`,
-                                              role: `${res.role}`,
-                                              address: `${res.address}`,
-                                              department_id: `${res.department_id}`,
-                                              departmentName: `${res.departmentName}`,
-                                              typeTime: `${res.typeTime}`,
-                                              total_leave: `${res.total_leave}`,
-                                            },
-                                          }}
+                                          onClick={() =>
+                                            this.toDetail(
+                                              res.id,
+                                              res.firstName,
+                                              res.name,
+                                              res.lastName,
+                                              res.email,
+                                              res.emailPrivate,
+                                              res.phone,
+                                              res.phone2,
+                                              res.photo_url,
+                                              res.birthdate,
+                                              res.birthplace,
+                                              res.maritalStatus,
+                                              res.religion,
+                                              res.bloodType,
+                                              res.gender,
+                                              res.employmentType,
+                                              res.employmentDuration,
+                                              res.joined_date,
+                                              res.role,
+                                              res.address,
+                                              res.department_id,
+                                              res.departmentName,
+                                              res.typeTime,
+                                              res.total_leave,
+                                              res.employmentStatus,
+                                            )
+                                          }
                                         >
                                           <Tooltip
                                             id="tooltip-top-start"
@@ -467,6 +533,9 @@ const mapDispatchToProps = {
   sendNotif,
   newToken,
   getRosterByUser,
+  editFormPersonal,
+  editFormBackground,
+  editFormAsset,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(User)

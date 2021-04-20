@@ -47,10 +47,18 @@ class UserEditPersonal extends Component {
       birthplace: this.props.user.dataFormEditPersonal.birthplace,
       birthdate: this.props.user.dataFormEditPersonal.birthdate,
       maritalStatus: this.props.user.dataFormEditPersonal.maritalStatus,
+      employmentType: this.props.user.dataFormEditPersonal.employmentType,
+      employmentDuration: this.props.user.dataFormEditPersonal
+        .employmentDuration,
+      employmentDurationType: 1,
       religion: this.props.user.dataFormEditPersonal.religion,
       bloodType: this.props.user.dataFormEditPersonal.bloodType,
-      gender: '',
+      gender: this.props.user.dataFormEditPersonal.gender,
       address: this.props.user.dataFormEditPersonal.address,
+      country: '',
+      city: '',
+      district: '',
+      zipCode: '',
     }
     this.handleChange = this.handleChange.bind(this)
     this.redirect = this.redirect.bind(this)
@@ -223,7 +231,7 @@ class UserEditPersonal extends Component {
                           <FormGroup>
                             <Label for="exampleSelect">Employment Status</Label>
                             <Input
-                              value={this.state.form}
+                              value={this.state.employmentType}
                               type="select"
                               name="employmentType"
                               id="exampleSelect"
@@ -248,6 +256,45 @@ class UserEditPersonal extends Component {
                           </FormGroup>
                         </Col>
                       </Row>
+                      {parseInt(this.state.employmentType) < 3 ? (
+                        <Row form>
+                          <Col xs={12} sm={12} md={2}></Col>
+                          <Col xs={12} sm={12} md={2}></Col>
+                          <Col xs={12} sm={12} md={4}></Col>
+                          <Col xs={6} sm={6} md={2}></Col>
+                          <Col xs={3} sm={3} md={1}>
+                            <FormGroup>
+                              <Label for="exampleSelect">Duration</Label>
+                              <Input
+                                value={this.state.employmentDuration}
+                                name="employmentDuration"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={3} sm={3} md={1}>
+                            <FormGroup>
+                              <Label for="exampleSelect">Type</Label>
+                              <Input
+                                value={this.state.employmentDurationType}
+                                type="select"
+                                name="employmentDurationType"
+                                id="exampleSelect"
+                                onChange={this.handleChange}
+                              >
+                                <option key={1} value={1}>
+                                  Month
+                                </option>
+                                <option key={2} value={2}>
+                                  Year
+                                </option>
+                              </Input>
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                      ) : (
+                        <></>
+                      )}
                       <Row form>
                         <Col xs={12} sm={12} md={4}>
                           <FormGroup>
@@ -354,7 +401,7 @@ class UserEditPersonal extends Component {
                           <FormGroup>
                             <Label for="exampleEmail">Country</Label>
                             <Input
-                              value={this.state.form}
+                              value={this.state.country}
                               type="select"
                               name="country"
                               onChange={this.handleChange}
@@ -380,7 +427,7 @@ class UserEditPersonal extends Component {
                           <FormGroup>
                             <Label for="exampleEmail">City</Label>
                             <Input
-                              value={this.state.form}
+                              value={this.state.city}
                               name="city"
                               onChange={this.handleChange}
                               id="exampleSelect"
@@ -392,7 +439,7 @@ class UserEditPersonal extends Component {
                           <FormGroup>
                             <Label for="exampleEmail">District</Label>
                             <Input
-                              value={this.state.form}
+                              value={this.state.district}
                               name="district"
                               onChange={this.handleChange}
                               id="exampleSelect"
@@ -404,7 +451,7 @@ class UserEditPersonal extends Component {
                           <FormGroup>
                             <Label for="exampleEmail">ZIP</Label>
                             <Input
-                              value={this.state.form}
+                              value={this.state.zipCode}
                               name="zipCode"
                               onChange={(e) => this.handleChange(e)}
                             />
