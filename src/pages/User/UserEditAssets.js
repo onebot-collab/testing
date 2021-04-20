@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-useless-escape */
 /* eslint-disable react/no-array-index-key */
@@ -38,61 +39,64 @@ class UserEditAssets extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      titleAssets1: '',
-      titleAssets2: '',
-      titleAssets3: '',
-      titleAssets4: '',
-      titleAssets5: '',
-      descAssets1: '',
-      descAssets2: '',
-      descAssets3: '',
-      descAssets4: '',
-      descAssets5: '',
-      fileAssets1: '',
-      fileAssets2: '',
-      fileAssets3: '',
-      fileAssets4: '',
-      fileAssets5: '',
-      assets2: false,
-      assets3: false,
-      assets4: false,
-      assets5: false,
+      titleAssets1: this.props.user.dataFormEditBackground.onHand[0].title,
+      titleAssets2: this.props.user.dataFormEditBackground.onHand[1].title,
+      titleAssets3: this.props.user.dataFormEditBackground.onHand[2].title,
+      titleAssets4: this.props.user.dataFormEditBackground.onHand[3].title,
+      titleAssets5: this.props.user.dataFormEditBackground.onHand[4].title,
+      descAssets1: this.props.user.dataFormEditBackground.onHand[0].description,
+      descAssets2: this.props.user.dataFormEditBackground.onHand[1].description,
+      descAssets3: this.props.user.dataFormEditBackground.onHand[2].description,
+      descAssets4: this.props.user.dataFormEditBackground.onHand[3].description,
+      descAssets5: this.props.user.dataFormEditBackground.onHand[4].description,
+      fileAssets1: this.props.user.dataFormEditBackground.onHand[0].file,
+      fileAssets2: this.props.user.dataFormEditBackground.onHand[1].file,
+      fileAssets3: this.props.user.dataFormEditBackground.onHand[2].file,
+      fileAssets4: this.props.user.dataFormEditBackground.onHand[3].file,
+      fileAssets5: this.props.user.dataFormEditBackground.onHand[4].file,
+      assets2: this.props.user.dataFormEditBackground.onHand[1].title !== null,
+      assets3: this.props.user.dataFormEditBackground.onHand[2].title !== null,
+      assets4: this.props.user.dataFormEditBackground.onHand[3].title !== null,
+      assets5: this.props.user.dataFormEditBackground.onHand[4].title !== null,
+      titleAssetsOff1: this.props.user.dataFormEditBackground.offHand[0].title,
+      titleAssetsOff2: this.props.user.dataFormEditBackground.offHand[1].title,
+      titleAssetsOff3: this.props.user.dataFormEditBackground.offHand[2].title,
+      titleAssetsOff4: this.props.user.dataFormEditBackground.offHand[3].title,
+      titleAssetsOff5: this.props.user.dataFormEditBackground.offHand[4].title,
+      descAssetsOff1: this.props.user.dataFormEditBackground.offHand[0]
+        .description,
+      descAssetsOff2: this.props.user.dataFormEditBackground.offHand[1]
+        .description,
+      descAssetsOff3: this.props.user.dataFormEditBackground.offHand[2]
+        .description,
+      descAssetsOff4: this.props.user.dataFormEditBackground.offHand[3]
+        .description,
+      descAssetsOff5: this.props.user.dataFormEditBackground.offHand[4]
+        .description,
+      fileAssetsOff1: this.props.user.dataFormEditBackground.offHand[0].file,
+      fileAssetsOff2: this.props.user.dataFormEditBackground.offHand[1].file,
+      fileAssetsOff3: this.props.user.dataFormEditBackground.offHand[2].file,
+      fileAssetsOff4: this.props.user.dataFormEditBackground.offHand[3].file,
+      fileAssetsOff5: this.props.user.dataFormEditBackground.offHand[4].file,
+      assetsOff2:
+        this.props.user.dataFormEditBackground.offHand[1].title !== null,
+      assetsOff3:
+        this.props.user.dataFormEditBackground.offHand[2].title !== null,
+      assetsOff4:
+        this.props.user.dataFormEditBackground.offHand[3].title !== null,
+      assetsOff5:
+        this.props.user.dataFormEditBackground.offHand[4].title !== null,
     }
     this.handleChange = this.handleChange.bind(this)
-    this.nextPage = this.nextPage.bind(this)
-    this.addEducation = this.addEducation.bind(this)
+    this.addAsset = this.addAsset.bind(this)
+    this.addAssetOff = this.addAssetOff.bind(this)
   }
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  nextPage() {
-    const dataSubmit = {
-      titleAssets1: this.state.titleAssets1,
-      titleAssets2: this.state.titleAssets2,
-      titleAssets3: this.state.titleAssets3,
-      titleAssets4: this.state.titleAssets4,
-      titleAssets5: this.state.titleAssets5,
-      descAssets1: this.state.descAssets1,
-      descAssets2: this.state.descAssets2,
-      descAssets3: this.state.descAssets3,
-      descAssets4: this.state.descAssets4,
-      descAssets5: this.state.descAssets5,
-      fileAssets1: this.state.fileAssets1,
-      fileAssets2: this.state.fileAssets2,
-      fileAssets3: this.state.fileAssets3,
-      fileAssets4: this.state.fileAssets4,
-      fileAssets5: this.state.fileAssets5,
-    }
-
-    this.props.formTwo(dataSubmit)
-    setTimeout(() => {
-      this.props.history.push('/admin/user/stepThree')
-    }, 100)
-  }
-
-  addEducation() {
+  addAsset() {
     if (!this.state.assets2) {
       this.setState({ assets2: true })
     } else if (!this.state.assets3) {
@@ -101,6 +105,18 @@ class UserEditAssets extends Component {
       this.setState({ assets4: true })
     } else {
       this.setState({ assets5: true })
+    }
+  }
+
+  addAssetOff() {
+    if (!this.state.assetsOff2) {
+      this.setState({ assetsOff2: true })
+    } else if (!this.state.assetsOff3) {
+      this.setState({ assetsOff3: true })
+    } else if (!this.state.assetsOff4) {
+      this.setState({ assetsOff4: true })
+    } else {
+      this.setState({ assetsOff5: true })
     }
   }
 
@@ -123,12 +139,12 @@ class UserEditAssets extends Component {
                   <CardBody>
                     <Form>
                       <Col form>
-                        <div className="d-flex justify-content-between">
-                          <h5>Assets on Hand</h5>
+                        <div className="d-flex justify-content-between mt-5">
+                          <h5>Assets On Hand</h5>
                           <button
                             className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
                             type="button"
-                            onClick={this.addEducation}
+                            onClick={this.addAsset}
                           >
                             <Add />
                           </button>
@@ -163,11 +179,11 @@ class UserEditAssets extends Component {
                                 type="file"
                                 id="exampleCustomFileBrowser"
                                 name="profilePicture"
-                                //   onChange={(e) =>
-                                //     this.setState({
-                                //       profilePicture: e.target.files[0],
-                                //     })
-                                //   }
+                                onChange={(e) =>
+                                  this.setState({
+                                    fileAssets1: e.target.files[0],
+                                  })
+                                }
                               />
                             </FormGroup>
                           </Col>
@@ -215,11 +231,11 @@ class UserEditAssets extends Component {
                                   type="file"
                                   id="exampleCustomFileBrowser"
                                   name="profilePicture"
-                                  //   onChange={(e) =>
-                                  //     this.setState({
-                                  //       profilePicture: e.target.files[0],
-                                  //     })
-                                  //   }
+                                  onChange={(e) =>
+                                    this.setState({
+                                      fileAssets2: e.target.files[0],
+                                    })
+                                  }
                                 />
                               </FormGroup>
                             </Col>
@@ -270,11 +286,11 @@ class UserEditAssets extends Component {
                                   type="file"
                                   id="exampleCustomFileBrowser"
                                   name="profilePicture"
-                                  //   onChange={(e) =>
-                                  //     this.setState({
-                                  //       profilePicture: e.target.files[0],
-                                  //     })
-                                  //   }
+                                  onChange={(e) =>
+                                    this.setState({
+                                      fileAssets3: e.target.files[0],
+                                    })
+                                  }
                                 />
                               </FormGroup>
                             </Col>
@@ -325,11 +341,11 @@ class UserEditAssets extends Component {
                                   type="file"
                                   id="exampleCustomFileBrowser"
                                   name="profilePicture"
-                                  //   onChange={(e) =>
-                                  //     this.setState({
-                                  //       profilePicture: e.target.files[0],
-                                  //     })
-                                  //   }
+                                  onChange={(e) =>
+                                    this.setState({
+                                      fileAssets4: e.target.files[0],
+                                    })
+                                  }
                                 />
                               </FormGroup>
                             </Col>
@@ -380,11 +396,290 @@ class UserEditAssets extends Component {
                                   type="file"
                                   id="exampleCustomFileBrowser"
                                   name="profilePicture"
-                                  //   onChange={(e) =>
-                                  //     this.setState({
-                                  //       profilePicture: e.target.files[0],
-                                  //     })
-                                  //   }
+                                  onChange={(e) =>
+                                    this.setState({
+                                      fileAssets5: e.target.files[0],
+                                    })
+                                  }
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                        </Col>
+                      ) : (
+                        <></>
+                      )}
+                      <Col form>
+                        <div className="d-flex justify-content-between mt-5">
+                          <h5>Assets Off Hand</h5>
+                          <button
+                            className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
+                            type="button"
+                            onClick={this.addAssetOff}
+                          >
+                            <Add />
+                          </button>
+                        </div>
+                        <Row form>
+                          <Col xs={12} sm={12} md={2}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Title</Label>
+                              <Input
+                                value={this.state.titleAssetsOff1}
+                                name="titleAssetsOff1"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={4}>
+                            <FormGroup>
+                              <Label for="exampleEmail">Description</Label>
+                              <Input
+                                value={this.state.descAssetsOff1}
+                                name="descAssetsOff1"
+                                onChange={(e) => this.handleChange(e)}
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col xs={12} sm={12} md={6}>
+                            <FormGroup>
+                              <Label for="exampleCustomFileBrowser">
+                                Assets
+                              </Label>
+                              <CustomInput
+                                type="file"
+                                id="exampleCustomFileBrowser"
+                                name="profilePicture"
+                                onChange={(e) =>
+                                  this.setState({
+                                    fileAssetsOff1: e.target.files[0],
+                                  })
+                                }
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                      </Col>
+                      {this.state.assetsOff2 ? (
+                        <Col form>
+                          <div className="d-flex justify-content-between">
+                            <h5>Assets 2</h5>
+                            <button
+                              className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
+                              type="button"
+                              onClick={() =>
+                                this.setState({ assetsOff2: false })
+                              }
+                            >
+                              <Remove />
+                            </button>
+                          </div>
+                          <Row form>
+                            <Col xs={12} sm={12} md={2}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Title</Label>
+                                <Input
+                                  value={this.state.titleAssetsOff2}
+                                  name="titleAssetsOff2"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={4}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Description</Label>
+                                <Input
+                                  value={this.state.descAssetsOff2}
+                                  name="descAssetsOff2"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={6}>
+                              <FormGroup>
+                                <Label for="exampleCustomFileBrowser">
+                                  Assets
+                                </Label>
+                                <CustomInput
+                                  type="file"
+                                  id="exampleCustomFileBrowser"
+                                  name="profilePicture"
+                                  onChange={(e) =>
+                                    this.setState({
+                                      fileAssetsOff2: e.target.files[0],
+                                    })
+                                  }
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                        </Col>
+                      ) : (
+                        <></>
+                      )}
+                      {this.state.assetsOff3 ? (
+                        <Col form>
+                          <div className="d-flex justify-content-between">
+                            <h5>Assets 3</h5>
+                            <button
+                              className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
+                              type="button"
+                              onClick={() =>
+                                this.setState({ assetsOff3: false })
+                              }
+                            >
+                              <Remove />
+                            </button>
+                          </div>
+                          <Row form>
+                            <Col xs={12} sm={12} md={2}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Title</Label>
+                                <Input
+                                  value={this.state.titleAssetsOff3}
+                                  name="titleAssetsOff3"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={4}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Description</Label>
+                                <Input
+                                  value={this.state.descAssetsOff3}
+                                  name="descAssetsOff3"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={6}>
+                              <FormGroup>
+                                <Label for="exampleCustomFileBrowser">
+                                  Assets
+                                </Label>
+                                <CustomInput
+                                  type="file"
+                                  id="exampleCustomFileBrowser"
+                                  name="profilePicture"
+                                  onChange={(e) =>
+                                    this.setState({
+                                      fileAssetsOff3: e.target.files[0],
+                                    })
+                                  }
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                        </Col>
+                      ) : (
+                        <></>
+                      )}
+                      {this.state.assetsOff4 ? (
+                        <Col form>
+                          <div className="d-flex justify-content-between">
+                            <h5>Assets 4</h5>
+                            <button
+                              className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
+                              type="button"
+                              onClick={() =>
+                                this.setState({ assetsOff4: false })
+                              }
+                            >
+                              <Remove />
+                            </button>
+                          </div>
+                          <Row form>
+                            <Col xs={12} sm={12} md={2}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Title</Label>
+                                <Input
+                                  value={this.state.titleAssetsOff4}
+                                  name="titleAssetsOff4"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={4}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Description</Label>
+                                <Input
+                                  value={this.state.descAssetsOff4}
+                                  name="descAssetsOff4"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={6}>
+                              <FormGroup>
+                                <Label for="exampleCustomFileBrowser">
+                                  Assets
+                                </Label>
+                                <CustomInput
+                                  type="file"
+                                  id="exampleCustomFileBrowser"
+                                  name="profilePicture"
+                                  onChange={(e) =>
+                                    this.setState({
+                                      fileAssetsOff4: e.target.files[0],
+                                    })
+                                  }
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                        </Col>
+                      ) : (
+                        <></>
+                      )}
+                      {this.state.assetsOff5 ? (
+                        <Col form>
+                          <div className="d-flex justify-content-between">
+                            <h5>Assets 5</h5>
+                            <button
+                              className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
+                              type="button"
+                              onClick={() =>
+                                this.setState({ assetsOff5: false })
+                              }
+                            >
+                              <Remove />
+                            </button>
+                          </div>
+                          <Row form>
+                            <Col xs={12} sm={12} md={2}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Title</Label>
+                                <Input
+                                  value={this.state.titleAssetsOff5}
+                                  name="titleAssetsOff5"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={4}>
+                              <FormGroup>
+                                <Label for="exampleEmail">Description</Label>
+                                <Input
+                                  value={this.state.descAssetsOff5}
+                                  name="descAssetsOff5"
+                                  onChange={(e) => this.handleChange(e)}
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col xs={12} sm={12} md={6}>
+                              <FormGroup>
+                                <Label for="exampleCustomFileBrowser">
+                                  Assets
+                                </Label>
+                                <CustomInput
+                                  type="file"
+                                  id="exampleCustomFileBrowser"
+                                  name="fileAssetsOff5"
+                                  onChange={(e) =>
+                                    this.setState({
+                                      fileAssetsOff5: e.target.files[0],
+                                    })
+                                  }
                                 />
                               </FormGroup>
                             </Col>
