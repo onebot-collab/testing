@@ -556,7 +556,7 @@ class Inventory extends Component {
                                       className={classesBody.tablePicture}
                                     >
                                       <Avatar
-                                        src={`http://10.7.10.15:8443/node/${res.image_url}?boAgRwlfX5=${this.props.login.token}`}
+                                        src={`${process.env.REACT_APP_URL}${res.image_url}?boAgRwlfX5=${this.props.login.token}`}
                                       />
                                     </TableCell>
                                     <TableCell

@@ -1,18 +1,18 @@
 import qs from 'querystring'
 import axios from '../../services/axios'
-const REACT_APP_URL = 'http://10.7.10.15:8443/node/'
+const URL = `${process.env.REACT_APP_URL}`
 
 const loginAuth = (dataSubmit) => ({
   type: 'LOGIN',
   payload: axios().post(
-    `${REACT_APP_URL}api/v1/auth/twofa`,
+    `${URL}api/v1/auth/twofa`,
     qs.stringify(dataSubmit),
   ),
 })
 
 const logoutAuth = (token) => ({
   type: 'LOGOUT',
-  payload: axios(token).get(`${REACT_APP_URL}api/v1/auth/logout`),
+  payload: axios(token).get(`${URL}api/v1/auth/logout`),
 })
 
 const noLogin = () => ({
