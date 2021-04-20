@@ -15,7 +15,7 @@ class LoginPage extends Component {
     super(props)
     this.state = {
       email: '',
-      password: '12345678',
+      password: '',
       passcode: '123456',
     }
     this.handlerChange = this.handlerChange.bind(this)
