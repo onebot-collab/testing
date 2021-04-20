@@ -367,7 +367,7 @@ class User extends Component {
                                         className={classesBody.tablePicture}
                                       >
                                         <Avatar
-                                          src={`http://:8443/node/${res.photo_url}?boAgRwlfX5=${this.props.login.token}`}
+                                          src={`${process.env.REACT_APP_URL}${res.photo_url}?boAgRwlfX5=${this.props.login.token}`}
                                         />
                                       </TableCell>
                                       <TableCell
