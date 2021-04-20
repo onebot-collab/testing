@@ -1061,10 +1061,10 @@ class UserDetail extends Component {
                       <CardAvatar profile>
                         <a
                           target="_blank"
-                          href={`http://10.7.10.6:8443/node/${this.props.user.dataProfile[0].photo_url}?boAgRwlfX5=${this.props.login.token}`}
+                          href={`http://10.7.10.15:8443/node/${this.props.user.dataProfile[0].photo_url}?boAgRwlfX5=${this.props.login.token}`}
                         >
                           <img
-                            src={`http://10.7.10.6:8443/node/${this.props.user.dataProfile[0].photo_url}?boAgRwlfX5=${this.props.login.token}`}
+                            src={`http://10.7.10.15:8443/node/${this.props.user.dataProfile[0].photo_url}?boAgRwlfX5=${this.props.login.token}`}
                             alt="img"
                           />
                         </a>
