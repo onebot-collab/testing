@@ -179,9 +179,9 @@ class InventoryDetail extends Component {
       </option>
     ))
     const slideImages = [
-      `http://10.7.10.6:8443/node/${this.props.location.state.image_url}?boAgRwlfX5=${this.props.login.token}`,
-      `http://10.7.10.6:8443/node/${this.props.location.state.image_url2}?boAgRwlfX5=${this.props.login.token}`,
-      `http://10.7.10.6:8443/node/${this.props.location.state.image_url3}?boAgRwlfX5=${this.props.login.token}`,
+      `http://10.7.10.15:8443/node/${this.props.location.state.image_url}?boAgRwlfX5=${this.props.login.token}`,
+      `http://10.7.10.15:8443/node/${this.props.location.state.image_url2}?boAgRwlfX5=${this.props.login.token}`,
+      `http://10.7.10.15:8443/node/${this.props.location.state.image_url3}?boAgRwlfX5=${this.props.login.token}`,
     ]
     return (
       <div>
@@ -206,7 +206,7 @@ class InventoryDetail extends Component {
                         <div className="each-slide">
                           <img
                             className="rounded mx-auto d-block img-responsive wrapperImage"
-                            src={`http://10.7.10.6:8443/node/${this.props.location.state.image_url}?boAgRwlfX5=${this.props.login.token}`}
+                            src={`http://10.7.10.15:8443/node/${this.props.location.state.image_url}?boAgRwlfX5=${this.props.login.token}`}
                             alt="inventory img"
                           />
                         </div>
@@ -218,7 +218,7 @@ class InventoryDetail extends Component {
                                 src={
                                   this.props.location.state.image_url2 !==
                                   'null'
-                                    ? `http://10.7.10.6:8443/node/${this.props.location.state.image_url2}?boAgRwlfX5=${this.props.login.token}`
+                                    ? `http://10.7.10.15:8443/node/${this.props.location.state.image_url2}?boAgRwlfX5=${this.props.login.token}`
                                     : 'https://digitalfinger.id/wp-content/uploads/2019/12/no-image-available-icon-6.png'
                                 }
                                 alt="inventory img"
@@ -234,7 +234,7 @@ class InventoryDetail extends Component {
                                 src={
                                   this.props.location.state.image_url3 !==
                                   'null'
-                                    ? `http://10.7.10.6:8443/node/${this.props.location.state.image_url3}?boAgRwlfX5=${this.props.login.token}`
+                                    ? `http://10.7.10.15:8443/node/${this.props.location.state.image_url3}?boAgRwlfX5=${this.props.login.token}`
                                     : 'https://digitalfinger.id/wp-content/uploads/2019/12/no-image-available-icon-6.png'
                                 }
                                 alt="inventory img"
@@ -396,7 +396,7 @@ class InventoryDetail extends Component {
                   <div className="d-flex flex-fill p-2">
                     <a
                       target="_blank"
-                      href={`http://10.7.10.6:8443/node/${this.props.location.state.codeQr}?boAgRwlfX5=${this.props.login.token}`}
+                      href={`http://10.7.10.15:8443/node/${this.props.location.state.codeQr}?boAgRwlfX5=${this.props.login.token}`}
                       className="btn btn-block btn-outline-danger"
                     >
                       QR Code

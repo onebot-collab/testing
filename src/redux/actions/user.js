@@ -1,5 +1,5 @@
 import axios from '../../services/axios'
-const URL = 'http://10.7.10.6:8443/node/'
+const URL = 'http://10.7.10.15:8443/node/'
 
 const getAdmin = () => ({
   type: 'GETADMIN',
