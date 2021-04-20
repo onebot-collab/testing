@@ -1,3 +1,5 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-unneeded-ternary */
 /* eslint-disable react/no-unused-state */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-useless-escape */
@@ -74,13 +76,13 @@ class UserEditBackground extends Component {
       eduGrade4: this.props.user.dataFormEditBackground.edu[3].grade,
       eduGrade5: this.props.user.dataFormEditBackground.edu[4].grade,
       education2:
-        this.props.user.dataFormEditBackground.edu[1].institution !== '',
+        this.props.user.dataFormEditBackground.edu[1].institution !== null,
       education3:
-        this.props.user.dataFormEditBackground.edu[2].institution !== '',
+        this.props.user.dataFormEditBackground.edu[2].institution !== null,
       education4:
-        this.props.user.dataFormEditBackground.edu[3].institution !== '',
+        this.props.user.dataFormEditBackground.edu[3].institution !== null,
       education5:
-        this.props.user.dataFormEditBackground.edu[4].institution !== '',
+        this.props.user.dataFormEditBackground.edu[4].institution !== null,
       famName1: this.props.user.dataFormEditBackground.fam[0].name,
       famName2: this.props.user.dataFormEditBackground.fam[1].name,
       famName3: this.props.user.dataFormEditBackground.fam[2].name,
@@ -156,14 +158,14 @@ class UserEditBackground extends Component {
       workSalary3: this.props.user.dataFormEditBackground.work[2].lastSalary,
       workSalary4: this.props.user.dataFormEditBackground.work[3].lastSalary,
       workSalary5: this.props.user.dataFormEditBackground.work[4].lastSalary,
-      family2: this.props.user.dataFormEditBackground.fam[1].name !== '',
-      family3: this.props.user.dataFormEditBackground.fam[2].name !== '',
-      family4: this.props.user.dataFormEditBackground.fam[3].name !== '',
-      family5: this.props.user.dataFormEditBackground.fam[4].name !== '',
-      work2: this.props.user.dataFormEditBackground.work[1].company !== '',
-      work3: this.props.user.dataFormEditBackground.work[2].company !== '',
-      work4: this.props.user.dataFormEditBackground.work[3].company !== '',
-      work5: this.props.user.dataFormEditBackground.work[4].company !== '',
+      family2: this.props.user.dataFormEditBackground.fam[1].name !== null,
+      family3: this.props.user.dataFormEditBackground.fam[2].name !== null,
+      family4: this.props.user.dataFormEditBackground.fam[3].name !== null,
+      family5: this.props.user.dataFormEditBackground.fam[4].name !== null,
+      work2: this.props.user.dataFormEditBackground.work[1].company !== null,
+      work3: this.props.user.dataFormEditBackground.work[2].company !== null,
+      work4: this.props.user.dataFormEditBackground.work[3].company !== null,
+      work5: this.props.user.dataFormEditBackground.work[4].company !== null,
       titleAssets1: this.props.user.dataFormEditBackground.onHand[0].title,
       titleAssets2: this.props.user.dataFormEditBackground.onHand[1].title,
       titleAssets3: this.props.user.dataFormEditBackground.onHand[2].title,
@@ -179,10 +181,10 @@ class UserEditBackground extends Component {
       fileAssets3: this.props.user.dataFormEditBackground.onHand[2].file,
       fileAssets4: this.props.user.dataFormEditBackground.onHand[3].file,
       fileAssets5: this.props.user.dataFormEditBackground.onHand[4].file,
-      assets2: this.props.user.dataFormEditBackground.onHand[1].title !== '',
-      assets3: this.props.user.dataFormEditBackground.onHand[2].title !== '',
-      assets4: this.props.user.dataFormEditBackground.onHand[3].title !== '',
-      assets5: this.props.user.dataFormEditBackground.onHand[4].title !== '',
+      assets2: this.props.user.dataFormEditBackground.onHand[1].title !== null,
+      assets3: this.props.user.dataFormEditBackground.onHand[2].title !== null,
+      assets4: this.props.user.dataFormEditBackground.onHand[3].title !== null,
+      assets5: this.props.user.dataFormEditBackground.onHand[4].title !== null,
       titleAssetsOff1: this.props.user.dataFormEditBackground.offHand[0].title,
       titleAssetsOff2: this.props.user.dataFormEditBackground.offHand[1].title,
       titleAssetsOff3: this.props.user.dataFormEditBackground.offHand[2].title,
@@ -204,13 +206,13 @@ class UserEditBackground extends Component {
       fileAssetsOff4: this.props.user.dataFormEditBackground.offHand[3].file,
       fileAssetsOff5: this.props.user.dataFormEditBackground.offHand[4].file,
       assetsOff2:
-        this.props.user.dataFormEditBackground.offHand[1].title !== '',
+        this.props.user.dataFormEditBackground.offHand[1].title !== null,
       assetsOff3:
-        this.props.user.dataFormEditBackground.offHand[2].title !== '',
+        this.props.user.dataFormEditBackground.offHand[2].title !== null,
       assetsOff4:
-        this.props.user.dataFormEditBackground.offHand[3].title !== '',
+        this.props.user.dataFormEditBackground.offHand[3].title !== null,
       assetsOff5:
-        this.props.user.dataFormEditBackground.offHand[4].title !== '',
+        this.props.user.dataFormEditBackground.offHand[4].title !== null,
     }
     this.handleChange = this.handleChange.bind(this)
     this.addEducation = this.addEducation.bind(this)
@@ -284,7 +286,9 @@ class UserEditBackground extends Component {
     }
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    console.log(this.props.user.dataFormEditBackground)
+  }
 
   render() {
     // const classesBody = makeStyles(stylesBody)
@@ -393,8 +397,7 @@ class UserEditBackground extends Component {
                           </Col>
                         </Row>
                       </Col>
-                      {this.state.education2 ||
-                      this.state.eduInstitution2 !== '' ? (
+                      {this.state.education2 ? (
                         <Col form>
                           <div className="d-flex justify-content-between">
                             <h5>Education Background 2</h5>
@@ -404,7 +407,6 @@ class UserEditBackground extends Component {
                               onClick={() =>
                                 this.setState({
                                   education2: false,
-                                  eduInstitution2: '',
                                 })
                               }
                             >
@@ -494,8 +496,7 @@ class UserEditBackground extends Component {
                       ) : (
                         <></>
                       )}
-                      {this.state.education3 ||
-                      this.state.eduInstitution3 !== '' ? (
+                      {this.state.education3 ? (
                         <Col form>
                           <div className="d-flex justify-content-between">
                             <h5>Education Background 3</h5>
@@ -505,7 +506,6 @@ class UserEditBackground extends Component {
                               onClick={() =>
                                 this.setState({
                                   education3: false,
-                                  eduInstitution3: '',
                                 })
                               }
                             >
@@ -595,8 +595,7 @@ class UserEditBackground extends Component {
                       ) : (
                         <></>
                       )}
-                      {this.state.education4 ||
-                      this.state.eduInstitution4 !== '' ? (
+                      {this.state.education4 ? (
                         <Col form>
                           <div className="d-flex justify-content-between">
                             <h5>Education Background 4</h5>
@@ -606,7 +605,6 @@ class UserEditBackground extends Component {
                               onClick={() =>
                                 this.setState({
                                   education4: false,
-                                  eduInstitution4: '',
                                 })
                               }
                             >
@@ -696,8 +694,7 @@ class UserEditBackground extends Component {
                       ) : (
                         <></>
                       )}
-                      {this.state.education5 ||
-                      this.state.eduInstitution5 !== '' ? (
+                      {this.state.education5 ? (
                         <Col form>
                           <div className="d-flex justify-content-between">
                             <h5>Education Background 5</h5>
@@ -707,7 +704,6 @@ class UserEditBackground extends Component {
                               onClick={() =>
                                 this.setState({
                                   education5: false,
-                                  eduInstitution5: '',
                                 })
                               }
                             >
