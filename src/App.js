@@ -13,7 +13,6 @@ import { store, persistor } from './redux/store'
 
 import Admin from './layouts/Admin'
 import Login from './pages/Auth/Login'
-
 const theme = createMuiTheme({
   palette: {
     primary: {

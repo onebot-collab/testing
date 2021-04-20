@@ -1,6 +1,6 @@
 import qs from 'querystring'
 import axios from '../../services/axios'
-const URL = 'http://10.7.10.15:8443/node/'
+const URL = `${process.env.REACT_APP_URL}`
 
 const listIzin = (dataSubmit) => ({
   type: 'GETIZIN',

@@ -141,7 +141,7 @@ export default function SearchAppBar() {
             <ListItem button>
               <ListItemAvatar>
                 <Avatar
-                  src={`http://10.7.10.15:8443/node/${imgProfile}?boAgRwlfX5=${token}`}
+                  src={`${process.env.REACT_APP_URL}${imgProfile}?boAgRwlfX5=${token}`}
                 />
               </ListItemAvatar>
               <ListItemText className={classes.textColor}>{name}</ListItemText>

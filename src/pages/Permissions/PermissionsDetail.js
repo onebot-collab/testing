@@ -206,7 +206,7 @@ class PermissionsDetail extends Component {
                             'No Attachment'
                           ) : (
                             <a
-                              href={`http://10.7.10.15:8443/node/${this.state.file}`}
+                              href={`${process.env.REACT_APP_URL}${this.state.file}`}
                               target="_blank"
                             >
                               {this.state.file.replace('public/izin/', '')}
