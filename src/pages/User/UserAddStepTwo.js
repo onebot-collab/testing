@@ -43,11 +43,11 @@ class UserAddStepTwo extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      eduLevel1: 'SMA/SMK',
-      eduLevel2: 'SMA/SMK',
-      eduLevel3: 'SMA/SMK',
-      eduLevel4: 'SMA/SMK',
-      eduLevel5: 'SMA/SMK',
+      eduLevel1: '',
+      eduLevel2: '',
+      eduLevel3: '',
+      eduLevel4: '',
+      eduLevel5: '',
       eduInstitution1: '',
       eduInstitution2: '',
       eduInstitution3: '',

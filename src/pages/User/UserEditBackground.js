@@ -43,65 +43,74 @@ class UserEditBackground extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      eduLevel1: 'SMA/SMK',
-      eduLevel2: 'SMA/SMK',
-      eduLevel3: 'SMA/SMK',
-      eduLevel4: 'SMA/SMK',
-      eduLevel5: 'SMA/SMK',
-      eduInstitution1: '',
-      eduInstitution2: '',
-      eduInstitution3: '',
-      eduInstitution4: '',
-      eduInstitution5: '',
-      eduPeriod1: '',
-      eduPeriod2: '',
-      eduPeriod3: '',
-      eduPeriod4: '',
-      eduPeriod5: '',
-      eduMajor1: '',
-      eduMajor2: '',
-      eduMajor3: '',
-      eduMajor4: '',
-      eduMajor5: '',
-      eduGrade1: '',
-      eduGrade2: '',
-      eduGrade3: '',
-      eduGrade4: '',
-      eduGrade5: '',
-      education2: false,
-      education3: false,
-      education4: false,
-      education5: false,
-      famName1: '',
-      famName2: '',
-      famName3: '',
-      famName4: '',
-      famName5: '',
-      famGender1: 1,
-      famGender2: 1,
-      famGender3: 1,
-      famGender4: 1,
-      famGender5: 1,
-      famTel1: '',
-      famTel2: '',
-      famTel3: '',
-      famTel4: '',
-      famTel5: '',
-      famRelationship1: '',
-      famRelationship2: '',
-      famRelationship3: '',
-      famRelationship4: '',
-      famRelationship5: '',
-      famOccupation1: '',
-      famOccupation2: '',
-      famOccupation3: '',
-      famOccupation4: '',
-      famOccupation5: '',
-      famAddress1: '',
-      famAddress2: '',
-      famAddress3: '',
-      famAddress4: '',
-      famAddress5: '',
+      eduLevel1: this.props.user.dataFormEditBackground.edu[0].level,
+      eduLevel2: this.props.user.dataFormEditBackground.edu[1].level,
+      eduLevel3: this.props.user.dataFormEditBackground.edu[2].level,
+      eduLevel4: this.props.user.dataFormEditBackground.edu[3].level,
+      eduLevel5: this.props.user.dataFormEditBackground.edu[4].level,
+      eduInstitution1: this.props.user.dataFormEditBackground.edu[0]
+        .institution,
+      eduInstitution2: this.props.user.dataFormEditBackground.edu[1]
+        .institution,
+      eduInstitution3: this.props.user.dataFormEditBackground.edu[2]
+        .institution,
+      eduInstitution4: this.props.user.dataFormEditBackground.edu[3]
+        .institution,
+      eduInstitution5: this.props.user.dataFormEditBackground.edu[4]
+        .institution,
+      eduPeriod1: this.props.user.dataFormEditBackground.edu[0].period,
+      eduPeriod2: this.props.user.dataFormEditBackground.edu[1].period,
+      eduPeriod3: this.props.user.dataFormEditBackground.edu[2].period,
+      eduPeriod4: this.props.user.dataFormEditBackground.edu[3].period,
+      eduPeriod5: this.props.user.dataFormEditBackground.edu[4].period,
+      eduMajor1: this.props.user.dataFormEditBackground.edu[0].major,
+      eduMajor2: this.props.user.dataFormEditBackground.edu[1].major,
+      eduMajor3: this.props.user.dataFormEditBackground.edu[2].major,
+      eduMajor4: this.props.user.dataFormEditBackground.edu[3].major,
+      eduMajor5: this.props.user.dataFormEditBackground.edu[4].major,
+      eduGrade1: this.props.user.dataFormEditBackground.edu[0].grade,
+      eduGrade2: this.props.user.dataFormEditBackground.edu[1].grade,
+      eduGrade3: this.props.user.dataFormEditBackground.edu[2].grade,
+      eduGrade4: this.props.user.dataFormEditBackground.edu[3].grade,
+      eduGrade5: this.props.user.dataFormEditBackground.edu[4].grade,
+      education2:
+        this.props.user.dataFormEditBackground.edu[1].institution !== '',
+      education3:
+        this.props.user.dataFormEditBackground.edu[2].institution !== '',
+      education4:
+        this.props.user.dataFormEditBackground.edu[3].institution !== '',
+      education5:
+        this.props.user.dataFormEditBackground.edu[4].institution !== '',
+      famName1: this.props.user.dataFormEditBackground.fam[0].name,
+      famName2: this.props.user.dataFormEditBackground.fam[1].name,
+      famName3: this.props.user.dataFormEditBackground.fam[2].name,
+      famName4: this.props.user.dataFormEditBackground.fam[3].name,
+      famName5: this.props.user.dataFormEditBackground.fam[4].name,
+      famGender1: this.props.user.dataFormEditBackground.fam[0].gender,
+      famGender2: this.props.user.dataFormEditBackground.fam[1].gender,
+      famGender3: this.props.user.dataFormEditBackground.fam[2].gender,
+      famGender4: this.props.user.dataFormEditBackground.fam[3].gender,
+      famGender5: this.props.user.dataFormEditBackground.fam[4].gender,
+      famTel1: this.props.user.dataFormEditBackground.fam[0].phone,
+      famTel2: this.props.user.dataFormEditBackground.fam[1].phone,
+      famTel3: this.props.user.dataFormEditBackground.fam[2].phone,
+      famTel4: this.props.user.dataFormEditBackground.fam[3].phone,
+      famTel5: this.props.user.dataFormEditBackground.fam[4].phone,
+      famRelationship1: this.props.user.dataFormEditBackground.fam[0].relation,
+      famRelationship2: this.props.user.dataFormEditBackground.fam[1].relation,
+      famRelationship3: this.props.user.dataFormEditBackground.fam[2].relation,
+      famRelationship4: this.props.user.dataFormEditBackground.fam[3].relation,
+      famRelationship5: this.props.user.dataFormEditBackground.fam[4].relation,
+      famOccupation1: this.props.user.dataFormEditBackground.fam[0].occupation,
+      famOccupation2: this.props.user.dataFormEditBackground.fam[1].occupation,
+      famOccupation3: this.props.user.dataFormEditBackground.fam[2].occupation,
+      famOccupation4: this.props.user.dataFormEditBackground.fam[3].occupation,
+      famOccupation5: this.props.user.dataFormEditBackground.fam[4].occupation,
+      famAddress1: this.props.user.dataFormEditBackground.fam[0].address,
+      famAddress2: this.props.user.dataFormEditBackground.fam[1].address,
+      famAddress3: this.props.user.dataFormEditBackground.fam[2].address,
+      famAddress4: this.props.user.dataFormEditBackground.fam[3].address,
+      famAddress5: this.props.user.dataFormEditBackground.fam[4].address,
       famCountry1: 'Indonesia',
       famCountry2: 'Indonesia',
       famCountry3: 'Indonesia',
@@ -122,79 +131,88 @@ class UserEditBackground extends Component {
       famZip3: '',
       famZip4: '',
       famZip5: '',
-      workCompany1: '',
-      workCompany2: '',
-      workCompany3: '',
-      workCompany4: '',
-      workCompany5: '',
-      workPeriod1: '',
-      workPeriod2: '',
-      workPeriod3: '',
-      workPeriod4: '',
-      workPeriod5: '',
-      workFirstRole1: '',
-      workFirstRole2: '',
-      workFirstRole3: '',
-      workFirstRole4: '',
-      workFirstRole5: '',
-      workLastRole1: '',
-      workLastRole2: '',
-      workLastRole3: '',
-      workLastRole4: '',
-      workLastRole5: '',
-      workSalary1: '',
-      workSalary2: '',
-      workSalary3: '',
-      workSalary4: '',
-      workSalary5: '',
-      family2: false,
-      family3: false,
-      family4: false,
-      family5: false,
-      work2: false,
-      work3: false,
-      work4: false,
-      work5: false,
-      titleAssets1: '',
-      titleAssets2: '',
-      titleAssets3: '',
-      titleAssets4: '',
-      titleAssets5: '',
-      descAssets1: '',
-      descAssets2: '',
-      descAssets3: '',
-      descAssets4: '',
-      descAssets5: '',
-      fileAssets1: '',
-      fileAssets2: '',
-      fileAssets3: '',
-      fileAssets4: '',
-      fileAssets5: '',
-      assets2: false,
-      assets3: false,
-      assets4: false,
-      assets5: false,
-      titleAssetsOff2: '',
-      titleAssetsOff3: '',
-      titleAssetsOff4: '',
-      titleAssetsOff5: '',
-      descAssetsOff1: '',
-      descAssetsOff2: '',
-      descAssetsOff3: '',
-      descAssetsOff4: '',
-      descAssetsOff5: '',
-      fileAssetsOff1: '',
-      fileAssetsOff2: '',
-      fileAssetsOff3: '',
-      fileAssetsOff4: '',
-      fileAssetsOff5: '',
-      assetsOff2: false,
-      assetsOff3: false,
-      assetsOff4: false,
-      assetsOff5: false,
+      workCompany1: this.props.user.dataFormEditBackground.work[0].company,
+      workCompany2: this.props.user.dataFormEditBackground.work[1].company,
+      workCompany3: this.props.user.dataFormEditBackground.work[2].company,
+      workCompany4: this.props.user.dataFormEditBackground.work[3].company,
+      workCompany5: this.props.user.dataFormEditBackground.work[4].company,
+      workPeriod1: this.props.user.dataFormEditBackground.work[0].period,
+      workPeriod2: this.props.user.dataFormEditBackground.work[1].period,
+      workPeriod3: this.props.user.dataFormEditBackground.work[2].period,
+      workPeriod4: this.props.user.dataFormEditBackground.work[3].period,
+      workPeriod5: this.props.user.dataFormEditBackground.work[4].period,
+      workFirstRole1: this.props.user.dataFormEditBackground.work[0].firstRole,
+      workFirstRole2: this.props.user.dataFormEditBackground.work[1].firstRole,
+      workFirstRole3: this.props.user.dataFormEditBackground.work[2].firstRole,
+      workFirstRole4: this.props.user.dataFormEditBackground.work[3].firstRole,
+      workFirstRole5: this.props.user.dataFormEditBackground.work[4].firstRole,
+      workLastRole1: this.props.user.dataFormEditBackground.work[0].lastRole,
+      workLastRole2: this.props.user.dataFormEditBackground.work[1].lastRole,
+      workLastRole3: this.props.user.dataFormEditBackground.work[2].lastRole,
+      workLastRole4: this.props.user.dataFormEditBackground.work[3].lastRole,
+      workLastRole5: this.props.user.dataFormEditBackground.work[4].lastRole,
+      workSalary1: this.props.user.dataFormEditBackground.work[0].lastSalary,
+      workSalary2: this.props.user.dataFormEditBackground.work[1].lastSalary,
+      workSalary3: this.props.user.dataFormEditBackground.work[2].lastSalary,
+      workSalary4: this.props.user.dataFormEditBackground.work[3].lastSalary,
+      workSalary5: this.props.user.dataFormEditBackground.work[4].lastSalary,
+      family2: this.props.user.dataFormEditBackground.fam[1].name !== '',
+      family3: this.props.user.dataFormEditBackground.fam[2].name !== '',
+      family4: this.props.user.dataFormEditBackground.fam[3].name !== '',
+      family5: this.props.user.dataFormEditBackground.fam[4].name !== '',
+      work2: this.props.user.dataFormEditBackground.work[1].company !== '',
+      work3: this.props.user.dataFormEditBackground.work[2].company !== '',
+      work4: this.props.user.dataFormEditBackground.work[3].company !== '',
+      work5: this.props.user.dataFormEditBackground.work[4].company !== '',
+      titleAssets1: this.props.user.dataFormEditBackground.onHand[0].title,
+      titleAssets2: this.props.user.dataFormEditBackground.onHand[1].title,
+      titleAssets3: this.props.user.dataFormEditBackground.onHand[2].title,
+      titleAssets4: this.props.user.dataFormEditBackground.onHand[3].title,
+      titleAssets5: this.props.user.dataFormEditBackground.onHand[4].title,
+      descAssets1: this.props.user.dataFormEditBackground.onHand[0].description,
+      descAssets2: this.props.user.dataFormEditBackground.onHand[1].description,
+      descAssets3: this.props.user.dataFormEditBackground.onHand[2].description,
+      descAssets4: this.props.user.dataFormEditBackground.onHand[3].description,
+      descAssets5: this.props.user.dataFormEditBackground.onHand[4].description,
+      fileAssets1: this.props.user.dataFormEditBackground.onHand[0].file,
+      fileAssets2: this.props.user.dataFormEditBackground.onHand[1].file,
+      fileAssets3: this.props.user.dataFormEditBackground.onHand[2].file,
+      fileAssets4: this.props.user.dataFormEditBackground.onHand[3].file,
+      fileAssets5: this.props.user.dataFormEditBackground.onHand[4].file,
+      assets2: this.props.user.dataFormEditBackground.onHand[1].title !== '',
+      assets3: this.props.user.dataFormEditBackground.onHand[2].title !== '',
+      assets4: this.props.user.dataFormEditBackground.onHand[3].title !== '',
+      assets5: this.props.user.dataFormEditBackground.onHand[4].title !== '',
+      titleAssetsOff1: this.props.user.dataFormEditBackground.offHand[0].title,
+      titleAssetsOff2: this.props.user.dataFormEditBackground.offHand[1].title,
+      titleAssetsOff3: this.props.user.dataFormEditBackground.offHand[2].title,
+      titleAssetsOff4: this.props.user.dataFormEditBackground.offHand[3].title,
+      titleAssetsOff5: this.props.user.dataFormEditBackground.offHand[4].title,
+      descAssetsOff1: this.props.user.dataFormEditBackground.offHand[0]
+        .description,
+      descAssetsOff2: this.props.user.dataFormEditBackground.offHand[1]
+        .description,
+      descAssetsOff3: this.props.user.dataFormEditBackground.offHand[2]
+        .description,
+      descAssetsOff4: this.props.user.dataFormEditBackground.offHand[3]
+        .description,
+      descAssetsOff5: this.props.user.dataFormEditBackground.offHand[4]
+        .description,
+      fileAssetsOff1: this.props.user.dataFormEditBackground.offHand[0].file,
+      fileAssetsOff2: this.props.user.dataFormEditBackground.offHand[1].file,
+      fileAssetsOff3: this.props.user.dataFormEditBackground.offHand[2].file,
+      fileAssetsOff4: this.props.user.dataFormEditBackground.offHand[3].file,
+      fileAssetsOff5: this.props.user.dataFormEditBackground.offHand[4].file,
+      assetsOff2:
+        this.props.user.dataFormEditBackground.offHand[1].title !== '',
+      assetsOff3:
+        this.props.user.dataFormEditBackground.offHand[2].title !== '',
+      assetsOff4:
+        this.props.user.dataFormEditBackground.offHand[3].title !== '',
+      assetsOff5:
+        this.props.user.dataFormEditBackground.offHand[4].title !== '',
     }
     this.handleChange = this.handleChange.bind(this)
-    this.nextPage = this.nextPage.bind(this)
     this.addEducation = this.addEducation.bind(this)
     this.addFamily = this.addFamily.bind(this)
     this.addWork = this.addWork.bind(this)
@@ -204,116 +222,6 @@ class UserEditBackground extends Component {
 
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value })
-  }
-
-  nextPage() {
-    const dataSubmit = {
-      eduLevel1: this.state.eduLevel1,
-      eduLevel2: this.state.eduLevel2,
-      eduLevel3: this.state.eduLevel3,
-      eduLevel4: this.state.eduLevel4,
-      eduLevel5: this.state.eduLevel5,
-      eduInstitution1: this.state.eduInstitution1,
-      eduInstitution2: this.state.eduInstitution2,
-      eduInstitution3: this.state.eduInstitution3,
-      eduInstitution4: this.state.eduInstitution4,
-      eduInstitution5: this.state.eduInstitution5,
-      eduPeriod1: this.state.eduPeriod1,
-      eduPeriod2: this.state.eduPeriod2,
-      eduPeriod3: this.state.eduPeriod3,
-      eduPeriod4: this.state.eduPeriod4,
-      eduPeriod5: this.state.eduPeriod5,
-      eduMajor1: this.state.eduMajor1,
-      eduMajor2: this.state.eduMajor2,
-      eduMajor3: this.state.eduMajor3,
-      eduMajor4: this.state.eduMajor4,
-      eduMajor5: this.state.eduMajor5,
-      eduGrade1: this.state.eduGrade1,
-      eduGrade2: this.state.eduGrade2,
-      eduGrade3: this.state.eduGrade3,
-      eduGrade4: this.state.eduGrade4,
-      eduGrade5: this.state.eduGrade5,
-      famName1: this.state.famName1,
-      famName2: this.state.famName2,
-      famName3: this.state.famName3,
-      famName4: this.state.famName4,
-      famName5: this.state.famName5,
-      famGender1: this.state.famGender1,
-      famGender2: this.state.famGender2,
-      famGender3: this.state.famGender3,
-      famGender4: this.state.famGender4,
-      famGender5: this.state.famGender5,
-      famTel1: this.state.famTel1,
-      famTel2: this.state.famTel2,
-      famTel3: this.state.famTel3,
-      famTel4: this.state.famTel4,
-      famTel5: this.state.famTel5,
-      famRelationship1: this.state.famRelationship1,
-      famRelationship2: this.state.famRelationship2,
-      famRelationship3: this.state.famRelationship3,
-      famRelationship4: this.state.famRelationship4,
-      famRelationship5: this.state.famRelationship5,
-      famOccupation1: this.state.famOccupation1,
-      famOccupation2: this.state.famOccupation2,
-      famOccupation3: this.state.famOccupation3,
-      famOccupation4: this.state.famOccupation4,
-      famOccupation5: this.state.famOccupation5,
-      famAddress1: this.state.famAddress1,
-      famAddress2: this.state.famAddress2,
-      famAddress3: this.state.famAddress3,
-      famAddress4: this.state.famAddress4,
-      famAddress5: this.state.famAddress5,
-      famCountry1: this.state.famCountry1,
-      famCountry2: this.state.famCountry2,
-      famCountry3: this.state.famCountry3,
-      famCountry4: this.state.famCountry4,
-      famCountry5: this.state.famCountry5,
-      famCity1: this.state.famCity1,
-      famCity2: this.state.famCity2,
-      famCity3: this.state.famCity3,
-      famCity4: this.state.famCity4,
-      famCity5: this.state.famCity5,
-      famDistrict1: this.state.famDistrict1,
-      famDistrict2: this.state.famDistrict2,
-      famDistrict3: this.state.famDistrict3,
-      famDistrict4: this.state.famDistrict4,
-      famDistrict5: this.state.famDistrict5,
-      famZip1: this.state.famZip1,
-      famZip2: this.state.famZip2,
-      famZip3: this.state.famZip3,
-      famZip4: this.state.famZip4,
-      famZip5: this.state.famZip5,
-      workCompany1: this.state.workCompany1,
-      workCompany2: this.state.workCompany2,
-      workCompany3: this.state.workCompany3,
-      workCompany4: this.state.workCompany4,
-      workCompany5: this.state.workCompany5,
-      workPeriod1: this.state.workPeriod1,
-      workPeriod2: this.state.workPeriod2,
-      workPeriod3: this.state.workPeriod3,
-      workPeriod4: this.state.workPeriod4,
-      workPeriod5: this.state.workPeriod5,
-      workFirstRole1: this.state.workFirstRole1,
-      workFirstRole2: this.state.workFirstRole2,
-      workFirstRole3: this.state.workFirstRole3,
-      workFirstRole4: this.state.workFirstRole4,
-      workFirstRole5: this.state.workFirstRole5,
-      workLastRole1: this.state.workLastRole1,
-      workLastRole2: this.state.workLastRole2,
-      workLastRole3: this.state.workLastRole3,
-      workLastRole4: this.state.workLastRole4,
-      workLastRole5: this.state.workLastRole5,
-      workSalary1: this.state.workSalary1,
-      workSalary2: this.state.workSalary2,
-      workSalary3: this.state.workSalary3,
-      workSalary4: this.state.workSalary4,
-      workSalary5: this.state.workSalary5,
-    }
-
-    this.props.formTwo(dataSubmit)
-    setTimeout(() => {
-      this.props.history.push('/admin/user/stepThree')
-    }, 100)
   }
 
   addEducation() {
@@ -485,7 +393,8 @@ class UserEditBackground extends Component {
                           </Col>
                         </Row>
                       </Col>
-                      {this.state.education2 ? (
+                      {this.state.education2 ||
+                      this.state.eduInstitution2 !== '' ? (
                         <Col form>
                           <div className="d-flex justify-content-between">
                             <h5>Education Background 2</h5>
@@ -493,7 +402,10 @@ class UserEditBackground extends Component {
                               className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
                               type="button"
                               onClick={() =>
-                                this.setState({ education2: false })
+                                this.setState({
+                                  education2: false,
+                                  eduInstitution2: '',
+                                })
                               }
                             >
                               <Remove />
@@ -582,7 +494,8 @@ class UserEditBackground extends Component {
                       ) : (
                         <></>
                       )}
-                      {this.state.education3 ? (
+                      {this.state.education3 ||
+                      this.state.eduInstitution3 !== '' ? (
                         <Col form>
                           <div className="d-flex justify-content-between">
                             <h5>Education Background 3</h5>
@@ -590,7 +503,10 @@ class UserEditBackground extends Component {
                               className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
                               type="button"
                               onClick={() =>
-                                this.setState({ education3: false })
+                                this.setState({
+                                  education3: false,
+                                  eduInstitution3: '',
+                                })
                               }
                             >
                               <Remove />
@@ -679,7 +595,8 @@ class UserEditBackground extends Component {
                       ) : (
                         <></>
                       )}
-                      {this.state.education4 ? (
+                      {this.state.education4 ||
+                      this.state.eduInstitution4 !== '' ? (
                         <Col form>
                           <div className="d-flex justify-content-between">
                             <h5>Education Background 4</h5>
@@ -687,7 +604,10 @@ class UserEditBackground extends Component {
                               className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
                               type="button"
                               onClick={() =>
-                                this.setState({ education4: false })
+                                this.setState({
+                                  education4: false,
+                                  eduInstitution4: '',
+                                })
                               }
                             >
                               <Remove />
@@ -776,7 +696,8 @@ class UserEditBackground extends Component {
                       ) : (
                         <></>
                       )}
-                      {this.state.education5 ? (
+                      {this.state.education5 ||
+                      this.state.eduInstitution5 !== '' ? (
                         <Col form>
                           <div className="d-flex justify-content-between">
                             <h5>Education Background 5</h5>
@@ -784,7 +705,10 @@ class UserEditBackground extends Component {
                               className="btn btn-danger my-2 my-sm-0 align-items-center justify-content-center"
                               type="button"
                               onClick={() =>
-                                this.setState({ education5: false })
+                                this.setState({
+                                  education5: false,
+                                  eduInstitution5: '',
+                                })
                               }
                             >
                               <Remove />
