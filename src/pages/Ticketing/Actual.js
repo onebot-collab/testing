@@ -333,6 +333,78 @@ class Ticketing extends Component {
             <GridContainer>
               <GridItem xs={12} sm={12} md={12}>
                 <Card>
+                  <CardIcon color="danger">
+                    <nav className="navbar d-flex justify-content-end">
+                      <div className="d-flex flex-row">
+                        <form className="form-inline mr-5">
+                          <input
+                            className="form-control mr-sm-2"
+                            type="search"
+                            name="search"
+                            onChange={this.handleSearch}
+                            placeholder="Type Something ..."
+                            aria-label="Search"
+                          ></input>
+                          <button
+                            className="btn btn-outline-light my-2 my-sm-0"
+                            type="submit"
+                          >
+                            Search
+                          </button>
+                        </form>
+                        <button
+                          className="btn m-2 my-sm-0"
+                          type="submit"
+                          onClick={this.toggleFilterModal}
+                        >
+                          <Tooltip
+                            id="tooltip-top-start"
+                            title="Filter"
+                            placement="top"
+                            classes={{
+                              tooltip: classesBody.tooltip,
+                            }}
+                          >
+                            {this.state.isLoadingExportAllLog ? (
+                              <div
+                                className="spinner-border spinner-border-sm text-white"
+                                role="status"
+                              >
+                                <span className="sr-only">Loading...</span>
+                              </div>
+                            ) : (
+                              <Sort className="iconWhiteColor" />
+                            )}
+                          </Tooltip>
+                        </button>
+                        <button
+                          className="btn my-2 my-sm-0"
+                          type="submit"
+                          onClick={this.export}
+                        >
+                          <Tooltip
+                            id="tooltip-top-start"
+                            title="Export to PDF"
+                            placement="top"
+                            classes={{
+                              tooltip: classesBody.tooltip,
+                            }}
+                          >
+                            {this.state.isLoadingExportAllTicket ? (
+                              <div
+                                className="spinner-border spinner-border-sm text-white"
+                                role="status"
+                              >
+                                <span className="sr-only">Loading...</span>
+                              </div>
+                            ) : (
+                              <Print className="iconWhiteColor" />
+                            )}
+                          </Tooltip>
+                        </button>
+                      </div>
+                    </nav>
+                  </CardIcon>
                   {this.state.isLoading ? (
                     <center>
                       <div
@@ -344,78 +416,6 @@ class Ticketing extends Component {
                     </center>
                   ) : (
                     <>
-                      <CardIcon color="danger">
-                        <nav className="navbar d-flex justify-content-end">
-                          <div className="d-flex flex-row">
-                            <form className="form-inline mr-5">
-                              <input
-                                className="form-control mr-sm-2"
-                                type="search"
-                                name="search"
-                                onChange={this.handleSearch}
-                                placeholder="Type Something ..."
-                                aria-label="Search"
-                              ></input>
-                              <button
-                                className="btn btn-outline-light my-2 my-sm-0"
-                                type="submit"
-                              >
-                                Search
-                              </button>
-                            </form>
-                            <button
-                              className="btn m-2 my-sm-0"
-                              type="submit"
-                              onClick={this.toggleFilterModal}
-                            >
-                              <Tooltip
-                                id="tooltip-top-start"
-                                title="Filter"
-                                placement="top"
-                                classes={{
-                                  tooltip: classesBody.tooltip,
-                                }}
-                              >
-                                {this.state.isLoadingExportAllLog ? (
-                                  <div
-                                    className="spinner-border spinner-border-sm text-white"
-                                    role="status"
-                                  >
-                                    <span className="sr-only">Loading...</span>
-                                  </div>
-                                ) : (
-                                  <Sort className="iconWhiteColor" />
-                                )}
-                              </Tooltip>
-                            </button>
-                            <button
-                              className="btn my-2 my-sm-0"
-                              type="submit"
-                              onClick={this.export}
-                            >
-                              <Tooltip
-                                id="tooltip-top-start"
-                                title="Export to PDF"
-                                placement="top"
-                                classes={{
-                                  tooltip: classesBody.tooltip,
-                                }}
-                              >
-                                {this.state.isLoadingExportAllTicket ? (
-                                  <div
-                                    className="spinner-border spinner-border-sm text-white"
-                                    role="status"
-                                  >
-                                    <span className="sr-only">Loading...</span>
-                                  </div>
-                                ) : (
-                                  <Print className="iconWhiteColor" />
-                                )}
-                              </Tooltip>
-                            </button>
-                          </div>
-                        </nav>
-                      </CardIcon>
                       <CardBody>
                         <TableContainer>
                           <Table className={classesHead.table}>

@@ -6,10 +6,10 @@ const getAdmin = () => ({
   payload: axios().get(`${URL}api/v1/user/allbyadmin`),
 })
 
-const getUser = (token, search, page) => ({
+const getUser = (token, search, page, department) => ({
   type: 'GETUSER',
   payload: axios(token).get(
-    `${URL}api/v1/user/allbyusers/0?limit=15&search=${search}&page=${page}`,
+    `${URL}api/v1/user/allbyusers/0?limit=15&search=${search}&page=${page}&departmentId=${department}`,
   ),
 })
 
@@ -43,6 +43,21 @@ const formTwo = (data) => ({
   meta: data,
 })
 
+const editFormPersonal = (data) => ({
+  type: 'EDITFORMPERSONAL',
+  meta: data,
+})
+
+const editFormBackground = (data) => ({
+  type: 'EDITFORMBACKGROUND',
+  meta: data,
+})
+
+const editFormAsset = (data) => ({
+  type: 'EDITFORMASSET',
+  meta: data,
+})
+
 export {
   getAdmin,
   getUser,
@@ -52,4 +67,7 @@ export {
   updateUser,
   formOne,
   formTwo,
+  editFormPersonal,
+  editFormBackground,
+  editFormAsset,
 }
