@@ -245,7 +245,7 @@ class UserDetail extends Component {
 
   delete() {
     this.setState({ isLoadingDelete: true })
-    const id = `${this.props.location.state.id}`
+    const id = `${this.props.user.dataFormEditPersonal.id}`
     this.props
       .deleteUser(id, this.props.login.token)
       .then((res) => {
@@ -299,7 +299,7 @@ class UserDetail extends Component {
       .updateRosterUser(
         this.props.login.token,
         dataSubmit,
-        this.props.location.state.id,
+        this.props.user.dataFormEditPersonal.id,
       )
       .then((res) => {
         this.props.newToken(res.action.payload.data.newToken)
@@ -311,7 +311,7 @@ class UserDetail extends Component {
         this.props
           .getRosterByUser(
             res.action.payload.data.newToken,
-            parseInt(this.props.location.state.id),
+            parseInt(this.props.user.dataFormEditPersonal.id),
             moment().format().slice(0, 10),
           )
           .then((res) => {
@@ -496,7 +496,7 @@ class UserDetail extends Component {
         .updateRosterUser(
           this.props.login.token,
           dataSubmit,
-          parseInt(this.props.location.state.id),
+          parseInt(this.props.user.dataFormEditPersonal.id),
         )
         .then((res) => {
           swal.fire({
@@ -507,7 +507,7 @@ class UserDetail extends Component {
           this.props
             .getRosterByUser(
               res.action.payload.data.newToken,
-              parseInt(this.props.location.state.id),
+              parseInt(this.props.user.dataFormEditPersonal.id),
               `${moment().format('YYYY-MM')}-01`,
             )
             .then((res) => {
@@ -548,49 +548,49 @@ class UserDetail extends Component {
         .updateRosterUser(
           this.props.login.token,
           mondayData,
-          parseInt(this.props.location.state.id),
+          parseInt(this.props.user.dataFormEditPersonal.id),
         )
         .then((res) => {
           this.props
             .updateRosterUser(
               res.action.payload.data.newToken,
               tuesdayData,
-              parseInt(this.props.location.state.id),
+              parseInt(this.props.user.dataFormEditPersonal.id),
             )
             .then((res) => {
               this.props
                 .updateRosterUser(
                   res.action.payload.data.newToken,
                   wednesdayData,
-                  parseInt(this.props.location.state.id),
+                  parseInt(this.props.user.dataFormEditPersonal.id),
                 )
                 .then((res) => {
                   this.props
                     .updateRosterUser(
                       res.action.payload.data.newToken,
                       thursdayData,
-                      parseInt(this.props.location.state.id),
+                      parseInt(this.props.user.dataFormEditPersonal.id),
                     )
                     .then((res) => {
                       this.props
                         .updateRosterUser(
                           res.action.payload.data.newToken,
                           fridayData,
-                          parseInt(this.props.location.state.id),
+                          parseInt(this.props.user.dataFormEditPersonal.id),
                         )
                         .then((res) => {
                           this.props
                             .updateRosterUser(
                               res.action.payload.data.newToken,
                               saturdayData,
-                              parseInt(this.props.location.state.id),
+                              parseInt(this.props.user.dataFormEditPersonal.id),
                             )
                             .then((res) => {
                               this.props
                                 .updateRosterUser(
                                   res.action.payload.data.newToken,
                                   sundayData,
-                                  parseInt(this.props.location.state.id),
+                                  parseInt(this.props.user.dataFormEditPersonal.id),
                                 )
                                 .then((res) => {
                                   swal.fire({
@@ -601,7 +601,7 @@ class UserDetail extends Component {
                                   this.props
                                     .getRosterByUser(
                                       res.action.payload.data.newToken,
-                                      parseInt(this.props.location.state.id),
+                                      parseInt(this.props.user.dataFormEditPersonal.id),
                                       `${moment().format('YYYY-MM')}-01`,
                                     )
                                     .then((res) => {
@@ -731,7 +731,7 @@ class UserDetail extends Component {
     this.props
       .getRosterByUser(
         this.props.login.token,
-        this.props.location.state.id,
+        this.props.user.dataFormEditPersonal.id,
         finalDate,
       )
       .then((res) => {
@@ -780,7 +780,7 @@ class UserDetail extends Component {
       .updateRosterUser(
         this.props.login.token,
         dataSubmit,
-        parseInt(this.props.location.state.id),
+        parseInt(this.props.user.dataFormEditPersonal.id),
       )
       .then((res) => {
         swal.fire({
@@ -791,7 +791,7 @@ class UserDetail extends Component {
         this.props
           .getRosterByUser(
             res.action.payload.data.newToken,
-            parseInt(this.props.location.state.id),
+            parseInt(this.props.user.dataFormEditPersonal.id),
             `${moment().format('YYYY-MM')}-01`,
           )
           .then((res) => {
