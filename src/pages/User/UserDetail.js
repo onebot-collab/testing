@@ -830,49 +830,6 @@ class UserDetail extends Component {
   }
 
   editUser() {
-    const {
-      id,
-      firstName,
-      name,
-      lastName,
-      emailPrivate,
-      phone,
-      phone2,
-      photo_url,
-      birthplace,
-      birthdate,
-      maritalStatus,
-      employmentType,
-      employmentDuration,
-      religion,
-      bloodType,
-      gender,
-      address,
-      employmentStatus,
-    } = this.props.location.state
-
-    const dataSubmit = {
-      id,
-      firstName,
-      name,
-      lastName,
-      emailPrivate,
-      phone,
-      phone2,
-      photo_url,
-      birthplace,
-      birthdate,
-      maritalStatus,
-      employmentType,
-      employmentDuration,
-      religion,
-      bloodType,
-      gender,
-      address,
-      employmentStatus,
-    }
-
-    this.props.editFormPersonal(dataSubmit)
     this.props.history.push('/admin/user/editPersonal')
   }
 
