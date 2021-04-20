@@ -203,7 +203,10 @@ class UserDetail extends Component {
   fetchProfile() {
     this.setState({ isLoadingFetch: true })
     this.props
-      .getProfile(this.props.user.dataFormEditPersonal.id, this.props.login.token)
+      .getProfile(
+        this.props.user.dataFormEditPersonal.id,
+        this.props.login.token,
+      )
       .then((res) => {
         this.props
           .getDepartment(res.action.payload.data.newToken)
