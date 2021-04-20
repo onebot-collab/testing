@@ -46,11 +46,11 @@ class LoginPage extends Component {
           text: 'Welcome',
         })
       })
-      .catch((res) => {
+      .catch(() => {
         swal.fire({
           icon: 'error',
           title: 'Failed',
-          text: `${res.response.data.message}`,
+          text: 'Login Failed',
         })
       })
   }
