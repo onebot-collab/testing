@@ -30,6 +30,8 @@ import CardAvatar from '../../components/Card/CardAvatar'
 import CardBody from '../../components/Card/CardBody'
 import CardFooter from '../../components/Card/CardFooter'
 
+import { updateUser } from '../../redux/actions/user'
+
 // import stylesBody from '../../assets/jss/material-dashboard-react/components/tasksStyle'
 
 class UserEditPersonal extends Component {
@@ -72,6 +74,10 @@ class UserEditPersonal extends Component {
   redirect() {
     this.props.history.push('/login')
   }
+
+  // update() {
+
+  // }
 
   componentDidMount() {
     console.log(this.props.user.dataFormEditPersonal)
@@ -507,6 +513,7 @@ class UserEditPersonal extends Component {
                         Assets
                       </Link>
                     </Button>
+                    <Button>Save</Button>
                   </CardBody>
                 </Card>
               </GridItem>
@@ -522,5 +529,6 @@ const mapStateToProps = (state) => ({
   user: state.user,
   login: state.login,
 })
+const mapDispatchToProps = { updateUser }
 
-export default connect(mapStateToProps)(UserEditPersonal)
+export default connect(mapStateToProps, mapDispatchToProps)(UserEditPersonal)
